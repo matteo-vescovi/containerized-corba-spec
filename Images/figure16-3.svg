@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="98.774246mm"
+   height="41.620731mm"
+   viewBox="0 0 98.774246 41.620731"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="figure16-3.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.74920735"
+     inkscape:cx="186.86416"
+     inkscape:cy="78.082523"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1072"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-55.562179,-127.79375)">
+    <path
+       id="path22161"
+       d="m 74.78945,127.96837 c -8.763,0 -15.875,3.556 -15.875,7.9375 0,4.3815 7.112,7.9375 15.875,7.9375 8.763,0 15.875,-3.556 15.875,-7.9375 0,-4.3815 -7.112,-7.9375 -15.875,-7.9375 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text22161"
+       xml:space="preserve"
+       x="69.966919"
+       y="136.29745"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="69.966919 72.319237 73.886063 75.651329 77.41246 78.979294 80.351822"
+         y="136.29745"
+         sodipodi:role="line"
+         id="tspan22162">Request</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="69.966919 71.926491 73.691757 74.671547 75.651329 77.218163 78.197945 79.764771"
+         y="164.87245"
+         sodipodi:role="line"
+         id="tspan22163">Policies</tspan></text>
+    <path
+       id="path22163"
+       d="m 116.0618,159.71485 h 38.1 v 9.525 h -38.1 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text22163"
+       xml:space="preserve"
+       x="122.40816"
+       y="166.06485"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="122.40816 124.37187 125.9387 127.11279 128.87392 129.85783 131.42467 132.98737 133.87207 136.22438 137.98964 139.16373 140.33781 141.90465 143.66579 144.6497"
+         y="166.06485"
+         sodipodi:role="line"
+         id="tspan22164">Service Currents</tspan></text>
+    <path
+       id="path22164"
+       d="m 116.0618,131.13985 h 38.1 v 9.525 h -38.1 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text22164"
+       xml:space="preserve"
+       x="122.40816"
+       y="137.48985"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="122.40816 124.37187 125.9387 127.11279 128.87392 129.85783 131.42467 132.98737 133.87207 136.22438 137.98964 139.75078 140.73056 142.29739 144.06265 145.04245"
+         y="137.48985"
+         sodipodi:role="line"
+         id="tspan22165">Service Contexts</tspan></text>
+    <path
+       id="path22165"
+       d="m 110.88391,136.8619 4.26773,-1.22414 -4.26773,-1.22414 v 1.22414 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path22166"
+       d="m 110.88391,136.8619 4.26773,-1.22414 -4.26773,-1.22414 v 1.22414"
+       style="fill:#231f20;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.352777" />
+    <path
+       id="path22167"
+       d="M 110.70928,135.63776 H 90.39722"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path22168"
+       d="m 73.561783,154.80418 1.225021,4.27214 1.222375,-4.27214 h -1.222375 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path22169"
+       d="m 73.561783,154.80418 1.225021,4.27214 1.222375,-4.27214 h -1.222375"
+       style="fill:#231f20;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.352777" />
+    <path
+       id="path22170"
+       d="M 74.784158,154.62779 V 143.83985"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text22170"
+       xml:space="preserve"
+       x="95.801003"
+       y="133.12245"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="95.801003 97.959015 99.720146 101.28697 104.03203 105.01181 106.77708 108.34391"
+         y="133.12245"
+         sodipodi:role="line"
+         id="tspan22170">Examines</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="77.958168 80.116173 81.877304 83.444138 86.189186 87.168976 88.934242 90.501068"
+         y="148.99745"
+         sodipodi:role="line"
+         id="tspan22171">Examines</tspan><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="107.67831 110.22493 111.98606 113.75133 115.31816 116.29794 117.86478"
+         y="149.35023"
+         sodipodi:role="line"
+         id="tspan22172">Updates</tspan></text>
+    <path
+       id="path22172"
+       d="m 55.736804,159.71485 h 38.1 v 9.525 h -38.1 z m 61.774916,-1.27705 4.33387,0.97013 -3.15912,-3.11855 -0.58737,1.07597 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path22173"
+       d="m 117.50907,158.43779 4.33652,0.97014 -3.16177,-3.11856 -0.58472,1.07598"
+       style="fill:#231f20;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.352777" />
+    <path
+       id="path22174"
+       d="M 117.94299,157.28068 87.484158,140.66485"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>

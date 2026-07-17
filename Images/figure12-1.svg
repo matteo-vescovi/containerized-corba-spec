@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="111.38959mm"
+   height="47.889584mm"
+   viewBox="0 0 111.38959 47.889584"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="figure12-1.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.74920735"
+     inkscape:cx="210.88955"
+     inkscape:cy="90.095218"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1072"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-49.21287,-124.61875)">
+    <path
+       id="path8722"
+       d="m 106.45283,137.49337 h 31.75 v 12.7 h -31.75 z"
+       style="fill:#f8f8f8;fill-opacity:1;fill-rule:evenodd;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text8722"
+       xml:space="preserve"
+       x="115.86207"
+       y="145.26506"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="115.86207 117.82371 119.78328 121.34804 122.33403 123.89672 125.07081 126.83607"
+         y="145.26506"
+         sodipodi:role="line"
+         id="tspan8723">Skeleton</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="93.262932 96.007988 98.554604 100.90691 101.78748 104.33616 106.09729 107.60211"
+         y="165.1582"
+         sodipodi:role="line"
+         id="tspan8724">ORB Core</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="119.76675 122.51386 124.47343 125.64752 127.21435 128.77911 129.95526 130.63739 133.18814 135.14978 136.91505 138.87462 140.04871 141.61554"
+         y="155.63319"
+         sodipodi:role="line"
+         id="tspan8725">Object Adapter</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="89.610443 92.159126 93.922325 95.881897 97.647163 100.58652 101.56631 103.13313 104.01577 106.75875 108.72039 109.89861 111.4613 113.02814 114.20429 115.08692 116.45738 119.39674 121.36044 122.33817 123.90499 126.84435 128.40704 130.37074 131.54691 133.3101 134.48625 135.46605 137.22925"
+         y="132.41336"
+         sodipodi:role="line"
+         id="tspan8726">Dynamic Object Implementation</tspan></text>
+    <path
+       id="path8726"
+       d="m 68.352827,124.79337 h 92.075003 v 12.7 H 68.352827 Z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path8727"
+       d="M 160.42783,159.71837 H 49.302828 68.352827 v -9.525 h 69.850003 v -12.7 h 22.225 v 34.925 H 49.302828"
+       style="fill:none;stroke:#231f20;stroke-width:0.179917;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path8728"
+       d="m 68.352827,137.49337 h 38.100003 v 12.7 H 68.352827 Z"
+       style="fill:#f8f8f8;fill-opacity:1;fill-rule:evenodd;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text8728"
+       xml:space="preserve"
+       x="73.739578"
+       y="145.26506"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="73.739578 76.284126 78.05146 80.0131 81.774231 84.715652 85.695435 87.262268 88.14283 90.104469 92.068176 93.632935 94.612724 96.17955 97.355705 99.118904"
+         y="145.26506"
+         sodipodi:role="line"
+         id="tspan8728">Dynamic Skeleton</tspan></text>
+    <path
+       id="path8729"
+       d="m 89.302535,139.87815 -0.41275,-0.33055 c -0.182562,0.22683 -0.142875,0.55844 0.08467,0.74083 0.227542,0.18239 0.560917,0.14675 0.740833,-0.0797 0.182563,-0.22683 0.142875,-0.55845 -0.08467,-0.74083 -0.227542,-0.18239 -0.560917,-0.14676 -0.740834,0.0797"
+       style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777" />
+    <path
+       id="path8730"
+       d="m 90.82389,140.87298 2.52677,-6.05366 -5.349875,3.79236 1.412875,1.13241 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path8731"
+       d="m 90.82389,140.87298 2.52677,-6.05366 -5.349875,3.79236 1.412875,1.13241"
+       style="fill:#231f20;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.352777" />
+    <path
+       id="path8732"
+       d="M 89.302535,139.87815 68.350182,166.06837"
+       style="fill:#f8f8f8;fill-opacity:1;fill-rule:evenodd;stroke:#231f20;stroke-width:1.06892;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>

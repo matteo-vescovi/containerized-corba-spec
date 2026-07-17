@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="155.575mm"
+   height="91.517609mm"
+   viewBox="0 0 155.575 91.517609"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="figure6-8.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.74920735"
+     inkscape:cx="294.97842"
+     inkscape:cy="172.84935"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1072"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-26.987341,-102.65833)">
+    <path
+       id="path1807"
+       d="M 26.987341,194.17594 H 182.56234 V 102.65833 H 26.987341 Z"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777" />
+    <path
+       id="path1808"
+       d="m 35.351614,136.60966 v -21.56883 c 0,-3.50696 2.842948,-6.35 6.35,-6.35 H 167.76313 c 3.50706,0 6.35,2.84304 6.35,6.35 v 21.56883 c 0,3.50697 -2.84294,6.35 -6.35,6.35 H 41.701614 c -3.507052,0 -6.35,-2.84303 -6.35,-6.35 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.53975;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path1809"
+       d="m 68.11047,134.09083 v -0.40217 c 0,-3.50696 2.842947,-6.35 6.349999,-6.35 h 16.277167 c 3.507052,0 6.35,2.84304 6.35,6.35 v 0.40217 c 0,3.50696 -2.842948,6.35 -6.35,6.35 H 74.460469 c -3.507052,0 -6.349999,-2.84304 -6.349999,-6.35 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.53975;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path1810"
+       d="m 103.18364,134.09083 v -0.40217 c 0,-3.50696 2.84294,-6.35 6.35,-6.35 h 16.2806 c 3.50705,0 6.35,2.84304 6.35,6.35 v 0.40217 c 0,3.50696 -2.84295,6.35 -6.35,6.35 h -16.2806 c -3.50706,0 -6.35,-2.84304 -6.35,-6.35 z m -35.577731,13.40555 h 31.75 v 16.129 h -31.75 z m 35.327171,0.0494 h 31.74999 v 16.129 h -31.74999 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.53975;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path1811"
+       d="m 173.65117,173.45024 v -26.20433 h -32.13814 v 19.65325 l -106.161416,-0.0423 v 6.77333 z M 35.351614,147.49638 h 28.22231 v 15.875 h -28.22231 z m 0,30.74106 H 174.06392 v 11.84628 H 35.351614 Z"
+       style="fill:none;stroke:#231f20;stroke-width:0.53975;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text1811"
+       xml:space="preserve"
+       x="89.778107"
+       y="117.76427"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:5.64444px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="89.778107 94.169571 97.618454 99.187355 102.32618 105.46397 107.34396 108.91286 110.48175 115.49953 118.94842 120.51835 123.65614 128.67392 131.81274 135.26164 137.14059 140.27942 142.15837 143.7283 147.17615"
+         y="117.76427"
+         sodipodi:role="line"
+         id="tspan1811">Object Implementation</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:5.64444px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="91.228149 95.619614 99.694817 103.77002 105.33891 109.41515 112.86301 115.05925"
+         y="186.87372"
+         sodipodi:role="line"
+         id="tspan1812">ORB Core</tspan></text>
+    <text
+       id="text1812"
+       xml:space="preserve"
+       x="71.634514"
+       y="132.37633"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="71.634514 72.713516 75.084435 76.376343 78.534348 80.044334 81.336243 83.493217 85.65123 87.809235 88.73941"
+         y="132.37633"
+         sodipodi:role="line"
+         id="tspan1813">Interface A</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="73.903107 77.134949 79.292961 80.584869 82.955788 85.327736 87.698647"
+         y="136.99069"
+         sodipodi:role="line"
+         id="tspan1814">Methods</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="108.42606 109.50507 111.87598 113.16789 115.3259 116.83485 118.12676 120.28477 122.44278 124.59975 125.67876"
+         y="132.37633"
+         sodipodi:role="line"
+         id="tspan1815">Interface B</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="110.69363 113.92651 116.08451 117.37643 119.74734 122.11826 124.48917"
+         y="136.99069"
+         sodipodi:role="line"
+         id="tspan1816">Methods</tspan></text>
+    <text
+       id="text1816"
+       xml:space="preserve"
+       x="147.10071"
+       y="154.30147"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:4.5861px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="147.10071 150.66948 153.47137 154.74571 157.29646 159.84618"
+         y="154.30147"
+         sodipodi:role="line"
+         id="tspan1817">Object</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:4.5861px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="147.17822 150.48964 153.29155 155.84126 158.64418 160.17072 162.72043"
+         y="159.9213"
+         sodipodi:role="line"
+         id="tspan1818">Adapter</tspan></text>
+    <text
+       id="text1818"
+       xml:space="preserve"
+       x="147.85622"
+       y="165.54097"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:4.5861px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="147.85622 149.13055 151.93245 153.46001 156.00972 157.79359 159.32115 161.87086 164.42058"
+         y="165.54097"
+         sodipodi:role="line"
+         id="tspan1819">Interface</tspan></text>
+    <text
+       id="text1819"
+       xml:space="preserve"
+       x="38.878891"
+       y="152.53758"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="38.878891 41.680786 43.838795 46.209709 48.367718 51.816601 52.895607 55.053612"
+         y="152.53758"
+         sodipodi:role="line"
+         id="tspan1820">Dynamic </tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="38.878891 41.46788 43.624855 45.78286 46.861866 49.018841 50.311783 52.682697"
+         y="157.98782"
+         sodipodi:role="line"
+         id="tspan1821">Skeleton</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="72.143005 73.220978 75.592926 76.884842 79.041809 80.551796 81.843712 84.001717 86.159721 88.316696 89.243774"
+         y="151.77893"
+         sodipodi:role="line"
+         id="tspan1822">Interface A</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="72.143005 74.730965 76.888969 79.045944 80.124954 82.282959 83.574867 85.945786"
+         y="156.3933"
+         sodipodi:role="line"
+         id="tspan1823">Skeleton</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="106.66183 107.74084 110.11175 111.40366 113.56167 115.07166 116.36356 118.52158 120.67855 122.83656 123.91556"
+         y="151.52864"
+         sodipodi:role="line"
+         id="tspan1824">Interface B</tspan><tspan
+         style="font-variant:normal;font-weight:700;font-stretch:normal;font-size:3.88056px;font-family:Arial;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="106.66183 109.25082 111.4078 113.5658 114.64481 116.80178 118.09473 120.46564"
+         y="156.13951"
+         sodipodi:role="line"
+         id="tspan1825">Skeleton</tspan></text>
+  </g>
+</svg>

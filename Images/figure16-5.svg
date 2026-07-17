@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="101.94926mm"
+   height="16.224251mm"
+   viewBox="0 0 101.94926 16.224251"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="figure16-5.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.74920735"
+     inkscape:cx="162.83877"
+     inkscape:cy="378.39992"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1072"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-61.912551,-48.418749)">
+    <path
+       id="path22232"
+       d="m 125.58718,51.76838 h 38.1 v 9.524999 h -38.1 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text22232"
+       xml:space="preserve"
+       x="131.93701"
+       y="58.118374"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="131.93701 133.89658 135.46341 136.64163 138.40277 139.38255 140.94939 142.5162 143.40091 145.75322 147.51436 149.27962 150.2594 151.82623 153.59151 154.57129"
+         y="58.118374"
+         sodipodi:role="line"
+         id="tspan22233">Service Contexts</tspan></text>
+    <path
+       id="path22233"
+       d="m 77.962176,48.593374 c -8.763,0 -15.875,3.556 -15.875,7.9375 0,4.3815 7.112,7.9375 15.875,7.9375 8.763,0 15.875,-3.556 15.875,-7.9375 0,-4.3815 -7.112,-7.9375 -15.875,-7.9375 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text22233"
+       xml:space="preserve"
+       x="73.145767"
+       y="56.925983"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="73.145767 75.498077 77.064911 78.830177 79.809959"
+         y="56.925983"
+         sodipodi:role="line"
+         id="tspan22234">Reply</tspan></text>
+    <path
+       id="path22234"
+       d="m 121.42793,57.462207 3.25702,-0.931333 -3.25702,-0.93486 v 0.93486 z"
+       style="fill:none;stroke:#231f20;stroke-width:0.34925;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path22235"
+       d="m 121.42793,57.462207 3.25702,-0.931333 -3.25702,-0.93486 v 0.93486"
+       style="fill:#231f20;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.352777" />
+    <path
+       id="path22236"
+       d="M 93.572593,56.530874 H 121.25065"
+       style="fill:none;stroke:#231f20;stroke-width:0.179917;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:3.86;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       id="text22236"
+       xml:space="preserve"
+       x="102.15485"
+       y="53.750984"
+       style="font-size:4.23333px;stroke-width:0.352777"><tspan
+         style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:'Times New Roman';writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352777"
+         x="102.15485 104.31286 106.07399 107.64082 110.38587 111.36565 113.13092 114.69775"
+         y="53.750984"
+         sodipodi:role="line"
+         id="tspan22236">Examines</tspan></text>
+  </g>
+</svg>
