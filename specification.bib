@@ -1,2 +1,111 @@
 # Empty .bib file, fill with your own bibliography entries
 # See https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX
+#
+# From the CORBA 3.4 Interfaces document
+# # 3 References
+# 
+# ## 3.1 Normative References
+# 
+# The following referenced documents are indispensable for the application of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
+# 
+# - ITU-T Recommendation X.902 (1995) \| ISO/IEC 10746-2:1996, Information Technology - Open Distributed Processing - Reference Model: Foundations
+# - ITU-T Recommendation X.903 (1995) \| ISO/IEC 10746-3:1996, Information Technology - Open Distributed Processing - Reference Model: Architecture
+# - ITU-T Recommendation X.920 (1997) \| ISO/IEC 14750:1997, Information Technology - Open Distributed Processing - Interface Definition Language
+# - ISO/IEC 14882:2003, Information Technology - Programming languages - C++
+# - ISO/IEC 9899:1999, Information Technology - Programming languages - C
+# - [OMA] Object Management Group, “Object Management Architecture Guide, revision 3.0”, available from http:// <www.omg.org/oma/>
+# - [RFC2119] IETF RFC 2119, “Key words for use in RFCs to Indicate Requirement Levels”, S. Bradner, March 1997. Available from <http://ietf.org/rfc/rfc2119>
+# - [IDL4] Object Management Group, “Interface Definition Language”, Version 4.2 formal/2018-01-05 <http://www.omg.org/spec/IDL/4.2>
+
+
+@standard{IDL4,
+shorthand={IDL4},
+title={Interface Definition Language},
+version={4.2},
+note={formal/2018-01-05},
+url={https://www.omg.org/spec/IDL/4.2},
+organization={Object Management Group}
+}
+
+@standard{OMA,
+shorthand={OMA},
+title={Object Management Architecture Guide},
+version={3.0},
+note={OMG specification},
+url={https://www.omg.org/spec/oma},
+organization={Object Management Group}
+}
+
+@standard{RFC2119,
+    shorthand = {RFC2119},
+    series =    {Request for Comments},
+    url =       {https://www.ietf.org/rfc/rfc2119},
+    author =    {Scott O. Bradner},
+    title =     {Key words for use in RFCs to Indicate Requirement Levels},
+    abstract =  {In many standards track documents several words are used to signify the requirements in the specification. These words are often capitalized. This document defines these words as they should be interpreted in IETF documents. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.}
+}
+
+@standard{ITU-T_X902_1995,
+  author = {{International Telecommunication Union (ITU)}},
+  title = {Open Distributed Processing – Reference Model: Foundations},
+  date = {1995-11},
+  url = {https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.902-199511-S!!PDF-E&type=items},
+  urldate = {2025-09-17},
+  langid = {english},
+  institution = {International Telecommunication Union (ITU)},
+  version = {ITU-T Recommendation X.902},
+  note = {Also published as ISO/IEC 10746-2:1996}
+}
+
+@standard{ITU-T_X.903_1995,
+  author      = {{International Telecommunication Union}},
+  institution = {{International Telecommunication Union}},
+  title       = {Open distributed processing — Reference model: Architecture},
+  year        = {1995},
+  number      = {X.903},
+  url         = {https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.903-199511-S!!PDF-E&type=items},
+  urldate     = {2025-09-17},
+  type        = {Recommendation},
+}
+
+@standard{ISO_IEC_10746-3_1996,
+  author      = {{ISO/IEC}},
+  institution = {{International Organization for Standardization}},
+  title       = {Open distributed processing — Reference model: Architecture},
+  year        = {1996},
+  number      = {ISO/IEC 10746-3},
+  url         = {https://www.iso.org/standard/20697.html},
+  urldate     = {2025-09-17},
+  type        = {standard},
+}
+
+@standard{ITU-T1997X920,
+  title        = {Information Technology – Open Distributed Processing – Interface Definition Language},
+  author       = {{International Telecommunication Union - Telecommunication Standardization Sector}},
+  number       = {X.920},
+  organization = {ITU-T},
+  date         = {1997-12-12},
+  url          = {https://www.itu.int/rec/T-REC-X.920-199712-I/en},
+  note         = {International Standard ISO/IEC 14750:1998(E) is the identical document}
+}
+
+@standard{ISOIEC14882_2003,
+  title        = {Programming languages — C++},
+  number       = {ISO/IEC 14882:2003},
+  organization = {International Organization for Standardization (ISO)},
+  publisher    = {{ISO}},
+  year         = {2003},
+  month        = oct,
+  note         = {Second edition. Withdrawn. Specifies requirements for the C++ programming language and standard library [1, 2].}
+}
+
+@standard{ISO-IEC9899-1999,
+  title        = {{C} programming language},
+  organization = {International Organization for Standardization and International Electrotechnical Commission},
+  number       = {9899},
+  year         = {1999},
+  version      = {1999},
+  publisher    = {International Organization for Standardization},
+  institution  = {International Electrotechnical Commission},
+  url          = {https://www.iso.org/standard/18302.html}
+}

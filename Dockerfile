@@ -80,6 +80,7 @@ for pkg in \$(cat \$REQUIREMENTS | grep -v ^#); do
     tlmgr install "\$pkg"
 done
 EOF
+RUN sed -i 's/\r//' /app/install-tex-pkgs.sh
 RUN chmod u+x /app/install-tex-pkgs.sh
 RUN /app/install-tex-pkgs.sh
 RUN tlmgr path add
@@ -91,6 +92,7 @@ cp "/source/Makefile.mdsa" ./Makefile
 # cp "./.latexmkrc" "./build/.latexmkrc"
 make \$@
 EOF
+RUN sed -i 's/\r//' /app/launch.sh
 RUN chmod ug+x /app/launch.sh
 
 # Default command

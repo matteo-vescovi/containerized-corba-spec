@@ -21,39 +21,86 @@
 %%%---------------------------------
 %%% Specification name, acronym, and version
 %%% Ex: specname: Unified Modeling Language, specacro: UML, version: 2.5.2
-\setvalue{\specname}{\REPLACEME{Test Spec}}
-\setvalue{\specacro}{\REPLACEME{TS}}
-\setvalue{\version}{\REPLACEME{0.9}}
+\setvalue{\specname}{Common Object Request Broker Architecture}
+\setvalue{\specacro}{CORBA}
+\setvalue{\version}{3.4}
 
 %%%%% Cover page metadata
 %%% Subtitle is optional - leave empty if you wish to have none
-\setvalue{\subtitle}{\REPLACEME{Initial submission to TASKFORCE in Response to WHAT RFP (TASKFORCE/RFPDOCNUM)}}
+\setvalue{\subtitle}{Part 1: CORBA Interfaces}
 
 %%% Submission date, use the OMG standard DD MONTHNAME, YYYY format
-\setvalue{\subdate}{\REPLACEME{Submission Date}}
+\setvalue{\subdate}{March 2021}
 
 %%% Document number for this specification document, contact Jürgen Boldt at juergen@omg.org
 %%% to request any needed document numbers
-\setvalue{\docnum}{\REPLACEME{GET DOC NUM}}
+\setvalue{\docnum}{formal/2021-02-02}
 
 %%% If this is an initial submission and requires Section 0, leave uncommented the line setting this to true.
 %%% Otherwise, comment the true line, uncomment the line setting this to false, and Section 0 will be elided from the document.
-\setboolean{initialsubmission}{true}
-% \setboolean{initialsubmission}{false}
+% \setboolean{initialsubmission}{true}
+\setboolean{initialsubmission}{false}
 
 
 %%%---------------------------------
 %%%%% Authorship Information
+%
+% from the CORBA 3.4 interfaces document
+% Copyright © 1997-2001 Electronic Data Systems Corporation<br>
+% Copyright © 1997-2001 Hewlett-Packard Company<br>
+% Copyright © 1997-2001 IBM Corporation<br>
+% Copyright © 1997-2001 ICON Computing<br>
+% Copyright © 2007 IONA Technologies, PLC<br>
+% Copyright © 1997-2001 i-Logix<br>
+% Copyright © 1997-2001 IntelliCorp<br>
+% Copyright © 1997-2001 Microsoft Corporation<br>
+% Copyright © 2011-2020 Object Management Group<br>
+% Copyright © 1997-2001 ObjecTime Limited Copyright © 1997-2001 Oracle Corporation <br>
+% Copyright © 1997-2001 Platinum Technology, Inc.<br>
+% Copyright © 1997-2001 Ptech Inc.<br>
+% Copyright © 1997-2001 Rational Software Corporation<br>
+% Copyright © 1997-2001 Reich Technologies<br>
+% Copyright © 2007-2012 Remedy IT<br>
+% Copyright © 1997-2001 Softeam<br>
+% Copyright © 1997-2001 Sterling Software<br>
+% Copyright © 1997-2001 Taskon A/S<br>
+% Copyright © 2008-2009 Telefónica Investigación y Desarrollo S.A.Unipersonal<br>
+% Copyright © 1997-2001 Unisys Corporation<br>
+% 
 %%% Submitter and Copyright Information
-\setvalue{\leadsubmitter}{\REPLACEME{Lead Submitter, Company X}}
-\setvaluelist{\authornames}{{\REPLACEME{Company X}}, {\REPLACEME{Company Y}}}
+\setvalue{\leadsubmitter}{Matteo Vescovi, Rocket Software}
+\setvaluelist{\authornames}{
+{Rocket Software},
+{Objective Interface Systems, Inc.},
+{Electronic Data Systems Corporation},
+{Hewlett-Packard Company},
+{IBM Corporation},
+{ICON Computing},
+{IONA Technologies, PLC},
+{i-Logix},
+{IntelliCorp},
+{Microsoft Corporation},
+{Object Management Group},
+{ObjecTime Limited};
+{Oracle Corporation},
+{Platinum Technology, Inc.},
+{Ptech Inc.},
+{Rational Software Corporation},
+{Reich Technologies},
+{Remedy IT},
+{Softeam},
+{Sterling Software},
+{Taskon A/S},
+{Telefónica Investigación y Desarrollo S.A.Unipersonal},
+{Unisys Corporation}
+}
 
 %%% Submitters names and company info
 %%% Follow this template for adding a specific company, person, and email:
 % {Company Name\\Contact Name\\contact@info.org}
 \setvaluelist{\submitterscontactinfo}{
-{\REPLACEME{Company X\\John Smith\\john@companyx.com}}, 
-{\REPLACEME{Company Y\\Dr. Jane Doe\\jdoe@companyy.com}}
+{Rocket Software\\Matteo Vescovi\\mvescovi@rocketsoftware.com}, 
+{Objective Interface Systems. Inc.\\Chuck Abbott\\chuck.abbott@ois.com}
 }
 
 %%% Inserted into the Author metadata of the resulting PDF
@@ -66,11 +113,11 @@
 %%% IRIs are the identification URIs for referencing this specification, and will 
 %%% be placed in Section 0.1.3: Proposed Identification. 
 %%% Consult with Juergen Boldt (boldt@omg.org) for guidance.
-\setvaluelist{\iris}{{https://www.omg.org/spec/MOF2RDF/1.0}, {https://www.omg.org/spec/MOF2RDF/20181201}}
+\setvaluelist{\iris}{{https://www.omg.org/spec/CORBA/3.3/Interoperability/PDF}, {https://www.omg.org/spec/CORBA/3.3/Interoperability}}
 
 %%% If you have other document IRIs to place on the cover page, set them here.
 %%% Consult with Juergen Boldt (boldt@omg.org) for guidance.
-\setvaluelist{\otherdocnums}{{https://www.omg.org/spec/MOF2RDF/1.0}, {https://www.omg.org/spec/MOF2RDF/20181201}}
+\setvaluelist{\otherdocnums}{{formal/2012-11-14}, {https://www.omg.org/spec/MOF2RDF/20181201}}
 
 %%%---------------------------------
 %%% IPR Mode
@@ -81,7 +128,7 @@
 %%% 2) it will remove the red italic instructions from throughout your document.
 %%% Uncomment the below \setvalue line and replace '\xspace' with one
 %%% of three values: rand, rflimited, or nonassert
-% \setvalue{\iprmode}{\xspace}
+\setvalue{\iprmode}{nonassert}
 
 
 

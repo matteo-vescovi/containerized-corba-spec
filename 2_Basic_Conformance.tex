@@ -1,11 +1,13 @@
-All conformant products must comply with these conformance points:
+The minimum required for a CORBA-compliant system is adherence to the
+specifications in this standard and one mapping. Each additional
+language mapping is a separate, optional compliance point. Optional
+means users aren't required to implement these points if they are
+unnecessary at their site, but if implemented, they must adhere to the
+CORBA specifications to be called CORBA-compliant. For instance, if a
+vendor supports C++, their ORB must comply with the OMG IDL to C++
+binding specified in the C++ Language Mapping Specification.
 
-\REPLACEME{REQUIRED: In file 2\_Basic\_Conformance.tex, describe what conformance looks like for this specification.  List out the indidivual conformance points, and what is needed to satisfy them.  Be as clear as possible as to what testing, if any, will be performed.
+The CORBA Language Mappings have been separated from this standard and
+each language mapping is its own separate OMG specification. Please
+refer to \url{http://www.omg.org/spec/} for these specifications.
 
-An example list might look like:
-
-\begin{itemize}
-\item {\em Implement the Base package}. The Base package defines the foundational concepts of this specification.  It provides the initial set of relationships.
-\item {\em Implement the Extensions package}.  The Extensions package defines the additional needed pieces. 
-\end{itemize}
-}

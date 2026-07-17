@@ -1,43 +1,101 @@
-\REPLACEME{File 6\_Additional.tex}
+\section{Outline of Contents}\label{outline-of-contents}
 
-\section{How to read this Specification}
-\REPLACEME{A quick description of how to read this document, stating what it describes, and then what is in each section/clause.
+Part 1 of this International Standard consists of the following:
 
-Example:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The syntax and semantics of the OMG interface definition language (OMG
+  IDL), which is used to describe the interfaces that client objects
+  call and object implementations provide. Throughout this specification
+  the abbreviation IDL is used, for brevity, as shorthand for OMG IDL.
+\item
+  The interface to the ORB functions that do not depend on object
+  adapters: these operations are the same for all ORBs and object
+  implementations.
+\item
+  The semantics of passing an object by value.
+\item
+  An IDL abstract interface, which provides the capability to defer the
+  determination of whether an object is passed by reference or by value
+  until runtime.
+\item
+  The Dynamic Invocation Interface (DII), the client's side of the
+  interface that allows dynamic creation and invocation of request to
+  objects.
+\item
+  The Dynamic Skeleton Interface (DSI), the server's-side interface that
+  can deliver requests from an ORB to an object implementation that does
+  not have compile-time knowledge of the type of the object it is
+  implementing.
+\item
+  The interface for the Dynamic Any type that allows statically-typed
+  programming languages such as C and Java to create or receive values
+  of type Any without compile-time knowledge that the typer contained in
+  the Any.
+\item
+  The Interface Repository that manages and provides access to a
+  collection of object definitions.
+\item
+  The Portable Object Adapter that defines a group of IDL interfaces
+  that an implementation uses to access ORB functions.
+\item
+  ORB operations that allow services such as security to be inserted in
+  the invocation path.
+\item
+  Messaging which covers: Quality of Service, Asynchronous Method
+  Invocations (to include Time-Independent or ``Persistent'' Requests),
+  and the specification of interoperable Routing interfaces to support
+  the transport of requests asynchronously from the handling of their
+  replies.
+\end{enumerate}
 
-This \textbf{specification} presents a metamodel for describing bird migration, Bird Land And Sea Tracking (BLAST).
-Clauses 1 to 6 provide compliance rules, terms definitions and reference information.
-Clause 7 provides the description of the metamodel for BLAST.
-Clause 8 provides an informative example of how to use BLAST to track flock patterns.
-Clause 9 provides informative examples of how to define individual routes in BLAST, with equivalent XML representations.}
+\section{Keywords for Requirement Statements}\label{keywords-for-requirement-statements}
 
-All clauses of this document are normative unless explicitly marked ``(informative)''. The marking ``(informative)'' of a particular clause applies also to all contained sub-clauses of that clause.
+The keywords ``must,'' ``must not,'' ``shall,'' ``shall not,''
+``should,'' ``should not,'' and ``may'' in this specification are to be
+interpreted as described in \cite{rfc2119}.
 
-\REPLACEME{To mark a clause (informative), follow the chapter, section, or subsection title with (informative), as in this Section.}
-
-\section{Acknowledgments}
-\REPLACEME{REQUIRED: Give formal acknowledgements here, starting with submitters and then working through contributors and supporters.  Delete either or both of the last two sections if there are no entries.}
-
-The following organizations submitted this specification: 
-
-\begin{itemize}
-\item Company X
-\item Company Y
-\end{itemize}
-
-The following organizations contributed to this specification: 
-
-\begin{itemize}
-\item Company A
-\item Company B
-\end{itemize}
-
-The following organizations supported this specification: 
-
-\begin{itemize}
-\item Company 1
-\item Company 2
-\end{itemize}
+% \REPLACEME{File 6\_Additional.tex}
+% 
+% \section{How to read this Specification}
+% \REPLACEME{A quick description of how to read this document, stating what it describes, and then what is in each section/clause.
+% 
+% Example:
+% 
+% This \textbf{specification} presents a metamodel for describing bird migration, Bird Land And Sea Tracking (BLAST).
+% Clauses 1 to 6 provide compliance rules, terms definitions and reference information.
+% Clause 7 provides the description of the metamodel for BLAST.
+% Clause 8 provides an informative example of how to use BLAST to track flock patterns.
+% Clause 9 provides informative examples of how to define individual routes in BLAST, with equivalent XML representations.}
+% 
+% All clauses of this document are normative unless explicitly marked ``(informative)''. The marking ``(informative)'' of a particular clause applies also to all contained sub-clauses of that clause.
+% 
+% \REPLACEME{To mark a clause (informative), follow the chapter, section, or subsection title with (informative), as in this Section.}
+% 
+% \section{Acknowledgments}
+% \REPLACEME{REQUIRED: Give formal acknowledgements here, starting with submitters and then working through contributors and supporters.  Delete either or both of the last two sections if there are no entries.}
+% 
+% The following organizations submitted this specification: 
+% 
+% \begin{itemize}
+% \item Company X
+% \item Company Y
+% \end{itemize}
+% 
+% The following organizations contributed to this specification: 
+% 
+% \begin{itemize}
+% \item Company A
+% \item Company B
+% \end{itemize}
+% 
+% The following organizations supported this specification: 
+% 
+% \begin{itemize}
+% \item Company 1
+% \item Company 2
+% \end{itemize}
 
 
 %%% EXPERIMENTAL BELOW THIS POINT
