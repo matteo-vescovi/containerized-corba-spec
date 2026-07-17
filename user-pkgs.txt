@@ -1,0 +1,10 @@
+###
+# user-pgs.txt : List author required LaTeX packages here, one per line, to be installed in the Docker container.
+#
+# Packages should be specified as per tlmgr: Not suffix (.sty, etc).  Use `tlmgr search --global <keyword>` to
+# find the package you need to have installed.
+# This is useful for when you need a specialized package that the default installation does not include.
+# Packages will be installed by tlmgr if not already in Docker image. Those that are already installed
+# will be safely skipped.
+# Comments may be written like these, '#' at character 1 on each line.
+
