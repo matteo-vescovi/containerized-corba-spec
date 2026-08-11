@@ -1447,7 +1447,7 @@ If an empty **ORBid** string is passed to **ORB_init**, then the **arg_list** ar
 Other parameters of significance to the ORB can also be identified in **arg_list**, for example, “**Hostname**,” “**SpawnedServer**,” and so forth. To allow for other parameters to be specified without causing applications to be rewritten, it is necessary to specify the parameter format that ORB parameters may take. In general, parameters shall be formatted as either one single **arg_list** parameter:
 
 ```
-–ORB<suffix><optional white space> <value>
+-ORB<suffix><optional white space> <value>
 ```
 
 or as two sequential **arg_list** parameters:
