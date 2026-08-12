@@ -1,0 +1,10 @@
+# $pdflatex = 'texliveonfly %O %S';  # Use texliveonfly for LaTeX compilation
+# $latex = 'texliveonfly %O %S';  # Use texliveonfly for LaTeX compilation
+# $pdf = 'texliveonfly %O %S';  # Use texliveonfly for LaTeX compilation
+$commands = 1;
+$diagnostics = 1;
+# $pdf_mode = 1;  # Set to 1 for PDF output
+# $bibtex_use = 1;
+# $out_dir = '/source';
+# $aux_dir = '.';
+$pdflatex = 'pdflatex --shell-escape';
