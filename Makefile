@@ -92,7 +92,9 @@ _buildargs = --build-arg BASEIMAGE=${_baseimage} --build-arg TEXLIVE_REPOSITORY=
 # Optional: use a local checkout of mdsa-omg-core instead of the one in the image,
 # e.g. to test core changes before they are published: make core=../mdsa-omg-core pandoc run
 core ?=
-_runargs = -v "${CURDIR}:/source" $(if ${core},-v "$(abspath ${core}):/app/mdsa-omg-core:ro")
+# In GitHub Actions, the build reports problems as annotations on the changed lines
+_runargs = -v "${CURDIR}:/source" $(if ${core},-v "$(abspath ${core}):/app/mdsa-omg-core:ro") \
+	$(if ${GITHUB_ACTIONS},-e GITHUB_ACTIONS)
 
 # If you wish to use pandoc by default, set the above _suffix and _image to the values in the following
 # rule. Otherwise, `make pandoc <other commands>` will use pandoc as needed.
