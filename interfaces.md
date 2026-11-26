@@ -1660,7 +1660,7 @@ interface Example {
 
 This context clause specifies that the “USER” property is to be made available to the server, as well as all properties with names beginning with “X.” Note that there is no obligation on the client to actually pass values for these properties at run time; if the client omits one or more properties, the call proceeds normally and the operation implementation simply will not be able to retrieve the corresponding property values.
 
-Property names are non-empty strings that cannot contain the character ```‘*’``` - there are no other syntactic restrictions on property names. Property names that differ only in case are distinct names, so the following is a legal context clause that transmits two distinct properties:
+Property names are non-empty strings that cannot contain the character ```'*'``` - there are no other syntactic restrictions on property names. Property names that differ only in case are distinct names, so the following is a legal context clause that transmits two distinct properties:
 
 ```
 interface Example2 {
@@ -1715,7 +1715,7 @@ void set_one_value(
 );
 ```
 
-This operation sets a single context object property. If **prop_name** is the empty string or contains the character ```‘*,’``` the operation raises BAD_PARAM with minor code 35.
+This operation sets a single context object property. If **prop_name** is the empty string or contains the character ```'*,'``` the operation raises BAD_PARAM with minor code 35.
 
 #### 8.6.2.2 set_values
 
@@ -1729,7 +1729,7 @@ This operation sets one or more property values in its context object. If a prop
 
 The **flags** field of each passed **NVList** element must be zero. A non-zero flag in any of the **NVList** elements raises **INV_FLAGS**.
 
-The property name of each **NVList** element must be a non-empty string not containing the character ```‘*’```. Otherwise the operation raises BAD_PARAM with minor code 35.
+The property name of each **NVList** element must be a non-empty string not containing the character ```'*'```. Otherwise the operation raises BAD_PARAM with minor code 35.
 
 The value of each property of the passed **NVList** must be a (possibly empty) unbounded string. Property values other than unbounded strings raise BAD_TYPECODE with minor code 3.
 
@@ -1746,15 +1746,15 @@ void get_values(
 
 This operation returns an **NVList** with those properties that match the **prop_name** parameter. Legal values for **prop_name** are:
 
-- A non-empty string that does not contain the character ```‘*.’```
+- A non-empty string that does not contain the character ```'*.'```
 
 In this case, the **values** parameter returns the property with the name specified by **prop_name**.
 
-- A string beginning with one or more characters other than ```‘*,’``` followed by a single ```‘*’``` at the end, such as ```“XYZ*.”```
+- A string beginning with one or more characters other than ```'*,'``` followed by a single ```'*'``` at the end, such as ```"XYZ*."```
 
 In this case, the **values** parameter contains the properties that have names beginning with “XYZ” (such as “XYZABC” or “XYZ”).
 
-If **prop_name** is the empty string, the string ```“*,”``` contains more than one ```‘*’``` character, or contains a ```‘*’``` anywhere but at the end of the string, the operation raises **BAD_PARAM** with minor code 36.
+If **prop_name** is the empty string, the string ```"*,"``` contains more than one ```'*'``` character, or contains a ```'*'``` anywhere but at the end of the string, the operation raises **BAD_PARAM** with minor code 36.
 
 The **start_scope** parameter controls the **context** object level at which to initiate the search for the specified properties as follows:
 
@@ -1781,9 +1781,9 @@ void delete_values(
 );
 ```
 
-This operation deletes the properties that match **prop_name**. **prop_name** may have a trailing ```‘*’``` character, in which case all properties whose name matches the specified prefix are deleted.
+This operation deletes the properties that match **prop_name**. **prop_name** may have a trailing ```'*'``` character, in which case all properties whose name matches the specified prefix are deleted.
 
-If **prop_name** is the empty string, the string ```"*"```, contains more than one ```‘*’``` character, or contains a ```‘*’``` anywhere but at the end of the string, the operation raises **BAD_PARAM** with minor code 36. The operation only affects the context object on which it is invoked (that is, parent contexts are never affected by **delete_values**).
+If **prop_name** is the empty string, the string ```"*"```, contains more than one ```'*'``` character, or contains a ```'*'``` anywhere but at the end of the string, the operation raises **BAD_PARAM** with minor code 36. The operation only affects the context object on which it is invoked (that is, parent contexts are never affected by **delete_values**).
 
 If no property name matches **prop_name**, the operation raises **BAD_CONTEXT** with minor code 2.
 
@@ -1821,7 +1821,7 @@ Each ORB or CORBA service that needs its own context derives an interface from t
 
 **ORB::resolve_initial_references**. For example the Security service obtains the **Current** relevant to it by invoking.
 
-```ORB::resolve_initial_references(“SecurityCurrent”)```
+```ORB::resolve_initial_references("SecurityCurrent")```
 
 A CORBA service does not have to use this method of keeping context but may choose to do so.
 
@@ -1861,7 +1861,7 @@ typedef sequence <PolicyType> PolicyTypeSeq;
 
 **PolicyType** defines the type of **Policy** object. In general the constant values that are allocated are defined in conjunction with the definition of the corresponding **Policy** object. The values of **PolicyTypes** for policies that are standardized by OMG are allocated by OMG. Additionally, vendors may reserve blocks of 4096 PolicyType values identified by a 20 bit *Vendor PolicyType Valueset ID* (**VPVID**) for their own use.
 
-**PolicyType** which is an unsigned long consists of the 20-bit **VPVID** in the high order 20 bits, and the vendor assigned policy value in the low order 12 bits. The **VPVID**s *0 through \xf* are reserved for OMG. All values for the standard **PolicyTypes** are allocated within this range by OMG. Additionally, the **VPVID**s *\xfffff* is reserved for experimental use and **OMGVMCID** (8.12.3, ’Standard System Exception Definitions’) is reserved for OMG use. These will not be allocated to anybody. Vendors can request allocation of **VPVID** by sending mail to tag-*<request@omg.org>*.
+**PolicyType** which is an unsigned long consists of the 20-bit **VPVID** in the high order 20 bits, and the vendor assigned policy value in the low order 12 bits. The **VPVID**s *0 through \\xf* are reserved for OMG. All values for the standard **PolicyTypes** are allocated within this range by OMG. Additionally, the **VPVID**s *\\xfffff* is reserved for experimental use and **OMGVMCID** (8.12.3, ’Standard System Exception Definitions’) is reserved for OMG use. These will not be allocated to anybody. Vendors can request allocation of **VPVID** by sending mail to tag-*<request@omg.org>*.
 
 When a **VMCID** ([Exceptions](#812-exceptions)) is allocated to a vendor automatically the same value of **VPVID** is reserved for the vendor and vice versa. So once a vendor gets either a **VMCID** or a **VPVID** registered they can use that value for both their minor codes and their policy types.
 
@@ -2162,7 +2162,7 @@ Policy domain managers and policy objects have two types of interfaces:
 
 #### 8.10.1.5 Domains Association at Object Reference Creation
 
-    When a new object reference is created, the ORB implicitly associates the object reference (and hence the object that it is associated with) with the following elements forming its environment:
+When a new object reference is created, the ORB implicitly associates the object reference (and hence the object that it is associated with) with the following elements forming its environment:
 
 - One or more *Policy* *Domains*, defining all the policies to which the object associated with the object reference is subject.
 - The *Technology* *Domains,* characterizing the particular variants of mechanisms (including security) available in the ORB.
@@ -2173,23 +2173,23 @@ Policy domain managers and policy objects have two types of interfaces:
 
 #### 8.10.1.6 Implementor’s View of Object Creation
 
-    For policy domains, the construction policy of the application or factory creating the object proceeds as follows. The application (which may be a generic factory) calls one of the object reference creation operations of the POA to create the new object reference. The ORB obtains the construction policy associated with the creating object, or the default domain absent a creating object.
+For policy domains, the construction policy of the application or factory creating the object proceeds as follows. The application (which may be a generic factory) calls one of the object reference creation operations of the POA to create the new object reference. The ORB obtains the construction policy associated with the creating object, or the default domain absent a creating object.
 
-    By default, the new object reference that is created is made a member of the domain to which the parent belongs. Nonobject applications on the client side are associated with a default, per-ORB instance policy domain by the ORB.
+By default, the new object reference that is created is made a member of the domain to which the parent belongs. Nonobject applications on the client side are associated with a default, per-ORB instance policy domain by the ORB.
 
-    Each domain manager has a construction policy associated with it, which controls whether, in addition to creating the specified new object reference, a new domain manager is created with it. This object provides a single operation **make_domain_manager** which can be invoked with the **constr_policy** parameter set to **TRUE** to indicate to the ORB that new object references of the specified type are to be associated their own separate domains. Once such a construction policy is set, it can be reversed by invoking **make_domain_manager** again with the **constr_policy** parameter set to **FALSE**.
+Each domain manager has a construction policy associated with it, which controls whether, in addition to creating the specified new object reference, a new domain manager is created with it. This object provides a single operation **make_domain_manager** which can be invoked with the **constr_policy** parameter set to **TRUE** to indicate to the ORB that new object references of the specified type are to be associated their own separate domains. Once such a construction policy is set, it can be reversed by invoking **make_domain_manager** again with the **constr_policy** parameter set to **FALSE**.
 
-    When creating an object reference of the type specified in the **make_domain_manager** call with **constr_policy** set to
+When creating an object reference of the type specified in the **make_domain_manager** call with **constr_policy** set to
 
-    **TRUE**, the ORB must also create a new domain for the newly created object reference. If a new domain is needed, the ORB creates both the requested object reference and a domain manager object. A reference to this domain manager can be found by calling **get_domain_managers** on the newly created object reference.
+**TRUE**, the ORB must also create a new domain for the newly created object reference. If a new domain is needed, the ORB creates both the requested object reference and a domain manager object. A reference to this domain manager can be found by calling **get_domain_managers** on the newly created object reference.
 
-    While the management interface to the construction policy object is standardized, the interface from the ORB to the policy object is assumed to be a private one, which may be optimized for different implementations.
+While the management interface to the construction policy object is standardized, the interface from the ORB to the policy object is assumed to be a private one, which may be optimized for different implementations.
 
-    If a new domain is created, the policies initially applicable to it are the policies of the enclosing domain. The ORB will always arrange to provide a default enclosing domain with default ORB policies associated with it, in those cases where there would be no such domain as in the case of a non-object client invoking object creation operations.
+If a new domain is created, the policies initially applicable to it are the policies of the enclosing domain. The ORB will always arrange to provide a default enclosing domain with default ORB policies associated with it, in those cases where there would be no such domain as in the case of a non-object client invoking object creation operations.
 
-    The calling application, or an administrative application later, can change the domains to which this object belongs, using the domain management interfaces, which will be defined in the future.
+The calling application, or an administrative application later, can change the domains to which this object belongs, using the domain management interfaces, which will be defined in the future.
 
-    Since the ORB has control only over domain associations with object references, it is the responsibility of the creator of new object to ensure that the object references that are created to the new object are associated meaningfully with domains.
+Since the ORB has control only over domain associations with object references, it is the responsibility of the creator of new object to ensure that the object references that are created to the new object are associated meaningfully with domains.
 
 ### 8.10.2 Domain Management Operations
 
@@ -2653,16 +2653,16 @@ To create a **TypeCode** for **valuetype** **V**, you would invoke the **TypeCod
 ```
 // C++
 TypeCode_var recursive_tc
- = orb->create_recursive_tc(“IDL:V:1.0”);
+ = orb->create_recursive_tc("IDL:V:1.0");
 
 ValueMemberSeq v_seq;
 v_seq.length(1);
-v_seq[0].name = string_dup(“member”);
+v_seq[0].name = string_dup("member");
 v_seq[0].type = recursive_tc;
 v_seq[0].access = PUBLIC_MEMBER;
 TypeCode_var v_val_tc
- = orb->create_value_tc(“IDL:V:1.0”,
-  “V”,
+ = orb->create_value_tc("IDL:V:1.0",
+  "V",
   VM_NONE,
   TypeCode::_nil(),
 v_seq);
@@ -3625,14 +3625,14 @@ abstract interface foo {
 
 **z**’s are passed as:
 
-    - copied values if **foo** refers to an ordinary interface.
-    - non-copied values if **foo** refers to a value type.
+- copied values if **foo** refers to an ordinary interface.
+- non-copied values if **foo** refers to a value type.
 
 **y**’s are passed as:
 
-    - reference if their concrete type is an ordinary interface subtype of **AnAbstractInterfaceType** (registered with the ORB), no matter what **foo’s** concrete type is.
-    - copied values if their concrete type is value and **foo**’s concrete type is ordinary interface.
-    - non-copied values if their concrete type is value and **foo**’s concrete type is value.
+- reference if their concrete type is an ordinary interface subtype of **AnAbstractInterfaceType** (registered with the ORB), no matter what **foo’s** concrete type is.
+- copied values if their concrete type is value and **foo**’s concrete type is ordinary interface.
+- non-copied values if their concrete type is value and **foo**’s concrete type is value.
 
 ## 10.3 Usage Guidelines
 
@@ -4380,7 +4380,7 @@ The **DynAny** API comprises the following IDL definitions, located in the **Dyn
 import ::CORBA;
 
 module DynamicAny {
- typeprefix DynamicAny “omg.org”;
+ typeprefix DynamicAny "omg.org";
 
  local interface DynAny {
   exception InvalidValue {};
@@ -5278,20 +5278,20 @@ The following example illustrates how a **CORBA::Any** value may be constructed 
 ```
 CORBA::ORB_var orb = ...;
 DynamicAny::DynAnyFactory_var dafact
-  = orb->resolve_initial_references(“DynAnyFactory”);
+  = orb->resolve_initial_references("DynAnyFactory");
 CORBA::StructMemberSeq mems(2);
 CORBA::Any_var result;
 CORBA::Long value1 = 99;
 CORBA::Boolean value2 = 1;
 mems.length(2);
-mems[0].name = CORBA::string_dup(“member1”);
+mems[0].name = CORBA::string_dup("member1");
 mems[0].type = CORBA::TypeCode::_duplicate(CORBA::_tc_long);
-mems[1].name = CORBA::string_dup(“member2”);
+mems[1].name = CORBA::string_dup("member2");
 mems[1].type
   = CORBA::TypeCode::_duplicate(CORBA::_tc_boolean);
 CORBA::TypeCode_var new_tc = orb->create_struct_tc(
-“IDL:MyStruct:1.0”,
-“MyStruct”,
+"IDL:MyStruct:1.0",
+"MyStruct",
 mems
 );
 
@@ -7621,7 +7621,7 @@ The format of the id is a short format name followed by a colon (“:”) follow
 
 Since new repository ID formats may be added from time to time, compliant IDL compilers must accept any string value of the form
 
-```“<format>:<string>”```
+```"<format>:<string>"```
 
 provided as the argument to the id pragma and use it as the repository ID. The OMG maintains a registry of allocated format identifiers. The ```<format>``` part of the ID may not contain a colon (:) character.
 
@@ -7647,7 +7647,7 @@ An RMI Hashed **RepositoryId** consists of either three or four components, sepa
 
 ```RMI: <class name> : <hash code> [ : <serialization version UID> ]```
 
-The class name is a Java class name as returned by the **getName** method of **java.lang.Class**. Any characters not in *ISO Latin 1* are replaced by “**\U**” followed by the 4 hexadecimal characters (in upper case) representing the *Unicode* value.
+The class name is a Java class name as returned by the **getName** method of **java.lang.Class**. Any characters not in *ISO Latin 1* are replaced by “**\\U**” followed by the 4 hexadecimal characters (in upper case) representing the *Unicode* value.
 
 For classes that do not implement **java.io.Serializable**, and for interfaces, the hash code is always zero, and the **RepositoryID** does not contain a *serial version UID*.
 
@@ -7707,7 +7707,7 @@ Three pragma directives (id, prefix, and version), are specified to accommodate 
 
 An IDL pragma of the format
 
-```#pragma ID <name> “<id>”```
+```#pragma ID <name> "<id>"```
 
 associates an arbitrary **RepositoryId** string with a specific IDL name. The ```<name>``` can be a fully or partially scoped name or a simple identifier, interpreted according to the usual IDL name lookup rules relative to the scope within which the pragma is contained. The ```<id>``` must be a repository ID of the form described in [RepositoryIds](#147-repositoryids).
 
@@ -7715,12 +7715,12 @@ An attempt to assign a repository ID to the same IDL construct a second time sha
 
 ```
 interface A {};
-#pragma ID A “IDL:A:1.1”
-#pragma ID A “IDL:X:1.1”  // Compile-time error
+#pragma ID A "IDL:A:1.1"
+#pragma ID A "IDL:X:1.1"  // Compile-time error
 
 interface B {};
-#pragma ID B “IDL:BB:1.1”
-#pragma ID B “IDL:BB:1.1”  // OK, same ID
+#pragma ID B "IDL:BB:1.1"
+#pragma ID B "IDL:BB:1.1"  // OK, same ID
 ```
 
 It is also an error to apply an ID to a forward-declared IDL construct (interface, valuetype, structure, and union) and then later assign a different ID to that IDL construct.
@@ -7729,7 +7729,7 @@ It is also an error to apply an ID to a forward-declared IDL construct (interfac
 
 An IDL pragma is of the form:
 
-```#pragma prefix “<string>”```
+```#pragma prefix "<string>"```
 
 This sets the current prefix used in generating IDL format **RepositoryId**s. For example, the **RepositoryId** for the initial version of interface **Printer** defined on module **Office** by an organization known as “SoftCo” might be “IDL:SoftCo/Office/Printer:1.0.”
 
@@ -7743,12 +7743,12 @@ The specified prefix applies to **RepositoryId**s generated after the pragma unt
 
 ```
 // A.idl
-#pragma prefix “A”
+#pragma prefix "A"
 interface A {};
 
 // B.idl
-#pragma prefix “B”
-#include “A.idl”
+#pragma prefix "B"
+#include "A.idl"
 interface B {};
 ```
 
@@ -7766,8 +7766,8 @@ Similarly, a prefix in an including file does not affect the prefix of an includ
 interface C {};
 
 // D.idl
-#pragma prefix “D”
-#include “C.idl”
+#pragma prefix "D"
+#include "C.idl"
 interface D {};
 ```
 
@@ -7802,13 +7802,13 @@ prefix takes precedence, for example:
 
 ```
 // A.idl
-#pragma prefix “A”
+#pragma prefix "A"
 interface A {};
 
 // B.idl
-#pragma prefix “B”
+#pragma prefix "B"
 module M {
-#include “A.idl”
+#include "A.idl"
 };
 ```
 
@@ -7824,13 +7824,13 @@ they appear. Attempts to assign conflicting prefixes to a forward-declared const
 For example:
 
 ```
-#pragma prefix “A”
+#pragma prefix "A"
 interface A;   // Forward decl.
 
-#pragma prefix “B”
+#pragma prefix "B"
 interface A;   // Compile-time error
 
-#pragma prefix “C”
+#pragma prefix "C"
 interface A {   // Compile-time error
 void op();
 };
@@ -7839,15 +7839,15 @@ void op();
 A prefix pragma of the form
 
 ```
-#pragma prefix “”
+#pragma prefix ""
 ```
 
 resets the prefix to the empty string. For example:
 
 ```
-#pragma prefix “X”
+#pragma prefix "X"
 interface X {};
-#pragma prefix “”
+#pragma prefix ""
 interface Y {};
 ```
 
@@ -7862,11 +7862,11 @@ If a specification contains both a prefix pragma and an ID or version pragma, th
 repository ID for an ID pragma, but does affect the repository ID for a version pragma:
 
 ```
-#pragma prefix “A”
+#pragma prefix "A"
 interface A {};
 interface B {};
 interface C {};
-#pragma ID B “IDL:myB:1.0”
+#pragma ID B "IDL:myB:1.0"
 #pragma version C 9.9
 ```
 
@@ -7883,7 +7883,7 @@ undefined behavior, for example:
 
 ```
 interface Bar
- #pragma prefix “foo” // Undefined behavior
+ #pragma prefix "foo" // Undefined behavior
  {
  // ...
 };
@@ -7901,7 +7901,7 @@ If no version pragma is supplied for a definition, version 1.0 is assumed. If an
 
 ```
 interface A {};
-#pragma ID A “IDL:myA:1.1”
+#pragma ID A "IDL:myA:1.1"
 #pragma version A 9.9   // Compile-time error
 ```
 
@@ -7914,7 +7914,7 @@ interface A {};
 #pragma version A 1.2  // Error
 
 interface B {};
-#pragma ID B “IDL:myB:1.2”
+#pragma ID B "IDL:myB:1.2"
 #pragma version B 1.2  // OK
 ```
 
@@ -7930,13 +7930,13 @@ For example, the following IDL:
 module M1 {
  typedef long T1;
  typedef long T2;
- #pragma ID T2 “DCE:d62207a2-011e-11ce-88b4-0800090b5d3e:3”
+ #pragma ID T2 "DCE:d62207a2-011e-11ce-88b4-0800090b5d3e:3"
 };
-#pragma prefix “P1”
+#pragma prefix "P1"
 
 module M2 {
    module M3 {
- #pragma prefix “P2”
+ #pragma prefix "P2"
  typedef long T3;
 };
  typedef long T4;
@@ -7961,9 +7961,9 @@ Prefix pragmas can be used to preserve the existing IDs when a module or other c
 
 ```
 module M4 {
-#pragma prefix “P1/M2”
+#pragma prefix "P1/M2"
     module M3 {
-#pragma prefix “P2”
+#pragma prefix "P2"
     typedef long T3;
 };
 typedef long T4;
@@ -8059,7 +8059,7 @@ This sub clause contains the complete IDL specification for the Interface Reposi
 
 ```
 module CORBA {
- typeprefix CORBA “omg.org”;
+ typeprefix CORBA "omg.org";
  typedef string Identifier;
  typedef string ScopedName;
  typedef string RepositoryId;
@@ -8806,7 +8806,7 @@ module CORBA {
  // __________________________________________________________
 
  module ComponentIR {
-  typeprefix ComponentIR “omg.org”;
+  typeprefix ComponentIR "omg.org";
 
   interface ComponentDef;
   interface HomeDef;
@@ -10176,7 +10176,7 @@ This operation returns a reference to the servant that hosts the object in whose
 
 import ::CORBA;
 module PortableServer {
- typeprefix PortableServer “org.omg”;
+ typeprefix PortableServer "org.omg";
  local interface POA; // forward declaration
  typedef sequence<POA> POAList;
 
@@ -10521,7 +10521,7 @@ All server applications must obtain a reference to the root POA, either to use i
 // C++
 CORBA::ORB_ptr orb = CORBA::ORB_init(argc, argv);
 CORBA::Object_ptr pfobj =
-orb->resolve_initial_references(“RootPOA”);
+orb->resolve_initial_references("RootPOA");
 PortableServer::POA_ptr rootPOA;
 rootPOA = PortableServer::POA::narrow(pfobj);
 ```
@@ -10539,7 +10539,7 @@ PortableServer::ThreadPolicy::ORB_CTRL_MODEL);
 policies[1] = rootPOA->create_lifespan_policy(
 PortableServer::LifespanPolicy::TRANSIENT);
 PortableServer::POA_ptr poa =
-rootPOA->create_POA(“my_little_poa”,
+rootPOA->create_POA("my_little_poa",
 PortableServer::POAManager::_nil(), policies);
 ```
 
@@ -10618,7 +10618,7 @@ The code is like the previous example, but replace the last portion of the examp
 // C++
 MyFooServant* afoo = new MyFooServant(poa, 27);
 PortableServer::ObjectId_var oid =
-    PortableServer::string_to_ObjectId(“myLittleFoo”);
+    PortableServer::string_to_ObjectId("myLittleFoo");
 poa->activate_object_with_id(oid.in(), afoo);
 Foo_var foo = afoo->_this();
 ```
@@ -10630,9 +10630,9 @@ It is sometimes useful to create references for objects before activating them. 
 ```
 // C++
 PortableServer::ObjectId_var oid =
-PortableServer::string_to_ObjectId(“myLittleFoo”);
+PortableServer::string_to_ObjectId("myLittleFoo");
 CORBA::Object_var obj = poa->create_reference_with_id(
-      oid.in(), “IDL:Foo:1.0”);
+      oid.in(), "IDL:Foo:1.0");
 Foo_var foo = Foo::_narrow(obj);
 
 // ...later...
@@ -10692,7 +10692,7 @@ POA_PortableServer::ServantActivator
   {
    String_var s = PortbleServer::ObjectId_to_string
     (oid);
-   if (strcmp(s, “myLittleFoo”) == 0) {
+   if (strcmp(s, "myLittleFoo") == 0) {
     return new MyFooServant(poa, 27);
    else {
     throw CORBA::OBJECT_NOT_EXIST();
@@ -10733,9 +10733,9 @@ Given such a **ServantActivator**, all that remains is initialization code such 
 
 ```
 PortableServer::ObjectId_var oid =
- PortableServer::string_to_ObjectId(“myLittleFoo”);
+ PortableServer::string_to_ObjectId("myLittleFoo");
 CORBA::Object_var obj = poa->create_reference_with_id(
- oid, “IDL:foo:1.0”);
+ oid, "IDL:foo:1.0");
 MyFooServantActivator* fooIM = new MyFooServantActivator;
 ServantActivator_var IMref = fooIM->_this();
 poa->set_servant_manager(IMref);
@@ -12135,9 +12135,9 @@ PortableInterceptor::SlotId mySlotId =
 When a transaction begins, the Transaction’s **Current** is called, which can place its context information in a slot on **PICurrent**:
 
 ```
-any myData = ...; // get data from Transaction’s Current
+any myData = ...; // get data from Transaction's Current
 PortableInterceptor::Current pic =
-   orb.resolve_initial_references (“PICurrent”);
+   orb.resolve_initial_references ("PICurrent");
 pic.set_slot (mySlotId, myData);
 ```
 
@@ -12167,7 +12167,7 @@ At the point at which it recurses, say in **send_request**, it does so in a mann
 ```
 any recurse = info.get_slot (recurseId);
 
-// if we haven’t yet recursed, then the slot will be empty.
+// if we haven't yet recursed, then the slot will be empty.
 if (recurse.type () == tk_null)
 {
  // Fill in the recurse slot before making
@@ -12175,7 +12175,7 @@ if (recurse.type () == tk_null)
  any recurseFlag = new any;
  recurseFlag.insert_boolean (true);
  PortableInterceptor::Current pic =
-  orb.resolve_initial_references (“PICurrent”);
+  orb.resolve_initial_references ("PICurrent");
  pic.set_slot (recurseId, recurseFlag);
  // Now make the recursive call.
  someObject.someOperation ();
@@ -12212,7 +12212,7 @@ Within a server thread, the Transaction service can transfer its information fro
 
 ```
 PortableInterceptor::Current pic =
-  orb.resolve_initial_references (“PICurrent”);
+  orb.resolve_initial_references ("PICurrent");
 any myData = pic.get_slot (mySlotId);
 // Copy myData into the current context.
 ```
@@ -12947,9 +12947,9 @@ public class LoggingService implements ORBInitializer
 {
 void pre_init (ORBInitInfo info)
 {
-// Instantiate the Logging Service’s Interceptor.
+// Instantiate the Logging Service's Interceptor.
 Interceptor interceptor = new LoggingInterceptor ();
-// Register the Logging Service’s Interceptor.
+// Register the Logging Service's Interceptor.
 info.add_client_request_interceptor (interceptor);
 }
 void post_init (ORBInitInfo info)
@@ -13086,7 +13086,7 @@ typedef CORBA::StringSeq RequestContext;
 
 import ::CORBA;
 module Dynamic {
-   typeprefix Dynamic “omg.org”;
+   typeprefix Dynamic "omg.org";
 
 struct Parameter {
    any argument;
@@ -13111,7 +13111,7 @@ struct Parameter {
 import ::CORBA;
 
 module IOP{
- typeprefix IOP “omg.org”;
+ typeprefix IOP "omg.org";
  typedef sequence<IOP::TaggedComponent> TaggedComponentSeq;
 
 local interface Codec {
@@ -13162,7 +13162,7 @@ import ::Messaging;
 import ::Dynamic;
 
 module PortableInterceptor {
- typeprefix PortableInterceptor “omg.org”;
+ typeprefix PortableInterceptor "omg.org";
  local interface Interceptor {
     readonly attribute string name;
    void destroy();
@@ -13650,7 +13650,7 @@ Describes the type of Routing to be used for invocations on an Object reference.
 
 This structure describes a range of routing types. A **RoutingTypeRange** with minimum **RoutingType** greater than maximum **RoutingType** is invalid.
 
-**17.3.5.3 interface RoutingPolicy**
+[**17.3.5.3 interface RoutingPolicy**]{#17353-interface-routingpolicy}
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate whether or not the ORB must ensure delivery of a request through the use of queueing. If the effective Policy of this type has a **RoutingTypeRange** with min value of **ROUTE_FORWARD** or **ROUTE_STORE_AND_FORWARD**, the interoperable Routing protocol described in
 *III - Introduction* is used. This policy does not apply to synchronous invocations. If, for example, the min is **ROUTE_NONE** and the max is **ROUTE_FORWARD**, the Routing protocol will normally be used but a direct connection may be used if available. When instances of **RoutingPolicy** are created, a value of type **RoutingTypeRange** is passed to **CORBA::ORB::create_policy**. An instance of **RoutingPolicy** may be specified when creating a POA (and therefore may be represented in Object references). In addition, a POA’s **RoutingPolicy** is visible to clients through the Object references it creates, and reconciled with the client’s override. If set on both the client and server, reconciliation is performed by intersecting the server-specified **RoutingPolicy** range with the range of the client’s effective override. When an instance of **RoutingPolicy** is propagated within a **PolicyValue** in a **TAG_POLICIES** Profile Component or **INVOCATION_POLICIES** Service Context, the **ptype** has value   **ROUTING_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **Messaging::RoutingTypeRange**.
@@ -14242,7 +14242,7 @@ Generated file: stockmgr_c.hh (Filename is non-normative)
 class StockManager : public virtual CORBA::Object
 {
 public:
-// … all the other stuff.
+// ... all the other stuff.
 // StockManager SYNCHRONOUS CALLS
 virtual void stock_exchange_name(const char * attr);
 virtual char * stock_exchange_name();
@@ -14565,7 +14565,7 @@ CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
 CORBA::Object_var obj = orb->string_to_object(argv[1]);
 StockManager_var stockMgr = StockManager::_narrow(obj);
 
-// Obtain the ORB’s PolicyManager
+// Obtain the ORB's PolicyManager
 CORBA::Object_var orbQosObj =
   orb->resolve_initial_references("ORBPolicyManager");
 CORBA::PolicyManager_var orbQos =
@@ -15476,7 +15476,7 @@ import ::CORBA;
 import ::IOP;
 import ::TimeBase;
 module Messaging {
- typeprefix Messaging “omg.org”;
+ typeprefix Messaging "omg.org";
 
  //
  // Messaging Quality of Service
@@ -15647,7 +15647,7 @@ import ::GIOP;
 import ::IOP;
 import ::Messaging;
 module MessageRouting {
- typeprefix MessageRouting “omg.org”;
+ typeprefix MessageRouting "omg.org";
 
  //
  // Basic Routing Interoperability
