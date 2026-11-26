@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
   latexmk \
   python3-full \
   python3-pip \
+  inkscape \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -21,10 +22,22 @@ ENV PATH="/app/venv/bin:${PATH}"
 # Set working directory (set up user account?)
 WORKDIR /app
 
+# Optional: fixed TeX Live package repository (CTAN mirror or tlnet archive)
+# instead of the mirror.ctan.org redirector, e.g.
+#   make texlive_repository=https://mirrors.mit.edu/CTAN/systems/texlive/tlnet
+ARG TEXLIVE_REPOSITORY=
+RUN if [ -n "${TEXLIVE_REPOSITORY}" ]; then tlmgr option repository "${TEXLIVE_REPOSITORY}"; fi
+
+# tlmgr refuses to install packages if the repository requires a newer tlmgr
+# ("tlmgr itself needs to be updated"), e.g. with an older cached base image.
+# Uses the same repository as 'tlmgr install' below; does nothing if up to date.
+RUN tlmgr update --self
+
 # Get the necessary LaTeX piece for MDSA templates
 RUN tlmgr install \
   appendix \
   changebar \
+  catchfile \
   changepage \
   courier \
   csquotes \
@@ -48,9 +61,17 @@ RUN tlmgr install \
 FROM mdsa-base AS mdsa
 
 # Install the MDSA core and tools
-RUN git clone --depth 1 https://github.com/ObjectManagementGroup/mdsa-tools.git ./mdsa-tools
+# MDSA_TOOLS_VERSION and MDSA_CORE_VERSION are the latest commits of the two
+# repositories, looked up by the Makefile with 'git ls-remote'. Docker re-runs a
+# clone only when its value changes, so new versions are picked up without
+# 'make forcebuild', and the cached clone is reused otherwise. The values are kept
+# as image labels, so the Makefile can reuse them if a lookup fails (e.g. offline).
+ARG MDSA_TOOLS_VERSION=
+RUN echo "mdsa-tools ${MDSA_TOOLS_VERSION}" && git clone --depth 1 https://github.com/ObjectManagementGroup/mdsa-tools.git ./mdsa-tools
 RUN cd ./mdsa-tools ; pip --no-cache-dir install -e . ; cd ..
-RUN git clone --depth 1 https://github.com/ObjectManagementGroup/mdsa-omg-core.git ./mdsa-omg-core
+ARG MDSA_CORE_VERSION=
+RUN echo "mdsa-omg-core ${MDSA_CORE_VERSION}" && git clone --depth 1 https://github.com/ObjectManagementGroup/mdsa-omg-core.git ./mdsa-omg-core
+LABEL org.omg.mdsa.tools.version="${MDSA_TOOLS_VERSION}" org.omg.mdsa.core.version="${MDSA_CORE_VERSION}"
 
 # Set up latexmk / texliveonfly integration
 RUN <<EOF cat > /app/.latexmkrc

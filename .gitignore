@@ -24,3 +24,6 @@ svg_inkscape
 # Local build space
 build/
 archivedTex/
+
+# Core checkout used by CI
+.ci/
