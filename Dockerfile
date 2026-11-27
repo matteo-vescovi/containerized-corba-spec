@@ -51,10 +51,13 @@ RUN tlmgr install \
   ragged2e \
   soul \
   svg \
+  tabularray \
+  ninecolors \
   times \
   titlesec \
   todonotes \
   transparent \
+  varwidth \
   xifthen \
   xstring
 
