@@ -1,23 +1,61 @@
+# Builds and checks the specification PDF with the containerized MDSA pipeline,
+# exactly as an author does locally ('make pandoc check'), and keeps the PDF as
+# the workflow artifact "specification-pdf". Docker layers are cached between
+# runs in the GitHub Actions cache.
 name: CI
 
 on:
   push:
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # mdsa-omg-core with the Markdown pipeline fixes, until they are merged into
+  # ObjectManagementGroup/mdsa-omg-core. Afterwards, remove these two lines and
+  # the "Check out mdsa-omg-core" step; the image then uses the official core.
+  CORE_REPOSITORY: falko/mdsa-omg-core
+  CORE_REF: markdown-pipeline-fixes
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 30
     steps:
-    - uses: actions/checkout@v3
-      with:
-        submodules: recursive
+      - name: Check out specification
+        uses: actions/checkout@v4
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag omg/mdsa:latest
+      - name: Check out mdsa-omg-core
+        if: env.CORE_REPOSITORY != ''
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.CORE_REPOSITORY }}
+          ref: ${{ env.CORE_REF }}
+          path: .ci/mdsa-omg-core
 
-    - name: Run the Docker container
-      run: docker run --rm -v "$(pwd):/source" omg/mdsa:latest
+      # 'docker build' (used by the Makefile) runs on BuildKit, which can store
+      # layers in the GitHub Actions cache ...
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
 
-    - name: Check container status
-      run: docker ps -a
+      # ... with the cache credentials of the runner exposed to the shell
+      - name: Expose GitHub Actions cache to Docker
+        uses: crazy-max/ghaction-github-runtime@v3
+
+      - name: Build and check PDF
+        run: >-
+          make pandoc check
+          ${CORE_REPOSITORY:+core=.ci/mdsa-omg-core}
+          docker_build_opts="--cache-from type=gha,scope=mdsa-pandoc --cache-to type=gha,scope=mdsa-pandoc,mode=max --load"
+
+      - name: Upload PDF
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: specification-pdf
+          path: "*.pdf"
+          if-no-files-found: error

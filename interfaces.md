@@ -1,6 +1,6 @@
-# 5 The Object Model
+# The Object Model
 
-## 5.1 Overview
+## Overview
 
 This clause describes the concrete object model that underlies the CORBA architecture. The model is derived from the abstract Core Object Model defined by the Object Management Group in the *Object Management Architecture Guide*.
 
@@ -20,15 +20,15 @@ There are some other characteristics of object systems that are outside the scop
 
 This object model is an example of a *classical object model*, where a client sends a message to an object. Conceptually, the object interprets the message to decide what service to perform. In the classical model, a message identifies an object and zero or more actual parameters. As in most classical object models, a distinguished first parameter is required, which identifies the operation to be performed; the interpretation of the message by the object involves selecting a method based on the specified operation. Operationally, of course, method selection could be performed either by the object or the ORB.
 
-## 5.2 Object Semantics
+## Object Semantics
 
 An object system provides services to clients. A *client* of a service is any entity capable of requesting the service. This sub clause defines the concepts associated with object semantics, that is, the concepts relevant to clients.
 
-### 5.2.1 Objects
+### Objects
 
 An object system includes entities known as objects. An *object* is an identifiable, encapsulated entity that provides one or more services that can be requested by a client.
 
-### 5.2.2 Requests
+### Requests
 
 Clients request services by issuing requests.
 
@@ -40,7 +40,7 @@ The term *request* is broadly used to refer to the entire sequence of causally r
 
 The information associated with a request consists of an operation, a target object, zero or more (actual) parameters, and an optional request context.
 
-A *request form* is a description or pattern that can be evaluated or performed multiple times to cause the issuing of requests. As described in the [IDL Syntax and Semantics clause](#7-idl-syntax-and-semantics), request forms are defined by particular language bindings. An alternative request form consists of calls to the dynamic invocation interface to create an invocation structure, add arguments to the invocation structure, and to issue the invocation (refer to the *Dynamic Invocation Interface* clause for descriptions of these request forms).
+A *request form* is a description or pattern that can be evaluated or performed multiple times to cause the issuing of requests. As described in [IDL Syntax and Semantics](#idl-syntax-and-semantics), request forms are defined by particular language bindings. An alternative request form consists of calls to the dynamic invocation interface to create an invocation structure, add arguments to the invocation structure, and to issue the invocation (refer to the *Dynamic Invocation Interface* clause for descriptions of these request forms).
 
 A *value* is anything that may be a legitimate (actual) parameter in a request. More particularly, a value is an instance of an IDL data type. There are non-object values, as well as values that reference objects.
 
@@ -60,13 +60,13 @@ The following semantics hold for all requests:
 - The order in which aliased output parameters are written is not guaranteed.
 - The return result and the values stored into the output and input-output parameters are undefined if an exception is returned.
 
-For descriptions of the values and exceptions that are permitted, see [Types](#524-types) and [Exceptions](#812-exceptions).
+For descriptions of the values and exceptions that are permitted, see [Types](#types) and [Exceptions](#exceptions).
 
-### 5.2.3 Object Creation and Destruction
+### Object Creation and Destruction
 
 Objects can be created and destroyed. From a client’s point of view, there is no special mechanism for creating or destroying an object. Objects are created and destroyed as an outcome of issuing requests. The outcome of object creation is revealed to the client in the form of an object reference that denotes the new object.
 
-### 5.2.4 Types
+### Types
 
 A *type* is an identifiable entity with an associated predicate (a single-argument mathematical function with a boolean result) defined over entities. An entity *satisfies* a type if the predicate is true for that entity. An entity that satisfies a type is called a *member of the type*.
 
@@ -78,7 +78,7 @@ An *object type* is a type whose members are object references. In other words, 
 
 Constraints on the data types in this model are shown in this sub clause.
 
-#### 5.2.4.1 Basic types
+#### Basic types
 
 - 16-bit, 32-bit, and 64-bit signed and unsigned 2’s complement integers.
 - Single-precision (32-bit), double-precision (64-bit), and double-extended (a mantissa of at least 64 bits, a sign bit and an exponent of at least 15 bits) IEEE floating point numbers.
@@ -93,7 +93,7 @@ Constraints on the data types in this model are shown in this sub clause.
 - Wide characters that may represent characters from any wide character set.
 - Wide character strings, which consist of a length, available at runtime, and a variable-length array of (fixed width) wide characters.
 
-#### 5.2.4.2 Constructed types
+#### Constructed types
 
 - A record type (called struct), which consists of an ordered set of (name,value) pairs.
 - A discriminated union type, which consists of a discriminator (whose exact value is always available) followed by an instance of a type appropriate to the discriminator value.
@@ -102,15 +102,13 @@ Constraints on the data types in this model are shown in this sub clause.
 - An interface type, which specifies the set of operations that an instance of that type must support.
 - A value type, which specifies state as well as a set of operations that an instance of that type must support.
 
-Entities in a request are restricted to values that satisfy these type constraints. The legal entities are shown in Figure 5.1. No particular representation for entities is defined.
+Entities in a request are restricted to values that satisfy these type constraints. The legal entities are shown in [Legal Values](Images/figure5-1.svg). No particular representation for entities is defined.
 
-![](Images/figure5-1.svg)
+![Legal Values](Images/figure5-1.svg)
 
-**Figure 5.1 - Legal Values**
+### Interfaces
 
-### 5.2.5 Interfaces
-
-An *interface* is a description of a set of possible operations that a client may request of an object, through that interface. It provides a syntactic description of how a service provided by an object supporting this interface, is accessed via this set of operations. An object *satisfies* an interface if it provides its service through the operations of the interface according to the specification of the operations (see [Operations](#528-operations)).
+An *interface* is a description of a set of possible operations that a client may request of an object, through that interface. It provides a syntactic description of how a service provided by an object supporting this interface, is accessed via this set of operations. An object *satisfies* an interface if it provides its service through the operations of the interface according to the specification of the operations (see [Operations](#operations)).
 
 The *interface type* for a given interface is an object type, such that an object reference will satisfy the type, if and only if the referent object also satisfies the interface.
 
@@ -118,7 +116,7 @@ Interfaces are specified in IDL. Interface inheritance provides the composition 
 
 Interfaces satisfy the Liskov substitution principle. If interface A is derived from interface B, then a reference to an object that supports interface A can be used where the formal type of a parameter is declared to be B.
 
-### 5.2.6 Value Types
+### Value Types
 
 A *value type* is an entity, which shares many of the characteristics of interfaces and structs. It is a description of both a set of operations that a client may request and of state that is accessible to a client. Instances of a value type are always local concrete implementations in some programming language.
 
@@ -128,11 +126,11 @@ Value types are specified in IDL.
 
 An *abstract value type* describes a value type that is a “pure” bundle of operations with no state.
 
-### 5.2.7 Abstract Interfaces
+### Abstract Interfaces
 
-An *abstract interface* is an entity, which may at runtime represent either a regular interface (see [Interfaces](#525-interfaces)) or a value type (see [Value Types](#526-value-types)). Like an abstract value type, it is a pure bundle of operations with no state. Unlike an abstract value type, it does not imply pass-by-value semantics, and unlike a regular interface type, it does not imply pass-by-reference semantics. Instead, the entity’s runtime type determines which of these semantics are used.
+An *abstract interface* is an entity, which may at runtime represent either a regular interface (see [Interfaces](#interfaces)) or a value type (see [Value Types](#value-types)). Like an abstract value type, it is a pure bundle of operations with no state. Unlike an abstract value type, it does not imply pass-by-value semantics, and unlike a regular interface type, it does not imply pass-by-reference semantics. Instead, the entity’s runtime type determines which of these semantics are used.
 
-### 5.2.8 Operations
+### Operations
 
 An *operation* is an identifiable entity that denotes the indivisible primitive of service provision that can be requested. The act of requesting an operation is referred to as *invoking the operation*. An operation is identified by an *operation identifier*.
 
@@ -174,9 +172,9 @@ The return result is a distinguished **out** parameter.
 
 An *exception* is an indication that an operation request was not performed successfully. An exception may be accompanied by additional, exception-specific information.
 
-The additional, exception-specific information is a specialized form of record. As a record, it may consist of any of the types described in [Types](#524-types).
+The additional, exception-specific information is a specialized form of record. As a record, it may consist of any of the types described in [Types](#types).
 
-All signatures implicitly include the system exceptions; the standard system exceptions are described in [System Exceptions](#8122-system-exceptions).
+All signatures implicitly include the system exceptions; the standard system exceptions are described in [System Exceptions](#system-exceptions).
 
 *Contexts*
 
@@ -193,13 +191,13 @@ The execution semantics to be expected is associated with an operation. This pre
 
 Note that a client is able to invoke an at-most-once operation in a synchronous or deferred-synchronous manner.
 
-### 5.2.9 Attributes
+### Attributes
 
 An interface may have attributes. An attribute is logically equivalent to declaring a pair of accessor functions: one to retrieve the value of the attribute and one to set the value of the attribute.
 
 An attribute may be read-only, in which case only the retrieval accessor function is defined.
 
-## 5.3 Object Implementation
+## Object Implementation
 
 This sub clause defines the concepts associated with object implementation (i.e., the concepts relevant to realizing the behavior of objects in a computational system).
 
@@ -207,7 +205,7 @@ The implementation of an object system carries out the computational activities 
 
 The implementation model consists of two parts: the execution model and the construction model. The execution model describes how services are performed. The construction model describes how services are defined.
 
-### 5.3.1 The Execution Model: Performing Services
+### The Execution Model: Performing Services
 
 A requested service is performed in a computational system by executing code that operates upon some data. The data represents a component of the state of the computational system. The code performs the requested service, which may change the state of the system.
 
@@ -217,33 +215,29 @@ When a client issues a request, a method of the target object is called. The inp
 
 Performing a requested service causes a method to execute that may operate upon an object’s persistent state. If the persistent form of the method or state is not accessible to the execution engine, it may be necessary to first copy the method or state into an execution context. This process is called *activation*; the reverse process is called *deactivation*.
 
-### 5.3.2 The Construction Model
+### The Construction Model
 
 A computational object system must provide mechanisms for realizing behavior of requests. These mechanisms include definitions of object state, definitions of methods, and definitions of how the object infrastructure is to select the methods to execute and to select the relevant portions of object state to be made accessible to the methods. Mechanisms must also be provided to describe the concrete actions associated with object creation, such as association of the new object with appropriate methods.
 
 An *object implementation*—or *implementation*, for short—is a definition that provides the information needed to create an object and to allow the object to participate in providing an appropriate set of services. An implementation typically includes, among other things, definitions of the methods that operate upon the state of an object. It also typically includes information about the intended types of the object.
 
-# 6 CORBA Overview
+# CORBA Overview
 
-## 6.1 General
+## General
 
 The Common Object Request Broker Architecture (CORBA) is structured to allow integration of a wide variety of object systems. The motivation for some of the features may not be apparent at first, but as we discuss the range of implementations, policies, optimizations, and usages we expect to encompass, the value of the flexibility becomes clearer.
 
-## 6.2 Structure of an Object Request Broker
+## Structure of an Object Request Broker
 
-Figure 6.1 shows a request being sent by a client to an object implementation. The Client is the entity that wishes to perform an operation on the object and the Object Implementation is the code and data that actually implements the object.
+[A Request Being Sent Through the Object Request Broker](Images/figure6-1.svg) shows a request being sent by a client to an object implementation. The Client is the entity that wishes to perform an operation on the object and the Object Implementation is the code and data that actually implements the object.
 
-![](Images/figure6-1.svg)
-
-**Figure 6.1 - A Request Being Sent Through the Object Request Broker**
+![A Request Being Sent Through the Object Request Broker](Images/figure6-1.svg)
 
 The ORB is responsible for all of the mechanisms required to find the object implementation for the request, to prepare the object implementation to receive the request, and to communicate the data making up the request. The interface the client sees is completely independent of where the object is located, what programming language it is implemented in, or any other aspect that is not reflected in the object’s interface.
 
-Figure 6.2 shows the structure of an individual Object Request Broker (ORB). The interfaces to the ORB are shown by striped boxes, and the arrows indicate whether the ORB is called or performs an up-call across the interface.
+[The Structure of Object Request Interfaces](Images/figure6-2.svg) shows the structure of an individual Object Request Broker (ORB). The interfaces to the ORB are shown by striped boxes, and the arrows indicate whether the ORB is called or performs an up-call across the interface.
 
-![](Images/figure6-2.svg)
-
-**Figure 6.2 - The Structure of Object Request Interfaces**
+![The Structure of Object Request Interfaces](Images/figure6-2.svg)
 
 To make a request, the Client can use the Dynamic Invocation interface (the same interface independent of the target object’s interface) or an IDL stub (the specific stub depending on the interface of the target object). The Client can also directly interact with the ORB for some functions.
 
@@ -251,31 +245,25 @@ The Object Implementation receives a request as an up-call either through the ID
 
 Definitions of the interfaces to objects can be defined in two ways. 1) Interfaces can be defined statically in an interface definition language, called the OMG Interface Definition Language (IDL). This language defines the types of objects according to the operations that may be performed on them and the parameters to those operations. 2) Alternatively, or in addition, interfaces can be added to an Interface Repository service. This service represents the components of an interface as objects, permitting run-time access to these components. In any ORB implementation, the Interface Definition Language (which may be extended beyond its definition in this document) and the Interface Repository have equivalent expressive power.
 
-The client performs a request by having access to an Object Reference for an object and knowing the type of the object and the desired operation to be performed. The client initiates the request by calling stub routines that are specific to the object or by constructing the request dynamically (see Figure 6.3).
+The client performs a request by having access to an Object Reference for an object and knowing the type of the object and the desired operation to be performed. The client initiates the request by calling stub routines that are specific to the object or by constructing the request dynamically (see [A Client Using the Stub or Dynamic Invocation Interface](Images/figure6-3.svg)).
 
-![](Images/figure6-3.svg)
-
-**Figure 6.3 - A Client Using the Stub or Dynamic Invocation Interface**
+![A Client Using the Stub or Dynamic Invocation Interface](Images/figure6-3.svg)
 
 The dynamic and stub interface for invoking a request satisfy the same request semantics, and the receiver of the message cannot tell how the request was invoked.
 
-The ORB locates the appropriate implementation code, transmits parameters, and transfers control to the Object Implementation through an IDL skeleton or a dynamic skeleton (see Figure 6.4). Skeletons are specific to the interface and the object adapter. In performing the request, the object implementation may obtain some services from the ORB through the Object Adapter. When the request is complete, control and output values are returned to the client.
+The ORB locates the appropriate implementation code, transmits parameters, and transfers control to the Object Implementation through an IDL skeleton or a dynamic skeleton (see [An Object Implementation Receiving a Request](Images/figure6-4.svg)). Skeletons are specific to the interface and the object adapter. In performing the request, the object implementation may obtain some services from the ORB through the Object Adapter. When the request is complete, control and output values are returned to the client.
 
-![](Images/figure6-4.svg)
-
-**Figure 6.4 - An Object Implementation Receiving a Request**
+![An Object Implementation Receiving a Request](Images/figure6-4.svg)
 
 The Object Implementation may choose which Object Adapter to use. This decision is based on what kind of services the Object Implementation requires.
 
-Figure 6.5 shows how interface and implementation information is made available to clients and object implementations. The interface is defined in IDL and/or in the Interface Repository; the definition is used to generate the client Stubs and the object implementation Skeletons.
+[Interface and Implementation Repositories](Images/figure6-5.svg) shows how interface and implementation information is made available to clients and object implementations. The interface is defined in IDL and/or in the Interface Repository; the definition is used to generate the client Stubs and the object implementation Skeletons.
 
-![](Images/figure6-5.svg)
-
-**Figure 6.5 - Interface and Implementation Repositories**
+![Interface and Implementation Repositories](Images/figure6-5.svg)
 
 The object implementation information is provided at installation time and is stored in the Implementation Repository for use during request delivery.
 
-### 6.2.1 Object Request Broker
+### Object Request Broker
 
 In the architecture, the ORB is not required to be implemented as a single component, but rather it is defined by its interfaces. Any ORB implementation that provides the appropriate interface is acceptable. The interface is organized into three categories:
 
@@ -289,13 +277,13 @@ There may be multiple ORB implementations (also described as multiple ORBs), whi
 
 The ORB Core is that part of the ORB that provides the basic representation of objects and communication of requests. CORBA is designed to support different object mechanisms, and it does so by structuring the ORB with components above the ORB Core, which provide interfaces that can mask the differences between ORB Cores.
 
-### 6.2.2 Clients
+### Clients
 
 A client of an object has access to an object reference for the object, and invokes operations on the object. A client knows only the logical structure of the object according to its interface and experiences the behavior of the object through invocations. Although we will generally consider a client to be a program or process initiating requests on an object, it is important to recognize that something is a client relative to a particular object. For example, the implementation of one object may be a client of other objects.
 
 Clients generally see objects and ORB interfaces through the perspective of a language mapping, bringing the ORB right up to the programmer’s level. Clients are maximally portable and should be able to work without source changes on any ORB that supports the desired language mapping with any object instance that implements the desired interface. Clients have no knowledge of the implementation of the object, which object adapter is used by the implementation, or which ORB is used to access it.
 
-### 6.2.3 Object Implementations
+### Object Implementations
 
 An object implementation provides the semantics of the object, usually by defining data for the object instance and code for the object’s methods. Often the implementation will use other objects or additional software to implement the behavior of the object. In some cases, the primary function of the object is to have side-effects on other things that are not objects.
 
@@ -303,7 +291,7 @@ A variety of object implementations can be supported, including separate servers
 
 Generally, object implementations do not depend on the ORB or how the client invokes the object. Object implementations may select interfaces to ORB-dependent services by the choice of Object Adapter.
 
-### 6.2.4 Object References
+### Object References
 
 An Object Reference is the information needed to specify an object within an ORB. Both clients and object implementations have an opaque notion of object references according to the language mapping, and thus are insulated from the actual representation of them. Two ORB implementations may differ in their choice of Object Reference representations.
 
@@ -313,27 +301,27 @@ All ORBs must provide the same language mapping to an object reference (usually 
 
 There is a distinguished object reference, guaranteed to be different from all object references, that denotes no object.
 
-### 6.2.5 OMG Interface Definition Language
+### OMG Interface Definition Language
 
 The OMG Interface Definition Language (IDL) defines the types of objects by specifying their interfaces. An interface consists of a set of named operations and the parameters to those operations. Note that although IDL provides the conceptual framework for describing the objects manipulated by the ORB, it is not necessary for there to be IDL source code available for the ORB to work. As long as the equivalent information is available in the form of stub routines or a run-time interface repository, a particular ORB may be able to function correctly.
 
 IDL is the means by which a particular object implementation tells its potential clients what operations are available and how they should be invoked. From the IDL definitions, it is possible to map CORBA objects into particular programming languages or object systems.
 
-### 6.2.6 Mapping of IDL to Programming Languages
+### Mapping of IDL to Programming Languages
 
 Different object-oriented or non-object-oriented programming languages may prefer to access CORBA objects in different ways. For object-oriented languages, it may be desirable to see CORBA objects as programming language objects. Even for non-object-oriented languages, it is a good idea to hide the exact ORB representation of the object reference, method names, etc. A particular mapping of IDL to a programming language should be the same for all ORB implementations. Language mapping includes definition of the language-specific data types and procedure interfaces to access objects through the ORB. It includes the structure of the client stub interface (not required for object-oriented languages), the dynamic invocation interface, the implementation skeleton, the object adapters, and the direct ORB interface.
 
 A language mapping also defines the interaction between object invocations and the threads of control in the client or implementation. The most common mappings provide synchronous calls, in that the routine returns when the object operation completes. Additional mappings may be provided to allow a call to be initiated and control returned to the program. In such cases, additional language-specific routines must be provided to synchronize the program’s threads of control with the object invocation.
 
-### 6.2.7 Client Stubs
+### Client Stubs
 
 Generally, the client stubs will present access to the IDL-defined operations on an object in a way that is easy for programmers to predict once they are familiar with IDL and the language mapping for the particular programming language. The stubs make calls on the rest of the ORB using interfaces that are private to, and presumably optimized for, the particular ORB Core. If more than one ORB is available, there may be different stubs corresponding to the different ORBs. In this case, it is necessary for the ORB and language mapping to cooperate to associate the correct stubs with the particular object reference.
 
-### 6.2.8 Dynamic Invocation Interface
+### Dynamic Invocation Interface
 
 An interface is also available that allows the dynamic construction of object invocations, that is, rather than calling a stub routine that is specific to a particular operation on a particular object, a client may specify the object to be invoked, the operation to be performed, and the set of parameters for the operation through a call or sequence of calls. The client code must supply information about the operation to be performed and the types of the parameters being passed (perhaps obtaining it from an Interface Repository or other run-time source). The nature of the dynamic invocation interface may vary substantially from one programming language mapping to another.
 
-### 6.2.9 Implementation Skeleton
+### Implementation Skeleton
 
 For a particular language mapping, and possibly depending on the object adapter, there will be an interface to the methods that implement each type of object. The interface will generally be an up-call interface, in that the object implementation writes routines that conform to the interface and the ORB calls them through the skeleton.
 
@@ -341,7 +329,7 @@ The existence of a skeleton does not imply the existence of a corresponding clie
 
 It is possible to write an object adapter that does not use skeletons to invoke implementation methods. For example, it may be possible to create implementations dynamically for languages such as Smalltalk.
 
-### 6.2.10 Dynamic Skeleton Interface
+### Dynamic Skeleton Interface
 
 An interface is available, which allows dynamic handling of object invocations. That is, rather than being accessed through a skeleton that is specific to a particular operation, an object’s implementation is reached through an interface that provides access to the operation name and parameters in a manner analogous to the client side’s Dynamic Invocation Interface. Purely static knowledge of those parameters may be used, or dynamic knowledge (perhaps determined through an Interface Repository) may also be used, to determine the parameters.
 
@@ -349,77 +337,73 @@ The implementation code must provide descriptions of all the operation parameter
 
 Dynamic skeletons may be invoked both through client stubs and through the dynamic invocation interface; either style of client request construction interface provides identical results.
 
-### 6.2.11 Object Adapters
+### Object Adapters
 
 An object adapter is the primary way that an object implementation accesses services provided by the ORB. There are expected to be a few object adapters that will be widely available, with interfaces that are appropriate for specific kinds of objects. Services provided by the ORB through an Object Adapter often include: generation and interpretation of object references, method invocation, security of interactions, object and implementation activation and deactivation, mapping object references to implementations, and registration of implementations.
 
 The wide range of object granularities, lifetimes, policies, implementation styles, and other properties make it difficult for the ORB Core to provide a single interface that is convenient and efficient for all objects. Thus, through Object Adapters, it is possible for the ORB to target particular groups of object implementations that have similar requirements with interfaces tailored to them.
 
-### 6.2.12 ORB Interface
+### ORB Interface
 
 The ORB Interface is the interface that goes directly to the ORB, which is the same for all ORBs and does not depend on the object’s interface or object adapter. Because most of the functionality of the ORB is provided through the object adapter, stubs, skeleton, or dynamic invocation, there are only a few operations that are common across all objects. These operations are useful to both clients and implementations of objects.
 
-### 6.2.13 Interface Repository
+### Interface Repository
 
 The Interface Repository is a service that provides persistent objects that represent the IDL information in a form available at run-time. The Interface Repository information may be used by the ORB to perform requests. Moreover, using the information in the Interface Repository, it is possible for a program to encounter an object whose interface was not known when the program was compiled, yet, be able to determine what operations are valid on the object and make an invocation on it.
 
 In addition to its role in the functioning of the ORB, the Interface Repository is a common place to store additional information associated with interfaces to ORB objects. For example, debugging information, libraries of stubs or skeletons, routines that can format or browse particular kinds of objects might be associated with the Interface Repository.
 
-### 6.2.14 Implementation Repository
+### Implementation Repository
 
 The Implementation Repository contains information that allows the ORB to locate and activate implementations of objects. Although most of the information in the Implementation Repository is specific to an ORB or operating environment, the Implementation Repository is the conventional place for recording such information. Ordinarily, installation of implementations and control of policies related to the activation and execution of object implementations is done through operations on the Implementation Repository.
 
 In addition to its role in the functioning of the ORB, the Implementation Repository is a common place to store additional information associated with implementations of ORB objects. For example, debugging information, administrative control, resource allocation, security, etc., might be associated with the Implementation Repository.
 
-## 6.3 Example ORBs
+## Example ORBs
 
 There are a wide variety of ORB implementations possible within the Common ORB Architecture. This sub clause will illustrate some of the different options. Note that a particular ORB might support multiple options and protocols for communication.
 
-### 6.3.1 Client- and Implementation-resident ORB
+### Client- and Implementation-resident ORB
 
 If there is a suitable communication mechanism present, an ORB can be implemented in routines resident in the clients and implementations. The stubs in the client either use a location-transparent IPC mechanism or directly access a location service to establish communication with the implementations. Code linked with the implementation is responsible for setting up appropriate databases for use by clients.
 
-### 6.3.2 Server-based ORB
+### Server-based ORB
 
 To centralize the management of the ORB, all clients and implementations can communicate with one or more servers whose job it is to route requests from clients to implementations. The ORB could be a normal program as far as the underlying operating system is concerned, and normal IPC could be used to communicate with the ORB.
 
-### 6.3.3 System-based ORB
+### System-based ORB
 
 To enhance security, robustness, and performance, the ORB could be provided as a basic service of the underlying operating system. Object references could be made unforgeable, reducing the expense of authentication on each request. Because the operating system could know the location and structure of clients and implementations, it would be possible for a variety of optimizations to be implemented, for example, avoiding marshalling when both are on the same machine.
 
-### 6.3.4 Library-based ORB
+### Library-based ORB
 
 For objects that are light-weight and whose implementations can be shared, the implementation might actually be in a library. In this case, the stubs could be the actual methods. This assumes that it is possible for a client program to get access to the data for the objects and that the implementation trusts the client not to damage the data.
 
-## 6.4 Structure of a Client
+## Structure of a Client
 
 A client of an object has an object reference that refers to that object. An object reference is a token that may be invoked or passed as a parameter to an invocation on a different object. Invocation of an object involves specifying the object to be invoked, the operation to be performed, and parameters to be given to the operation or returned from it.
 
 The ORB manages the control transfer and data transfer to the object implementation and back to the client. In the event that the ORB cannot complete the invocation, an exception response is provided. Ordinarily, a client calls a routine in its program that performs the invocation and returns when the operation is complete.
 
-Clients access object-type-specific stubs as library routines in their program (see Figure 6.6). The client program thus sees routines callable in the normal way in its programming language. All implementations will provide a language-specific data type to use to refer to objects, often an opaque pointer. The client then passes that object reference to the stub routines to initiate an invocation. The stubs have access to the object reference representation and interact with the ORB to perform the invocation. (See the *C Language Mapping* specification for additional, general information on language mapping of object references.)
+Clients access object-type-specific stubs as library routines in their program (see [The Structure of a Typical Client](Images/figure6-6.svg)). The client program thus sees routines callable in the normal way in its programming language. All implementations will provide a language-specific data type to use to refer to objects, often an opaque pointer. The client then passes that object reference to the stub routines to initiate an invocation. The stubs have access to the object reference representation and interact with the ORB to perform the invocation. (See the *C Language Mapping* specification for additional, general information on language mapping of object references.)
 
-![](Images/figure6-6.svg)
-
-**Figure 6.6 - The Structure of a Typical Client**
+![The Structure of a Typical Client](Images/figure6-6.svg)
 
 An alternative set of library code is available to perform invocations on objects, for example when the object was not defined at compile time. In that case, the client program provides additional information to name the type of the object and the method being invoked, and performs a sequence of calls to specify the parameters and initiate the invocation.
 
 Clients most commonly obtain object references by receiving them as output parameters from invocations on other objects for which they have references. When a client is also an implementation, it receives object references as input parameters on invocations to objects it implements. An object reference can also be converted to a string that can be stored in files or preserved or communicated by different means and subsequently turned back into an object reference by the ORB that produced the string.
 
-## 6.5 Structure of an Object Implementation
+## Structure of an Object Implementation
 
 An object implementation provides the actual state and behavior of an object. The object implementation can be structured in a variety of ways. Besides defining the methods for the operations themselves, an implementation will usually define procedures for activating and deactivating objects and will use other objects or non-object facilities to make the object state persistent, to control access to the object, as well as to implement the methods.
 
-The object implementation (see Figure 6.7) interacts with the ORB in a variety of ways to establish its identity, to create new objects, and to obtain ORB-dependent services. It primarily does this via access to an Object Adapter, which provides an interface to ORB services that is convenient for a particular style of object implementation.
+The object implementation (see [The Structure of a Typical Object Implementation](Images/figure6-7.svg)) interacts with the ORB in a variety of ways to establish its identity, to create new objects, and to obtain ORB-dependent services. It primarily does this via access to an Object Adapter, which provides an interface to ORB services that is convenient for a particular style of object implementation.
 
 **Object Implementation**
 
-![](Images/figure6-7.svg)
+![The Structure of a Typical Object Implementation](Images/figure6-7.svg)
 
-**Figure 6.7 - The Structure of a Typical Object Implementation**
-
-Because of the range of possible object implementations, it is difficult to be definitive about how an object implementation is structured. See the clauses on the [Portable Object Adapter](#671-portable-object-adapter).
+Because of the range of possible object implementations, it is difficult to be definitive about how an object implementation is structured. See the clauses on the [Portable Object Adapter](#portable-object-adapter).
 
 When an invocation occurs, the ORB Core, object adapter, and skeleton arrange that a call is made to the appropriate method of the implementation. A parameter to that method specifies the object being invoked, which the method can use to locate the data for the object. Additional parameters are supplied according to the skeleton definition. When the method is complete, it returns, causing output parameters or exception results to be transmitted back to the client.
 
@@ -427,9 +411,9 @@ When a new object is created, the ORB may be notified so that it knows where to 
 
 Most object implementations provide their behavior using facilities in addition to the ORB and object adapter. For example, although the Portable Object Adapter provides some persistent data associated with an object (its OID or Object ID), that relatively small amount of data is typically used as an identifier for the actual object data stored in a storage service of the object implementation’s choosing. With this structure, it is not only possible for different object implementations to use the same storage service, it is also possible for objects to choose the service that is most appropriate for them.
 
-## 6.6 Structure of an Object Adapter
+## Structure of an Object Adapter
 
-An object adapter (see Figure 6.8) is the primary means for an object implementation to access ORB services such as object reference generation. An object adapter exports a public interface to the object implementation, and a private interface to the skeleton. It is built on a private ORB-dependent interface.
+An object adapter (see [The Structure of a Typical Object Adapter](Images/figure6-8.svg)) is the primary means for an object implementation to access ORB services such as object reference generation. An object adapter exports a public interface to the object implementation, and a private interface to the skeleton. It is built on a private ORB-dependent interface.
 
 Object adapters are responsible for the following functions:
 
@@ -442,11 +426,9 @@ Object adapters are responsible for the following functions:
 
 These functions are performed using the ORB Core and any additional components necessary. Often, an object adapter will maintain its own state to accomplish its tasks. It may be possible for a particular object adapter to delegate one or more of its responsibilities to the Core upon which it is constructed.
 
-![](Images/figure6-8.svg)
+![The Structure of a Typical Object Adapter](Images/figure6-8.svg)
 
-**Figure 6.8 - The Structure of a Typical Object Adapter**
-
-As shown in Figure 6.8, the Object Adapter is implicitly involved in invocation of the methods, although the direct interface is through the skeletons. For example, the Object Adapter may be involved in activating the implementation or authenticating the request.
+As shown in [The Structure of a Typical Object Adapter](Images/figure6-8.svg), the Object Adapter is implicitly involved in invocation of the methods, although the direct interface is through the skeletons. For example, the Object Adapter may be involved in activating the implementation or authenticating the request.
 
 The Object Adapter defines most of the services from the ORB that the Object Implementation can depend on. Different ORBs will provide different levels of service and different operating environments may provide some properties implicitly and require others to be added by the Object Adapter. For example, it is common for Object Implementations to want to store certain values in the object reference for easy identification of the object on an invocation. If the Object Adapter allows the implementation to specify such values when a new object is created, it may be able to store them in the object reference for those ORBs that permit it. If the ORB Core does not provide this feature, the Object Adapter would record the value in its own storage and provide it to the implementation on an invocation. With Object Adapters, it is possible for an Object Implementation to have access to a service whether or not it is implemented in the ORB Core — if the ORB Core provides it, the adapter simply provides an interface to it; if not, the adapter must implement it on top of the ORB Core. Every instance of a particular adapter must provide the same interface and service for all the ORBs it is implemented on.
 
@@ -454,23 +436,21 @@ It is also not necessary for all Object Adapters to provide the same interface o
 
 Implementations have special requirements. For example, an object-oriented database system may wish to implicitly register its many thousands of objects without doing individual calls to the Object Adapter. In such a case, it would be impractical and unnecessary for the object adapter to maintain any per-object state. By using an object adapter interface that is tuned towards such object implementations, it is possible to take advantage of particular ORB Core details to provide the most effective access to the ORB.
 
-## 6.7 CORBA Required Object Adapter
+## CORBA Required Object Adapter
 
 There are a variety of possible object adapters; however, since the object adapter interface is something that object implementations depend on, it is desirable that there be as few as practical. Most object adapters are designed to cover a range of object implementations, so only when an implementation requires radically different services or interfaces should a new object adapter be considered. In this sub clause, we briefly describe the object adapter defined in this specification.
 
-### 6.7.1 Portable Object Adapter
+### Portable Object Adapter
 
-This specification defines a Portable Object Adapter that can be used for most ORB objects with conventional implementations. (See the [*Portable Object Adapter*](#671-portable-object-adapter) clause for more information.) The intent of the POA, as its name suggests, is to provide an Object Adapter that can be used with multiple ORBs with a minimum of rewriting needed to deal with different vendors’ implementations.
+This specification defines a Portable Object Adapter that can be used for most ORB objects with conventional implementations. (See the [*Portable Object Adapter*](#portable-object-adapter) clause for more information.) The intent of the POA, as its name suggests, is to provide an Object Adapter that can be used with multiple ORBs with a minimum of rewriting needed to deal with different vendors’ implementations.
 
 This specification allows several ways of using servers but it does not deal with the administrative issues of starting server programs. Once started, however, there can be a servant started and ended for a single method call, a separate servant for each object, or a shared servant for all instances of the object type. It allows for groups of objects to be associated by means of being registered with different instances of the POA object and allows implementations to specify their own activation techniques. If the implementation is not active when an invocation is performed, the POA will start one. The POA is specified in IDL, so its mapping to languages is largely automatic, following the language mapping rules. (The primary task left for a language mapping is the definition of the Servant type.)
 
-## 6.8 The Integration of Foreign Object Systems
+## The Integration of Foreign Object Systems
 
-The Common ORB Architecture is designed to allow interoperation with a wide range of object systems (see Figure 6.9). Because there are many existing object systems, a common desire will be to allow the objects in those systems to be accessible via the ORB. For those object systems that are ORBs themselves, they may be connected to other ORBs through the mechanisms described throughout this manual.
+The Common ORB Architecture is designed to allow interoperation with a wide range of object systems (see [Different Ways to Integrate Foreign Object Systems](Images/figure6-9.svg)). Because there are many existing object systems, a common desire will be to allow the objects in those systems to be accessible via the ORB. For those object systems that are ORBs themselves, they may be connected to other ORBs through the mechanisms described throughout this manual.
 
-![](Images/figure6-9.svg)
-
-**Figure 6.9 - Different Ways to Integrate Foreign Object Systems**
+![Different Ways to Integrate Foreign Object Systems](Images/figure6-9.svg)
 
 For object systems that simply want to map their objects into ORB objects and receive invocations through the ORB, one approach is to have those object systems appear to be implementations of the corresponding ORB objects. The object system would register its objects with the ORB and handle incoming requests, and could act like a client and perform outgoing requests.
 
@@ -478,97 +458,97 @@ In some cases, it will be impractical for another object system to act like a PO
 
 ORB. Another object system may wish to create objects without consulting the ORB, and might expect most invocations to occur within itself rather than through the ORB. In such a case, a more appropriate object adapter might allow objects to be implicitly registered when they are passed through the ORB.
 
-# 7 IDL Syntax and Semantics
+# IDL Syntax and Semantics
 
-## 7.1 Overview
+## Overview
 
-Although it was originally defined here, the Interface Definition Language is now maintained in a separate OMG specification. See [IDL4] section 7.1 for the Overview and section 9.2 for the CORBA and CCM Profiles of IDL.
+Although it was originally defined here, the Interface Definition Language is now maintained in a separate OMG specification. See [@IDL4, section 7.1 for the Overview and section 9.2 for the CORBA and CCM Profiles of IDL].
 
-## 7.2  Lexical Conventions
+##  Lexical Conventions
 
-See [IDL4] section 7.2.
+See [@IDL4, section 7.2].
 
-## 7.3  Preprocessing
+##  Preprocessing
 
-See [IDL4] section 7.3.
+See [@IDL4, section 7.3].
 
-## 7.4  IDL Grammar
+##  IDL Grammar
 
-See [IDL4] sections 7.4 (the introduction before 7.4.1), 9.2, 7.4.1-10, and Annex A.
+See [@IDL4, sections 7.4 (the introduction before 7.4.1), 9.2, 7.4.1-10, and Annex A].
 
-## 7.5  IDL Specification
+##  IDL Specification
 
-See [IDL4] sections 7.4.1.4.1, 7.4.3.4.1, 7.4.5.4, 7.4.6.4.1.
+See [@IDL4, sections 7.4.1.4.1, 7.4.3.4.1, 7.4.5.4, 7.4.6.4.1].
 
-## 7.6  Import Declaration
+##  Import Declaration
 
-See [IDL4] section 7.4.6.4.1.4.
+See [@IDL4, section 7.4.6.4.1.4].
 
-## 7.7  Module Declaration
+##  Module Declaration
 
-See [IDL4] section 7.4.1.4.2.
+See [@IDL4, section 7.4.1.4.2].
 
-## 7.8  Interface Declaration
+##  Interface Declaration
 
-See [IDL4] sections 7.4.3.4.3, 7.4.4, 7.4.6.
+See [@IDL4, sections 7.4.3.4.3, 7.4.4, 7.4.6].
 
-## 7.9  Value Declaration
+##  Value Declaration
 
-See [IDL4] sections 7.4.5 and 7.4.7.
+See [@IDL4, sections 7.4.5 and 7.4.7].
 
-## 7.10 Constant Declaration
+## Constant Declaration
 
-See [IDL4] section 7.4.1.4.3.
+See [@IDL4, section 7.4.1.4.3].
 
-## 7.11 Type Declaration
+## Type Declaration
 
-See [IDL4] sections 7.4.1.4.4 and 7.4.2.
+See [@IDL4, sections 7.4.1.4.4 and 7.4.2].
 
-## 7.12 Exception Declaration
+## Exception Declaration
 
-See [IDL4] section 7.4.3.4.2.
+See [@IDL4, section 7.4.3.4.2].
 
-## 7.13 Operation Declaration
+## Operation Declaration
 
-See [IDL4] sections 7.4.34.3.3.1, 7.4.6.4.5, 7.4.6.4.6.
+See [@IDL4, sections 7.4.34.3.3.1, 7.4.6.4.5, 7.4.6.4.6].
 
-## 7.14 Attribute Declaration
+## Attribute Declaration
 
-See [IDL4] section 7.4.3.4.3.3.2.
+See [@IDL4, section 7.4.3.4.3.3.2].
 
-## 7.15 Repository Identity Related Declarations
+## Repository Identity Related Declarations
 
-See [IDL4] section 7.4.6.4.1.
+See [@IDL4, section 7.4.6.4.1].
 
-## 7.16 Event Declaration
+## Event Declaration
 
-See [IDL4] section 7.4.10.4.1.1.
+See [@IDL4, section 7.4.10.4.1.1].
 
-## 7.17 Component Declaration
+## Component Declaration
 
-See [IDL4] sections 7.4.8 and 7.4.10.
+See [@IDL4, sections 7.4.8 and 7.4.10].
 
-## 7.18 Home Declaration
+## Home Declaration
 
-See [IDL4] section 7.4.9.
+See [@IDL4, section 7.4.9].
 
-## 7.19 CORBA Module
+## CORBA Module
 
-See [IDL4] section 7.4.6.4.7.
+See [@IDL4, section 7.4.6.4.7].
 
-## 7.20 Names and Scoping
+## Names and Scoping
 
-See [IDL4] section 7.5.
+See [@IDL4, section 7.5].
 
-# 8 ORB Interface
+# ORB Interface
 
-## 8.1 Overview
+## Overview
 
 This clause introduces the operations that are implemented by the ORB core, and describes some basic ones, while providing reference to the description of the remaining operations that are described elsewhere. The **ORB** interface is the interface to those ORB functions that do not depend on which object adapter is used. These operations are the same for all ORBs and all object implementations, and can be performed either by clients of the objects or implementations. The **Object** interface contains operations that are implemented by the ORB, and are accessed as implicit operations of the Object Reference. The **ValueBase** interface contains operations that are implemented by the ORB, and are accessed as implicit operations of the **ValueBase** Reference.
 
 Because the operations in this sub clause are implemented by the ORB itself, they are not in fact operations on objects, although they are described that way for the **Object** or **ValueBase** interface operations and the language binding will, for consistency, make them appear that way.
 
-## 8.2 The ORB Operations
+## The ORB Operations
 
 The **ORB** interface contains the operations that are available to both clients and servers. These operations do not depend on any specific object adapter or any specific object reference.
 
@@ -844,35 +824,35 @@ module CORBA {
 
 All types defined in this clause are part of the CORBA module. When referenced in IDL, the type names must be prefixed by “**CORBA::**”.
 
-The operations **object_to_string** and **string_to_object** are described in [Converting Object References to Strings](#822-converting-object-references-to-strings).
+The operations **object_to_string** and **string_to_object** are described in [Converting Object References to Strings](#converting-object-references-to-strings).
 
-For a description of the **create_list** and **create_operation_list** operations, see [Polling](#114-polling). The **get_default_context** operation is described in [get_default_context](#8241-get_default_context). The **send_multiple_requests_oneway** and **send_multiple_requests_deferred** operations are described in [send_multiple_requests](#1131-send_multiple_requests). The **poll_next_response** and **get_next_response** operations are described in [get_next_response](#1132-get_next_response-and-poll_next_response) and [poll_next_response](#1132-get_next_response-and-poll_next_response).
+For a description of the **create_list** and **create_operation_list** operations, see [Polling](#polling). The **get_default_context** operation is described in [get_default_context](#get_default_context). The **send_multiple_requests_oneway** and **send_multiple_requests_deferred** operations are described in [send_multiple_requests](#send_multiple_requests). The **poll_next_response** and **get_next_response** operations are described in [get_next_response and poll_next_response](#get_next_response-and-poll_next_response).
 
-The **list_intial_services** and **resolve_initial_references** operations are described in [Obtaining Initial Object References](#852-obtaining-initial-object-references).
+The **list_intial_services** and **resolve_initial_references** operations are described in [Obtaining Initial Object References](#obtaining-initial-object-references).
 
-The Type code creation operations with names of the form ```create_<type>_tc``` are described in [Creating TypeCodes](#8113-creating-typecodes).
+The Type code creation operations with names of the form ```create_<type>_tc``` are described in [Creating TypeCodes](#creating-typecodes).
 
-The **work_pending**, **perform_work**, **shutdown,** **destroy** and **run** operations are described in [Thread-Related Operations](#825-thread-related-operations).
+The **work_pending**, **perform_work**, **shutdown,** **destroy** and **run** operations are described in [Thread-Related Operations](#thread-related-operations).
 
-The **create_policy** operations is described in [Create_policy](#8823-create_policy).
+The **create_policy** operations is described in [Create_policy](#create_policy).
 
-The **register_value_factory**, **unregister_value_factory** and **lookup_value_factory** operations are described in [Language Specific Value Factory](#943-language-specific-value-factory-requirements) Requirements.
+The **register_value_factory**, **unregister_value_factory** and **lookup_value_factory** operations are described in [Language Specific Value Factory Requirements](#language-specific-value-factory-requirements).
 
-The **register_initial_reference** operation is described in [register_initial_reference](#16101-register_initial_reference).
+The **register_initial_reference** operation is described in [register_initial_reference](#register_initial_reference-1).
 
-### 8.2.1 ORB Identity
+### ORB Identity
 
-#### 8.2.1.1 id
+#### id
 
 ```
 ORBid id();
 ```
 
-The **id** operation returns the identity of the ORB. The returned **ORBid** is the string that was passed to **ORB_init** (see [ORB Initialization](#851-orb-initialization)) as the **orb_identifier** parameter when the ORB was created. If that was the empty string, the returned string is the value associated with the **-ORBid** tag in the **arg_list** parameter. Calling **id** on the default ORB returns the empty string.
+The **id** operation returns the identity of the ORB. The returned **ORBid** is the string that was passed to **ORB_init** (see [ORB Initialization](#orb-initialization)) as the **orb_identifier** parameter when the ORB was created. If that was the empty string, the returned string is the value associated with the **-ORBid** tag in the **arg_list** parameter. Calling **id** on the default ORB returns the empty string.
 
-### 8.2.2 Converting Object References to Strings
+### Converting Object References to Strings
 
-#### 8.2.2.1 object_to_string
+#### object_to_string
 
 ```
 string object_to_string (
@@ -880,7 +860,7 @@ in Object     obj
 );
 ```
 
-#### 8.2.2.2 string_to_object
+#### string_to_object
 
 ```
 Object string_to_object (
@@ -894,9 +874,9 @@ An object reference may be translated into a string by the operation **object_to
 
 To guarantee that an ORB will understand the string form of an object reference, that ORB’s **object_to_string** operation must be used to produce the string. For all conforming ORBs, if **obj** is a valid reference to an object, then **string_to_object(object_to_string(obj))** will return a valid reference to the same object, if the two operations are performed on the same ORB. For all conforming ORB’s supporting IOP, this remains true even if the two operations are performed on different ORBs.
 
-### 8.2.3 Getting Service Information
+### Getting Service Information
 
-#### 8.2.3.1 get_service_information
+#### get_service_information
 
 ```
 boolean get_service_information (
@@ -907,9 +887,9 @@ boolean get_service_information (
 
 The **get_service_information** operation is used to obtain information about CORBA facilities and services that are supported by this ORB. The service type for which information is being requested is passed in as the in parameter **service_type**, the values defined by constants in the **CORBA** module. If service information is available for that type, that is returned in the out parameter **service_information**, and the operation returns the value **TRUE**. If no information for the requested services type is available, the operation returns **FALSE** (i.e., the service is not supported by this ORB).
 
-### 8.2.4 Creating a New Context
+### Creating a New Context
 
-#### 8.2.4.1 get_default_context
+#### get_default_context
 
 ```
 void get_default_context(     // PIDL
@@ -919,13 +899,13 @@ out Context    ctx           // context object
 
 This operation creates a new empty Context object every time it is called. The operation is defined in the **ORB** interface.
 
-### 8.2.5 Thread-Related Operations
+### Thread-Related Operations
 
 To support single-threaded ORBs, as well as multi-threaded ORBs that run multi-thread-unaware code, several operations are included in the **ORB** interface. These operations can be used by single-threaded and multi-threaded applications. An application that is a pure ORB client would not need to use these operations. Both the **ORB::run** and **ORB::shutdown** are useful in fully multi-threaded programs.
 
 These operations are defined on the ORB rather than on an object adapter to allow the main thread to be used for all kinds of asynchronous processing by the ORB. Defining these operations on the ORB also allows the ORB to support multiple object adapters, without requiring the application main to know about all the object adapters. The interface between the ORB and an object adapter is not standardized.
 
-#### 8.2.5.1 work_pending
+#### work_pending
 
 ```
 boolean work_pending( );
@@ -935,7 +915,7 @@ This operation returns an indication of whether the ORB needs the main thread to
 
 A result of TRUE indicates that the ORB needs the main thread to perform some work and a result of FALSE indicates that the ORB does not need the main thread.
 
-#### 8.2.5.2 perform_work
+#### perform_work
 
 ```
 void perform_work();
@@ -962,7 +942,7 @@ Here is an example of such a polling loop:
 
 Once the ORB has shutdown, **work_pending** and **perform_work** will raise the BAD_INV_ORDER exception with minor code 4. An application can detect this exception to determine when to terminate a polling loop.
 
-#### 8.2.5.3 run
+#### run
 
 ```
 void run();
@@ -972,7 +952,7 @@ This operation provides execution resources to the ORB so that it can perform it
 
 This operation will block until the ORB has completed the shutdown process, initiated when some thread calls **shutdown**.
 
-#### 8.2.5.4 shutdown
+#### shutdown
 
 ```
 void shutdown(
@@ -994,13 +974,13 @@ If the **wait_for_completion** parameter is **TRUE**, this operation blocks unti
 
 If the **wait_for_completion** parameter is **FALSE**, then **shutdown** may not have completed upon return. An ORB implementation may require the application to call (or have a pending call to) **run** or **perform_work** after **shutdown** has been called with its parameter set to **FALSE**, in order to complete the shutdown process.
 
-Additionally in systems that have Portable Object Adapters (see Clause 14) **shutdown** behaves as if **POA::destroy** is called on the Root **POA** with its first parameter set to TRUE and the second parameter set to the value of the **wait_for_completion** parameter that **shutdown** is invoked with.
+Additionally in systems that have Portable Object Adapters (see (see [The Portable Object Adapter](#the-portable-object-adapter))) **shutdown** behaves as if **POA::destroy** is called on the Root **POA** with its first parameter set to TRUE and the second parameter set to the value of the **wait_for_completion** parameter that **shutdown** is invoked with.
 
 While the ORB is in the process of shutting down, the ORB operates as normal, servicing incoming and outgoing requests until all requests have been completed. An implementation may impose a time limit for requests to complete while a **shutdown** is pending.
 
 Once an ORB has shutdown, only object reference management operations(**duplicate**, **release** and **is_nil**) may be invoked on the ORB or any object reference obtained from it. An application may also invoke the destroy operation on the ORB itself. Invoking any other operation will raise the BAD_INV_ORDER system exception with the OMG minor code 4.
 
-#### 8.2.5.5 destroy
+#### destroy
 
 ```void destroy();```
 
@@ -1010,7 +990,7 @@ If **destroy** is called on an ORB that has not been shut down, it will start th
 
 For maximum portability and to avoid resource leaks, an application should always call **shutdown** and **destroy** on all ORB instances before exiting.
 
-## 8.3 Object Reference Operations
+## Object Reference Operations
 
 There are some operations that can be done on any object. These are not operations in the normal sense, in that they are implemented directly by the ORB, not passed on to the object implementation. We will describe these as being operations on the object reference, although the interfaces actually depend on the language binding. As above, where we used interface **Object** to represent the object reference, we define an interface for **Object**:
 
@@ -1107,9 +1087,9 @@ The **create_request** operation is part of the Object interface because it crea
 
 Unless otherwise stated below, the operations in the IDL above do not require access to remote information.
 
-### 8.3.1 Determining the Object Interface
+### Determining the Object Interface
 
-#### 8.3.1.1 get_interface
+#### get_interface
 
 ```InterfaceDef get_interface();```
 
@@ -1117,17 +1097,17 @@ Unless otherwise stated below, the operations in the IDL above do not require ac
 
 If the interface repository is not available, **get_interface** raises INTF_REPOS with standard minor code 1. If the interface repository does not contain an entry for the object's (most derived) interface, **get_interface** raises INTF_REPOS with standard minor code 2.
 
-#### 8.3.1.2 repository_id
+#### repository_id
 
-**repository_id** returns the repository ID of an object (see [Component Interface Repository Interfaces](#146-component-interface-repository-interfaces) for details of repository IDs). The implementation of this operation must contact the ORB that implements the target object.
+**repository_id** returns the repository ID of an object (see [Component Interface Repository Interfaces](#component-interface-repository-interfaces) for details of repository IDs). The implementation of this operation must contact the ORB that implements the target object.
 
-### 8.3.2 Duplicating and Releasing Copies of Object References
+### Duplicating and Releasing Copies of Object References
 
-#### 8.3.2.1 duplicate
+#### duplicate
 
 ```Object duplicate();```
 
-#### 8.3.2.2 release
+#### release
 
 ```void release();```
 
@@ -1137,17 +1117,17 @@ If more than one copy of an object reference is needed, the client may create a 
 
 When an object reference is no longer needed by a program, its storage may be reclaimed by use of the **release** operation. Note that the object implementation is not involved, and that neither the object itself nor any other references to it are affected by the **release** operation.
 
-### 8.3.3 Nil Object References
+### Nil Object References
 
-#### 8.3.3.1 is_nil
+#### is_nil
 
 ```boolean is_nil();```
 
 An object reference whose value is **OBJECT_NIL** denotes no object. An object reference can be tested for this value by the **is_nil** operation. The object implementation is not involved in the nil test.
 
-### 8.3.4 Equivalence Checking Operation
+### Equivalence Checking Operation
 
-#### 8.3.4.1 is_a
+#### is_a
 
 ```
 boolean is_a( 
@@ -1164,9 +1144,9 @@ This operation exposes to application programmers functionality that must alread
 
 This operation always returns **TRUE** for the **logical_type_id** **IDL:omg.org/CORBA/Object:1.0**
 
-### 8.3.5 Probing for Object Non-Existence
+### Probing for Object Non-Existence
 
-#### 8.3.5.1 non_existent
+#### non_existent
 
 ```boolean non_existent ();```
 
@@ -1176,13 +1156,13 @@ Services that maintain state that includes object references, such as bridges, e
 
 Probing for object non-existence may require contacting the ORB that implements the target object. Such an attempt may fail at either the local or the remote end. If non-existent cannot make a reliable determination of object existence due to failure, it raises an exception in the calling application code. This enables the application to distinguish among the true, false, and indeterminate cases.
 
-### 8.3.6 Object Reference Identity
+### Object Reference Identity
 
 In order to efficiently manage state that include large numbers of object references, services need to support a notion of object reference identity. Such services include not just bridges, but relationship services and other layered facilities.
 
 Two identity-related operations are provided. One maps object references into disjoint groups of potentially equivalent references, and the other supports more expensive pairwise equivalence testing. Together, these operations support efficient maintenance and search of tables keyed by object references.
 
-#### 8.3.6.1 Hashing Object Identifiers
+#### Hashing Object Identifiers
 
 *hash*
 
@@ -1200,7 +1180,7 @@ The **maximum** parameter to the **hash** operation specifies an upper bound on 
 
 For bridge construction, note that proxy objects are themselves objects, so there could be many proxy objects representing a given “real” object. Those proxies would not necessarily hash to the same value.
 
-#### 8.3.6.2 Equivalence Testing
+#### Equivalence Testing
 
 *is_equivalent*
 
@@ -1218,17 +1198,17 @@ ORBs are allowed, but not required, to attempt determination of whether two dist
 
 A typical application use of this operation is to match object references in a hash table. Bridges could use it to shorten the lengths of chains of proxy object references. Externalization services could use it to “flatten” graphs that represent cyclical relationships between objects. Some might do this as they construct the table, others during idle time.
 
-### 8.3.7 Type Coercion Considerations
+### Type Coercion Considerations
 
 Many programming languages map **Object** to programming constructs that support inheritance. Mappings to languages (such as C++ and Java) typically provide a mechanism for narrowing (down-casting) an object reference from a base interface to a more derived interface. To do such down-casting in a type safe way, knowledge of the full inheritance hierarchy of the target interface may be required. The implementation of down-cast must either contact an interface repository or the target itself, to determine whether or not it is safe to down-cast the client’s object reference. This requirement is not acceptable when a client is expecting only asynchronous communication with the target. Therefore, for the appropriate languages an unchecked down-cast operation (also referred to as unchecked narrow operation) shall be provided in the mapping of Object. This unchecked narrow always returns a stub of the requested type without checking that the target really implements that interface.
 
-### 8.3.8 Getting Policy Associated with the Object
+### Getting Policy Associated with the Object
 
-#### 8.3.8.1 get_policy
+#### get_policy
 
-The get_policy operation returns the policy object of the specified type (see [Policy Object](#88-policy-object)), which applies to this object. It returns the *effective* **Policy** for the object reference. The effective **Policy** is the one that would be used if a request were made.
+The get_policy operation returns the policy object of the specified type (see [Policy Object](#policy-object)), which applies to this object. It returns the *effective* **Policy** for the object reference. The effective **Policy** is the one that would be used if a request were made.
 
-This **Policy** is determined first by obtaining the effective override for the **PolicyType** as returned by **get_client_policy**. The effective override is then compared with the **Policy** as specified in the **IOR**. The effective **Policy** is determined by reconciling the effective override and the **IOR**-specified **Policy** (see [Server Side Policy Management](#892-server-side-policy-management). If the two policies cannot be reconciled, the standard system exception INV_POLICY is raised with standard minor code 1. The absence of a **Policy** value in the **IOR** implies that any legal value may be used.
+This **Policy** is determined first by obtaining the effective override for the **PolicyType** as returned by **get_client_policy**. The effective override is then compared with the **Policy** as specified in the **IOR**. The effective **Policy** is determined by reconciling the effective override and the **IOR**-specified **Policy** (see [Server Side Policy Management](#server-side-policy-management). If the two policies cannot be reconciled, the standard system exception INV_POLICY is raised with standard minor code 1. The absence of a **Policy** value in the **IOR** implies that any legal value may be used.
 
 Invoking **non_existent** on an object reference prior to **get_policy** ensures the accuracy of the returned effective **Policy**. If **get_policy** is invoked prior to the object reference being bound, a compliant implementation shall attempt a binding and then return the effective **Policy**. If the binding attempt fails it shall pass through the system exception returned from the binding attempt. Note that if the effective **Policy** may change from invocation to invocation due to transparent rebinding.
 
@@ -1256,7 +1236,7 @@ Raised when the value of policy type is not valid either because the specified t
 
 The implementation of this operation may involve remote invocation of an operation (e.g., ***DomainManager::get_domain_policy*** for some security policies) for some policy types.
 
-#### 8.3.8.2 get_client_policy
+#### get_client_policy
 
 ```
 Policy get_client_policy(
@@ -1266,7 +1246,7 @@ Policy get_client_policy(
 
 Returns the ***effective overriding*** Policy for the object reference. The effective override is obtained by first checking for an override of the given PolicyType at the Object scope, then at the Current scope, and finally at the ORB scope. If no override is present for the requested PolicyType, a system-dependent default value for that Policy Type may be returned. A nil Policy reference may also be returned to indicate that there is no default for the policy. Portable applications are expected to set the desired “defaults” at the ORB scope since default Policy values are not specified.
 
-#### 8.3.8.3 get_policy_overrides
+#### get_policy_overrides
 
 ```
 PolicyList get_policy_overrides(
@@ -1276,9 +1256,9 @@ in PolicyTypeSeq   types
 
 Returns the list of Policy overrides (of the specified policy types) set at the Object scope. If the specified sequence is empty, all Policy overrides at this scope will be returned. If none of the requested PolicyTypes are overridden at the Object scope, an empty sequence is returned.
 
-### 8.3.9 Overriding Associated Policies on an Object Reference
+### Overriding Associated Policies on an Object Reference
 
-#### 8.3.9.1 set_policy_overrides
+#### set_policy_overrides
 
 The **set_policy_overrides** operation returns a new object reference with the new policies associated with it. It takes two input parameters. The first parameter **policies** is a sequence of references to **Policy** objects. The second parameter **set_add** of type **SetOverrideType** indicates whether these policies should be added onto any other overrides that already exist (**ADD_OVERRIDE**) in the object reference, or they should be added to a clean override free object reference (**SET_OVERRIDE**). This operation associates the policies passed in the first parameter with a newly created object reference that it returns. Only certain policies that pertain to the invocation of an operation at the client end can be overridden using this operation. Attempts to override any other policy will result in the raising of the CORBA::NO_PERMISSION exception.
 
@@ -1311,9 +1291,9 @@ A copy of the object reference with the overrides from **policies** associated w
 
   Raised when an attempt is made to override any policy that cannot be overridden.
 
-### 8.3.10 Validating Connection
+### Validating Connection
 
-#### 8.3.10.1 validate_connection
+#### validate_connection
 
 ```
 boolean validate_connection(
@@ -1328,11 +1308,11 @@ If the RoutingPolicy **ROUTE_FORWARD** or **ROUTE_STORE_AND_FORWARD** are in eff
 
 Returns the value FALSE if the current effective policies would cause an invocation to raise the standard system exception INV_POLICY. If the current effective policies are incompatible, the out parameter inconsistent_policies contains those policies causing the incompatibility. This returned list of policies is not guaranteed to be exhaustive. If the binding fails due to some reason unrelated to policy overrides, the appropriate standard system exception is raised.
 
-### 8.3.11 Getting the Domain Managers Associated with the Object
+### Getting the Domain Managers Associated with the Object
 
-#### 8.3.11.1 get_domain_managers
+#### get_domain_managers
 
-**The get_domain_managers** operation allows administration services (and applications) to retrieve the domain managers (see [Management of Policies](#89-management-of-policies)), and hence the security and other policies applicable to individual objects that are members of the domain.
+**The get_domain_managers** operation allows administration services (and applications) to retrieve the domain managers (see [Management of Policies](#management-of-policies)), and hence the security and other policies applicable to individual objects that are members of the domain.
 
 ```
 typedef sequence <DomainManager> DomainManagersList;
@@ -1346,23 +1326,23 @@ The list of immediately enclosing domain managers of this object. At least one d
 
 The implementation of this operation may involve contacting the ORB that implements the target object.
 
-### 8.3.12 Getting Component Associated with the Object
+### Getting Component Associated with the Object
 
-#### 8.3.12.1 get_component
+#### get_component
 
 ```Object get_component ();```
 
 If the target object reference is itself a component reference (i.e., it denotes the component itself), the **get_component** operation returns the same reference (or another equivalent reference). If the target object reference is a facet reference the **get_component** operation returns an object reference for the component. If the target reference is neither a component reference nor a provided reference, **get_component** returns a nil reference.
 
-### 8.3.13 Getting the ORB
+### Getting the ORB
 
-**8.3.13.1 get_orb**
+#### get_orb
 
 ```ORB get_orb();```
 
 This operation returns the local ORB that is handling this particular Object Reference.
 
-### 8.3.14 LocalObject Operations
+### LocalObject Operations
 
 Local interfaces are implemented by using **CORBA::LocalObject**, which derives from **CORBA::Object** and provides implementations of Object pseudo operations and any other ORB specific support mechanisms that are appropriate for such objects. Object implementation techniques are inherently language mapping specific. Therefore, the **LocalObject** type is not defined in IDL, but is specified by each language mapping.
 
@@ -1391,7 +1371,7 @@ Local interfaces are implemented by using **CORBA::LocalObject**, which derives 
 - Local objects have no inherent identities beyond their implementations’ identities as programming objects. The lifecycle of the implementation is the same as the lifecycle of the reference.
 - Instances of local objects defined as part of OMG specifications to be supplied by ORB products or object service products shall be exposed through the **ORB::resolve_initial_references** operation or through some other local object obtained from **resolve_initial_references**.
 
-## 8.4 ValueBase Operations
+## ValueBase Operations
 
 **ValueBase** serves a similar role for value types that **Object** serves for interfaces. Its mapping is language-specific and must be explicitly specified for each language.
 
@@ -1407,9 +1387,9 @@ module CORBA {
 };
 ```
 
-The **get_value_def()** operation returns a description of the value’s definition as described in the interface repository (see [ValueDef](#14531-valuedef)).
+The **get_value_def()** operation returns a description of the value’s definition as described in the interface repository (see [ValueDef](#valuedef)).
 
-## 8.5 ORB and OA Initialization and Initial References
+## ORB and OA Initialization and Initial References
 
 Before an application can enter the CORBA environment, it must first:
 
@@ -1418,11 +1398,11 @@ Before an application can enter the CORBA environment, it must first:
 
     The following operations are provided to initialize applications and obtain the appropriate object references:
 
-- Operations providing access to the ORB. These operations reside in the CORBA module, but not in the ORB interface and are described in [ORB Initialization](#851-orb-initialization).
+- Operations providing access to the ORB. These operations reside in the CORBA module, but not in the ORB interface and are described in [ORB Initialization](#orb-initialization).
 
-- Operations providing access to Object Adapters, Interface Repository, Naming Service, and other Object Services. These operations reside in the ORB interface and are described in [Obtaining Initial Object References](#852-obtaining-initial-object-references).
+- Operations providing access to Object Adapters, Interface Repository, Naming Service, and other Object Services. These operations reside in the ORB interface and are described in [Obtaining Initial Object References](#obtaining-initial-object-references).
 
-### 8.5.1 ORB Initialization
+### ORB Initialization
 
 When an application requires a CORBA environment it needs a mechanism to get the ORB pseudo-object reference and possibly an OA object reference (such as the root POA). This serves two purposes. First, it initializes an application into the ORB and OA environments. Second, it returns the ORB pseudo-object reference and the OA object reference to the application for use in future ORB and OA operations.
 
@@ -1465,7 +1445,7 @@ The **ORB_init** operation may be called any number of times and shall return th
 
 **NOTE:** Whenever an **ORB_init** argument of the form **-ORBxxx** is specified, it is understood that the argument may be represented in different ways in different languages. For example, in Java **-ORBxxx** is equivalent to a property named **org.omg.CORBA.ORBxxx**.
 
-#### 8.5.1.1 Server ID
+#### Server ID
 
 A Server ID must uniquely identify a server to an IMR. This specification only requires unique identification using a string of some kind. We do not intend to make more specific requirements for the structure of a server ID.
 
@@ -1479,7 +1459,7 @@ It is required that all ORBs in the same server share the same server ID. Specif
 
 For example, the **org.omg.CORBA.ServerId** system property may be set to the server ID in Java when a Java server is activated. This system property is then picked up as part of the **ORB_init** call for every **ORB** created in the server.
 
-#### 8.5.1.2 Server Endpoint
+#### Server Endpoint
 
 The server endpoint information is passed into **ORB_init** by an argument of the form
 
@@ -1487,7 +1467,7 @@ The server endpoint information is passed into **ORB_init** by an argument of th
 
 The format of the ```<endpoints>``` argument is proprietary. All that is required by this specification is that each time **ORB_init** is called with the same value for this argument, the resulting **ORB** will listen for requests on the same set of endpoints, so that persistent object references for the **ORB** will continue to function correctly.
 
-#### 8.5.1.3 Starting Servers with No Proprietary Server Activation Support
+#### Starting Servers with No Proprietary Server Activation Support
 
 Any server started with the flag:
 
@@ -1495,7 +1475,7 @@ Any server started with the flag:
 
 shall avoid the use of any proprietary activation framework.
 
-### 8.5.2 Obtaining Initial Object References
+### Obtaining Initial Object References
 
 Applications require a portable means by which to obtain their initial object references. References are required for the root POA, POA Current, Interface Repository and various Object Services instances. (The POA is described in the Portable Object Adapter clause; the Interface Repository is described in the Interface Repository clause; Object Services are described in the individual service specifications.) The functionality required by the application is similar to that provided by the Naming Service. However, the OMG does not want to mandate that the Naming Service be made available to all applications in order that they may be portably initialized. Consequently, the operations shown in this sub clause provide a simplified, local version of the Naming Service that applications can use to obtain a small, defined set of object references that are essential to its operation. Because only a small well-defined set of objects are expected with this mechanism, the naming context can be flattened to be a single-level name space. This simplification results in only two operations being defined to achieve the functionality required.
 
@@ -1529,24 +1509,25 @@ The **resolve_initial_references** operation is an operation on the ORB rather t
 
 Currently, reserved **ObjectIds** are **RootPOA**, **POACurrent**, **InterfaceRepository, NameService**, **TradingService**,
 **SecurityCurrent**, **TransactionCurrent, DynAnyFactory, ORBPolicyManager, PolicyCurrent,**
-**NotificationService, TypedNotificationService, CodecFactory, PICurrent, ComponentHomeFinder** and **PSS**. **Table 8.1- ObjectIds for resolve_initial_references**
+**NotificationService, TypedNotificationService, CodecFactory, PICurrent, ComponentHomeFinder** and **PSS**.
 
+###### Table: ObjectIds for resolve_initial_references
 | **ObjectId**| **Type of Object Reference**| **Reference**|
 |----------------|-----------------|----------------------|
-| RootPOA| PortableServer::POA| [POA Interface](#1539-poa-interface).|
-| POACurrent| PortableServer::Current| [POA Interface](#1539-poa-interface).|
+| RootPOA| PortableServer::POA| [POA Interface](#poa-interface).|
+| POACurrent| PortableServer::Current| [POA Interface](#poa-interface).|
 | InterfaceRepository | CORBA::Repository CORBA::ComponentIR::Repository   | Repository  and ComponentIR::Repository.|
 | NameService| CosNaming:: NamingContext| Naming Service specification  (formal/00-06-19), the CosNaming  Module sub clause.|
 | TradingService      | CosTrading::Lookup| Trading Object Service specification (formal/00-06-27), the Functional Interfaces sub clause.       |
 | SecurityCurrent     | SecurityLevel1::Current or SecurityLevel2::Current | Security Service specification (formal/00-06-25), the Security  Operations on Current sub clause.   |
 | TransactionCurrent  | CosTransaction::Current| Transaction Service specification (formal/00-06-28), the Transaction Service Interfaces sub clause. |
-| DynAnyFactory| DynamicAny:: DynAnyFactory| see [Creating a DynAnyObject](#1321-creating-a-dynany-object).|
-| ORBPolicyManager| CORBA::PolicyManager|see [Policy Management Interfaces](#893-policy-management-interfaces).|
-| PolicyCurrent| CORBA::PolicyCurrent|see [Policy Management Interfaces](#893-policy-management-interfaces).|
+| DynAnyFactory| DynamicAny:: DynAnyFactory| see [Creating a DynAny Object](#creating-a-dynany-object).|
+| ORBPolicyManager| CORBA::PolicyManager|see [Policy Management Interfaces](#policy-management-interfaces).|
+| PolicyCurrent| CORBA::PolicyCurrent|see [Policy Management Interfaces](#policy-management-interfaces).|
 | NotificationService| CosNotifyChannelAdmin:: EventChannelFactory| Notification Service specification  (formal/00-06-20)|
 | TypedNotificationService | CosTypedNotifyChannelAdmin::Typed EventChannelFactory | Notification Service specification  (formal/00-06-20)|
 | CodecFactory| IOP::CodecFactory| See *Part 2 of this International Standard,* Architecture clause.  |
-| PICurrent| PortableInterceptors::Current|see [Portable Interceptor Current Interface](#1653-portable-interceptor-current-interface).|
+| PICurrent| PortableInterceptors::Current|see [Portable Interceptor Current Interface](#portable-interceptor-current-interface).|
 | ComponentHomeFinder| Components::HomeFinder| Components specification (formal/02-06-65).|
 | PSS| CosPersistentState::ConnectorRegistry| *Persistent State* specification (formal/02-09-06).|
 
@@ -1558,15 +1539,15 @@ The application is responsible for narrowing the object reference returned from 
 
 Specifications for Object Services (see individual service specifications) state whether it is expected that a service’s initial reference be made available via the **resolve_initial_references** operation or not; that is, whether the service is necessary or desirable for bootstrap purposes.
 
-### 8.5.3 Configuring Initial Service References
+### Configuring Initial Service References
 
-#### 8.5.3.1 ORB-specific Configuration
+#### ORB-specific Configuration
 
 It is required that an ORB can be administratively configured to return an arbitrary object reference from **CORBA::ORB::resolve_initial_references** for non-locality-constrained objects.
 
 In addition to this required implementation-specific configuration, two **CORBA::ORB_init** arguments are provided to override the ORB initial reference configuration.
 
-#### 8.5.3.2 ORBInitRef
+#### ORBInitRef
 
 The ORB initial reference argument, **-ORBInitRef**, allows specification of an arbitrary object reference for an initial service. The format is:
 
@@ -1588,7 +1569,7 @@ Examples of use are:
 
 ```<ObjectURL>``` can be any of the URL schemes supported by **CORBA::ORB::string_to_object** (ISO/IEC 19500-2 , Clause 7, ORB Interoperability Architecture - 7.6.1, Object URLs), with the exception of the corbaloc URL scheme with the rir protocol (i.e., corbaloc:rir...). If a URL is syntactically malformed or can be determined to be invalid in an implementation defined manner, **ORB_init** raises a **BAD_PARAM** exception.
 
-#### 8.5.3.3 ORBDefaultInitRef
+#### ORBDefaultInitRef
 
 The ORB default initial reference argument, **-ORBDefaultInitRef**, assists in resolution of initial references not explicitly specified with **-ORBInitRef**. **-ORBDefaultInitRef** requires a URL that, after appending a slash ‘/’ character and a stringified object key, forms a new URL to identify an initial object reference. For example:
 
@@ -1619,7 +1600,7 @@ is used to obtain an object reference from **string_to_object**. (In this exampl
 
 See *Part 2 of this International Standard* for details of the **corbaloc** and **corbaname** URL schemes. The **-ORBDefaultInitRef** argument naturally extends to URL schemes that may be defined in the future, provided the final part of the URL is an object key.
 
-#### 8.5.3.4 Configuration Effect on resolve_initial_references
+#### Configuration Effect on resolve_initial_references
 
 *Default Resolution Order*
 
@@ -1636,15 +1617,15 @@ There are cases where the default resolution order may not be appropriate for al
 
 **-ORBDefaultInitRef** may have unintended resolution side effects. For example, an ORB may use a proprietary service, such as **ImplementationRepository**, for internal purposes and may want to prevent a client from unknowingly diverting the ORB’s reference to an implementation repository from another vendor. To prevent this, an ORB is allowed to ignore the **-ORBDefaultInitRef** argument for any or all ```<ObjectID>```s for those services that are not OMG-specified services with a well-known service name as accepted by **resolve_initial_references**. An ORB can only ignore the **-ORBDefaultInitRef** argument but must always honor the **-ORBInitRef** argument.
 
-#### 8.5.3.5 Configuration Effect on list_initial_services
+#### Configuration Effect on list_initial_services
 
 The ```<ObjectID>```s of all **-ORBInitRef argument**s to **ORB_init** appear in the list of tokens returned by **list_initial_services** as well as all ORB-configured ```<ObjectID>```s. Any other tokens that may appear are implementation-dependent.
 
 The list of ```<ObjectID>```s returned by **list_initial_services** can be a subset of the ```<ObjectID>```s recognized as valid by **resolve_initial_references**.
 
-## 8.6 Context Object
+## Context Object
 
-### 8.6.1 Introduction
+### Introduction
 
 A context object contains a list of properties, each consisting of a name and a string value associated with that name. By convention, context properties represent information about the client, environment, or circumstances of a request that are passed as a single parameter representing that collection of information.
 
@@ -1660,7 +1641,7 @@ interface Example {
 
 This context clause specifies that the “USER” property is to be made available to the server, as well as all properties with names beginning with “X.” Note that there is no obligation on the client to actually pass values for these properties at run time; if the client omits one or more properties, the call proceeds normally and the operation implementation simply will not be able to retrieve the corresponding property values.
 
-Property names are non-empty strings that cannot contain the character ```‘*’``` - there are no other syntactic restrictions on property names. Property names that differ only in case are distinct names, so the following is a legal context clause that transmits two distinct properties:
+Property names are non-empty strings that cannot contain the character ```'*'``` - there are no other syntactic restrictions on property names. Property names that differ only in case are distinct names, so the following is a legal context clause that transmits two distinct properties:
 
 ```
 interface Example2 {
@@ -1672,7 +1653,7 @@ interface Example2 {
 
 Property values are modified and accessed via the **Context** interface. A **Context** object represents a collection of property values. **Context** objects may be connected into hierarchies; properties defined in child **Context** objects lower in the hierarchy override properties in parent **Context** objects higher in the hierarchy.
 
-### 8.6.2 Context Object Operations
+### Context Object Operations
 
 Properties are represented as named value lists.
 
@@ -1706,7 +1687,7 @@ void delete(
 };
 ```
 
-#### 8.6.2.1 set_one_value
+#### set_one_value
 
 ```
 void set_one_value(
@@ -1715,9 +1696,9 @@ void set_one_value(
 );
 ```
 
-This operation sets a single context object property. If **prop_name** is the empty string or contains the character ```‘*,’``` the operation raises BAD_PARAM with minor code 35.
+This operation sets a single context object property. If **prop_name** is the empty string or contains the character ```'*,'``` the operation raises BAD_PARAM with minor code 35.
 
-#### 8.6.2.2 set_values
+#### set_values
 
 ```
 void set_values(
@@ -1729,11 +1710,11 @@ This operation sets one or more property values in its context object. If a prop
 
 The **flags** field of each passed **NVList** element must be zero. A non-zero flag in any of the **NVList** elements raises **INV_FLAGS**.
 
-The property name of each **NVList** element must be a non-empty string not containing the character ```‘*’```. Otherwise the operation raises BAD_PARAM with minor code 35.
+The property name of each **NVList** element must be a non-empty string not containing the character ```'*'```. Otherwise the operation raises BAD_PARAM with minor code 35.
 
 The value of each property of the passed **NVList** must be a (possibly empty) unbounded string. Property values other than unbounded strings raise BAD_TYPECODE with minor code 3.
 
-#### 8.6.2.3 get_values
+#### get_values
 
 ```
 void get_values(
@@ -1746,15 +1727,15 @@ void get_values(
 
 This operation returns an **NVList** with those properties that match the **prop_name** parameter. Legal values for **prop_name** are:
 
-- A non-empty string that does not contain the character ```‘*.’```
+- A non-empty string that does not contain the character ```'*.'```
 
 In this case, the **values** parameter returns the property with the name specified by **prop_name**.
 
-- A string beginning with one or more characters other than ```‘*,’``` followed by a single ```‘*’``` at the end, such as ```“XYZ*.”```
+- A string beginning with one or more characters other than ```'*,'``` followed by a single ```'*'``` at the end, such as ```"XYZ*."```
 
 In this case, the **values** parameter contains the properties that have names beginning with “XYZ” (such as “XYZABC” or “XYZ”).
 
-If **prop_name** is the empty string, the string ```“*,”``` contains more than one ```‘*’``` character, or contains a ```‘*’``` anywhere but at the end of the string, the operation raises **BAD_PARAM** with minor code 36.
+If **prop_name** is the empty string, the string ```"*,"``` contains more than one ```'*'``` character, or contains a ```'*'``` anywhere but at the end of the string, the operation raises **BAD_PARAM** with minor code 36.
 
 The **start_scope** parameter controls the **context** object level at which to initiate the search for the specified properties as follows:
 
@@ -1773,7 +1754,7 @@ If no starting **context** object can be found, the operation raises **BAD_CONTE
 
 In either case, if no property matches **prop_name**, the operation raises **BAD_CONTEXT** with minor code 2.
 
-#### 8.6.2.4 delete_values
+#### delete_values
 
 ```
 void delete_values(
@@ -1781,13 +1762,13 @@ void delete_values(
 );
 ```
 
-This operation deletes the properties that match **prop_name**. **prop_name** may have a trailing ```‘*’``` character, in which case all properties whose name matches the specified prefix are deleted.
+This operation deletes the properties that match **prop_name**. **prop_name** may have a trailing ```'*'``` character, in which case all properties whose name matches the specified prefix are deleted.
 
-If **prop_name** is the empty string, the string ```"*"```, contains more than one ```‘*’``` character, or contains a ```‘*’``` anywhere but at the end of the string, the operation raises **BAD_PARAM** with minor code 36. The operation only affects the context object on which it is invoked (that is, parent contexts are never affected by **delete_values**).
+If **prop_name** is the empty string, the string ```"*"```, contains more than one ```'*'``` character, or contains a ```'*'``` anywhere but at the end of the string, the operation raises **BAD_PARAM** with minor code 36. The operation only affects the context object on which it is invoked (that is, parent contexts are never affected by **delete_values**).
 
 If no property name matches **prop_name**, the operation raises **BAD_CONTEXT** with minor code 2.
 
-#### 8.6.2.5 create_child
+#### create_child
 
 ```
 void create_child(
@@ -1798,7 +1779,7 @@ void create_child(
 
 This operation creates an empty child context object. The child context has the name **ctx_name**. **ctx_name** may not be the empty string or “RootContext;” otherwise, the operation raises **BAD_PARAM** with minor code 37. Calling **create_child** more than once with the same name on the same parent context is legal and results in the creation of a new, empty child context for each call.
 
-#### 8.6.2.6 delete
+#### delete
 
 ```
 void delete(
@@ -1813,7 +1794,7 @@ This operation deletes the context object on which it is invoked:
 
     If **del_flags** has a value other than zero or **CTX_DELETE_DESCENDANTS**, the operation raises **INV_FLAGS**.
 
-## 8.7 Current Object
+## Current Object
 
 ORB and CORBA services may wish to provide access to information (context) associated with the thread of execution in which they are running. This information is accessed in a structured manner using interfaces derived from the **Current** interface defined in the **CORBA** module.
 
@@ -1821,7 +1802,7 @@ Each ORB or CORBA service that needs its own context derives an interface from t
 
 **ORB::resolve_initial_references**. For example the Security service obtains the **Current** relevant to it by invoking.
 
-```ORB::resolve_initial_references(“SecurityCurrent”)```
+```ORB::resolve_initial_references("SecurityCurrent")```
 
 A CORBA service does not have to use this method of keeping context but may choose to do so.
 
@@ -1837,9 +1818,9 @@ Operations on interfaces derived from **Current** access state associated with t
 
 **Current** objects must not be exported to other processes, or externalized with **ORB::object_to_string**. If any attempt is made to do so, the offending operation will raise a MARSHAL system exception. **Current**s are per-process singleton objects, so no destroy operation is needed.
 
-## 8.8 Policy Object
+## Policy Object
 
-### 8.8.1 Definition of Policy Object
+### Definition of Policy Object
 
 An ORB or CORBA service may choose to allow access to certain choices that affect its operation. This information is accessed in a structured manner using interfaces derived from the **Policy** interface defined in the **CORBA** module. A CORBA service does not have to use this method of accessing operating options, but may choose to do so. The *Security Service* in particular uses this technique for associating *Security Policy* with objects in the system.
 
@@ -1861,11 +1842,11 @@ typedef sequence <PolicyType> PolicyTypeSeq;
 
 **PolicyType** defines the type of **Policy** object. In general the constant values that are allocated are defined in conjunction with the definition of the corresponding **Policy** object. The values of **PolicyTypes** for policies that are standardized by OMG are allocated by OMG. Additionally, vendors may reserve blocks of 4096 PolicyType values identified by a 20 bit *Vendor PolicyType Valueset ID* (**VPVID**) for their own use.
 
-**PolicyType** which is an unsigned long consists of the 20-bit **VPVID** in the high order 20 bits, and the vendor assigned policy value in the low order 12 bits. The **VPVID**s *0 through \xf* are reserved for OMG. All values for the standard **PolicyTypes** are allocated within this range by OMG. Additionally, the **VPVID**s *\xfffff* is reserved for experimental use and **OMGVMCID** (8.12.3, ’Standard System Exception Definitions’) is reserved for OMG use. These will not be allocated to anybody. Vendors can request allocation of **VPVID** by sending mail to tag-*<request@omg.org>*.
+**PolicyType** which is an unsigned long consists of the 20-bit **VPVID** in the high order 20 bits, and the vendor assigned policy value in the low order 12 bits. The **VPVID**s *0 through \\xf* are reserved for OMG. All values for the standard **PolicyTypes** are allocated within this range by OMG. Additionally, the **VPVID**s *\\xfffff* is reserved for experimental use and **OMGVMCID** ([Standard System Exception Definitions](#standard-system-exception-definitions)) is reserved for OMG use. These will not be allocated to anybody. Vendors can request allocation of **VPVID** by sending mail to tag-*<request@omg.org>*.
 
-When a **VMCID** ([Exceptions](#812-exceptions)) is allocated to a vendor automatically the same value of **VPVID** is reserved for the vendor and vice versa. So once a vendor gets either a **VMCID** or a **VPVID** registered they can use that value for both their minor codes and their policy types.
+When a **VMCID** ([Exceptions](#exceptions)) is allocated to a vendor automatically the same value of **VPVID** is reserved for the vendor and vice versa. So once a vendor gets either a **VMCID** or a **VPVID** registered they can use that value for both their minor codes and their policy types.
 
-#### 8.8.1.1 Copy
+#### Copy
 
 ```Policy copy();```
 
@@ -1873,7 +1854,7 @@ When a **VMCID** ([Exceptions](#812-exceptions)) is allocated to a vendor automa
 
 This operation copies the policy object. The copy does not retain any relationships that the policy had with any domain, or object.
 
-#### 8.8.1.2 Destroy
+#### Destroy
 
 ```void destroy();```
 
@@ -1884,7 +1865,7 @@ This operation destroys the policy object. It is the responsibility of the polic
 - CORBA::NO_PERMISSION
  Raised when the policy object determines that it cannot be destroyed.
 
-#### 8.8.1.3 Policy_type
+#### Policy_type
 
 ```readonly attribute policy_type```
 
@@ -1892,7 +1873,7 @@ This operation destroys the policy object. It is the responsibility of the polic
 
 This readonly attribute returns the constant value of type **PolicyType** that corresponds to the type of the **Policy** object.
 
-### 8.8.2 Creation of Policy Objects
+### Creation of Policy Objects
 
 A generic ORB operation for creating new instances of Policy objects is provided as described in this sub clause.
 
@@ -1920,7 +1901,7 @@ Policy create_policy(
 };
 ```
 
-#### 8.8.2.1 PolicyErrorCode
+#### PolicyErrorCode
 
 A request to create a **Policy** may be invalid for the following reasons:
 
@@ -1930,15 +1911,15 @@ A request to create a **Policy** may be invalid for the following reasons:
 - BAD_POLICY_VALUE - The value requested for the **Policy** is of a valid type but is not within the valid range for that type.
 - UNSUPPORTED_POLICY_VALUE - The value requested for the **Policy** is of a valid type and within the valid range for that type, but this valid value is not currently supported.
 
-#### 8.8.2.2 PolicyError
+#### PolicyError
 
 ```exception PolicyError {PolicyErrorCode reason;};```
 
 PolicyError exception is raised to indicate problems with parameter values passed to the **ORB::create_policy** operation. Possible reasons are described above.
 
-#### 8.8.2.3 Create_policy
+#### Create_policy
 
-The ORB operation **create_policy** can be invoked to create new instances of policy objects of a specific type with specified initial state. If **create_policy** fails to instantiate a new **Policy** object due to its inability to interpret the requested type and content of the policy, it raises the PolicyError exception with the appropriate reason as described in [PolicyErrorCode](#8821-policyerrorcode).
+The ORB operation **create_policy** can be invoked to create new instances of policy objects of a specific type with specified initial state. If **create_policy** fails to instantiate a new **Policy** object due to its inability to interpret the requested type and content of the policy, it raises the PolicyError exception with the appropriate reason as described in [PolicyErrorCode](#policyerrorcode).
 
 ```
  Policy create_policy(
@@ -1969,7 +1950,7 @@ Raised when the requested policy is not supported or a requested initial state f
 
 When new policy types are added to CORBA or CORBA Services specification, it is expected that the IDL type and the valid values that can be passed to **create_policy** also be specified.
 
-### 8.8.3 Usages of Policy Objects
+### Usages of Policy Objects
 
 Policy Objects are used in general to encapsulate information about a specific policy, with an interface derived from the policy interface. The type of the Policy object determines how the policy information contained within it is used. Usually a Policy object is associated with another object to associate the contained policy with that object.
 
@@ -1979,9 +1960,9 @@ These relationships are documented in sub clauses that pertain to these individu
 
 In the following sub clause the association of Policy objects with the Execution Environment is discussed. In Management of Policies the use of Policy objects in association with Domain Managers is discussed.
 
-### 8.8.4 Policy Associated with the Execution Environment
+### Policy Associated with the Execution Environment
 
-Certain policies that pertain to services like security (e.g., QOP, Mechanism, invocation credentials, etc.) are associated by default with the process/capsule(RM-ODP)/ORB instance (hereinafter referred to as “capsule”) when the application is instantiated together with the capsule. By default these policies are applicable whenever an invocation of an operation is attempted by any code executing in the said capsule. The Security service provides operations for modulating these policies on a per-execution thread basis using operations in the **Current** interface. Certain of these policies (e.g., invocation credentials, qop, mechanism, etc.) which pertain to the invocation of an operation through a specific object reference can be further modulated at the client end, using the **set_policy_overrides** operation of the **Object** reference. For a description of this operation see [Overriding Associated Policies](#839-overriding-associated-policies-on-an-object-reference) on an Object Reference. It associates a specified set of policies with a newly created object reference that it returns.
+Certain policies that pertain to services like security (e.g., QOP, Mechanism, invocation credentials, etc.) are associated by default with the process/capsule(RM-ODP)/ORB instance (hereinafter referred to as “capsule”) when the application is instantiated together with the capsule. By default these policies are applicable whenever an invocation of an operation is attempted by any code executing in the said capsule. The Security service provides operations for modulating these policies on a per-execution thread basis using operations in the **Current** interface. Certain of these policies (e.g., invocation credentials, qop, mechanism, etc.) which pertain to the invocation of an operation through a specific object reference can be further modulated at the client end, using the **set_policy_overrides** operation of the **Object** reference. For a description of this operation see [Overriding Associated Policies on an Object Reference](#overriding-associated-policies-on-an-object-reference). It associates a specified set of policies with a newly created object reference that it returns.
 
 The association of these overridden policies with the object reference is a purely local phenomenon. These associations are never passed on in any IOR or any other marshaled form of the object reference. the associations last until the object reference in the capsule is destroyed or the capsule in which it exists is destroyed.
 
@@ -1989,7 +1970,7 @@ The policies thus overridden in this new object reference and all subsequent dup
 
 In general the policy of a specific type that will be used in an invocation through a specific object reference using a specific thread of execution is determined first by determining if that policy type has been overridden in that object reference. if so then the overridden policy is used. if not then if the policy has been set in the thread of execution then that policy is used. If not, then the policy associated with the capsule is used. For policies that matter, the ORB ensures that there is a default policy object of each type that matters associated with each capsule (ORB instance). Hence, in a correctly implemented ORB there is no case when a required type policy is not available to use with an operation invocation.
 
-### 8.8.5 Specification of New Policy Objects
+### Specification of New Policy Objects
 
 When new **PolicyType**s are added to CORBA specifications, the following details must be defined. It must be clearly stated which particular uses of a new policy are legal and which are not:
 
@@ -2019,13 +2000,13 @@ If this sample **MyPolicy** can be constructed via create_policy, the specificat
 - Pure client-side policies are assumed to be immutable. This allows efficient processing by the runtime that can avoid re-evaluating the policy upon every invocation and instead can perform updates only when new overrides are set (or policies change due to rebind). If the newly specified policy is mutable, it must be clearly stated what happens if nonreadonly attributes are set or operations are invoked that have side-effects.
 - For certain policy types, override operations may be disallowed. If this is the case, the policy specification must clearly state what happens if such overrides are attempted.
 
-### 8.8.6 Standard Policies
+### Standard Policies
 
-**NOTE:** See Annex A for a list of the standard policy types that are defined by various parts of CORBA and CORBAservices in this version of CORBA.
+**NOTE:** See [IDL Tags and Exceptions (normative)](A_Annexes.md#idl-tags-and-exceptions-normative) for a list of the standard policy types that are defined by various parts of CORBA and CORBAservices in this version of CORBA.
 
-## 8.9 Management of Policies
+## Management of Policies
 
-### 8.9.1 Client Side Policy Management
+### Client Side Policy Management
 
 Client-side Policy management is performed through operations accessible in the following contexts:
 
@@ -2034,7 +2015,7 @@ Client-side Policy management is performed through operations accessible in the 
 
 - Object-level Policies - Operations are defined on the base Object interface through which a set of Policies can be applied. Policies applied at the Object level override any system defaults or values set at the ORB or Thread levels. In addition, accessors are defined for querying the current *overriding* Policies set at the Object level, and for obtaining the current *effective client-side* Policy of a given PolicyType. The e*ffective client-side* Policy is the value of a PolicyType that would be in effect if a request were made. This is determined by checking for overrides at the Object level, then at the Thread level, and finally at the ORB level. If no overriding policies are set at any level, the system-dependent default value is returned. Portable applications are expected to override the ORB-level policies since default values are not specified in most cases.
 
-### 8.9.2 Server Side Policy Management
+### Server Side Policy Management
 
 Server-side Policy management is handled by associating Policy objects with a POA. Since all policy objects are derived from interface Policy, those that are applicable to server-side behavior can be passed as arguments to POA::create_POA. Any such Policies that affect the behavior of requests (and therefore must be accessible to the ORB at the client side) are exported within the Object references that the POA creates. It is clearly noted in a POA Policy definition when that Policy is of interest to the Client. For those policies that can be exported within an Object reference, the absence of a value for that policy type implies that the target supports any legal value of that PolicyType.
 
@@ -2042,7 +2023,7 @@ Most Policies are appropriate only for management at either the Server or Client
 
 At the Thread and ORB scopes, the common operations for querying the current set of policies and for overriding these settings are encapsulated in the PolicyManager interface.
 
-### 8.9.3 Policy Management Interfaces
+### Policy Management Interfaces
 
 ```
 module CORBA {
@@ -2061,9 +2042,9 @@ local interface PolicyCurrent : PolicyManager, Current {
 };
 ```
 
-#### 8.9.3.1 interface PolicyManager
+#### interface PolicyManager
 
-The PolicyManager operations are used for setting and accessing Policy overrides at a particular scope. For example, an instance of the PolicyCurrent is used for specifying Policy overrides that apply to invocations from that thread (unless they are overridden at the Object scope as described in [Client Side Policy Management](#891-client-side-policy-management)).
+The PolicyManager operations are used for setting and accessing Policy overrides at a particular scope. For example, an instance of the PolicyCurrent is used for specifying Policy overrides that apply to invocations from that thread (unless they are overridden at the Object scope as described in [Client Side Policy Management](#client-side-policy-management)).
 
 **get_policy_overrides**
 
@@ -2087,7 +2068,7 @@ None
 
 Returns a PolicyList containing the overridden Polices for the requested PolicyTypes. If the specified sequence is empty, all Policy overrides at this scope will be returned. If none of the requested **PolicyType**s are overridden at the target PolicyManager, an empty sequence is returned. This accessor returns only those Policy overrides that have been set at the specific scope corresponding to the target PolicyManager (no evaluation is done with respect to overrides at other scopes).
 
-#### 8.9.3.2 set_policy_overrides
+#### set_policy_overrides
 
 ```
 void set_policy_overrides(
@@ -2120,31 +2101,31 @@ A list of indices identifying the position in the input policies list that are o
 
 Modifies the current set of overrides with the requested list of **Policy** overrides. The first parameter policies is a sequence of references to **Policy** objects. The second parameter **set_add** of type **SetOverrideType** indicates whether these policies should be added onto any other overrides that already exist (**ADD_OVERRIDE**) in the **PolicyManager**, or they should be added to a clean **PolicyManager** free of any other overrides (**SET_OVERRIDE**). Invoking **set_policy_overrides** with an empty sequence of policies and a mode of **SET_OVERRIDE** removes all overrides from a **PolicyManager**. Only certain policies that pertain to the invocation of an operation at the client end can be overridden using this operation. Attempts to override any other policy will result in the raising of the CORBA::NO_PERMISSION exception. If the request would put the set of overriding policies for the target **PolicyManager** in an inconsistent state, no policies are changed or added, and the exception.
 
-#### 8.9.3.3 interface PolicyCurrent
+#### interface PolicyCurrent
 
 This specific **PolicyManager** provides access to policies overridden at the Thread scope. A reference to a thread’s **PolicyCurrent** is obtained through an invocation of CORBA::ORB::resolve_initial_references.
 
-## 8.10 Management of Policy Domains
+## Management of Policy Domains
 
-### 8.10.1 Basic Concepts
+### Basic Concepts
 
 This sub clause describes how policies, such as security policies, are associated with objects that are managed by an ORB. The interfaces and operations that facilitate this aspect of management is described in this sub clause together with the sub clause describing **Policy** objects.
 
-**8.10.1.1 Policy Domain**
+#### Policy Domain
 
 A policy domain is a set of objects to which the policies associated with that domain apply. These objects are the domain members. The policies represent the rules and criteria that constrain activities of the objects that belong to the domain. On object reference creation, the ORB implicitly associates the object reference with one or more policy domains. Policy domains provide leverage for dealing with the problem of scale in policy management by allowing application of policy at a domain granularity rather than at an individual object instance granularity.
 
-**8.10.1.2 Policy Domain Manager**
+#### Policy Domain Manager
 
 A policy domain includes a unique object, one per policy domain, called the domain manager, which has associated with it the policy objects for that domain. The domain manager also records the membership of the domain and provides the means to add and remove members. The domain manager is itself a member of a domain, possibly the domain it manages.
 
-**8.10.1.3 Policy Objects**
+#### Policy Objects
 
 A policy object encapsulates a policy of a specific type. The policy encapsulated in a policy object is associated with the domain by associating the policy object with the domain manager of the policy domain.
 
 There may be several policies associated with a domain, with a policy object for each. There is at most one policy of each type associated with a policy domain. The policy objects are thus shared between objects in the domain, rather than being associated with individual objects. Consequently, if an object needs to have an individual policy, then it must be a singleton member of a domain.
 
-**8.10.1.4 Object Membership of Policy Domains**
+#### Object Membership of Policy Domains
 
 Since the only way to access objects is through object references, associating object references with policy domains, implicitly associates the domain policies with the object associated with the object reference. Care should be taken by the application that is creating object references using **POA** operations to ensure that object references to the same object are not created by the server of that object with different domain associations. Henceforth whenever the concept of “object membership” is used, it actually means the membership of an object reference to the object in question.
 
@@ -2160,9 +2141,9 @@ Policy domain managers and policy objects have two types of interfaces:
 
     **NOTE:** This specification does not include any explicit interfaces for managing the policy domains themselves: creating and deleting them; moving objects between them; changing the domain structure and adding, changing, and removing policies applied to the domains.
 
-#### 8.10.1.5 Domains Association at Object Reference Creation
+#### Domains Association at Object Reference Creation
 
-    When a new object reference is created, the ORB implicitly associates the object reference (and hence the object that it is associated with) with the following elements forming its environment:
+When a new object reference is created, the ORB implicitly associates the object reference (and hence the object that it is associated with) with the following elements forming its environment:
 
 - One or more *Policy* *Domains*, defining all the policies to which the object associated with the object reference is subject.
 - The *Technology* *Domains,* characterizing the particular variants of mechanisms (including security) available in the ORB.
@@ -2171,27 +2152,27 @@ Policy domain managers and policy objects have two types of interfaces:
 
     In some cases, when a new object reference is created, it needs to be associated with a new domain. Within a given domain a construction policy can be associated with a specific object type thus causing a new domain; that is, a domain manager object to be created whenever an object reference of that type is created and the newly created object reference associated with the new domain manager. This construction policy is enforced at the same time as the domain membership; that is, by the POA when it creates an object reference.
 
-#### 8.10.1.6 Implementor’s View of Object Creation
+#### Implementor’s View of Object Creation
 
-    For policy domains, the construction policy of the application or factory creating the object proceeds as follows. The application (which may be a generic factory) calls one of the object reference creation operations of the POA to create the new object reference. The ORB obtains the construction policy associated with the creating object, or the default domain absent a creating object.
+For policy domains, the construction policy of the application or factory creating the object proceeds as follows. The application (which may be a generic factory) calls one of the object reference creation operations of the POA to create the new object reference. The ORB obtains the construction policy associated with the creating object, or the default domain absent a creating object.
 
-    By default, the new object reference that is created is made a member of the domain to which the parent belongs. Nonobject applications on the client side are associated with a default, per-ORB instance policy domain by the ORB.
+By default, the new object reference that is created is made a member of the domain to which the parent belongs. Nonobject applications on the client side are associated with a default, per-ORB instance policy domain by the ORB.
 
-    Each domain manager has a construction policy associated with it, which controls whether, in addition to creating the specified new object reference, a new domain manager is created with it. This object provides a single operation **make_domain_manager** which can be invoked with the **constr_policy** parameter set to **TRUE** to indicate to the ORB that new object references of the specified type are to be associated their own separate domains. Once such a construction policy is set, it can be reversed by invoking **make_domain_manager** again with the **constr_policy** parameter set to **FALSE**.
+Each domain manager has a construction policy associated with it, which controls whether, in addition to creating the specified new object reference, a new domain manager is created with it. This object provides a single operation **make_domain_manager** which can be invoked with the **constr_policy** parameter set to **TRUE** to indicate to the ORB that new object references of the specified type are to be associated their own separate domains. Once such a construction policy is set, it can be reversed by invoking **make_domain_manager** again with the **constr_policy** parameter set to **FALSE**.
 
-    When creating an object reference of the type specified in the **make_domain_manager** call with **constr_policy** set to
+When creating an object reference of the type specified in the **make_domain_manager** call with **constr_policy** set to
 
-    **TRUE**, the ORB must also create a new domain for the newly created object reference. If a new domain is needed, the ORB creates both the requested object reference and a domain manager object. A reference to this domain manager can be found by calling **get_domain_managers** on the newly created object reference.
+**TRUE**, the ORB must also create a new domain for the newly created object reference. If a new domain is needed, the ORB creates both the requested object reference and a domain manager object. A reference to this domain manager can be found by calling **get_domain_managers** on the newly created object reference.
 
-    While the management interface to the construction policy object is standardized, the interface from the ORB to the policy object is assumed to be a private one, which may be optimized for different implementations.
+While the management interface to the construction policy object is standardized, the interface from the ORB to the policy object is assumed to be a private one, which may be optimized for different implementations.
 
-    If a new domain is created, the policies initially applicable to it are the policies of the enclosing domain. The ORB will always arrange to provide a default enclosing domain with default ORB policies associated with it, in those cases where there would be no such domain as in the case of a non-object client invoking object creation operations.
+If a new domain is created, the policies initially applicable to it are the policies of the enclosing domain. The ORB will always arrange to provide a default enclosing domain with default ORB policies associated with it, in those cases where there would be no such domain as in the case of a non-object client invoking object creation operations.
 
-    The calling application, or an administrative application later, can change the domains to which this object belongs, using the domain management interfaces, which will be defined in the future.
+The calling application, or an administrative application later, can change the domains to which this object belongs, using the domain management interfaces, which will be defined in the future.
 
-    Since the ORB has control only over domain associations with object references, it is the responsibility of the creator of new object to ensure that the object references that are created to the new object are associated meaningfully with domains.
+Since the ORB has control only over domain associations with object references, it is the responsibility of the creator of new object to ensure that the object references that are created to the new object are associated meaningfully with domains.
 
-### 8.10.2 Domain Management Operations
+### Domain Management Operations
 
 This sub clause defines the interfaces and operations needed to find domain managers and find the policies associated with these. However, it does not include operations to manage domain membership, structure of domains, or to manage which policies are associated with domains.
 
@@ -2218,7 +2199,7 @@ typedef sequence <DomainManager> DomainManagersList;
 };
 ```
 
-**8.10.2.1 Domain Manager**
+#### Domain Manager
 
 The domain manager provides mechanisms for:
 
@@ -2227,7 +2208,7 @@ The domain manager provides mechanisms for:
 
     There should be no unnecessary constraints on the ordering of these activities, for example, it must be possible to add new policies to a domain with a pre-existing membership. In this case, some means of determining the members that do not conform to a policy that may be imposed is required. It should be noted that interfaces for adding new policies to domains or for changing domain memberships have not currently been standardized.
 
-    All domain managers provide the **get_domain_policy** operation. By virtue of being an object, the Domain Managers also have the **get_policy** and **get_domain_managers** operations, which is available on all objects (see [Getting Policy Associated with the Object](#838-getting-policy-associated-with-the-object) and [Getting the Domain Managers Associated with the Object](#8311-getting-the-domain-managers-associated-with-the-object)).
+    All domain managers provide the **get_domain_policy** operation. By virtue of being an object, the Domain Managers also have the **get_policy** and **get_domain_managers** operations, which is available on all objects (see [Getting Policy Associated with the Object](#getting-policy-associated-with-the-object) and [Getting the Domain Managers Associated with the Object](#getting-the-domain-managers-associated-with-the-object)).
 
 ```CORBA::DomainManager::get_domain_policy```
 
@@ -2255,7 +2236,7 @@ A reference to the policy object for the specified type of policy in this domain
 
 Raised when the value of policy type is not valid either because the specified type is not supported by this ORB or because a policy object of that type is not associated with this Object.
 
-#### 8.10.2.2 Construction Policy
+#### Construction Policy
 
 The construction policy object allows callers to specify that when instances of a particular object reference are created, they should be automatically assigned membership in a newly created domain at creation time.
 
@@ -2280,7 +2261,7 @@ void make_domain_manager (
 
     If **TRUE** the construction policy is set to create a new domain manager associated with the newly created object reference of this type in this domain. If **FALSE** construction policy is set to associate the newly created object references with the domain of the creator or a default domain as described above.
 
-## 8.11 TypeCodes
+## TypeCodes
 
 **TypeCode**s are values that represent invocation argument types and attribute types. They can be obtained from the Interface Repository or from IDL compilers.
 
@@ -2288,7 +2269,7 @@ void make_domain_manager (
 
 Abstractly, **TypeCode**s consist of a “kind” field, and a set of parameters appropriate for that kind. For example, the **TypeCode** describing IDL type **long** has kind **tk_long** and no parameters. The **TypeCode** describing IDL type ```sequence<boolean,10>``` has kind **tk_sequence** and two parameters: **10** and **boolean**.
 
-### 8.11.1 The TypeCode Interface
+### The TypeCode Interface
 
 The PIDL interface for **TypeCodes** is as follows:
 
@@ -2442,7 +2423,7 @@ The **type_modifier** and **concrete_base_type** operations can be invoked on no
 
 The **length** operation can be invoked on string, wide string, sequence, and array **TypeCode**s. For strings and sequences, it returns the bound, with zero indicating an unbounded string or sequence. For arrays, it returns the number of elements in the array. For wide strings, it returns the bound, or zero for unbounded wide strings.
 
-### 8.11.2 TypeCode Constants
+### TypeCode Constants
 
 For IDL type declarations, the IDL compiler produces (if asked) a declaration of a **TypeCode** constant. See the language mapping rules for more information about the names of the generated **TypeCode** constants. **TypeCode** constants include tk_alias definitions wherever an IDL typedef is referenced. These constants can be used with the dynamic invocation interface and other routines that require **TypeCode**s.
 
@@ -2485,7 +2466,7 @@ For the **TC_EventBase** **TypeCode** constant, calling **id** returns “**IDL:
 
 calling **name** returns “**EventBase**,” calling **member_count** returns **0**, calling **type_modifier** returns **CORBA::VM_NONE**, and calling **concrete_base_type** returns a **nil** **TypeCode**.
 
-### 8.11.3 Creating TypeCodes
+### Creating TypeCodes
 
 When creating type definition objects in an Interface Repository, types are specified in terms of object references, and the **TypeCode**s describing them are generated automatically.
 
@@ -2653,16 +2634,16 @@ To create a **TypeCode** for **valuetype** **V**, you would invoke the **TypeCod
 ```
 // C++
 TypeCode_var recursive_tc
- = orb->create_recursive_tc(“IDL:V:1.0”);
+ = orb->create_recursive_tc("IDL:V:1.0");
 
 ValueMemberSeq v_seq;
 v_seq.length(1);
-v_seq[0].name = string_dup(“member”);
+v_seq[0].name = string_dup("member");
 v_seq[0].type = recursive_tc;
 v_seq[0].access = PUBLIC_MEMBER;
 TypeCode_var v_val_tc
- = orb->create_value_tc(“IDL:V:1.0”,
-  “V”,
+ = orb->create_value_tc("IDL:V:1.0",
+  "V",
   VM_NONE,
   TypeCode::_nil(),
 v_seq);
@@ -2670,19 +2651,19 @@ v_seq);
 
 For **create_event_tc** operation, the **concrete_base** parameter is a **TypeCode** for the immediate concrete base of the eventtype for which the **TypeCode** is being created. If the eventtype does not have a concrete base, the **concrete_base** parameter is a nil **TypeCode** reference.
 
-## 8.12 Exceptions
+## Exceptions
 
 The terms “system” and “user” exception are defined in this sub clause. Further the terms “standard system exception” and “standard user exception” are defined, and then a list of “standard system exceptions” is provided.
 
-### 8.12.1 Definition of Terms
+### Definition of Terms
 
 In general the following terms should be used consistently in all OMG standards documents to refer to exceptions:
 
 **Standard Exception**: Any exception that is defined in an OMG Standard.
 
-**System Exception**: Clients must be prepared to handle these exceptions even though they are not declared in a raises clause. These exceptions cannot appear in a raises clause. These have the structure defined in Annex A and they are of type **SYSTEM_EXCEPTION** (see PIDL below).
+**System Exception**: Clients must be prepared to handle these exceptions even though they are not declared in a raises clause. These exceptions cannot appear in a raises clause. These have the structure defined in [IDL Tags and Exceptions (normative)](A_Annexes.md#idl-tags-and-exceptions-normative) and they are of type **SYSTEM_EXCEPTION** (see PIDL below).
 
-**Standard System Exception**: A System Exception that is part of the CORBA Standard (e.g., BAD_PARAM). See Annex Afor more details.
+**Standard System Exception**: A System Exception that is part of the CORBA Standard (e.g., BAD_PARAM). See [IDL Tags and Exceptions (normative)](A_Annexes.md#idl-tags-and-exceptions-normative) for more details.
 
 **Non-Standard System Exceptions**: System exceptions that are proprietary to a particular vendor/implementation.
 
@@ -2692,7 +2673,7 @@ In general the following terms should be used consistently in all OMG standards 
 
 **Non-standard User Exception**: User exceptions that are not defined in any published OMG specification.
 
-### 8.12.2 System Exceptions
+### System Exceptions
 
 In order to bound the complexity in handling the standard exceptions, the set of standard exceptions should be kept to a tractable size. This constraint forces the definition of equivalence classes of exceptions rather than enumerating many similar exceptions. For example, an operation invocation can fail at many different points due to the inability to allocate dynamic memory. Rather than enumerate several different exceptions corresponding to the different ways that memory allocation failure causes the exception (during marshaling, unmarshaling, in the client, in the object implementation, allocating network packets), a single exception corresponding to dynamic memory allocation failure is defined.
 
@@ -2721,11 +2702,11 @@ Each system exception includes a minor code to designate the subcategory of the 
 
 Minor exception codes are of type **unsigned long** and consist of a 20-bit “Vendor Minor Codeset ID”(**VMCID**), which occupies the high order 20 bits, and the minor code that occupies the low order 12 bits.
 
-The standard minor codes for the standard system exceptions are prefaced by the **VMCID** assigned to OMG, defined as the unsigned long constant **CORBA::OMGVMCID**, which has the VMCID allocated to OMG occupying the high order 20 bits. The minor exception codes associated with the standard exceptions that are found in Annex A, “Exception Codes” are or-ed with **OMGVMCID** to get the minor code value that is returned in the **ex_body** structure (see [Standard System Exception Definitions] and [Standard Minor Exception Codes](#8124-standard-minor-exception-codes)).
+The standard minor codes for the standard system exceptions are prefaced by the **VMCID** assigned to OMG, defined as the unsigned long constant **CORBA::OMGVMCID**, which has the VMCID allocated to OMG occupying the high order 20 bits. The minor exception codes associated with the standard exceptions that are found in [Exception Codes](A_Annexes.md#exception-codes) are or-ed with **OMGVMCID** to get the minor code value that is returned in the **ex_body** structure (see [Standard System Exception Definitions] and [Standard Minor Exception Codes](#standard-minor-exception-codes)).
 
 Within a vendor assigned space, the assignment of values to minor codes is left to the vendor. Vendors may request allocation of **VMCID**s by sending email to tag-*<request@omg.org>*.
 
-The **VMCID** *0* and *0xfffff* are reserved for experimental use. The **VMCID** **OMGVMCID** (8.12.3, ’Standard System Exception Definitions’) and *1 through 0xf* are reserved for OMG use.
+The **VMCID** *0* and *0xfffff* are reserved for experimental use. The **VMCID** **OMGVMCID** ([Standard System Exception Definitions](#standard-system-exception-definitions)) and *1 through 0xf* are reserved for OMG use.
 
 Each standard system exception also includes a **completion_status** code that takes one of the values {COMPLETED_YES, COMPLETED_NO, COMPLETED_MAYBE}. These have the following meanings:
 
@@ -2741,7 +2722,7 @@ Vendors may define non-standard system exceptions, but these exceptions are disc
 
 Non-standard system exceptions shall have the same structure as of standard standard system exceptions as specified in Standard System Exception Definitions (i.e., they have the same ex_body). They also shall follow the same language mappings as standard system exceptions. Although they are PIDL, vendors should ensure that their names do not clash with any other names following the normal naming and scoping rules as they apply to regular IDL exceptions.
 
-### 8.12.3 Standard System Exception Definitions
+### Standard System Exception Definitions
 
 The standard system exceptions are defined in this sub clause.
 
@@ -2828,27 +2809,27 @@ module CORBA {  // PIDL
 };
 ```
 
-**8.12.3.1 UNKNOWN**
+#### UNKNOWN
 
 This exception is raised if an operation implementation throws a non-CORBA exception (such as an exception specific to the implementation’s programming language), or if an operation raises a user exception that does not appear in the operation’s raises expression. UNKNOWN is also raised if the server returns a system exception that is unknown to the client. (This can happen if the server uses a later version of CORBA than the client and new system exceptions have been added to the later version.)
 
-**8.12.3.2 BAD_PARAM**
+#### BAD_PARAM
 
 A parameter passed to a call is out of range or otherwise considered illegal. An ORB may raise this exception if null values or null pointers are passed to an operation (for language mappings where the concept of a null pointers or null values applies). BAD_PARAM can also be raised as a result of client generating requests with incorrect parameters using the DII.
 
-**8.12.3.3 NO_MEMORY**
+#### NO_MEMORY
 
 The ORB run time has run out of memory.
 
-**8.12.3.4 IMP_LIMIT**
+#### IMP_LIMIT
 
 This exception indicates that an implementation limit was exceeded in the ORB run time. For example, an ORB may reach the maximum number of references it can hold simultaneously in an address space, the size of a parameter may have exceeded the allowed maximum, or an ORB may impose a maximum on the number of clients or servers that can run simultaneously.
 
-**8.12.3.5 COMM_FAILURE**
+#### COMM_FAILURE
 
 This exception is raised if communication is lost while an operation is in progress, after the request was sent by the client, but before the reply from the server has been returned to the client.
 
-**8.12.3.6 INV_OBJREF**
+#### INV_OBJREF
 
 This exception indicates that an object reference is internally malformed. For example, the repository ID may have incorrect syntax or the addressing information may be invalid.
 
@@ -2856,149 +2837,149 @@ An ORB may choose to detect calls via nil references (but is not obliged to dete
 
 If the client invokes an operation that results in an attempt by the client ORB to marshal wchar or wstring data for an in parameter (or to unmarshal wchar or wstring data for an in/out parameter, out parameter or the return value), and the associated object reference does not contain a codeset component, the INV_OBJREF standard system exception is raised.
 
-**8.12.3.7 NO_PERMISSION**
+#### NO_PERMISSION
 
 An invocation failed because the caller has insufficient privileges.
 
-**8.12.3.8 INTERNAL**
+#### INTERNAL
 
 This exception indicates an internal failure in an ORB, for example, if an ORB has detected corruption of its internal data structures.
 
-**8.12.3.9 MARSHAL**
+#### MARSHAL
 
 A request or reply from the network is structurally invalid. This error typically indicates a bug in either the client-side or server-side run time. For example, if a reply from the server indicates that the message contains 1000 bytes, but the actual message is shorter or longer than 1000 bytes, the ORB raises this exception. MARSHAL can also be caused by using the DII or DSI incorrectly, for example, if the type of the actual parameters sent does not agree with IDL signature of an operation.
 
-**8.12.3.10 INITIALIZE**
+#### INITIALIZE
 
 An ORB has encountered a failure during its initialization, such as failure to acquire networking resources or detecting a configuration error.
 
-**8.12.3.11 NO_IMPLEMENT**
+#### NO_IMPLEMENT
 
 This exception indicates that even though the operation that was invoked exists (it has an IDL definition), no implementation for that operation exists. NO_IMPLEMENT can, for example, be raised by an ORB if a client asks for an object’s type definition from the interface repository, but no interface repository is provided by the ORB.
 
-**8.12.3.12 BAD_TYPECODE**
+#### BAD_TYPECODE
 
 The ORB has encountered a malformed type code (for example, a type code with an invalid **TCKind** value).
 
-**8.12.3.13 BAD_OPERATION**
+#### BAD_OPERATION
 
 This indicates that an object reference denotes an existing object, but that the object does not support the operation that was invoked.
 
-**8.12.3.14 NO_RESOURCES**
+#### NO_RESOURCES
 
 The ORB has encountered some general resource limitation. For example, the run time may have reached the maximum permissible number of open connections.
 
-**8.12.3.15 NO_RESPONSE**
+#### NO_RESPONSE
 
 This exception is raised if a client attempts to retrieve the result of a deferred synchronous call, but the response for the request is not yet available.
 
-**8.12.3.16 PERSIST_STORE**
+#### PERSIST_STORE
 
 This exception indicates a persistent storage failure, for example, failure to establish a database connection or corruption of a database.
 
-**8.12.3.17 BAD_INV_ORDER**
+#### BAD_INV_ORDER
 
 This exception indicates that the caller has invoked operations in the wrong order. For example, it can be raised by an ORB if an application makes an ORB-related call without having correctly initialized the ORB first.
 
-**8.12.3.18 TRANSIENT**
+#### TRANSIENT
 
 TRANSIENT indicates that the ORB attempted to reach an object and failed. It is not an indication that an object does not exist. Instead, it simply means that no further determination of an object's status was possible because it could not be reached. This exception is raised if an attempt to establish a connection fails, for example, because the server or the implementation repository is down.
 
-**8.12.3.19 FREE_MEM**
+#### FREE_MEM
 
 The ORB failed in an attempt to free dynamic memory, for example because of heap corruption or memory segments being locked.
 
-**8.12.3.20 INV_IDENT**
+#### INV_IDENT
 
 This exception indicates that an IDL identifier is syntactically invalid. It may be raised if, for example, an identifier passed to the interface repository does not conform to IDL identifier syntax, or if an illegal operation name is used with the DII.
 
-**8.12.3.21 INV_FLAG**
+#### INV_FLAG
 
 An invalid flag was passed to an operation (for example, when creating a DII request).
 
-**8.12.3.22 INTF_REPOS**
+#### INTF_REPOS
 
 An ORB raises this exception if it cannot reach the interface repository, or some other failure relating to the interface repository is detected.
 
-**8.12.3.23 BAD_CONTEXT**
+#### BAD_CONTEXT
 
 An operation may raise this exception if a client invokes the operation but the passed context does not contain the context values required by the operation.
 
-**8.12.3.24 OBJ_ADAPTER**
+#### OBJ_ADAPTER
 
 This exception typically indicates an administrative mismatch. For example, a server may have made an attempt to register itself with an implementation repository under a name that is already in use, or is unknown to the repository. OBJ_ADAPTER is also raised by the POA to indicate problems with application-supplied servant managers.
 
-**8.12.3.25 DATA_CONVERSION**
+#### DATA_CONVERSION
 
 This exception is raised if an ORB cannot convert the representation of data as marshaled into its native representation or vice-versa. For example, DATA_CONVERSION can be raised if wide character codeset conversion fails, or if an ORB cannot convert floating point values between different representations.
 
-**8.12.3.26 OBJECT_NOT_EXIST**
+#### OBJECT_NOT_EXIST
 
 The OBJECT_NOT_EXIST exception is raised whenever an invocation on a deleted object was performed. It is an authoritative “hard” fault report. Anyone receiving it is allowed (even expected) to delete all copies of this object reference and to perform other appropriate “final recovery” style procedures.
 
 Bridges forward this exception to clients, also destroying any records they may hold (for example, proxy objects used in reference translation). The clients could in turn purge any of their own data structures.
 
-**8.12.3.27 TRANSACTION_REQUIRED**
+#### TRANSACTION_REQUIRED
 
 The TRANSACTION_REQUIRED exception indicates that the request carried a null transaction context, but an active transaction is required.
 
-**8.12.3.28 TRANSACTION_ROLLEDBACK**
+#### TRANSACTION_ROLLEDBACK
 
 The TRANSACTION_ROLLEDBACK exception indicates that the transaction associated with the request has already been rolled back or marked to roll back. Thus, the requested operation either could not be performed or was not performed because further computation on behalf of the transaction would be fruitless.
 
-**8.12.3.29 INVALID_TRANSACTION**
+#### INVALID_TRANSACTION
 
 The INVALID_TRANSACTION indicates that the request carried an invalid transaction context. For example, this exception could be raised if an error occurred when trying to register a resource.
 
-**8.12.3.30 INV_POLICY**
+#### INV_POLICY
 
 INV_POLICY is raised when an invocation cannot be made due to an incompatibility between Policy overrides that apply to the particular invocation.
 
-**8.12.3.31 CODESET_INCOMPATIBLE**
+#### CODESET_INCOMPATIBLE
 
 This exception is raised whenever meaningful communication is not possible between client and server native code sets. See *CORBA, Part II* - ORB Interoperability Architecture.
 
-**8.12.3.32 REBIND**
+#### REBIND
 
 REBIND is raised when the current effective **RebindPolicy**, as described in interface RebindPolicy, has a value of **NO_REBIND** or **NO_RECONNECT** and an invocation on a bound object reference results in a LocateReply message with status **OBJECT_FORWARD** or a Reply message with status **LOCATION_FORWARD**. This exception is also raised if the current effective RebindPolicy has a value of **NO_RECONNECT** and a connection must be re-opened. The invocation can be retried once the effective **RebindPolicy** is changed to **TRANSPARENT** or binding is reestablished through an invocation of **CORBA::Object::validate_connection**.
 
-**REBIND** is raised when there is a problem in carrying out a requested or implied attempt to rebind an object reference (see [interface RebindPolicy](#17312-interface-rebindpolicy)).
+**REBIND** is raised when there is a problem in carrying out a requested or implied attempt to rebind an object reference (see [interface RebindPolicy](#interface-rebindpolicy)).
 
-**8.12.3.33 TIMEOUT**
+#### TIMEOUT
 
 TIMEOUT is raised when no delivery has been made and the specified time-to-live period has been exceeded. It is a standard system exception because time-to-live QoS can be applied to any invocation.
 
-**8.12.3.34 TRANSACTION_UNAVAILABLE**
+#### TRANSACTION_UNAVAILABLE
 
 TRANSACTION_UNAVAILABLE exception is raised by the ORB when it cannot process a transaction service context because its connection to the Transaction Service has been abnormally terminated.
 
-**8.12.3.35 TRANSACTION_MODE**
+#### TRANSACTION_MODE
 
 TRANSACTION_MODE exception is raised by the ORB when it detects a mismatch between the **TransactionPolicy** in the IOR and the current transaction mode.
 
-**8.12.3.36 BAD_QOS**
+#### BAD_QOS
 
 The BAD_QOS exception is raised whenever an object cannot support the quality of service required by an invocation parameter that has a quality of service semantics associated with it.
 
-**8.12.3.37 INVALID_ACTIVITY**
+#### INVALID_ACTIVITY
 
 The INVALID_ACTIVITY system exception may be raised on the Activity or Transaction services’ resume methods if a transaction or Activity is resumed in a context different to that from which it was suspended. It is also raised when an attempted invocation is made that is incompatible with the Activity’s current state.
 
-**8.12.3.38 ACTIVITY_COMPLETED**
+#### ACTIVITY_COMPLETED
 
 The ACTIVITY_COMPLETED system exception may be raised on any method for which Activity context is accessed. It indicates that the Activity context in which the method call was made has been completed due to a timeout of either the Activity itself or a transaction that encompasses the Activity, or that the Activity completed in a manner other than that originally requested.
 
-**8.12.3.39 ACTIVITY_REQUIRED**
+#### ACTIVITY_REQUIRED
 
 The ACTIVITY_REQUIRED system exception may be raised on any method for which an Activity context is required. It indicates that an Activity context was necessary to perform the invoked operation, but one was not found associated with the calling thread.
 
-### 8.12.4 Standard Minor Exception Codes
+### Standard Minor Exception Codes
 
-Please refer to Annex A for a table that specifies standard minor exception codes that have been assigned for the standard system exceptions.
+Please refer to [IDL Tags and Exceptions (normative)](A_Annexes.md#idl-tags-and-exceptions-normative) for a table that specifies standard minor exception codes that have been assigned for the standard system exceptions.
 
-# 9 Value Type Semantics
+# Value Type Semantics
 
-## 9.1 Overview
+## Overview
 
 Objects, more specifically, interface types that objects support, are defined by an IDL interface, allowing arbitrary implementations. There is great value, which is described in great detail elsewhere, in having a distributed object system that places almost no constraints on implementations.
 
@@ -3017,7 +2998,7 @@ Because it is necessary for the receiving side to instantiate an instance, it mu
 - They support single inheritance (of **valuetype**) and can support an **interface**.
 - They may be also be **abstract**.
 
-## 9.2 Architecture
+## Architecture
 
 The basic notion is relatively simple. A **value type** is, in some sense, half way between a “regular” IDL interface type and a struct. The use of a value type is a signal from the designer that some additional properties (state) and implementation details be specified beyond that of an interface type. Specification of this information puts some additional constraints on the implementation choices beyond that of interface types. This is reflected in both the semantics specified herein, and in the language mappings.
 
@@ -3036,13 +3017,13 @@ When an instance of such a type is passed as a parameter, the sending context ma
 
 It should be noted that it is possible to define a concrete value type with an empty state as a degenerate case.
 
-### 9.2.1 Abstract Values
+### Abstract Values
 
 Value types may also be abstract. They are called abstract because an abstract value type may not be instantiated. Only concrete types derived from them may be actually instantiated and implemented. Their implementation, of course, is still local. However, because no state information may be specified (only local operations are allowed), abstract value types are not subject to the single inheritance restrictions placed upon concrete value types. Essentially they are a bundle of operation signatures with a purely local implementation. This distinction is made clear in the language mappings for abstract values.
 
 Note that a concrete value type with an empty state is not an abstract value type. They are considered to be stateful, may be instantiated, marshaled, and passed as actual parameters. Consider them to be a degenerate case of stateful values.
 
-### 9.2.2 Operations
+### Operations
 
 Operations defined on a value type specify signatures whose implementation can only be local. Because these operations are local, they must be directly implemented by a body of code in the language mapping (no proxy or indirection is involved).
 
@@ -3052,49 +3033,49 @@ The (copy) semantics for instances of value type are only guaranteed when instan
 
 Operations on the value type are supported in order to guarantee the portability of the client code for these value types. They have no representation on the wire and hence no impact on interoperability.
 
-### 9.2.3 Value Type vs. Interfaces
+### Value Type vs. Interfaces
 
 By default value types are not CORBA Objects. In particular, instances of value types do not inherit from
 
 **CORBA::Object** and do not support normal object reference semantics. However it is always possible to explicitly declare that a given value type supports an interface type. In this case instances of the type may support CORBA object reference semantics (if they are registered with the ORB using an object adapter).
 
-### 9.2.4 Parameter Passing
+### Parameter Passing
 
 This sub clause describes semantics when a value instance is passed as parameter in a CORBA invocation. It does not deal with the case of calling another non-CORBA (i.e., local) programming method, which happens to have a parameter of the same type.
 
-#### 9.2.4.1 Value vs. Reference Semantics
+#### Value vs. Reference Semantics
 
 Determination of whether a parameter is to be passed by value or reference is made by examining the parameter’s formal type (i.e., the signature of the operation it is being passed to). If it is a value type, then it is passed by value. If it is an ordinary interface, then it is passed by reference (the case today for all CORBA objects). This rule is simple and consistent with the handling of the same situation in recursive state definitions or in structs.
 
-In the case of abstract interfaces, the determination is made at runtime. See [Semantics of Abstract Interfaces](#102-semantics-of-abstract-interfaces) for a description of the rules.
+In the case of abstract interfaces, the determination is made at runtime. See [Semantics of Abstract Interfaces](#semantics-of-abstract-interfaces) for a description of the rules.
 
-#### 9.2.4.2 Sharing Semantics
+#### Sharing Semantics
 
 In order to be expressive enough to describe arbitrary graphs, lattice, trees, etc., value types support sharing and null semantics. Instances of a value type can be shared by others across or within other instances. They can also be null. This is unlike other IDL data types such as structs, unions, and sequences that can never be shared. The sharing of values within and between the parameters to an operation is preserved across an invocation; that is, the graph that is reconstructed in the receiving context is structurally isomorphic to the sending context’s.
 
-#### 9.2.4.3 Identity Semantics
+#### Identity Semantics
 
 When an instance of the value type is passed as a parameter to an operation of a non-local interface, the effect in all cases shall be as if an independent copy of the instance is instantiated in the receiving context. While certain implementation optimizations are possible the net effect shall be as if the copy is a separate independent entity and there is no explicit or implicit sharing of state. This applies to all valuetypes involved in the invocation, including those embedded in other IDL datatypes or in an any. This notional copying occurs twice, once for in and inout parameters when the invocation is initiated, and once again for inout, out, and return parameters when the invocation completes. Optimization techniques such as copy on write, etc. must make sure that the semantics of copying as described above is preserved.
 
-#### 9.2.4.4 Any parameter type
+#### Any parameter type
 
 When an instance of a value type is passed to an **any**, as with all cases of passing instances to an **any**, it is the responsibility of the implementor to insert and extract the value according to the language mapping specification.
 
-### 9.2.5 Substitutability Issues
+### Substitutability Issues
 
 The substitutability requirements for CORBA require the definition of what happens when an instance of a derived value type is passed as a parameter that is declared to be a base value type or an instance of a value type that supports an interface is passed as a parameter that is declared as the interface type.
 
 There are three cases to consider: the parameter type is a regular interface, the parameter type is an abstract interface, and the parameter type is a value type.
 
-#### 9.2.5.1 Value instance -> Interface type
+#### Value instance -> Interface type
 
 A value type that supports a regular interface is not a subtype of that interface, and hence cannot be substituted for that interface in an invocation parameter. In this case an object reference corresponding to the value type instance that has been registered with the ORB must be obtained and this object reference must be used as the actual parameter. Different language mappings provide different facilities to aid in such parameter passing.
 
-#### 9.2.5.2 Value Instance -> Abstract interface type
+#### Value Instance -> Abstract interface type
 
 A value type that supports an abstract interface is a subtype of that interface, and can be substituted for that interface in an invocation parameter.
 
-#### 9.2.5.3 Value instance -> Value type
+#### Value instance -> Value type
 
 In this case the receiving context is expecting to receive a value type. If the receiving context currently has the appropriate implementation class, then there is no problem.
 
@@ -3124,33 +3105,33 @@ valuetype EmployeeRecord {// note this is not a CORBA::Object
 };
 ```
 
-### 9.2.6 Widening/Narrowing
+### Widening/Narrowing
 
 As has been described above, value type instances may be widened/narrowed to other value types. Each language mapping is responsible for specifying how these operations are made available to the programmer.
 
 Narrowing from an interface type instance to a value type instance is not allowed. If the interface designer wants to allow the receiving context to create a local implementation of the value type (i.e., a value representing the interface), an operation that returns the appropriate value type may be defined.
 
-### 9.2.7 Value Base Type
+### Value Base Type
 
-All value types have a conventional base type called **ValueBase**. This is a type, which fulfills a role that is similar to that played by **Object**. Conceptually it supports the common operations available on all value types. See [ValueBase Operations](#84-valuebase-operations) for a description of those operations. In each language mapping **ValueBase** will be mapped to an appropriate base type that supports the marshaling/unmarshaling protocol as well as the model for custom marshaling.
+All value types have a conventional base type called **ValueBase**. This is a type, which fulfills a role that is similar to that played by **Object**. Conceptually it supports the common operations available on all value types. See [ValueBase Operations](#valuebase-operations) for a description of those operations. In each language mapping **ValueBase** will be mapped to an appropriate base type that supports the marshaling/unmarshaling protocol as well as the model for custom marshaling.
 
 The mapping for other operations, which all value types must support, such as getting meta information about the type, may be found in the specifics for each language mapping.
 
-### 9.2.8 Life Cycle issues
+### Life Cycle issues
 
 Value type instances are always local to their creating context. For example, in a given language mapping an instance of a value type is always created as a local “language” object with no POA semantics attached to it initially.
 
 When passed using a CORBA invocation, a copy of the value is made in the receiving context and that copy starts its life as a local programming language entity with no POA semantics attached to it.
 
-If a value type supports an ordinary interface type, its instances may also be passed by reference when the formal parameter type is an interface type (see [Parameter Passing](#924-parameter-passing)). In this case they behave like ordinary object implementations and must be associated with a POA policy and also be registered with the ORB (e.g.,
+If a value type supports an ordinary interface type, its instances may also be passed by reference when the formal parameter type is an interface type (see [Parameter Passing](#parameter-passing)). In this case they behave like ordinary object implementations and must be associated with a POA policy and also be registered with the ORB (e.g.,
 
 **POA::activate_object()** before they can be passed by reference. Not registering the value as a CORBA object and/or not associating an appropriate policy with it results in an exception when trying to use it as a remote object, the “normal” behavior. The exception raised shall be OBJECT_NOT_EXIST with standard minor code 1.
 
-#### 9.2.8.1 Creation and Factories
+#### Creation and Factories
 
-When an instance of a value type is received by the ORB, it must be unmarshaled and an appropriate factory for its actual type found in order for the new instance to be created. The type is encoded by the RepositoryID, which is passed over the wire as part of an invocation. The mapping between the type (as specified by the RepositoryID) and the factory is language specific. In certain languages it may be possible to specify default policies that are used to find the factory, without requiring that specific routines be called. In others the runtime and/or generated code may have to explicitly specify the mapping on a per type basis. In others a combination may be used. In any event the ORB implementation is responsible for maintaining this mapping. See [Language Specific Value Factory Requirements](#943-language-specific-value-factory-requirements) for more details on the requirements for each language mapping. Value box types do not need or use factories.
+When an instance of a value type is received by the ORB, it must be unmarshaled and an appropriate factory for its actual type found in order for the new instance to be created. The type is encoded by the RepositoryID, which is passed over the wire as part of an invocation. The mapping between the type (as specified by the RepositoryID) and the factory is language specific. In certain languages it may be possible to specify default policies that are used to find the factory, without requiring that specific routines be called. In others the runtime and/or generated code may have to explicitly specify the mapping on a per type basis. In others a combination may be used. In any event the ORB implementation is responsible for maintaining this mapping. See [Language Specific Value Factory Requirements](#language-specific-value-factory-requirements) for more details on the requirements for each language mapping. Value box types do not need or use factories.
 
-### 9.2.9 Security Considerations
+### Security Considerations
 
 The addition of value types has few impacts on the CORBA security model. In essence, the security implications in defining and using value types are similar to those involved with the use of IDL structs. Instances of value types are mapped to local, concrete programming language constructs. Except for providing the marshaling mechanisms, the ORB is not directly involved with accessing value type implementations. This specification is mostly about two things: how value types manifest themselves as concrete programming language constructs and how they are transmitted.
 
@@ -3160,17 +3141,17 @@ Let us consider its life cycle. In order to use it, the programmer uses the mech
 
 Things get interesting when the program attempts to pass one of these constructs through an orb-mediated invocation (i.e., calls a stub that uses it as a parameter type, or uses the DII). There are two cases to consider: 1) Value as Value and 2) Value as Object Reference.
 
-#### 9.2.9.1 Value as Value
+#### Value as Value
 
 The formal type of the parameter is a value. This case is no different from using any other kind of a value (long, string, struct) in a CORBA invocation, with respect to security. The value (data) is marshaled and delivered to the receiving context. On the receiving context, the knowledge of the type is used (at least implicitly) to find the factory to create the correct local programming language construct. The data is then unmarshaled to fill in the newly created construct. This is similar to using other values (longs, strings, structs) except that the knowledge of the factory is not “built-in” to the ORB’s skeleton/DSI engine.
 
-#### 9.2.9.2 Value as Object Reference
+#### Value as Object Reference
 
 The formal type of the parameter is an interface type that is supported by a value. The program must have “registered” the value with an object adapter and is really using the returned object reference (see for the specific rules.) Thus this case “reduces” to a regular CORBA invocation, using a regular object reference. An IOR is passed to the receiving context. All the “normal” security considerations apply. From the point of view of the receiving context, the IOR is a “normal” object reference. No “special” rules, with respect to security or otherwise, apply to it. The fact that it is ultimately a reference to an implementation that was created from instantiating and registering a value type implementation is not relevant.
 
 In both of these cases, security considerations are involved with the decision to allow the ORB-mediated invocation to proceed. The fact that a value type is involved is not material.
 
-## 9.3 Standard Value Box Definitions
+## Standard Value Box Definitions
 
 For some CORBA-defined types for which preservation of sharing and transmission of nulls are likely to be important, the following value box type definitions are added to the CORBA module.
 
@@ -3181,9 +3162,9 @@ module CORBA {
 };
 ```
 
-## 9.4 Language Mappings
+## Language Mappings
 
-### 9.4.1 General Requirements
+### General Requirements
 
 A concrete value is mapped to a concrete usable “class” construct in each programming language, plus possibly some helper classes where appropriate. In Java, C++, and Smalltalk this is a real concrete class. In C it is a struct.
 
@@ -3191,11 +3172,11 @@ An abstract value is mapped to some sort of an abstract construct--an interface 
 
 Tools that implement the language mapping are free to “extend” the implementation classes with “extra” data members and methods. When an instance of such a class is used as a parameter, only the portions that correspond directly to the IDL declaration, are marshaled and delivered to the receiving context. This allows freedom of implementations while preserving the notion of contract and type safety in IDL.
 
-### 9.4.2 Language Specific Marshaling
+### Language Specific Marshaling
 
 Each language mapping defines an appropriate marshaling/unmarshaling API and the entry point for custom marshaling/ unmarshaling.
 
-### 9.4.3 Language Specific Value Factory Requirements
+### Language Specific Value Factory Requirements
 
 Each language mapping specifies the algorithm and means by which RepositoryIDs are used to find the appropriate factory for an instance of a value type so that it may be created as it is unmarshaled “off the wire.”
 
@@ -3213,11 +3194,11 @@ module CORBA {
 };
 ```
 
-### 9.4.4 Value Method Implementation
+### Value Method Implementation
 
 The mapped class must support method bodies (i.e., code) that implement the required IDL operations. The means by which this association is accomplished is a language mapping “detail” in much the same way that an IDL compiler is.
 
-## 9.5 Custom Marshaling
+## Custom Marshaling
 
 Value types can override the default marshaling/unmarshaling model and provide their own way to encode/decode their state. Custom marshaling is intended to be used to facilitate integration of existing “class libraries” and other legacy systems. It is explicitly not intended to be a standard practice, nor used in other OMG specifications to avoid “standard ORB” marshaling.
 
@@ -3245,7 +3226,7 @@ Once a value type has been marked as custom, it needs to provide an implementati
 
 The following sub clauses define the operations and streams that are used for custom marshaling.
 
-### 9.5.1 Implementation of Custom Marshaling
+### Implementation of Custom Marshaling
 
 Once a value type has been marked as custom, an implementation of the custom marshaling code must be provided. This is specified by providing a concrete implementation of an abstract value type, **CustomMarshal**, as part of the implementation of the value type. **CustomMarshal** encapsulates the application code that can marshal and unmarshal instances of the value type over a stream using the CDR encoding.
 
@@ -3266,7 +3247,7 @@ Note that while nothing prevents a user from writing IDL that inherits from **Cu
 
 The implementation requirements of the streaming mechanism require that the implementations must be local since local memory addresses (i.e., the marshal buffers) have to be manipulated.
 
-### 9.5.2 Marshaling Streams
+### Marshaling Streams
 
 The streams used for marshaling are defined below. They are responsible for marshaling and demarshaling the data that makes up a custom value in CDR format.
 
@@ -3531,7 +3512,7 @@ The **read_fixed_array** operation sets the elements of the **seq** parameter th
 
 The stream representation of a fixed value is considered incompatible if its **digit** and **scale** values do not match the **digits** and **scale** values being used to read it from the stream.
 
-## 9.6 Access to the Sending Context Run Time
+## Access to the Sending Context Run Time
 
 There are two cases where a receiving context might want to access the run time environment of the sending context:
 
@@ -3579,26 +3560,26 @@ Supporting the **CodeBase** interface for a given ORB run time is an issue of qu
 - It can’t get a legal implementation for it (even if it knows where it is, possibly due to security and/or resource access issues).
 - Its local version is so radically different that it cannot make sense out of the piece of state being provided.
 
-These two failure modes will be represented by the CORBA system exception NO_IMPLEMENT with identified minor codes, for a missing local value implementation and for incompatible versions (see [Standard Minor Exception Codes](#8124-standard-minor-exception-codes)).
+These two failure modes will be represented by the CORBA system exception NO_IMPLEMENT with identified minor codes, for a missing local value implementation and for incompatible versions (see [Standard Minor Exception Codes](#standard-minor-exception-codes)).
 
 Under certain conditions it is possible that when several values of the same CORBA type (same repository id) are sent in either a request or reply, that the reality is that they have distinct implementations. In this case, in addition to the codebase URL(s) sent in the service context, each value that has a different codebase may have codebase URL(s) associated with it. This is encoded by using a different tag to encode the value on the wire.
 
 The sending context does not need to resend the same value for this service context on subsequent requests over the same underlying connection. Resending a different value for this service context is only necessary if the callback object reference in use is changed by the sending context within the lifetime of the underlying connection.
 
-# 10 Abstract Interface Semantics
+# Abstract Interface Semantics
 
-## 10.1 Overview
+## Overview
 
-In many cases it may be useful to defer the determination of whether an object is passed by reference or by value until runtime. An IDL abstract interface provides this capability. See [Example](#104-example) for an example of when this might be useful.
+In many cases it may be useful to defer the determination of whether an object is passed by reference or by value until runtime. An IDL abstract interface provides this capability. See [Example](#example) for an example of when this might be useful.
 
-## 10.2 Semantics of Abstract Interfaces
+## Semantics of Abstract Interfaces
 
 Abstract interfaces differ from regular IDL interfaces in the following ways:
 
 1. When used in an operation signature, they do not determine whether actual parameters are passed as an object reference or by value. Instead, the type of the actual parameter (regular interface or value) is used to make this determination using the following rules:
     - The actual parameter is passed as an object reference if it is a regular interface type (or a subtype of a regular interface type), and that regular interface type is a subtype of the signature abstract interface type, and the object is already registered with the ORB/OA.
     - The actual parameter is passed as a value if it cannot be passed as an object reference but can be passed as a value. Otherwise, a BAD_PARAM exception is raised.
-2. Abstract interfaces do not implicitly inherit from **CORBA::Object.** This is because they can represent either value types or CORBA object references, and value types do not necessarily support the object reference operations (see [Object Reference Operations](#83-object-reference-operations)). If an IDL abstract interface type can be successfully narrowed to an object reference type (a regular IDL interface), then the **CORBA::Object** operations can be invoked on the narrowed object reference.
+2. Abstract interfaces do not implicitly inherit from **CORBA::Object.** This is because they can represent either value types or CORBA object references, and value types do not necessarily support the object reference operations (see [Object Reference Operations](#object-reference-operations)). If an IDL abstract interface type can be successfully narrowed to an object reference type (a regular IDL interface), then the **CORBA::Object** operations can be invoked on the narrowed object reference.
 3. Abstract interfaces implicitly inherit from **CORBA::AbstractBase**. This type is defined as native. It is the responsibility of each language mapping to specify the actual programming language type that is used for this type.
 
 ```
@@ -3608,8 +3589,8 @@ module CORBA {
 };
 ```
 
-4. Abstract interfaces do not imply copy semantics for value types passed as arguments to their operations. This is because their operations may be either CORBA invocations (for abstract interfaces that represent CORBA object references) or local programming language calls (for abstract interfaces that represent CORBA value types). See [Operations](#922-operations) and [Parameter Passing](#924-parameter-passing) for details of these differences.
-5. Special inheritance rules that apply to abstract interfaces are described in [Value Declaration](#79-value-declaration).
+4. Abstract interfaces do not imply copy semantics for value types passed as arguments to their operations. This is because their operations may be either CORBA invocations (for abstract interfaces that represent CORBA object references) or local programming language calls (for abstract interfaces that represent CORBA value types). See [Operations](#operations-1) and [Parameter Passing](#parameter-passing) for details of these differences.
+5. Special inheritance rules that apply to abstract interfaces are described in [@IDL4].
 6. See the General Inter-orb Protocol clause in *Part 2 of this International Standard* - for special consideration when transmitting an abstract interface using GIOP.
 
     In other respects, abstract interfaces are identical to regular IDL interfaces. For example, consider the following operation **m1()** in abstract interface **foo**.
@@ -3625,26 +3606,26 @@ abstract interface foo {
 
 **z**’s are passed as:
 
-    - copied values if **foo** refers to an ordinary interface.
-    - non-copied values if **foo** refers to a value type.
+- copied values if **foo** refers to an ordinary interface.
+- non-copied values if **foo** refers to a value type.
 
 **y**’s are passed as:
 
-    - reference if their concrete type is an ordinary interface subtype of **AnAbstractInterfaceType** (registered with the ORB), no matter what **foo’s** concrete type is.
-    - copied values if their concrete type is value and **foo**’s concrete type is ordinary interface.
-    - non-copied values if their concrete type is value and **foo**’s concrete type is value.
+- reference if their concrete type is an ordinary interface subtype of **AnAbstractInterfaceType** (registered with the ORB), no matter what **foo’s** concrete type is.
+- copied values if their concrete type is value and **foo**’s concrete type is ordinary interface.
+- non-copied values if their concrete type is value and **foo**’s concrete type is value.
 
-## 10.3 Usage Guidelines
+## Usage Guidelines
 
 Abstract interfaces are intended for situations where it cannot be known at compile time whether an object reference or a value will be passed. In other cases, a regular interface or value type should be used. Abstract interfaces are not intended to replace regular CORBA interfaces in situations where there is no clear need to provide runtime flexibility to pass either an object reference or a value. If reference semantics are intended, regular interfaces should be used.
 
-## 10.4 Example
+## Example
 
 For example, in a business application it is extremely common to need to display a list of objects of a given type, with some identifying attribute like account number and a translated text description such as “Savings Account.” A developer might define an interface such as **Describable** whose methods provide this information, and implement this interface on a wide range of types. This allows the method that displays items to take an argument of type **Describable** and query it for the necessary information. The **Describable** objects passed in to the **display** method may be either CORBA interface types (passed in as object references) or CORBA value types (passed in by value).
 
 In this example, **Describable** is used as a polymorphic abstract type. No instances of type **Describable** exist, but many different instances have interfaces that support the **Describable** type abstraction. In C++, **Describable** would be an abstract base class; in Java, an interface. In statically typed languages, the compiler can check that the actual parameter type passed by callers of **display** is a valid subtype of **Describable** and therefore supports the methods defined by **Describable**. The **display** method can simply invoke the methods of **Describable** on the objects that it receives, without concern for any details of their implementation.
 
-**Describable** could not be declared as a regular IDL interface. This is because arguments of declared interface type are always passed as object references (see [Parameter Passing](#924-parameter-passing) ) and we also want the **display** method to be able to accept value type objects that can only be passed by value. Similarly we cannot define **Describable** as a value type because then the **display** method would not be able to accept actual parameter objects that only support passing as an object reference. Abstract interfaces are needed to cover such cases.
+**Describable** could not be declared as a regular IDL interface. This is because arguments of declared interface type are always passed as object references (see [Parameter Passing](#parameter-passing) ) and we also want the **display** method to be able to accept value type objects that can only be passed by value. Similarly we cannot define **Describable** as a value type because then the **display** method would not be able to accept actual parameter objects that only support passing as an object reference. Abstract interfaces are needed to cover such cases.
 
 The **Describable** abstract interface could be defined and used by the following IDL:
 
@@ -3668,11 +3649,11 @@ valuetype Currency supports Describable {// passed by value
 
 If **Describable** was defined as a regular interface instead of an abstract interface, then it would not be possible to pass a **Currency** value to the display method, even though the **Currency** IDL type supports the **Describable** interface.
 
-## 10.5 Security Considerations
+## Security Considerations
 
-Security considerations for abstract interfaces are similar to those for regular interfaces and values (see [Security Considerations](#929-security-considerations)). This is because an abstract interface formal parameter type allows either a regular interface (IOR) or a value to be passed. Likewise, an operation defined in an abstract interface can be implemented by either a regular interface (with “normal” security considerations) or by a value type (in which case it is a local call, not mediated by the ORB). The security implication of making the choice between these alternatives a runtime determination is that the programmer must ensure that for both alternatives, no security violations can occur. For example, a technique similar to that described in [Passing Values to Trusted Domains](#1051-passing-values-to-trusted-domains) could be used to avoid inadvertently passing values outside a domain of trust.
+Security considerations for abstract interfaces are similar to those for regular interfaces and values (see [Security Considerations](#security-considerations)). This is because an abstract interface formal parameter type allows either a regular interface (IOR) or a value to be passed. Likewise, an operation defined in an abstract interface can be implemented by either a regular interface (with “normal” security considerations) or by a value type (in which case it is a local call, not mediated by the ORB). The security implication of making the choice between these alternatives a runtime determination is that the programmer must ensure that for both alternatives, no security violations can occur. For example, a technique similar to that described in [Passing Values to Trusted Domains](#passing-values-to-trusted-domains) could be used to avoid inadvertently passing values outside a domain of trust.
 
-### 10.5.1 Passing Values to Trusted Domains
+### Passing Values to Trusted Domains
 
 When a server passes an object reference, it can be sure that access control policies will apply to any attempt to access anything through that object reference. When the underlying object is passed as a value, the granularity and level/ semantics of access control are different. In the “by value” case, all the data for the object is passed, and method invocations on the passed object are local calls that are not mediated by the ORB. Whether the server wants to use the (potentially more permissive) pass by value access control or not could depend on the security domain, which is receiving the said object or object reference.
 
@@ -3682,15 +3663,15 @@ This flexibility is not possible without abstract interfaces. Signatures would h
 
 where the **security_check** function determines the level of trust of **myExample**’s domain and returns a regular interface subtype of **MyType** for untrusted domains and a value subtype of **MyType** for trusted domains. The rules for abstract interfaces will then pass the correct thing in both these cases.
 
-# 11 Dynamic Invocation Interface
+# Dynamic Invocation Interface
 
-## 11.1 Overview
+## Overview
 
 The Dynamic Invocation Interface (DII) describes the client’s side of the interface that allows dynamic creation and invocation of request to objects. All types defined in this clause are part of the CORBA module. DII allows dynamic creation and invocation of requests to objects. A client using this interface to send a request to an object obtains the same semantics as a client using the operation stub generated from the type specification.
 
 A request consists of an object reference, an operation, and a list of parameters. The ORB applies the implementationhiding (encapsulation) principle to requests.
 
-In the Dynamic Invocation Interface, parameters in a request are supplied as elements of a list. Each element is an instance of a **NamedValue** (see [Common Data Structures](#1111-common-data-structures)). Each parameter is passed in its native data form.
+In the Dynamic Invocation Interface, parameters in a request are supplied as elements of a list. Each element is an instance of a **NamedValue** (see [Common Data Structures](#common-data-structures)). Each parameter is passed in its native data form.
 
 Parameters supplied to a request may be subject to run-time type checking upon request invocation. Parameters must be supplied in the same order as the parameters defined for the operation in the Interface Repository.
 
@@ -3700,7 +3681,7 @@ The standard user exception WrongTransaction is defined in the CORBA module, pri
 
 This exception can be raised only if the request is implicitly associated with a transaction (the current transaction at the time that the request was issued).
 
-### 11.1.1 Common Data Structures
+### Common Data Structures
 
 The type **NamedValue** is a well known data type in IDL. It can be used either as a parameter type directly or as a mechanism for describing arguments to a request. The types are described in IDL as:
 
@@ -3723,10 +3704,9 @@ A named value includes an argument name, argument value (as an **any**), length 
 
 As described in *CORBA* (Mapping: COM and CORBA) an **any** consists of a **TypeCode** and a pointer to the data value. The **TypeCode** is a well known opaque type that can encode a description of any type specifiable in IDL. See this sub clause for a full description of **TypeCode**s.
 
-For most data types, **len** is the actual number of bytes that the value occupies. For object references, **len** is 1. Table 11.1 shows the length of data values for the C language binding. The behavior of a **NamedValue** is undefined if the **len** value is inconsistent with the TypeCode.
+For most data types, **len** is the actual number of bytes that the value occupies. For object references, **len** is 1. [C Language Binding Data Values](#table-c-language-binding-data-values) shows the length of data values for the C language binding. The behavior of a **NamedValue** is undefined if the **len** value is inconsistent with the TypeCode.
 
-**Table 11.1 - C Language Binding Data Values**
-
+###### Table: C Language Binding Data Values
 | **Data type: X**| **Length (X)**|
 |---------------|-----------------|
 | short| sizeof (CORBA_short)|
@@ -3762,17 +3742,17 @@ The **arg_mode** field is of type **Flags** which is an **unsigned long**. This 
 
 The specific usage of **Flags** in other contexts are described as part of the description of the operation that uses this type of parameters.
 
-### 11.1.2 Memory Usage
+### Memory Usage
 
 The values for output argument data types that are unbounded strings or unbounded sequences are returned as pointers to dynamically allocated memory. In order to facilitate the freeing of all “out-arg memory,” the request routines provide a mechanism for grouping, or keeping track of, this memory. If so specified, out-arg memory is associated with the argument list passed to the create request routine. When the list is deleted, the associated out-arg memory will automatically be freed.
 
 If the programmer chooses not to associate out-arg memory with an argument list, the programmer is responsible for freeing each out parameter using **CORBA_free()**, which is discussed in the *C Language Mapping* specification (*Mapping for Structure Types* sub clause).
 
-### 11.1.3 Return Status and Exceptions
+### Return Status and Exceptions
 
 In the Dynamic Invocation interface, routines typically indicate errors or exceptional conditions either via programming language exception mechanisms, or via an Environment parameter for those languages that do not support exceptions. Thus, the return type of these routines is void.
 
-## 11.2 Request Operations
+## Request Operations
 
 The request operations (except **create_request**) are defined in terms of the **Request** pseudo-object. The **Request** routines use the **NVList** definition defined in the preceding sub clause.
 
@@ -3818,9 +3798,9 @@ In IDL, The **native** type **OpaqueValue** is used to identify the type of the 
 
 For each **Request** pseudo-object instance, only one call to either the invoke or the **send** operations is legal during the lifetime of the **Request** object. In addition, once a **Request** object was passed to one of the ```send_multiple_requests_*``` operations, neither invoke nor send can be called, nor can it be passed in another invocation of ```send_multiple_request_*``` operation.Violations raise BAD_INV_ORDER with standard minor code 5 or 10.
 
-### 11.2.1 create_request
+### create_request
 
-Because it creates a pseudo-object, this operation is defined in the **Object** interface (see [Object Reference Operations](#83-object-reference-operations) for the complete interface definition). The **create_request** operation is performed on the **Object** that is to be invoked.
+Because it creates a pseudo-object, this operation is defined in the **Object** interface (see [Object Reference Operations](#object-reference-operations) for the complete interface definition). The **create_request** operation is performed on the **Object** that is to be invoked.
 
 ```
 module CORBA{
@@ -3842,7 +3822,7 @@ module CORBA{
 
 This operation creates an ORB request. The actual invocation occurs by calling **invoke** or by using the **send** / **get_response** calls.
 
-The operation name specified on **create_request** is the same operation identifier that is specified in the IDL definition for this operation. In the case of attributes, it is the name as constructed following the rules specified in the **ServerRequest** interface as described in the DSI in [ServerRequestPseudo-Object](#122-serverrequestpseudo-object).
+The operation name specified on **create_request** is the same operation identifier that is specified in the IDL definition for this operation. In the case of attributes, it is the name as constructed following the rules specified in the **ServerRequest** interface as described in the DSI in [ServerRequestPseudo-Object](#serverrequestpseudo-object).
 
 The **arg_list**, if specified, contains a list of arguments (input, output, and/or input/output) that become associated with the request. If **arg_list** is omitted (specified as **NULL**), the arguments (if any) must be specified using the **add_arg** call below.
 
@@ -3870,7 +3850,7 @@ The implicit object reference operations **non_existent**, **is_a, repository_id
 
 To create a request for any one of these allowed implicit object reference operations, **create_request** must be passed the name of the operation with a “**_**” prepended, in the parameter “operation.” For example to create a DII request for “**is_a**”, the name passed to **create_request** must be “**_is_a**.” If the name of an implicit operation that is not invocable through DII is passed to **create_request** with a “**_**” prepended, **create_request** shall raise a BAD_PARAM standard system exception with the standard minor code 32. For example, if “**_is_equivalent**” is passed to **create_request** as the “**operation**” parameter will cause **create_request** to raise the BAD_PARAM standard system exception with the standard minor code 32.  
 
-**11.2.2 add_arg**
+### add_arg
 
 ```
 void add_arg (         // PIDL
@@ -3896,7 +3876,7 @@ In addition to the argument modes defined in Common Data Structures, **arg_flags
 
 If the **IN_COPY_VALUE** flag is set, a copy of the argument value is made and used instead. This flag is ignored for inout and out arguments.
 
-### 11.2.3 invoke
+### invoke
 
 ```
 void invoke (           // PIDL
@@ -3906,14 +3886,14 @@ void invoke (           // PIDL
 
 This operation calls the ORB, which performs method resolution and invokes an appropriate method. If the method returns successfully, its result is placed in the **result** argument specified on **create_request**. Calling **invoke** on a **Request** after **invoke**, **send**, or **ORB::send_multiple_requests** for that **Request** was called raises BAD_INV_ORDER with standard minor code 5 or 10.
 
-### 11.2.4 delete
+### delete
 
 ```void delete ( );        // PIDL```
 
 This operation deletes the request. Any memory associated with the request (i.e., by using the **IN_COPY_VALUE** flag) is
 also freed.
 
-### 11.2.5 send
+### send
 
 ```
 void send (           // PIDL
@@ -3931,7 +3911,7 @@ The following invocation flags are currently defined for **send**:
 
 **CORBA::INV_NO_RESPONSE** indicates that the invoker wishes the request to be subject to the effective **SyncScopePolicy**. If the **SyncScopePolicy** has a value of **NONE** or **WITH_TRANSPORT**, the invoker will not receive a response, nor does it expect any of the output arguments (in/out and out) to be updated. This option may be specified even if the operation has not been defined to be **oneway**.
 
-### 11.2.6 poll_response
+### poll_response
 
 ```
 // PIDL
@@ -3942,7 +3922,7 @@ boolean poll_response ();
 
 Return is immediate, whether the response has completed or not. Values in the request are not changed.
 
-### 11.2.7 get_response
+### get_response
 
 ```
 //PIDL
@@ -3953,7 +3933,7 @@ void get_response () raises (WrongTransaction);
 
 A request has an associated transaction context if the thread originating the request had a non-null transaction context and the target object is a transactional object. The **get_response** operation may raise the WrongTransaction exception if the request has an associated transaction context, and the thread invoking **get_response** either has a null transaction context or a non-null transaction context that differs from that of the request. If a BAD_INV_ORDER exception with standard minor code X3599 is received, it shall be trapped and a WrongTransaction shall be returned to the caller.
 
-### 11.2.8 sendp
+### sendp
 
 **sendp** initiates an operation according to the information in the Request and returns a reference to a
 
@@ -3961,19 +3941,19 @@ A request has an associated transaction context if the thread originating the re
 
 As with **send**, **sendc** may raise a standard system exception if a failure is detected before control is returned to the client, but this is not guaranteed. All other exceptions will be raised when **get_response** is called.
 
-### 11.2.9 prepare
+### prepare
 
 **prepare** is called to associate an initialized **CORBA::Request** with a previous operation that was initiated via **sendp**. The Request must be created and associated with the operation’s out arguments and return value prior to calling **prepare**. Once **prepare** has been called, it is as if that prepared Request was the one that actually had **sendp** used. Each Request is subject only to one of these operations, which puts it in a valid state for an invocation of **get_response**: **send**, **sendp**, **sendc**, or **prepare**. Invoking **prepare** on a Request that had previously been used for a send (or one of its variants) raises the standard system exception BAD_INV_ORDER. Invoking prepare with an object reference that was not previously returned from an invocation of **sendp** raises the standard system exception BAD_PARAM.
 
-### 11.2.10 sendc
+### sendc
 
-**sendc** initiates an operation according to the information in the Request. Unlike **send**, the results of invocations made with **sendc** will be available through the callback **Messaging::ReplyHandler** passed into **sendc** as a base **CORBA::Object**. For an invocation of operation “foo,” the “foo” or “foo_excep” methods of the ReplyHandler is invoked to receive the reply. See [Type-Specific ReplyHandler Mapping](#179-type-specific-replyhandler-mapping) for details of how the names of the operations to be invoked to return the reply are constructed, as well as the form of the argument lists for the reply invocations. A truly dynamic client can implement this **ReplyHandler** using the DSI. Specifying a nil **ReplyHandler** is equivalent to invoking **send** with a flag of **CORBA::INV_NO_RESPONSE**.
+**sendc** initiates an operation according to the information in the Request. Unlike **send**, the results of invocations made with **sendc** will be available through the callback **Messaging::ReplyHandler** passed into **sendc** as a base **CORBA::Object**. For an invocation of operation “foo,” the “foo” or “foo_excep” methods of the ReplyHandler is invoked to receive the reply. See [Type-Specific ReplyHandler Mapping](#type-specific-replyhandler-mapping) for details of how the names of the operations to be invoked to return the reply are constructed, as well as the form of the argument lists for the reply invocations. A truly dynamic client can implement this **ReplyHandler** using the DSI. Specifying a nil **ReplyHandler** is equivalent to invoking **send** with a flag of **CORBA::INV_NO_RESPONSE**.
 
 As with **send**, **sendc** may raise a standard system exception if a failure is detected before control is returned to the client, but this is not guaranteed. All other exceptions will be passed to the **ReplyHandler**.
 
-## 11.3 ORB Operations
+## ORB Operations
 
-### 11.3.1 send_multiple_requests
+### send_multiple_requests
 
 ```
 module CORBA {
@@ -4001,7 +3981,7 @@ Calling **send** on a request after **invoke**, **send**, or **send_multiple_req
 
 Calling **send_multiple_requests** for a request after **invoke**, **send**, or **send_multiple_requests** for that request was called raises BAD_INV_ORDER with standard minor code 10. If **send_multiple_requests** raises BAD_INV_ORDER, the actual number of requests that were sent is implementation dependent.
 
-### 11.3.2 get_next_response and poll_next_response
+### get_next_response and poll_next_response
 
 ```
 module CORBA {
@@ -4033,7 +4013,7 @@ Calling **get_next_response** or **poll_next_response** at a time when no reques
 
 BAD_INV_ORDER with standard minor code 11. If concurrent calls to **get_next_response** or **poll_next_response** are in progress, the exact outcome is implementation dependent; however, **get_next_response** is guaranteed not to return the same completed request to more than one caller.
 
-## 11.4 Polling
+## Polling
 
 There are two types of Polling model invocations that allow a client to proceed before the request finishes: The DII’s **send** (which supports deferred synchronous invocations) and the typed **sendp** variants of the interface stubs (which support both deferred synchronous and asynchronous invocations). This sub clause describes a single mechanism that allows a client to query or block on the completion of outstanding requests.
 
@@ -4084,11 +4064,11 @@ local interface PollableSet {
 };
 ```
 
-### 11.4.1 Abstract Valuetype Pollable
+### Abstract Valuetype Pollable
 
 A **Pollable** supports queries to see if it is ready to be used, and can be registered with a pollable set to allow a single client thread to block on multiple potential happenings at the same time.
 
-#### 11.4.1.1 is_ready
+#### is_ready
 
 ```
 boolean is_ready(
@@ -4098,29 +4078,29 @@ boolean is_ready(
 
 Returns the value **TRUE** if and only if the specific happening represented by the pollable is ready to be consumed. Returns the value **FALSE** if the pollable is not yet ready to be consumed. If the **timeout** argument is the maximum value for **unsigned long**, the operation will block until it can return the value **TRUE** indicating that its happening is ready to be consumed. If the **timeout** argument is the value 0, the operation returns immediately.
 
-#### 11.4.1.2 create_pollable_set
+#### create_pollable_set
 
 ```PollableSet create_pollable_set( );```
 
 Once there is a **Pollable**, it is possible to create a set of such pollables, which can be queried or upon which a client can block. The **create_pollable_set** operation creates a **PollableSet** object reference for an object with an empty set of pollable entities.
 
-### 11.4.2 Abstract Valuetype DIIPollable
+### Abstract Valuetype DIIPollable
 
 The specific **Pollable** that indicates interest in DII requests. A **DIIPollable** can be used in conjunction with a pollable set to allow a client to block or poll for the completion of DII requests, similar to the use of **CORBA::ORB::get_next_response**. When the **DIIPollable** is returned from **PollableSet::poll**, the reply to some DII request must be ready for processing.
 
-### 11.4.3 interface PollableSet
+### interface PollableSet
 
 The pollable set contains potential happenings for which a poll can be performed. The client adds potential happenings to the set and later queries the set to see if any have occurred. **PollableSet** is a locality constrained object.
 
 **NOTE:** There is a factory for **PollableSet** on the generic **Pollable** interface. Some implementation of this interface, such as a type-specific poller value, must first be accessible before a client can create a **PollableSet**.
 
-**11.4.3.1 create_dii_pollable**
+#### create_dii_pollable
 
 ```DIIPollable create_dii_pollable();```
 
 Returns an instance of **DIIPollable** that can subsequently be registered to indicate interest in replies to DII requests.
 
-#### 11.4.3.2 add_pollable
+#### add_pollable
 
 ```
 void add_pollable(
@@ -4132,7 +4112,7 @@ The **add_pollable** operation adds a potential happening to the **PollableSet**
 
 If the supplied **Pollable** has already been added to another **PollableSet**, this operation raises the standard **BAD_PARAM** system exception with minor code 43.
 
-#### 11.4.3.3 get_ready_pollable
+#### get_ready_pollable
 
 ```
 Pollable get_ready_pollable(
@@ -4151,7 +4131,7 @@ When the **get_ready_pollable** operation blocks, the ORB has control of the thr
 
 If the ORB supports multiple threads, one thread may be blocking on a **PollableSet** while another is adding and removing potential happenings from the set. It is valid for the **PollableSet** to change dynamically while a **poll** is in progress. If another thread’s **PollableSet::remove** operation leaves the **PollableSet** empty, any blocked threads raise the NoPossiblePollable exception.
 
-#### 11.4.3.4 remove
+#### remove
 
 ```
 void remove(
@@ -4161,7 +4141,7 @@ void remove(
 
 The **remove** operation deletes the potential happening identified by the **potential** parameter from the **PollableSet**. If it was not a member of the set, the UnknownPollable exception is raised.
 
-#### 11.4.3.5 number_left
+#### number_left
 
 ```unsigned short number_left( );```
 
@@ -4169,7 +4149,7 @@ The **number_left** operation returns the number of potential happenings in the 
 
 NoPossibleHappening exception. A return value of 65535 indicates that there are at least 65535 remaining number of potential happenings.
 
-## 11.5 List Operations
+## List Operations
 
 **NVList** is a pseudo-interface that facilitates manipulation of list of name value pairs. The operations that create **NVList** objects are defined in the **ORB** interface Clause, but are described in this sub clause. The **NVList** pseudo-interface is shown below.
 
@@ -4192,7 +4172,7 @@ interface NVList {      // PIDL
 
 Interface **NVList** is defined in the CORBA module.
 
-### 11.5.1 create_list
+### create_list
 
 This operation, which creates a pseudo-object, is defined in the ORB interface and excerpted below.
 
@@ -4207,7 +4187,7 @@ This operation allocates a list and clears it for initial use. The specified cou
 
 An **NVList** is a partially opaque structure. It may only be allocated via a call to **create_list**.
 
-### 11.5.2 add_item
+### add_item
 
 ```
 void add_item ( // PIDL
@@ -4221,25 +4201,25 @@ void add_item ( // PIDL
 
 This operation adds a new item to the indicated list. The item is added after the previously added item.
 
-In addition to the argument modes defined in Common Data Structures, **item_flags** may also take the following flag values: **IN_COPY_VALUE**, **DEPENDENT_LIST**. The argument passing flags defined in [Common Data Structures](#1111-common-data-structures) may be used here to indicate the intended parameter passing mode of an argument.
+In addition to the argument modes defined in Common Data Structures, **item_flags** may also take the following flag values: **IN_COPY_VALUE**, **DEPENDENT_LIST**. The argument passing flags defined in [Common Data Structures](#common-data-structures) may be used here to indicate the intended parameter passing mode of an argument.
 
 If the **IN_COPY_VALUE** flag is set, a copy of the argument value is made and used instead.
 
 If a list structure is added as an item (e.g., a “sublist”), the **DEPENDENT_LIST** flag may be specified to indicate that the sublist should be freed when the parent list is freed.
 
-### 11.5.3 free
+### free
 
 ```void free ( );     // PIDL```
 
 This operation frees the list structure and any associated memory (an implicit call to the list **free_memory** operation is done).
 
-### 11.5.4 free_memory
+### free_memory
 
 ```void free_memory ( );   // PIDL```
 
 This operation frees any dynamically allocated out-arg memory associated with the list. The list structure itself is not freed.
 
-### 11.5.5 get_count
+### get_count
 
 ```
 void get_count (     // PIDL
@@ -4249,7 +4229,7 @@ void get_count (     // PIDL
 
 This operation returns the total number of items added to the list.
 
-### 11.5.6 create_operation_list
+### create_operation_list
 
 This operation, which creates a pseudo-object, is defined in the ORB interface.
 
@@ -4264,9 +4244,9 @@ This operation returns an **NVList** initialized with the argument descriptions 
 
 The list **free** operation is used to free the returned information.
 
-# 12 Dynamic Skeleton Interface
+# Dynamic Skeleton Interface
 
-## 12.1 Introduction
+## Introduction
 
 The Dynamic Skeleton Interface (DSI) allows dynamic handling of object invocations. That is, rather than being accessed through a skeleton that is specific to a particular operation, an object’s implementation is reached through an interface that provides access to the operation name and parameters in a manner analogous to the client side’s Dynamic Invocation Interface. Purely static knowledge of those parameters may be used, or dynamic knowledge (perhaps determined through an Interface Repository) may also be used, to determine the parameters.
 
@@ -4274,9 +4254,7 @@ DSI is a way to deliver requests from an ORB to an object implementation that do
 
 DSI is the server side’s analogue to the client side’s Dynamic Invocation Interface (DII). Just as the implementation of an object cannot distinguish whether its client is using type-specific stubs or the DII, the client who invokes an object cannot determine whether the implementation is using a type-specific skeleton or the DSI to connect the implementation to the ORB.
 
-![](Images/figure12-1.svg)
-
-**Figure 12.1 - Requests are delivered through skeletons, including dynamic ones**
+![Requests are delivered through skeletons, including dynamic ones](Images/figure12-1.svg)
 
 DSI, like DII, has many applications beyond interoperability solutions. Uses include interactive software development tools based on interpreters, debuggers, and monitors that want to dynamically interpose on objects, and support for dynamically-typed languages such as LISP.
 
@@ -4284,11 +4262,11 @@ The basic idea of the DSI is to implement all requests on a particular object by
 
 The DIR is passed all the explicit operation parameters, and an indication of the object that was invoked and the operation that was requested. The information is encoded in the request parameters. The DIR can use the invoked object, its object adapter, and the Interface Repository to learn more about the particular object and invocation. It can access and operate on individual parameters. It can make the same use of an object adapter as other object implementations.
 
-This clause describes the elements of the DSI that are common to all object adapters that provide a DSI. See [Single Servant,Many Objects and Types, Using DSI](#15611-single-servant-many-objects-and-types-using-dsi), for the specification of the DSI for the Portable Object Adapter.
+This clause describes the elements of the DSI that are common to all object adapters that provide a DSI. See [Single Servant, Many Objects and Types, Using DSI](#single-servant-many-objects-and-types-using-dsi), for the specification of the DSI for the Portable Object Adapter.
 
-## 12.2 ServerRequestPseudo-Object
+## ServerRequestPseudo-Object
 
-### 12.2.1 ExplicitRequest State: ServerRequestPseudo-Object
+### ExplicitRequest State: ServerRequestPseudo-Object
 
 The ServerRequest pseudo-object captures the explicit state of a request for the DSI, analogous to the Request pseudoobject in the DII. The object adapter dispatches an invocation to a DSI-based object implementation by passing an instance of ServerRequest to the DIR associated with the object implementation. The following shows how it provides access to the request information:
 
@@ -4321,23 +4299,23 @@ The DIR may call **set_exception** at any time to return an exception to the cli
 
 See each language mapping for a description of the memory management aspects of the parameters to the **ServerRequest** operations.
 
-## 12.3 DSI: Language Mapping
+## DSI: Language Mapping
 
 Because DSI is defined in terms of a pseudo-object, special attention must be paid to it in the language mapping. This sub clause provides general information about mapping the Dynamic Skeleton Interface to programming languages. Each language provides its own mapping for DSI.
 
-### 12.3.1 ServerRequest’s Handling of Operation Parameters
+### ServerRequest’s Handling of Operation Parameters
 
 There is no requirement that a **ServerRequest** pseudo-object be usable as a general argument in IDL operations, or listed in “orb.idl.”
 
 The client-side memory management rules normally applied to pseudo-objects do not strictly apply to a ServerRequest’s handling of operation parameters. Instead, the memory associated with parameters follows the memory management rules applied to data passed from skeletons into statically typed implementation routines, and vice versa.
 
-### 12.3.2 Registering Dynamic Implementation Routines
+### Registering Dynamic Implementation Routines
 
 In an ORB implementation, the Dynamic Skeleton Interface is supported entirely through the Object Adapter. An Object Adapter does not have to support the Dynamic Skeleton Interface but, if it does, the Object Adapter is responsible for the details.
 
-# 13 Dynamic Management of Any Values
+# Dynamic Management of Any Values
 
-## 13.1 Overview
+## Overview
 
 An **any** can be passed to a program that doesn’t have any static information for the type of the **any** (code generated for the type by an IDL compiler has not been compiled with the object implementation). As a result, the object receiving the **any** does not have a portable method of using it.
 
@@ -4367,7 +4345,7 @@ If the programmer wants to destroy a **DynAny** object but still wants to manipu
 
 The behavior of **DynAny** objects has been defined in order to enable efficient implementations in terms of allocated memory space and speed of access. **DynAny** objects are intended to be used for traversing values extracted from **any**s or constructing values of **any**s at runtime. Their use for other purposes is not recommended.
 
-## 13.2 DynAny API
+## DynAny API
 
 The **DynAny** API comprises the following IDL definitions, located in the **DynamicAny** module:
 
@@ -4380,7 +4358,7 @@ The **DynAny** API comprises the following IDL definitions, located in the **Dyn
 import ::CORBA;
 
 module DynamicAny {
- typeprefix DynamicAny “omg.org”;
+ typeprefix DynamicAny "omg.org";
 
  local interface DynAny {
   exception InvalidValue {};
@@ -4675,7 +4653,7 @@ local interface DynAnyFactory {
 #endif // _DYNAMIC_ANY_IDL_
 ```
 
-### 13.2.1 Creating a DynAny Object
+### Creating a DynAny Object
 
 A **DynAny** object can be created as a result of:
 
@@ -4737,7 +4715,7 @@ Dynamic creation of an **any** involves creating a **DynAny** object using
 
 **DynAnyFactory::create_dyn_any_from_type_code**, passing the **TypeCode** associated with the value to be created. The returned reference is narrowed to one of the complex types, such as **DynStruct**, if appropriate. Then, the value can be initialized by means of invoking operations on the resulting object. Finally, the **to_any** operation can be invoked to create an **any** value from the constructed **DynAny**.
 
-### 13.2.2 The DynAny Interface
+### The DynAny Interface
 
 The following operations can be applied to a **DynAny** object:
 
@@ -4751,7 +4729,7 @@ The following operations can be applied to a **DynAny** object:
 - Initializing a **DynAny** object from another **DynAny** object.
 - Initializing a **DynAny** object from an **any** value.
 
-**13.2.2.1 Obtaining the TypeCode associated with a DynAny object**
+#### Obtaining the TypeCode associated with a DynAny object
 
 ```CORBA::TypeCode type();```
 
@@ -4759,7 +4737,7 @@ A **DynAny** object is created with a **TypeCode** value assigned to it. This **
 
 Note that the **TypeCode** associated with a **DynAny** object is initialized at the time the **DynAny** is created and cannot be changed during the lifetime of the **DynAny** object.
 
-#### 13.2.2.2 Initializing a DynAny object from another DynAny object
+#### Initializing a DynAny object from another DynAny object
 
 ```void assign(in DynAny dyn_any) raises(TypeMismatch);```
 
@@ -4767,7 +4745,7 @@ The **assign** operation initializes the value associated with a **DynAny** obje
 
 If the type of the passed **DynAny** is not equivalent to the type of target **DynAny**, the operation raises TypeMismatch. The current position of the target **DynAny** is set to zero for values that have components and to -1 for values that do not have components.
 
-**13.2.2.3 Initializing a DynAny object from an any value**
+#### Initializing a DynAny object from an any value
 
 ```void from_any(in any value) raises(TypeMismatch, InvalidValue);```
 
@@ -4775,13 +4753,13 @@ The **from_any** operation initializes the value associated with a **DynAny** ob
 
 If the type of the passed **Any** is not equivalent to the type of target **DynAny**, the operation raises TypeMismatch. If the passed **Any** does not contain a legal value (such as a null string), the operation raises InvalidValue. The current position of the target **DynAny** is set to zero for values that have components and to -1 for values that do not have components.
 
-#### 13.2.2.4 Generating an any value from a DynAny object
+#### Generating an any value from a DynAny object
 
 ```any to_any();```
 
 The **to_any** operation creates an **any** value from a **DynAny** object. A copy of the **TypeCode** associated with the **DynAny** object is assigned to the resulting **any**. The value associated with the **DynAny** object is copied into the **any**.
 
-**13.2.2.5 Comparing DynAny values**
+#### Comparing DynAny values
 
 ```boolean equal(in DynAny dyn_any);```
 
@@ -4789,7 +4767,7 @@ The equal operation compares two **DynAny** references for equality and returns 
 
 **NOTE:** If two **DynAny**s happen to contain ```*values*``` of type **TypeCode**, these values are compared using **TypeCode::equal**. The type codes that ```*describe*``` the values of **DynAny**s are always compared using **TypeCode::equivalent**, however. (In the case of comparing two **DynAny**s containing type code values, the type codes describing these type code values are **tk_TypeCode** in each **DynAny**, and will therefore always compare as equivalent.)
 
-#### 13.2.2.6 Destroying a DynAny object
+#### Destroying a DynAny object
 
 ```void destroy();```
 
@@ -4799,13 +4777,13 @@ Destruction of a **DynAny** object implies destruction of all **DynAny** objects
 
 It is possible to manipulate a component of a **DynAny** beyond the life time of the **DynAny** from which the component was obtained by making a copy of the component with the **copy** operation before destroying the **DynAny** from which the component was obtained.
 
-**13.2.2.7 Creating a copy of a DynAny object**
+#### Creating a copy of a DynAny object
 
 ```DynAny copy();```
 
 The **copy** operation creates a new **DynAny** object whose value is a deep copy of the **DynAny** on which it is invoked. The operation is polymorphic, that is, invoking it on one of the types derived from **DynAny**, such as **DynStruct**, creates the derived type but returns its reference as the **DynAny** base type.
 
-#### 13.2.2.8 Accessing a value of some basic type in a DynAny object
+#### Accessing a value of some basic type in a DynAny object
 
 The insert and get operations enable insertion/extraction of basic data type values into/from a **DynAny** object.
 
@@ -4841,7 +4819,7 @@ In the same way that basic types are inserted/extracted from a **DynAny** object
 
 The **TypeCode** of the **DynAny**, or the **TypeCode** of the component at the current position of the **DynAny**, must be equivalent to a sequence or array **TypeCode** with the basic type as its element, otherwise the operations raise TypeMismatch. For the insert operations, if the length of the sequence is incompatible with a bounded sequence or array represented by the **DynAny**, then the operations raise InvalidValue.
 
-**13.2.2.9 Iterating through components of a DynAny**
+#### Iterating through components of a DynAny
 
 The **DynAny** interface allows a client to iterate through the components of the values pointed to by **DynStruct**, **DynSequence**, **DynArray**, **DynUnion**, **DynAny**, and **DynValue** objects.
 
@@ -4877,7 +4855,7 @@ Calling **current_component** on a **DynAny** that cannot have components, such 
 
 The iteration operations, together with **current_component**, can be used to dynamically compose an **any** value. After creating a dynamic any, such as a **DynStruct**, **current_component** and **next** can be used to initialize all the components of the value. Once the dynamic value is completely initialized, **to_any** creates the corresponding **any** value.
 
-### 13.2.3 The DynFixed Interface
+### The DynFixed Interface
 
 **DynFixed** objects are associated with values of the IDL **fixed** type.
 
@@ -4895,7 +4873,7 @@ The **get_value** operation returns the value of a **DynFixed**.
 
 The **set_value** operation sets the value of the **DynFixed**. The **val** string must contain a **fixed** string constant in the same format as used for IDL fixed-point literals. However, the trailing **d** or **D** is optional. If **val** has more fractional digits than specified by the scale of the **DynFixed**, the extra digits are truncated. If the truncated value has more digits than the **DynFixed**, the operation raises InvalidValue. If the value is not too large, **set_value** returns **TRUE** if no truncation was required, **FALSE** otherwise. The return value is **TRUE** if **val** can be represented as the **DynFixed** without loss of precision. If **val** has more fractional digits than can be represented in the **DynFixed**, fractional digits are truncated and the return value is **FALSE**. If **val** does not contain a valid fixed-point literal or contains extraneous characters other than leading or trailing white space, the operation raises TypeMismatch.
 
-### 13.2.4 The DynEnum Interface
+### The DynEnum Interface
 
 **DynEnum** objects are associated with enumerated values.
 
@@ -4920,7 +4898,7 @@ a value that is outside the range of ordinal values for the corresponding enumer
 
 The current position of a **DynEnum** is always -1.
 
-**13.2.5 The DynStruct Interface**
+### The DynStruct Interface
 
 **DynStruct** objects are associated with struct values and exception values.
 
@@ -4987,7 +4965,7 @@ The **get_members_as_dyn_any** and **set_members_as_dyn_any** operations have th
 
 **DynStruct** objects can also be used for handling exception values. In that case, members of the exceptions are handled in the same way as members of a struct.
 
-### 13.2.6 The DynUnion Interface
+### The DynUnion Interface
 
 DynUnion objects are associated with unions.
 
@@ -5079,7 +5057,7 @@ The **member_name** operation returns the name of the currently active member. I
 
 The **is_set_to_default_member** operation returns TRUE if a union has an explicit default label and the discriminator value does not match any of the union’s other case labels.
 
-### 13.2.7 The DynSequence Interface
+### The DynSequence Interface
 
 **DynSequence** objects are associated with sequences.
 
@@ -5137,7 +5115,7 @@ If value contains one or more elements whose **TypeCode** is not equivalent to t
 
 The **get_elements_as_dyn_any** and **set_elements_as_dyn_any** operations have the same semantics, but accept and return values of type **DynAny** instead of **Any**.
 
-### 13.2.8 The DynArray Interface
+### The DynArray Interface
 
 **DynArray** objects are associated with arrays.
 
@@ -5167,7 +5145,7 @@ The **get_elements_as_dyn_any** and **set_elements_as_dyn_any** operations have 
 
 Note that the dimension of the array is contained in the **TypeCode**, which is accessible through the **type** attribute. It can also be obtained by calling the **component_count** operation.
 
-### 13.2.9 The DynValueCommon Interface
+### The DynValueCommon Interface
 
 **DynValueCommon** provides operations supported by both the **DynValue** and **DynValueBox** interfaces.
 
@@ -5193,7 +5171,7 @@ If the **DynValueCommon** represents a null valuetype, then **set_to_value** rep
 
 A reference to a **DynValueCommon** interface (and interfaces derived from it) exhibit the same sharing semantics as the underlying **valuetype** that it represents. This means that the relationships between **valuetypes** in a graph of valuetypes will remain unchanged when converted into **DynAny** form and vice versa. This is necessary to ensure that applications that use the **DII** and **DSI** can correctly view and preserve the semantics of the **valuetype** graph.
 
-### 13.2.10 The DynValue Interface
+### The DynValue Interface
 
 **DynValue** objects are associated with non-boxed valuetypes.
 
@@ -5222,7 +5200,7 @@ The remaining operations on the **DynValue** interface generally have equivalent
 
 **WARNING**: Indiscriminately changing the contents of private valuetype members can cause the valuetype implementation to break by violating internal constraints. Access to private members is provided to support such activities as ORB bridging and debugging and should not be used to arbitrarily violate the encapsulation of the valuetype.
 
-### 13.2.11 The DynValueBox Interface
+### The DynValueBox Interface
 
 **DynValueBox** objects are associated with boxed valuetypes.
 
@@ -5257,11 +5235,11 @@ The **set_boxed_value** operation replaces the boxed value with the specified va
 
 The **get_boxed_value_as_dyn_any** and **set_boxed_value_as_dyn_any** have the same semantics as their any counterparts, but accept and return values of type **DynAny** instead of any.
 
-## 13.3 Usage in C++ Language
+## Usage in C++ Language
 
-### 13.3.1 Dynamic Creation of CORBA::Any values
+### Dynamic Creation of CORBA::Any values
 
-#### 13.3.1.1 Creating an any that contains a struct
+#### Creating an any that contains a struct
 
 Consider the following IDL definition:
 
@@ -5278,20 +5256,20 @@ The following example illustrates how a **CORBA::Any** value may be constructed 
 ```
 CORBA::ORB_var orb = ...;
 DynamicAny::DynAnyFactory_var dafact
-  = orb->resolve_initial_references(“DynAnyFactory”);
+  = orb->resolve_initial_references("DynAnyFactory");
 CORBA::StructMemberSeq mems(2);
 CORBA::Any_var result;
 CORBA::Long value1 = 99;
 CORBA::Boolean value2 = 1;
 mems.length(2);
-mems[0].name = CORBA::string_dup(“member1”);
+mems[0].name = CORBA::string_dup("member1");
 mems[0].type = CORBA::TypeCode::_duplicate(CORBA::_tc_long);
-mems[1].name = CORBA::string_dup(“member2”);
+mems[1].name = CORBA::string_dup("member2");
 mems[1].type
   = CORBA::TypeCode::_duplicate(CORBA::_tc_boolean);
 CORBA::TypeCode_var new_tc = orb->create_struct_tc(
-“IDL:MyStruct:1.0”,
-“MyStruct”,
+"IDL:MyStruct:1.0",
+"MyStruct",
 mems
 );
 
@@ -5311,9 +5289,9 @@ dyn_struct->destroy();
 CORBA::release(dyn_struct);
 ```
 
-### 13.3.2 Dynamic Interpretation of CORBA::Any values
+### Dynamic Interpretation of CORBA::Any values
 
-**13.3.2.1 Filtering of events**
+#### Filtering of events
 
 Suppose there is a CORBA object that receives events and prints all those events, which correspond to a data structure containing a member called **is_urgent** whose value is true.
 
@@ -5361,9 +5339,9 @@ return success;
 }
 ```
 
-# 14 The Interface Repository
+# The Interface Repository
 
-## 14.1 Overview
+## Overview
 
 The Interface Repository is the component of the ORB that provides persistent storage of interface definitions—it manages and provides access to a collection of object definitions specified in IDL.
 
@@ -5387,13 +5365,13 @@ As the interface to the object definitions maintained in an Interface Repository
 - Provide interface information to language bindings (such as a compiler).
 - Provide components of end-user environments (for example, a menu bar constructor).
 
-The complete IDL specification for the [Interface Repository](#6213-interface-repository) (see [IDL](#148-idl-for-interface-repository) for Interface Repository); however, fragments of the specification are used throughout this clause as necessary.
+The complete IDL specification for the [Interface Repository](#interface-repository) (see [IDL for Interface Repository](#idl-for-interface-repository)); however, fragments of the specification are used throughout this clause as necessary.
 
-## 14.2 Scope of an Interface Repository
+## Scope of an Interface Repository
 
 Interface definitions are maintained in the Interface Repository as a set of objects that are accessible through a set of IDLspecified interface definitions. An interface definition contains a description of the operations it supports, including the types of the parameters, exceptions it may raise, and context information it may use.
 
-In addition, the interface repository stores constant values, which might be used in other interface and value definitions or might simply be defined for programmer convenience and it stores TypeCodes see [TypeCodes](#811-typecodes), which are values that describe a type in structural terms.
+In addition, the interface repository stores constant values, which might be used in other interface and value definitions or might simply be defined for programmer convenience and it stores TypeCodes see [TypeCodes](#typecodes), which are values that describe a type in structural terms.
 
 The Interface Repository uses modules as a way to group interfaces and to navigate through those groups by name. Modules can contain constants, typedefs, exceptions, interface/ component/home definitions, and other modules. Modules may, for example, correspond to the organization of IDL definitions. They may also be used to represent organizations defined for administration or other purposes.
 
@@ -5404,15 +5382,13 @@ An ORB may have access to multiple Interface Repositories. This may occur becaus
 - two ORBs have different requirements for the implementation of the Interface Repository, • an object implementation (such as an OODB) prefers to provide its own type information, or
 - it is desired to have different additional information stored in different repositories.
 
-The use of TypeCodes see [TypeCodes](#811-typecodes) and repository identifiers is intended to allow different repositories to keep their information consistent.
+The use of TypeCodes see [TypeCodes](#typecodes) and repository identifiers is intended to allow different repositories to keep their information consistent.
 
-As shown in Figure 14.1, the same interface **Doc** is installed in two different repositories, one at SoftCo, Inc., which sells Doc objects, and one at Customer, Inc., which buys Doc objects from SoftCo. SoftCo sets the repository id for the Doc interface when it defines it. Customer might first install the interface in its repository in a module where it could be tested before exposing it for general use. Because it has the same repository id, even though the Doc interface is stored in a different repository and is nested in a different module, it is known to be the same.
+As shown in [Using Repository IDs to establish correspondence between repositories](Images/figure14-1.svg), the same interface **Doc** is installed in two different repositories, one at SoftCo, Inc., which sells Doc objects, and one at Customer, Inc., which buys Doc objects from SoftCo. SoftCo sets the repository id for the Doc interface when it defines it. Customer might first install the interface in its repository in a module where it could be tested before exposing it for general use. Because it has the same repository id, even though the Doc interface is stored in a different repository and is nested in a different module, it is known to be the same.
 
 Meanwhile at SoftCo, someone working on a new Doc interface has given it a new repository id 456, which allows the ORBs to distinguish it from the current product Doc interface.
 
-![](Images/figure14-1.svg)
-
-**Figure 14.1 - Using Repository IDs to establish correspondence between repositories**
+![Using Repository IDs to establish correspondence between repositories](Images/figure14-1.svg)
 
 Not all interfaces will be visible in all repositories. For example, Customer employees cannot see the new release of the Doc interface. However, widely used interfaces will generally be visible in most repositories.
 
@@ -5420,7 +5396,7 @@ This Interface Repository specification defines operations for retrieving inform
 
 A critical use of the interface repository information is for connecting ORBs together. When an object is passed in a request from one ORB to another, it may be necessary to create a new object to represent the passed object in the receiving ORB. This may require locating the interface information in an interface repository in the receiving ORB. By getting the repository id from a repository in the sending ORB, it is possible to look up the interface in a repository in the receiving ORB. To succeed, the interface for that object must be installed in both repositories with the same repository id.
 
-## 14.3 Implementation Dependencies
+## Implementation Dependencies
 
 An implementation of an Interface Repository requires some form of persistent object store. Normally the kind of persistent object store used determines how interface definitions are distributed and/or replicated throughout a network domain. For example, if an Interface Repository is implemented using a filing system to provide object storage, there may be only a single copy of a set of interfaces maintained on a single machine. Alternatively, if an OODB is used to provide object storage, multiple copies of interface definitions may be maintained each of which is distributed across several machines to provide both high-availability and load-balancing.
 
@@ -5428,7 +5404,7 @@ The kind of object store used may determine the scope of interface definitions p
 
 An implementation of the Interface Repository is also dependent on the security mechanism in use. The security mechanism (usually operating in conjunction with the object store) determines the nature and granularity of access controls available to constrain access to objects in the repository.
 
-### 14.3.1 Managing Interface Repositories
+### Managing Interface Repositories
 
 Interface Repositories contain the information necessary to allow programs to determine and manipulate the type information at run-time. Programs may attempt to access the interface repository at any time by using the **get_interface** operation on the object reference. Once information has been installed in the repository, programs, stubs, and objects may depend on it. Updates to the repository must be done with care to avoid disrupting the environment. A variety of techniques are available to help do so.
 
@@ -5444,7 +5420,7 @@ Transactions and concurrency control mechanisms defined by the Object Services m
 
 Often, rather than change the information, new versions will be created, allowing the old version to continue to be valid. The new versions will have distinct repository IDs and be completely different types as far as the repository and the ORBs are concerned. The IR provides storage for version identifiers for named types, but does not specify any additional versioning mechanism or semantics.
 
-## 14.4 Basics
+## Basics
 
 This sub clause introduces some basic ideas that are important to understanding the Interface Repository. Topics addressed in this sub clause are:
 
@@ -5453,7 +5429,7 @@ This sub clause introduces some basic ideas that are important to understanding 
 - Interface Repository Objects
 - Structure and Navigation of the Interface Repository
 
-### 14.4.1 Names and Identifiers
+### Names and Identifiers
 
 Simple names are not necessarily unique within an Interface Repository; they are always relative to an explicit or implicit module. In this context, interface, struct, union, exception, and value type definitions are considered implicit modules.
 
@@ -5461,11 +5437,11 @@ Scoped names uniquely identify modules, interfaces, components, homes, value and
 
 Repository identifiers globally identify modules, interfaces, components, homes, value and event types, value members, value boxes, constants, typedefs, exceptions, attributes, and operations. They can be used to synchronize definitions across multiple ORBs and Repositories.
 
-### 14.4.2 Types and TypeCodes
+### Types and TypeCodes
 
-The Interface Repository stores information about types that are not interfaces in a data value called a TypeCode. From the TypeCode alone it is possible to determine the complete structure of a type. See [TypeCodes](#811-typecodes) for more information on the internal structure of TypeCodes.
+The Interface Repository stores information about types that are not interfaces in a data value called a TypeCode. From the TypeCode alone it is possible to determine the complete structure of a type. See [TypeCodes](#typecodes) for more information on the internal structure of TypeCodes.
 
-### 14.4.3 Interface Repository Objects
+### Interface Repository Objects
 
 Information about the entities that are managed in an Interface Repository is maintained as a collection of *interface repository objects* of the following types:
 
@@ -5498,19 +5474,17 @@ Information about the entities that are managed in an Interface Repository is ma
 - **PublishesDef**: the definition of events that are published by a component.
 - **ConsumesDef**: the definition of events that are consumed by a component.
 
-The interface specifications for each *interface repository object* lists the attributes maintained by that object (see [Interface Repository Interfaces](#145-interface-repository-interfaces)). Many of these attributes correspond directly to IDL statements. An implementation can choose to maintain additional attributes to facilitate managing the Repository or to record additional (proprietary) information about an interface. Implementations that extend the IR interfaces shall do so by deriving new interfaces, not by modifying the standard interfaces.
+The interface specifications for each *interface repository object* lists the attributes maintained by that object (see [Interface Repository Interfaces](#interface-repository-interfaces)). Many of these attributes correspond directly to IDL statements. An implementation can choose to maintain additional attributes to facilitate managing the Repository or to record additional (proprietary) information about an interface. Implementations that extend the IR interfaces shall do so by deriving new interfaces, not by modifying the standard interfaces.
 
 The *CORBA* specification defines a minimal set of operations for *interface repository objects*. Additional operations that an implementation of the Interface Repository may provide could include operations that provide for the versioning of entities and for the reverse compilation of specifications (i.e., the generation of a file containing an object’s IDL specification).
 
-### 14.4.4 Structure and Navigation of the Interface Repository
+### Structure and Navigation of the Interface Repository
 
 The definitions in the Interface Repository are structured as a set of *interface repository objects*. These objects are structured the same way definitions are structured—some objects (definitions) “contain” other objects.
 
-The containment relationships for the *interface repository objects* types in the Interface Repository are shown in Figure 14.2
+The containment relationships for the *interface repository objects* types in the Interface Repository are shown in [Interface Repository Object Containment](Images/figure14-2.svg)
 
-![](Images/figure14-2.svg)
-
-**Figure 14.2 - Interface Repository Object Containment**
+![Interface Repository Object Containment](Images/figure14-2.svg)
 
 There are three ways to locate an interface in the Interface Repository, by:
 
@@ -5543,7 +5517,7 @@ Analogous operations are provided for manipulating value and event types.
 
 The **ComponentIR** module contains the IR Objects that were added to reflect new IDL constructs that were added to support Components. These are built upon the IR interfaces defined in **CORBA** module including **ExtInterfaceDef**, **ExtValueDef**, and **ExtAttributeDef** and thus are backward compatible extensions of the 2.5 and earlier versions of the IR.
 
-## 14.5 Interface Repository Interfaces
+## Interface Repository Interfaces
 
 Several interfaces are used as *base interfaces* for objects in the IR. These *base interface*s are not instantiable.
 
@@ -5555,7 +5529,7 @@ The *base interfaces* **IRObject**, **Contained**, **Container**, **IDLType**, *
 
 All string data in the Interface Repository are encoded as defined by the ISO 8859-1 coded character set.
 
-Interface Repository operations indicate error conditions using the system exceptions BAD_PARAM and BAD_INV_ORDER with specific minor codes. The specific operations that raise these exceptions are documented in the description of the operations. For a description of how these minor codes are encoded in the **ex_body** of standard exceptions see [System Exceptions](#8122-system-exceptions) and [Standard Minor Exception Codes](#8124-standard-minor-exception-codes). The exceptions and minor codes that are used by Interface Repository interfaces are as follows:
+Interface Repository operations indicate error conditions using the system exceptions BAD_PARAM and BAD_INV_ORDER with specific minor codes. The specific operations that raise these exceptions are documented in the description of the operations. For a description of how these minor codes are encoded in the **ex_body** of standard exceptions see [System Exceptions](#system-exceptions) and [Standard Minor Exception Codes](#standard-minor-exception-codes). The exceptions and minor codes that are used by Interface Repository interfaces are as follows:
 
 | **Exception** | **Minor Code** | **Explanation**|
 |---------------|----------------|----------------------|
@@ -5567,7 +5541,7 @@ Interface Repository operations indicate error conditions using the system excep
 | BAD_INV_ORDER | 1| Dependency exists in IFR preventing destruction of this object|
 || 2| Attempt to destroy indestructible objects in IFR|
 
-### 14.5.1 Supporting Type Definitions
+### Supporting Type Definitions
 
 Several types are used throughout the IR interface definitions.
 
@@ -5608,7 +5582,7 @@ A **RepositoryId** is an identifier used to uniquely and globally identify a mod
 
 A **DefinitionKind** identifies the type of an IR object.
 
-### 14.5.2 IRObject
+### IRObject
 
 The *base interface* **IRObject** represents the most generic interface from which all other Interface Repository interfaces are derived, even the Repository itself.
 
@@ -5623,15 +5597,15 @@ module CORBA {
 };
 ```
 
-**14.5.2.1 Read Interface**
+#### Read Interface
 
 The **def_kind** **type_name** attribute identifies the type of the definition.
 
-**14.5.2.2 Write Interface**
+#### Write Interface
 
 The **destroy** operation causes the object to cease to exist. If the object is a **Container**, **destroy** is applied to all its contents. If the object contains an **IDLType** attribute for an anonymous type, that **IDLType** is destroyed. If the object is currently contained in some other object, it is removed. If **destroy** is invoked on a **Repository** or on a **PrimitiveDef**, then the BAD_INV_ORDER exception is raised with minor value 2. Implementations may vary in their handling of references to an object that is being destroyed, but the Repository should not be left in an incoherent state. Attempt to destroy an object that would leave the repository in an incoherent state shall cause BAD_INV_ORDER exception to be raised with the minor code 1.
 
-### 14.5.3 Contained
+### Contained
 
 The *base interface* **Contained** is inherited by all Interface Repository interfaces that are contained by other IR objects.
 All objects within the Interface Repository, except the root object (**Repository**) and definitions of anonymous (**ArrayDef**, **StringDef, WstringDef, FixedDef, and SequenceDef**), and primitive types are contained by other objects.
@@ -5671,7 +5645,7 @@ void move (
 };
 ```
 
-**14.5.3.1 Read Interface**
+#### Read Interface
 
 An object that is contained by another object has an **id** attribute that identifies it globally, and a **name** attribute that identifies it uniquely within the enclosing **Container** object. It also has a **version** attribute that distinguishes it from other versioned objects with the same **name**. IRs are not required to support simultaneous containment of multiple versions of the same named object. Supporting multiple versions will require mechanisms and policy not specified in this document.
 
@@ -5685,7 +5659,7 @@ The **within** operation returns the list of objects that contain the object. If
 
 The **describe** operation returns a structure containing information about the interface. The description structure associated with each interface is provided below with the interface’s definition. The kind of definition described by name of the structure returned is provided with the returned structure. The **kind** field of the returned **Description** struct shall give the **DefinitionKind** for the most derived type of the object. For example, if the **describe** operation is invoked on an attribute object, the **kind** field contains **dk_Attribute** **name** field contains “AttributeDescription” and the **value** field contains an **any**, which contains the **AttributeDescription** structure. The **kind** field in this must contain **dk_attribute** and not the kind of any **IRObject** from which the **attribute** object is derived. For example returning **dk_all** would be an error.
 
-**14.5.3.2 Write Interface**
+#### Write Interface
 
 Setting the **id** attribute changes the global identity of this definition. A BAD_PARAM exception is raised with minor code 2 if an object with the specified **id** attribute already exists within this object’s **Repository**.
 
@@ -5694,14 +5668,14 @@ Setting the **name** attribute changes the identity of this definition within it
 The **move** operation atomically removes this object from its current **Container**, and adds it to the **Container** specified by **new_container** must satisfy the following conditions:
 
 - It must be in the same **Repository.** If it is not, then BAD_PARAM exception is raised with minor code 4.
-- It must be capable of containing this object’s type (see [Structure and Navigation of the Interface Repository](#1444-structure-and-navigation-of-the-interface-repository)). If it is not, then BAD_PARAM exception is raised with minor code 4.
+- It must be capable of containing this object’s type (see [Structure and Navigation of the Interface Repository](#structure-and-navigation-of-the-interface-repository)). If it is not, then BAD_PARAM exception is raised with minor code 4.
 - It must not already contain an object with this object’s name (unless multiple versions are supported by the IR). If this condition is not satisfied, then BAD_PARAM exception is raised with minor code 3.
 
 The **name** attribute is changed to **new_name**, and the **version** attribute is changed to **new_version**.
 
 The **defined_in** and **absolute_name** attributes are updated to reflect the new container and **name**. If this object is also a **Container**, the **absolute_name** attributes of any objects it contains are also updated.
 
-### 14.5.4 Container
+### Container
 
 The *base interface* **Container** is used to form a containment hierarchy in the Interface Repository. A **Container** can contain any number of objects derived from the **Contained** interface. All **Container**s, except for **Repository**, are also derived from **Contained**.
 
@@ -5855,7 +5829,7 @@ ExtValueDef create_ext_value (
 };
 ```
 
-**14.5.4.1 Read Interface**
+#### Read Interface
 
 The **lookup** operation locates a definition relative to this container given a scoped name using IDL’s name scoping rules. An absolute scoped name (beginning with “::”) locates the definition relative to the enclosing **Repository**. If no object is found, a nil object reference is returned.
 
@@ -5889,7 +5863,7 @@ Limits the number of objects that can be returned in an invocation of the call t
 
 **contents** and **describe_contents** return a list of elements in their original order (i.e., the order in which the elements were created in or moved into the container). If **exclude_inherited** is false, the ordering of inherited elements is undefined.
 
-**14.5.4.2 Write Interface**
+#### Write Interface
 
 The **Container** interface provides operations to create **ModuleDef**s, **ConstantDef**s, **StructDef**s, **UnionDef**s, **EnumDef**s, **AliasDef**s, **InterfaceDef**s, **ValueDef**s **ValueBoxDef**s, and **NativeDef**s as contained objects. The **defined_in** attribute of a definition created with any of these operations is initialized to identify the **Container** on which the operation is invoked, and the **containing_repository** attribute is initialized to its **Repository**.
 
@@ -5903,9 +5877,9 @@ The **create_constant** operation returns a new **ConstantDef** with the specifi
 
 The **create_struct** operation returns a new **StructDef** with the specified **members**. The **type** member of the **StructMember** structures is ignored, and should be set to **TC_void**. See StructDef for more information.
 
-The **create_union** operation returns a new **UnionDef** with the specified **discriminator_type** and **members**. The **type** member of the **UnionMember** structures is ignored, and should be set to **TC_void**. See [UnionDef](#14511-uniondef) for more information.
+The **create_union** operation returns a new **UnionDef** with the specified **discriminator_type** and **members**. The **type** member of the **UnionMember** structures is ignored, and should be set to **TC_void**. See [UnionDef](#uniondef) for more information.
 
-The **create_enum** operation returns a new **EnumDef** with the specified **members**. See [EnumDef](#14512-enumdef) for more information.
+The **create_enum** operation returns a new **EnumDef** with the specified **members**. See [EnumDef](#enumdef) for more information.
 
 The **create_alias** operation returns a new **AliasDef** with the specified **original_type**.
 
@@ -5926,7 +5900,7 @@ The **create_native** operation returns a new **NativeDef** with the specified *
 
 The **create_ext_value** operation returns a new empty **ExtValueDef** with the specified base interfaces and values (**base_value**, **supported_interfaces**, and **abstract_base_values**) as well as the other information describing the new values characteristics (**is_custom**, **is_abstract**, **is_truncatable**, and **initializers**). The **initializers** argument is of type **ExtInitializerSeq** allowing one to specify user exceptions for initializers. Type, exception, and constant definitions can be added using ```Container::create_<type>``` operations on the new **ExtValueDef**. **OperationDef**s can be added using **ExtValueDef::create_operation** and **ExtAttributeDef**s can be added using **ExtValueDef::create_ext_attribute**. Definitions can also be added using the **Contained::move** operation.
 
-### 14.5.5 IDLType
+### IDLType
 
 The *base interface* **IDLType** is inherited by all IR objects that represent IDL types. It provides access to the **TypeCode** describing the type, and is used in defining other interfaces wherever definitions of IDL types must be referenced.
 
@@ -5940,7 +5914,7 @@ module CORBA {
 
 The **type** attribute describes the type defined by an object derived from **IDLType**.
 
-### 14.5.6 Repository
+### Repository
 
 **Repository** is an interface that provides global access to the Interface Repository that does not support access to information related to CORBA Components. The **Repository** object can contain constants, typedefs, exceptions, interfaces, value types, value boxes, native types, and modules. As it inherits from **Container**, it can be used to look up any definition (whether globally defined or defined within a module or interface) either by **name** or by **id**.
 
@@ -5983,15 +5957,15 @@ module CORBA {
 };
 ```
 
-#### 14.5.6.1 Read Interface
+#### Read Interface
 
 The **lookup_id** operation is used to lookup an object in a **Repository** given its **RepositoryId**. If the **Repository** does not contain a definition for **search_id**, a nil object reference is returned. The **lookup_id** operations always return a nil reference if the value of **search_id** is **IDL:omg.org/CORBA/Object:1.0**, or **IDL:omg.org/CORBA/ValueBase:1.0**, signifying the fact that the implicit base types are not contained in the Interface Repository.
 
 The **get_canonical_typecode** operation looks up the **TypeCode** in the Interface Repository and returns an equivalent **TypeCode** that includes all **repository** **ids**, **names**, and **member_names**. If the top level **TypeCode** does not contain a **RepositoryId**, such as array and sequence **TypeCodes**, or **TypeCodes** from older ORBs, or if it contains a **RepositoryId** that is not found in the target **Repository**, then a new **TypeCode** is constructed by recursively calling **get_canonical_typecode** on each member **TypeCode** of the original **TypeCode**.
 
-The **get_primitive** operation returns a reference to a **PrimitiveDef** (see [PrimitiveDef](#14514-primitivedef)) with the specified **kind** attribute. All **PrimitiveDef**s are immutable and are owned by the **Repository**.
+The **get_primitive** operation returns a reference to a **PrimitiveDef** (see [PrimitiveDef](#primitivedef)) with the specified **kind** attribute. All **PrimitiveDef**s are immutable and are owned by the **Repository**.
 
-#### 14.5.6.2 Write Interface
+#### Write Interface
 
 The five ```create_<type>``` operations that create new IR objects defining anonymous types. As these interfaces are not derived from **Contained**, it is the caller’s responsibility to invoke **destroy** on the returned object if it is not successfully used in creating a definition that is derived from **Contained**. Each anonymous type definition must be used in defining exactly one other object.
 
@@ -6001,7 +5975,7 @@ The five ```create_<type>``` operations that create new IR objects defining anon
 4. The **create_array** operation returns a new **ArrayDef** with the specified **length** and **element_type**.
 5. The **create_fixed** operation returns a new **FixedDef** with the specified number of digits and scale. The number of digits must be from 1 to 31, inclusive.
 
-### 14.5.7 ModuleDef
+### ModuleDef
 
 A **ModuleDef** can contain constants, typedefs, exceptions, interfaces, value types, value boxes, native types, and other module objects.
 
@@ -6020,7 +5994,7 @@ struct ModuleDescription {
 
 The inherited **describe** operation for a **ModuleDef** object returns a **ModuleDescription**.
 
-### 14.5.8 ConstantDef
+### ConstantDef
 
 A **ConstantDef** object defines a named constant.
 
@@ -6043,19 +6017,19 @@ struct ConstantDescription {
 };
 ```
 
-The **type** attribute specifies the **TypeCode** describing the type of the constant. The type of a constant must be one of the primitive types allowed in constant declarations (see [Constant Declaration](#710-constant-declaration)). The **type_def** attribute identifies the definition of the type of the constant.
+The **type** attribute specifies the **TypeCode** describing the type of the constant. The type of a constant must be one of the primitive types allowed in constant declarations (see [Constant Declaration](#constant-declaration)). The **type_def** attribute identifies the definition of the type of the constant.
 
 The **value** attribute contains the value of the constant, not the computation of the value (e.g., the fact that it was defined as “1+2”).
 
 The **describe** operation for a **ConstantDef** object returns a **ConstantDescription**.
 
-#### 14.5.8.2 Write Interface
+#### Write Interface
 
 Setting the **type_def** attribute also updates the **type** attribute.
 
 When setting the **value** attribute, the **TypeCode** of the supplied any must be equal to the **type** attribute of the **ConstantDef**.
 
-### 14.5.9 TypedefDef
+### TypedefDef
 
 The *base interface* **TypedefDef** is inherited by all named non-object.types (structures, unions, enumerations, and aliases).
 The **TypedefDef** interface is not inherited by the definition objects for primitive or anonymous types.
@@ -6076,7 +6050,7 @@ module CORBA {
 
 The inherited **describe** operation for interfaces derived from **TypedefDef** returns a **TypeDescription**.
 
-### 14.5.10 StructDef
+### StructDef
 
 A **StructDef** represents an IDL structure definition. It can contain structs, unions, and enums.
 
@@ -6097,17 +6071,17 @@ interface StructDef : TypedefDef, Container {
 };
 ```
 
-#### 14.5.10.1 Read Interface
+#### Read Interface
 
 The **members** attribute contains a description of each structure member. The inherited **type** attribute is a **tk_struct** **TypeCode** describing the structure.
 
-#### 14.5.10.2 Write Interface
+#### Write Interface
 
 Setting the **members** attribute also updates the **type** attribute. When setting the **members** attribute, the **type** member of the **StructMember** structure should be set to **TC_void**.
 
 A **StructDef** used as a **Container** may only contain **StructDef**, **UnionDef**, or **EnumDef** definitions.
 
-### 14.5.11 UnionDef
+### UnionDef
 
 A **UnionDef** represents an IDL union definition.
 
@@ -6129,7 +6103,7 @@ interface UnionDef : TypedefDef, Container {
 };
 ```
 
-#### 14.5.11.1 Read Interface
+#### Read Interface
 
 The **discriminator_type** and **discriminator_type_def** attributes describe and identify the union’s discriminator type.
 
@@ -6137,7 +6111,7 @@ The **members** attribute contains a description of each union member. The **lab
 
 The inherited **type** attribute is a **tk_union** **TypeCode** describing the union.
 
-#### 14.5.11.2 Write Interface
+#### Write Interface
 
 Setting the **discriminator_type_def** attribute also updates the **discriminator_type** attribute and setting the **discriminator_type_def** or **members** attribute also updates the **type** attribute.
 
@@ -6145,7 +6119,7 @@ When setting the **members** attribute, the **type** member of the **UnionMember
 
 A **UnionDef** used as a **Container** may only contain **StructDef**, **UnionDef**, or **EnumDef** definitions.
 
-### 14.5.12 EnumDef
+### EnumDef
 
 An **EnumDef** represents an IDL enumeration definition.
 
@@ -6159,17 +6133,17 @@ attribute EnumMemberSeq    members;
 };
 ```
 
-#### 14.5.12.1 Read Interface
+#### Read Interface
 
 The **members** attribute contains a distinct name for each possible value of the enumeration.
 
 The inherited **type** attribute is a **tk_enum** **TypeCode** describing the enumeration.
 
-#### 14.5.12.2 Write Interface
+#### Write Interface
 
 Setting the **members** attribute also updates the **type** attribute.
 
-### 14.5.13 AliasDef
+### AliasDef
 
 An **AliasDef** represents an IDL typedef that aliases another definition.
 
@@ -6181,17 +6155,17 @@ module CORBA {
 };
 ```
 
-#### 14.5.13.1 Read Interface
+#### Read Interface
 
 The **original_type_def** attribute identifies the type being aliased.
 
 The inherited **type** attribute is a **tk_alias** **TypeCode** describing the alias.
 
-#### 14.5.13.2 Write Interface
+#### Write Interface
 
 Setting the **original_type_def** attribute also updates the **type** attribute.
 
-### 14.5.14 PrimitiveDef
+### PrimitiveDef
 
 A **PrimitiveDef** represents one of the IDL primitive types. As primitive types are unnamed, this interface is not derived from **TypedefDef** or **Contained**.
 
@@ -6215,7 +6189,7 @@ The **kind** attribute indicates which primitive type the **PrimitiveDef** repre
 
 The inherited **type** attribute describes the primitive type. All **PrimitiveDef**s are owned by the Repository. References to them are obtained using **Repository::get_primitive**.
 
-### 14.5.15 StringDef
+### StringDef
 
 A **StringDef** represents an IDL bounded string type. The unbounded string type is represented as a **PrimitiveDef**. As string types are anonymous, this interface is not derived from **TypedefDef** or **Contained**.
 
@@ -6229,7 +6203,7 @@ module CORBA {
 
 The **bound** attribute specifies the maximum number of characters in the string and must not be zero. The inherited **type** attribute is a **tk_string** **TypeCode** describing the string.
 
-### 14.5.16 WstringDef
+### WstringDef
 
 A **WstringDef** represents an IDL wide string. The unbounded wide string type is represented as a **PrimitiveDef**. As wide string types are anonymous, this interface is not derived from **TypedefDef** or **Contained**.
 
@@ -6243,7 +6217,7 @@ module CORBA {
 
 The **bound** attribute specifies the maximum number of wide characters in a wide string, and must not be zero. The inherited **type** attribute is a **tk_wstring TypeCode** describing the wide string.
 
-### 14.5.17 FixedDef
+### FixedDef
 
 A **FixedDef** represents an IDL fixed point type.
 
@@ -6260,7 +6234,7 @@ The **digits** attribute specifies the total number of decimal digits in the num
 
 The inherited **type** attribute is a **tk_fixed TypeCode**, which describes a fixed-point decimal number.
 
-### 14.5.18 SequenceDef
+### SequenceDef
 
 A **SequenceDef** represents an IDL sequence type. As sequence types are anonymous, this interface is not derived from **TypedefDef** or **Contained**.
 
@@ -6274,17 +6248,17 @@ module CORBA {
 };
 ```
 
-#### 14.5.18.1 Read Interface
+#### Read Interface
 
 The **bound** attribute specifies the maximum number of elements in the sequence. A **bound** of zero indicates an unbounded sequence.
 
 The type of the elements is described by **element_type** and identified by **element_type_def**. The inherited **type** attribute is a **tk_sequence** **TypeCode** describing the sequence.
 
-#### 14.5.18.2 Write Interface
+#### Write Interface
 
 Setting the **element_type_def** attribute also updates the **element_type** attribute. Setting the **bound** or **element_type_def** attribute also updates the **type** attribute.
 
-### 14.5.19 ArrayDef
+### ArrayDef
 
 An **ArrayDef** represents an IDL array type. As array types are anonymous, this interface is not derived from **TypedefDef** or **Contained**.
 
@@ -6298,7 +6272,7 @@ module CORBA {
 };
 ```
 
-#### 14.5.19.1 Read Interface
+#### Read Interface
 
 The **length** attribute specifies the number of elements in the array.
 
@@ -6306,11 +6280,11 @@ The type of the elements is described by **element_type** and identified by **el
 
 The inherited **type** attribute is a **tk_array** **TypeCode** describing the array.
 
-#### 14.5.19.2 Write Interface
+#### Write Interface
 
 Setting the **element_type_def** attribute also updates the **element_type** attribute. Setting the **bound** or **element_type_def** attribute also updates the **type** attribute.
 
-### 14.5.20 ExceptionDef
+### ExceptionDef
 
 An **ExceptionDef** represents an exception definition. It can contain structs, unions, and enums.
 
@@ -6329,17 +6303,17 @@ TypeCode   type;
   };
 };
 
-#### 14.5.20.1 Read Interface
+#### Read Interface
 
 The **type** attribute is a **tk_except** **TypeCode** describing the exception. The members **attribute** describes any exception members. The **describe** operation for an **ExceptionDef** object returns an **ExceptionDescription**.
 
-#### 14.5.20.2 Write Interface
+#### Write Interface
 
 Setting the **members** attribute also updates the **type** attribute. When setting the **members** attribute, the **type** member of the **StructMember** structure is ignored and should be set to **TC_void**.
 
 An **ExceptionDef** used as a **Container** may only contain **StructDef**, **UnionDef**, or **EnumDef** definitions.
 
-### 14.5.21 AttributeDef
+### AttributeDef
 
 An **AttributeDef** represents the information that defines an attribute of an interface, component, home, valuetype, or eventtype.
 
@@ -6364,7 +6338,7 @@ struct AttributeDescription {
 };
 ```
 
-#### 14.5.21.1 Read Interface
+#### Read Interface
 
 The **type** attribute provides the **TypeCode** describing the type of this attribute. The **type_def** attribute identifies the object defining the type of this attribute.
 
@@ -6372,11 +6346,11 @@ The **mode** attribute specifies read only or read/write access for this attribu
 
 The **describe** operation for an **AttributeDef** object returns an **AttributeDescription**.
 
-#### 14.5.21.2 Write Interface
+#### Write Interface
 
 Setting the **type_def** attribute also updates the **type** attribute.
 
-### 14.5.22 ExtAttributeDef
+### ExtAttributeDef
 
 An **ExtAttributeDef** represents the information that defines an attribute of an interface, component, home, valuetype, or eventtype that can potentially have user exceptions associated with it.
 
@@ -6404,7 +6378,7 @@ interface ExtAttributeDef : AttributeDef {
 };
 ```
 
-#### 14.5.22.1 Read Interface
+#### Read Interface
 
 The operations inherited from **AttributeDef** behave exactly the same as in **AttributeDef**. In particular, the **def_kind** attribute that has the value **dk_Attribute**, exactly as in **AttributeDef**.
 
@@ -6412,11 +6386,11 @@ The **get_exceptions** and **set_exceptions** attributes specify the list of exc
 
 The **describe_attribute** operation for an **ExtAttributeDef** object returns an **ExtAttributeDescription**. that contains information about user exceptions in addition to the information that is available through **AttributeDescription**.
 
-#### 14.5.22.2 Write Interface
+#### Write Interface
 
 Same as for **AttributeDef**.
 
-### 14.5.23 OperationDef
+### OperationDef
 
 An **OperationDef** represents the information needed to define an operation of an interface.
 
@@ -6464,7 +6438,7 @@ typedef sequence <ExceptionDescription> ExcDescriptionSeq;
 }
 ```
 
-#### 14.5.23.1 Read Interface
+#### Read Interface
 
 The **result** attribute is a **TypeCode** describing the type of the value returned by the operation. The **result_def** attribute identifies the definition of the returned type.
 
@@ -6480,13 +6454,13 @@ The **exceptions** attribute specifies the list of exception types that can be r
 
 The inherited **describe** operation for an **OperationDef** object returns an **OperationDescription**.
 
-#### 14.5.23.2 Write Interface
+#### Write Interface
 
 Setting the **result_def** attribute also updates the **result** attribute.
 
 The mode attribute can be set to **OP_ONEWAY** only if the result is **TC_void** and all elements of params have a mode of **PARAM_IN**, and the list of exceptions is empty. If the mode is set to **OP_ONEWAY** when these conditions do not hold, a BAD_PARAM exception is raised with minor code 31.
 
-### 14.5.24 InterfaceDef
+### InterfaceDef
 
 An **InterfaceDef** object represents interface definition. It can contain constants, typedefs, exceptions, operations, and attributes.
 
@@ -6552,7 +6526,7 @@ struct InterfaceDescription {
 };
 ```
 
-#### 14.5.24.1 Read Interface
+#### Read Interface
 
 The **base_interfaces** attribute lists all the interfaces from which this interface inherits.
 
@@ -6564,7 +6538,7 @@ The inherited **describe** operation for an **InterfaceDef** returns an **Interf
 
 The inherited **contents** operation returns the list of constants, typedefs, and exceptions defined in this **InterfaceDef** and the list of attributes and operations either defined or inherited in this **InterfaceDef**. If the **exclude_inherited** parameter is set to **TRUE**, only attributes and operations defined within this interface are returned. If the **exclude_inherited** parameter is set to **FALSE**, all attributes and operations are returned.
 
-#### 14.5.24.2 Write Interface
+#### Write Interface
 
 Setting the **base_interfaces** attribute causes a BAD_PARAM exception with minor code 5 to be raised if the **name** attribute of any object contained by this **InterfaceDef** conflicts with the **name** attribute of any object contained by any of the specified base **InterfaceDef**s.
 
@@ -6576,7 +6550,7 @@ The **create_operation** operation returns a new **OperationDef** contained in t
 
 An **InterfaceDef** used as a **Container** may only contain **TypedefDef**, (including definitions derived from **TypedefDef**), **ConstantDef**, and **ExceptionDef** definitions.
 
-### 14.5.25 ExtInterfaceDef
+### ExtInterfaceDef
 
 An **ExtInterfaceDef** object represents interface definition. It can contain constants, typedefs, exceptions, operations, and attributes with exceptions.
 
@@ -6617,13 +6591,13 @@ interface ExtInterfaceDef : InterfaceDef,
 };
 ```
 
-#### 14.5.25.1 Read Interface
+#### Read Interface
 
 All operations and attributes inherited from **InterfaceDef** behave the same as for **InterfaceDef**. In particular, the **def_kind** attribute has the value **dk_Interface**, exactly as in **InterfaceDef**.
 
 The inherited **describe_ext_interfaces** operation returns the **ExtFullInterfaceDescription** structure that contains information about attributes with exceptions, in addition to the information found in **FullInterfaceDescription**.
 
-#### 14.5.25.2 Write Interface
+#### Write Interface
 
 All operations and attributes inherited from **InterfaceDef** behave the same as for **InterfaceDef**.
 
@@ -6631,7 +6605,7 @@ The inherited **create_ext_attribute** operation returns a new **ExtAttributeDef
 
 **ExtInterfaceDef**. A BAD_PARAM exception with standard minor code 2 is raised if an object with the specified **id** already exists in the **Repository**. BAD_PARAM exception with standard minor code 3 is raised if an object with the same **name** already exists in this **ExtInterfaceDef**.
 
-### 14.5.26 AbstractInterfaceDef
+### AbstractInterfaceDef
 
 An **AbstractInterfaceDef** object represents a CORBA 2.3 abstract interface definition. It can contain constants, typedefs, exceptions, operations, and attributes. Its base interfaces can only contain **AbstractInterfaceDef**s.
 
@@ -6644,7 +6618,7 @@ module CORBA {
 };
 ```
 
-#### 14.5.26.1 Read Interface
+#### Read Interface
 
 The inherited **base_interfaces** attribute returns a list of abstract interfaces from which this abstract interface inherits.
 
@@ -6660,7 +6634,7 @@ The inherited **contents** operation returns the list of constants, typedefs, an
 
 **AbstractInterfaceDef** and the list of attributes and operations either defined or inherited in this **AbstractInterfaceDef**. If the **exclude_inherited** parameter is set to **TRUE**, only attributes and operations defined within this abstract interface are returned. If the **exclude_inherited** parameter is set to **FALSE**, all attributes and operations are returned.
 
-#### 14.5.26.2 Write Interface
+#### Write Interface
 
 Setting the inherited **base_interfaces** attribute causes a BAD_PARAM exception with standard minor code 5 to be raised if the name attribute of any object contained by this **AbstractInterfaceDef** conflicts with the name attribute of any object contained by any of the specified base **AbstractInterfaceDef**s. If any of the **InterfaceDef**s in **base_interface** are not **AbstractInterfaceDef**s, then a BAD_PARAM exception with standard minor code 11 is raised.
 
@@ -6672,7 +6646,7 @@ The inherited **create_operation** operation returns a new **OperationDef** cont
 
 **AbstractInterfaceDef**. A BAD_PARAM exception with standard minor code 2 is raised if an object with the specified **id** already exists in the **Repository**. BAD_PARAM exception with standard minor code 3 is raised if an object with the same **name** already exists in this **AbstractInterfaceDef**.
 
-### 14.5.27 ExtAbstractInterfaceDef
+### ExtAbstractInterfaceDef
 
 An **ExtAbstractInterfaceDef** object represents an abstract interface definition. It can contain constants, typedefs, exceptions, operations, and attributes with exceptions. Its base interfaces can only contain **ExtAbstractInterfaceDef**s.
 
@@ -6685,13 +6659,13 @@ module CORBA {
 };
 ```
 
-#### 14.5.27.1 Read Interface
+#### Read Interface
 
 All operations and attributes inherited from **AbstractInterfaceDef** behave the same as for **AbstaractInterfaceDef**. In particular, the **def_kind** attribute has the value **dk_AbstractInterface**, exactly as in **AbstaractInterfaceDef**.
 
 The inherited **describe_ext_interface** operation returns the **ExtFullInterfaceDescription** structure that contains information about attributes with exceptions, in addition to the information found in **FullInterfaceDescription**.
 
-#### 14.5.27.2 Write Interface
+#### Write Interface
 
 All operations and attributes inherited from **AbstaractInterfaceDef** behave the same as for **AbstractInterfaceDef**.
 
@@ -6699,7 +6673,7 @@ The inherited **create_ext_attribute** operation returns a new **ExtAttributeDef
 
 **ExtAbstractInterfaceDef** on which it is invoked. The **id**, **name**, **version**, **type_def**, **mode, get_exceptions,** and **set_exceptions** attributes are set as specified. The **type** attribute is also set. The **defined_in** attribute is initialized to identify the containing **ExtAbstractInterfaceDef**. A BAD_PARAM exception with standard minor code 2 is raised if an object with the specified **id** already exists in the **Repository**. BAD_PARAM exception with standard minor code 3 is raised if an object with the same **name** already exists in this **ExtAbstractInterfaceDef**.
 
-### 14.5.28 LocalInterfaceDef
+### LocalInterfaceDef
 
 A **LocalInterfaceDef** object represents a local interface definition. It can contain constants, typedefs, exceptions, operations, and attributes. Its base interfaces can only contain **InterfaceDefs** or **LocalInterfaceDefs**.
 
@@ -6713,7 +6687,7 @@ module CORBA {
 };
 ```
 
-#### 14.5.28.1 Read Interface
+#### Read Interface
 
 The inherited **base_interfaces** attribute returns a list of interfaces, local or otherwise, from which this local interface inherits.
 
@@ -6727,7 +6701,7 @@ The inherited **describe** operation for a **LocalInterfaceDef** returns an **In
 
 The inherited **contents** operation returns the list of constants, typedefs, and exceptions defined in this **LocalInterfaceDef** and the list of attributes and operations either defined or inherited in this **LocalInterfaceDef**. If the **exclude_inherited** parameter is set to **TRUE**, only attributes and operations defined within this local interface are returned. If the **exclude_inherited** parameter is set to **FALSE**, all attributes and operations are returned.
 
-#### 14.5.28.2 Write Interface
+#### Write Interface
 
 Setting the inherited **base_interfaces** attribute causes a BAD_PARAM exception with standard minor code 5 to be raised if the name attribute of any object contained by this **LocalInterfaceDef** conflicts with the name attribute of any object contained by any of the specified base **InterfaceDef**s (local or otherwise).
 
@@ -6739,7 +6713,7 @@ The inherited **create_operation** operation returns a new **OperationDef** cont
 
 **LocalInterfaceDef**. A BAD_PARAM exception with standard minor code 2 is raised if an object with the specified **id** already exists in the **Repository**. BAD_PARAM exception with standard minor code 3 is raised if an object with the same **name** already exists in this **LocalInterfaceDef**.
 
-### 14.5.29 ExtLocalInterfaceDef
+### ExtLocalInterfaceDef
 
 An **ExtLocalInterfaceDef** object represents a local interface definition. It can contain constants, typedefs, exceptions, operations, and attributes with exceptions. Its base interfaces can only contain **ExtInterfaceDef**s or **ExtLocalInterfaceDef**s.
 
@@ -6753,13 +6727,13 @@ interface ExtLocalInterfaceDef : LocalInterfaceDef,
 };
 ```
 
-#### 14.5.29.1 Read Interface
+#### Read Interface
 
 All operations and attributes inherited from **LocalInterfaceDef** behave the same as for **LocalInterfaceDef**. In particular, the **def_kind** attribute has the value **dk_LocalInterface**, exactly as in **LocalInterfaceDef**.
 
 The inherited **describe_ext_interface** operation returns the **ExtFullInterfaceDescription** structure that contains information about attributes with exceptions, in addition to the information found in **FullInterfaceDescription**.
 
-#### 14.5.29.2 Write Interface
+#### Write Interface
 
 All operations and attributes inherited from **LocalInterfaceDef** behave the same as for **LocalInterfaceDef**.
 
@@ -6767,7 +6741,7 @@ The inherited **create_ext_attribute** operation returns a new **ExtAttributeDef
 
 **ExtLocalInterfaceDef**. A BAD_PARAM exception with standard minor code 2 is raised if an object with the specified **id** already exists in the **Repository**. BAD_PARAM exception with standard minor code 3 is raised if an object with the same **name** already exists in this **ExtLocalInterfaceDef**.
 
-### 14.5.30 ValueMemberDef
+### ValueMemberDef
 
 A **ValueMemberDef** IR Object represents a value member.
 
@@ -6797,15 +6771,15 @@ interface ValueMemberDef : Contained {
 };
 ```
 
-#### 14.5.30.1 Read Interface
+#### Read Interface
 
 The **type** attribute provides the **TypeCode** describing the type of this value member. The **type_def** attribute identifies the object defining the type of this value member. The **access** attribute specifies private or public access for this value member. The describe operation for a **ValueMemberDef** object returns a **ValueMember**.
 
-#### 14.5.30.2 Write Interface
+#### Write Interface
 
 Setting the **type_def** attribute also updates the **type** attribute.
 
-### 14.5.31 ValueDef
+### ValueDef
 
 A **ValueDef** object represents a value definition. It can contain constants, typedefs, exceptions, operations, and attributes.
 
@@ -6903,7 +6877,7 @@ struct ValueDescription {
 };
 ```
 
-#### 14.5.31.1 Read Interface
+#### Read Interface
 
 The **supported_interfaces** attribute lists the interfaces that this value type supports.
 
@@ -6927,7 +6901,7 @@ The inherited **describe** operation for a **ValueDef** returns a **ValueDescrip
 
 The inherited **contents** operation returns the list of constants, typedefs, and exceptions defined in this **ValueDef** and the list of attributes, operations, and members either defined or inherited in this **ValueDef**. If the **exclude_inherited** parameter is set to **TRUE**, only attributes, operations, and members defined within this value are returned. If the **exclude_inherited** parameter is set to **FALSE**, all attributes, operations, and members are returned.
 
-#### 14.5.31.2 Write Interface
+#### Write Interface
 
 Setting the **supported_interfaces, base_value,** or **abstract_base_values** attribute causes a BAD_PARAM exception with minor code 5 to be raised if the **name** attribute of any object contained by this **ValueDef** conflicts with the **name** attribute of any object contained by any of the specified bases. If an attempt is made to set the **supported_interfaces** attribute to an **InterfaceDefSeq** that contains more than one **InterfaceDef** that is not an **AbstractInterfaceDef**, then the BAD_PARAM exception shall be raised with standard minor code 12.
 
@@ -6941,7 +6915,7 @@ BAD_PARAM exception with minor code 3 is raised if an object with the same **nam
 
 A **ValueDef** used as a **Container** may only contain **TypedefDef**, (including definitions derived from **TypedefDef**), **ConstantDef**, and **ExceptionDef** definitions.
 
-### 14.5.32 ExtValueDef
+### ExtValueDef
 
 An **ExtValueDef** object represents a value definition. It can contain constants, typedefs, exceptions, operations, and attributes with exceptions. Value definitions that contain initializers with user exceptions can also be represented in **ExtValueDef** objects.
 
@@ -6997,7 +6971,7 @@ ExtAttributeDef create_ext_attribute (
 };
 ```
 
-#### 14.5.32.1 Read Interface
+#### Read Interface
 
 All operations and attributes inherited from **ValueDef** behave the same as for **ValueDef**. In particular, the **def_kind** attribute has the value **dk_Value**, exactly as in **ValueDef.**
 
@@ -7007,13 +6981,13 @@ The inherited **initializers** attribute lists the same initializers as in **ext
 
 The **describe_ext_value** operation returns the **ExtFullValueDescription** structure that contains information about attributes with exceptions and initializers with exceptions, in addition to the information found in **FullValueDescription**.
 
-#### 14.5.32.2 Write Interface
+#### Write Interface
 
 All operations and attributes inherited from **ValueDef** behave the same as for **ValueDef**.
 
 The **create_ext_attribute** operation returns a new **ExtAttributeDef** contained in the **ExtValueDef** on which it is invoked. The **id**, **name**, **version**, **type_def**, **mode, get_exceptions**, and **set_exceptions** attributes are set as specified. The **type** attribute is also set. The **defined_in** attribute is initialized to identify the containing **ExtValueDef**. A BAD_PARAM exception with standard minor code 2 is raised if an object with the specified **id** already exists in the **Repository**. BAD_PARAM exception with standard minor code 3 is raised if an object with the same **name** already exists in this **ExtValueDef**.
 
-### 14.5.33 ValueBoxDef
+### ValueBoxDef
 
 A **ValueBoxDef** object represents a value box definition. It merely identifies the IDL **type_def** that is being “boxed.”
 
@@ -7025,15 +6999,15 @@ module CORBA {
 };
 ```
 
-#### 14.5.33.1 Read Interface
+#### Read Interface
 
 The **original_type_def** attribute identifies the type being boxed. The inherited **type** attribute is a **tk_value_box** **TypeCode** describing the value box.
 
-#### 14.5.33.2 Write Interface
+#### Write Interface
 
 Setting the **original_type_def** attribute also updates the **type** attribute.
 
-### 14.5.34 NativeDef
+### NativeDef
 
 A **NativeDef** object represents a native definition.
 
@@ -7045,11 +7019,11 @@ module CORBA {
 
 The inherited **type** attribute is a **tk_native** **TypeCode** describing the native type.
 
-## 14.6 Component Interface Repository Interfaces
+## Component Interface Repository Interfaces
 
 The **IRObject**s that represent IDL concepts that are specific to the Components extension are described in this sub clause. These IRObjects can be contained only in a **ComponentIR::Repository** described in this sub clause.
 
-### 14.6.1 ComponentIR::Container
+### ComponentIR::Container
 
 The *base interface* **ComponentIR::Container** is used to form a containment hierarchy in the Component Interface Repository.
 
@@ -7109,7 +7083,7 @@ These ```create_<type>``` operations all take **id** and **name** parameters tha
     The **create_event** operation returns a new empty **EventDef** with the specified base interfaces and events (**base_value**, **supported_interfaces**, and **abstract_base_values**) as well as the other information describing the new events characteristics (**is_custom**, **is_abstract**, **is_truncatable**, and **initializers**). The **initializers** argument is of type
     **ExtInitializerSeq** allowing one to specify user exceptions for initializers. Type, exception, and constant definitions can be added using ```Container::create_<type>``` operations on the new **EventDef**. **OperationDef**s can be added using **ExtValueDef::create_operation** and **ExtAttributeDef**s can be added using **ExtValueDef::create_ext_attribute**. Definitions can also be added using the **Contained::move** operation.
 
-### 14.6.2 ComponentIR::Repository
+### ComponentIR::Repository
 
 **ComponentIR::Repository** is an interface that provides global access to the Interface Repository that supports access to information related to CORBA Components. The **ComponentIR::Repository** object can contain components, home, and event definitions in addition to everything else that a **Repository** type can contain. As it inherits from **Container** and **ComponentIR::Container**, it can be used to look up any definition (whether globally defined or defined within a module or interface) either by name or by id.
 
@@ -7127,17 +7101,17 @@ module CORBA {
 };
 ```
 
-#### 14.6.2.1 Read Interface
+#### Read Interface
 
 **ComponentIR::Repository** has the same read operations as **Repository**.
 
-#### 14.6.2.2 Write Interface
+#### Write Interface
 
 Write operations inherited from **ComponentIR::Container** behave the same way as in **ComponentIR::Container**.
 
 The rest of the write operations are inherited from **CORBA::Repository** and behave the same way as in **CORBA::Repository**.
 
-### 14.6.3 ComponentIR::ProvidesDef
+### ComponentIR::ProvidesDef
 
 A **ComponentIR::ProvidesDef** object represents an interface that is provided by a component.
 
@@ -7160,19 +7134,19 @@ module CORBA {
 };
 ```
 
-#### 14.6.3.1 Read Interface
+#### Read Interface
 
 The attribute **interface_type** returns the object identifying the interface that is provided by the component.
 
 The inherited operation **describe** returns a **ProvidesDescription**.
 
-#### 14.6.3.2 Write Interface
+#### Write Interface
 
 Setting the attribute **interface_type** changes the object identifying the interface that is provided by the component.
 
 The rest of the write operations are inherited from **CORBA::Contained** and behave the same way as in **CORBA::Contained**.
 
-### 14.6.4 ComponentIR::UsesDef
+### ComponentIR::UsesDef
 
 A **ComponentIR::UsesDef** object represents an interface that is used by a component.
 
@@ -7197,7 +7171,7 @@ interface UsesDef : Contained {
 }
 ```
 
-#### 14.6.4.1 Read Interface
+#### Read Interface
 
 The attribute **interface_type** returns the object identifying the interface that is used by the component.
 
@@ -7205,13 +7179,13 @@ The attribute **is_multiple** is **TRUE** if the interface is used multiple time
 
 The inherited operation **describe** returns a **UsesDescription**.
 
-#### 14.6.4.2 Write Interface
+#### Write Interface
 
 Setting the attribute **interface_type** changes the object identifying the interface that is used by the component. Setting the attribute **is_multiple** changes the multiplicity of the used interface.
 
 The rest of the write operations are inherited from **CORBA::Contained** and behave the same way as in **CORBA::Contained**.
 
-### 14.6.5 ComponentIR::EventDef
+### ComponentIR::EventDef
 
 A **ComponentIR::EventDef** object represents an eventtype definition. It can contain constants, typedefs, exceptions, operations, and attributes with exceptions. Eventtype definitions that contain initializers with user exceptions can also be represented in **ComponentIR::EventDef** objects.
 
@@ -7226,7 +7200,7 @@ module CORBA {
 
 The read and write interfaces for **ComponentIR::EventDef** have the same semantics as the read and write interfaces for **ExtValueDef**.
 
-### 14.6.6 ComponentIR::EventPortDef
+### ComponentIR::EventPortDef
 
 A **ComponentIR::EventPortDef** object represents an event port definition. It refers to an **EventDef** object that contains the actual information about the event. This interface is never instantiated as itself. It is instantiated only as one of its derived types (i.e., **EmitsDef**, **PublishesDef**, or **ConsumesDef**).
 
@@ -7254,7 +7228,7 @@ module CORBA {
 };
 ```
 
-#### 14.6.6.1 Read Interface
+#### Read Interface
 
 The **event** attribute returns the object containing the definition of the event for this event port.
 
@@ -7262,13 +7236,13 @@ The **is_a** operation returns **TRUE** if the event value associated with this 
 
 The inherited **describe** operation returns an **EventPortDescription**.
 
-#### 14.6.6.2 Write Interface
+#### Write Interface
 
 Setting the attribute **event** changes the object containing the definition of the event for this event port.
 
 The rest of the write operations are inherited from **CORBA::Contained** and behave the same way as in **CORBA::Contained**.
 
-### 14.6.7 ComponentIR::EmitsDef
+### ComponentIR::EmitsDef
 
 A **ComponentIR::EmitsDef** object represents the port definition of an event that is emitted by a component.
 
@@ -7281,15 +7255,15 @@ module CORBA {
 };
 ```
 
-#### 14.6.7.1 Read Interface
+#### Read Interface
 
 The read interface for **EmitsDef** has the same semantics as the read interface for **EventPortDef**.
 
-#### 14.6.7.2 Write Interface
+#### Write Interface
 
 The write interface for **EmitsDef** has the same semantics as the write interface for **EventPortDef**.
 
-### 14.6.8 ComponentIR::PublishesDef
+### ComponentIR::PublishesDef
 
 A **ComponentIR::PublishesDef** object represents the port definition of an event that is published by a component.
 
@@ -7302,15 +7276,15 @@ module CORBA {
 };
 ```
 
-#### 14.6.8.1 Read Interface
+#### Read Interface
 
 The read interface for **PublishesDef** has the same semantics as the read interface for **EventPortDef**.
 
-#### 14.6.8.2 Write Interface
+#### Write Interface
 
 The write interface for **PublishesDef** has the same semantics as the write interface for **EventPortDef**.
 
-### 14.6.9 ComponentIR::ConsumesDef
+### ComponentIR::ConsumesDef
 
 A **ComponentIR::ConsumesDef** object represents the port definition of an event that is consumed by a component.
 
@@ -7323,15 +7297,15 @@ module CORBA {
 };
 ```
 
-#### 14.6.9.1 Read Interface
+#### Read Interface
 
 The read interface for **ConsumesDef** has the same semantics as the read interface for **EventPortDef**.
 
-#### 14.6.9.2 Write Interface
+#### Write Interface
 
 The write interface for **ConsumesDef** has the same semantics as the write interface for **EventPortDef**.
 
-### 14.6.10 ComponentIR::ComponentDef
+### ComponentIR::ComponentDef
 
 A **ComponentIR::ComponentDef** object represents the definition of a component. It contains provides, uses, emits, publishes, consumes, and attributes.
 
@@ -7407,7 +7381,7 @@ typedef sequence<EventPortDescription>
 };
 ```
 
-#### 14.6.10.1 Read Interface
+#### Read Interface
 
 The **base_component** attribute returns the component that this component derives from.
 
@@ -7419,7 +7393,7 @@ The inherited **describe** operation for a **ComponentDef** returns a **Componen
 
 The inherited **contents** operation returns the list of attributes, provides, uses, emits, publishes, and consumes either defined or inherited in this **ComponentDef**. If the **exclude_inherited** parameter is set to **TRUE**, only attributes, provides, uses, emits, publishes, and consumes defined within this object are returned. If the **exclude_inherited** parameter is set to **FALSE**, all attributes, provides, uses, emits, publishes, and consumes are returned.
 
-#### 14.6.10.2 Write Interface
+#### Write Interface
 
 Setting the **base_component** attribute causes a BAD_PARAM exception with minor code 5 to be raised if the **name** attribute of any object contained by this **ComponentDef** conflicts with the **name** attribute of any object contained by the specified base **ComponentDef**.
 
@@ -7443,7 +7417,7 @@ A **ComponentDef** used as a **Container** may not contain any **TypedefDef** (i
 
 A **ComponentDef** used as an **InterfaceDef** may only contain **ExtAttributeDef** definitions.
 
-### 14.6.11 ComponentIR::FactoryDef
+### ComponentIR::FactoryDef
 
 A **ComponentIR::FactoryDef** object represents the definition of a factory operation in a home.
 
@@ -7457,7 +7431,7 @@ module CORBA {
 };
 ```
 
-**14.6.11.1 Read Interface**
+#### Read Interface
 
 The **result** attribute is a **TypeCode** describing the type of the value returned by the operation, which is always **tk_component** for **FactoryDef**. The **result_def** attribute identifies the definition of the returned type, which is always a **ComponentDef** in case of **FactoryDef**.
 
@@ -7475,13 +7449,13 @@ The **exceptions** attribute specifies the list of exception types that can be r
 
 The inherited **describe** operation for a **FactoryDef** object returns an **OperationDescription**.
 
-**14.6.11.2 Write Interface**
+#### Write Interface
 
 Setting the **result_def** attribute has no effect.
 
 The **mode** and **contexts** attributes cannot be changed.
 
-### 14.6.12 ComponentIR::FinderDef
+### ComponentIR::FinderDef
 
 A **ComponentIR::FinderDef** object represents the definition of a finder operation in a home.
 
@@ -7495,7 +7469,7 @@ module ComponentIR {
 };
 ```
 
-**14.6.12.1 Read Interface**
+#### Read Interface
 
 The **result** attribute is a **TypeCode** describing the type of the value returned by the operation, which is always **tk_component** for **FinderDef**. The **result_def** attribute identifies the definition of the returned type, which is always a **ComponentDef** in case of a **FinderDef**.
 
@@ -7513,13 +7487,13 @@ The **contexts** attribute specifies the list of context identifiers that apply 
 
 The inherited **describe** operation for a **FinderDef** object returns an **OperationDescription**.
 
-**14.6.12.2 Write Interface**
+#### Write Interface
 
 Setting the **result_def** attribute has no effect.
 
 The **mode** and **contexts** attributes cannot be changed.
 
-### 14.6.13 ComponentIR::HomeDef
+### ComponentIR::HomeDef
 
 A **ComponentIR::HomeDef** object represents the definition of a home. It contains attributes, operations, factories, and finders.
 
@@ -7570,7 +7544,7 @@ interface HomeDef : ExtInterfaceDef {
 };
 ```
 
-**14.6.13.1 Read Interface**
+#### Read Interface
 
 The **base_home** attribute returns the home that this home definition derives from.
 
@@ -7586,7 +7560,7 @@ The inherited **describe** operation for a **HomeDef** returns a **HomeDescripti
 
 The inherited **contents** operation returns the list of constants, typedefs, exceptions, attributes, operations, finders, and factories defined or inherited in this **HomeDef**. If the **exclude_inherited** parameter is set to **TRUE**, only objects defined within this home are returned. If the **exclude_inherited** parameter is set to **FALSE**, all objects are returned.
 
-**14.6.13.2 Write Interface**
+#### Write Interface
 
 Setting the **base_home** attribute causes a BAD_PARAM exception with minor code 5 to be raised if the **name** attribute of any object contained by this **HomeDef** conflicts with the **name** attribute of any object contained by the specified base
 **HomeDef**.
@@ -7606,7 +7580,7 @@ The **create_factory** operation returns a new **FactoryDef** contained in the *
 
 A **HomeDef** used as a **Container** may only contain **TypedefDef** (including definitions derived from **TypedefDef)**, **ConstantDef**, and **ExceptionDef** definitions.
 
-## 14.7 RepositoryIds
+## RepositoryIds
 
 **RepositoryIds** are values that can be used to establish the identity of information in the repository. A **RepositoryId** is represented as a string, allowing programs to store, copy, and compare them without regard to the structure of the value. It does not matter what format is used for any particular **RepositoryId**. However, conventions are used to manage the name space created by these IDs.
 
@@ -7621,13 +7595,13 @@ The format of the id is a short format name followed by a colon (“:”) follow
 
 Since new repository ID formats may be added from time to time, compliant IDL compilers must accept any string value of the form
 
-```“<format>:<string>”```
+```"<format>:<string>"```
 
 provided as the argument to the id pragma and use it as the repository ID. The OMG maintains a registry of allocated format identifiers. The ```<format>``` part of the ID may not contain a colon (:) character.
 
 The version and prefix pragmas only affect default repository IDs that are generated by the IDL compiler using the IDL format.
 
-### 14.7.1 IDL Format
+### IDL Format
 
 The IDL format for **RepositoryIds** primarily uses IDL scoped names to distinguish between definitions. It also includes an optional unique prefix, and major and minor version numbers.
 
@@ -7637,7 +7611,7 @@ The **RepositoryId** consists of three components, separated by colons, (“:”
 2. (".").The second component is a list of identifiers, separated by “/” characters. These identifiers are arbitrarily long sequences of alphabetic, digit, underscore (“*”), hyphen (“-”), and period (“.”) characters. Typically, the first identifier is a unique prefix, and the rest are the IDL Identifiers that make up the scoped name of the definition. The second component shall not contain a trailing slash ("/") and it shall not begin with the characters underscore ("*"), hyphen ("-"), or period (".").
 3. The third component is made up of major and minor version numbers, in decimal format, separated by a “.”. When two interfaces have **RepositoryId**s differing only in minor version number it can be assumed that the definition with the higher version number is upwardly compatible with (i.e., can be treated as derived from) the one with the lower minor version number.
 
-### 14.7.2 RMI Hashed Format
+### RMI Hashed Format
 
 The IDL format defined above does not include any structural information. Identity of IDL types determined for this format depends upon the names used in the **RepositoryID** being correct. For interfaces, if stubs and skeletons are not actually in synch, even though the **RepositoryIds** report they are, the worst that can happen is that the result of an invocation is a BAD_OPERATION exception. With value types, these kinds of errors are more problematic. An inconsistency between the stub and skeleton marshaling/unmarshaling code can confuse the marshaling engine and may even corrupt memory and/or cause a crash failure.
 
@@ -7647,7 +7621,7 @@ An RMI Hashed **RepositoryId** consists of either three or four components, sepa
 
 ```RMI: <class name> : <hash code> [ : <serialization version UID> ]```
 
-The class name is a Java class name as returned by the **getName** method of **java.lang.Class**. Any characters not in *ISO Latin 1* are replaced by “**\U**” followed by the 4 hexadecimal characters (in upper case) representing the *Unicode* value.
+The class name is a Java class name as returned by the **getName** method of **java.lang.Class**. Any characters not in *ISO Latin 1* are replaced by “**\\U**” followed by the 4 hexadecimal characters (in upper case) representing the *Unicode* value.
 
 For classes that do not implement **java.io.Serializable**, and for interfaces, the hash code is always zero, and the **RepositoryID** does not contain a *serial version UID*.
 
@@ -7691,45 +7665,45 @@ For a Java class **x\u03bCy** that contains a Unicode character not in ISO Latin
 
 A conforming implementation that uses this format shall implement the standard hash algorithm defined above.
 
-### 14.7.3 DCE UUID Format
+### DCE UUID Format
 
 DCE UUID format **RepositoryId**s start with the characters “DCE:” and are followed by the printable form of the UUID, a colon, and a decimal minor version number, for example: “DCE:700dc518-0110-11ce-ac8f-0800090b5d3e:1.”
 
-### 14.7.4 LOCAL Format
+### LOCAL Format
 
 Local format **RepositoryId**s start with the characters “LOCAL:” and are followed by an arbitrary string. Local format IDs are not intended for use outside a particular repository, and thus do not need to conform to any particular convention. Local IDs that are just consecutive integers might be used within a development environment to have a very cheap way to manufacture the IDs while avoiding conflicts with well-known interfaces.
 
-### 14.7.5 Pragma Directives for RepositoryId
+### Pragma Directives for RepositoryId
 
 Three pragma directives (id, prefix, and version), are specified to accommodate arbitrary **RepositoryId** formats and still support the IDL **RepositoryId** format with minimal annotation. The prefix and version pragma directives apply only to the IDL format. An IDL compiler must interpret these annotations as specified. Conforming IDL compilers may support additional non-standard pragmas, but must not refuse to compile IDL source containing non-standard pragmas that are not understood by the compiler.
 
-**14.7.5.1 The ID Pragma**
+#### The ID Pragma
 
 An IDL pragma of the format
 
-```#pragma ID <name> “<id>”```
+```#pragma ID <name> "<id>"```
 
-associates an arbitrary **RepositoryId** string with a specific IDL name. The ```<name>``` can be a fully or partially scoped name or a simple identifier, interpreted according to the usual IDL name lookup rules relative to the scope within which the pragma is contained. The ```<id>``` must be a repository ID of the form described in [RepositoryIds](#147-repositoryids).
+associates an arbitrary **RepositoryId** string with a specific IDL name. The ```<name>``` can be a fully or partially scoped name or a simple identifier, interpreted according to the usual IDL name lookup rules relative to the scope within which the pragma is contained. The ```<id>``` must be a repository ID of the form described in [RepositoryIds](#repositoryids).
 
 An attempt to assign a repository ID to the same IDL construct a second time shall be an error unless the repository ID used in the attempt is identical to the previous one.
 
 ```
 interface A {};
-#pragma ID A “IDL:A:1.1”
-#pragma ID A “IDL:X:1.1”  // Compile-time error
+#pragma ID A "IDL:A:1.1"
+#pragma ID A "IDL:X:1.1"  // Compile-time error
 
 interface B {};
-#pragma ID B “IDL:BB:1.1”
-#pragma ID B “IDL:BB:1.1”  // OK, same ID
+#pragma ID B "IDL:BB:1.1"
+#pragma ID B "IDL:BB:1.1"  // OK, same ID
 ```
 
 It is also an error to apply an ID to a forward-declared IDL construct (interface, valuetype, structure, and union) and then later assign a different ID to that IDL construct.
 
-#### 14.7.5.2 The Prefix Pragma
+#### The Prefix Pragma
 
 An IDL pragma is of the form:
 
-```#pragma prefix “<string>”```
+```#pragma prefix "<string>"```
 
 This sets the current prefix used in generating IDL format **RepositoryId**s. For example, the **RepositoryId** for the initial version of interface **Printer** defined on module **Office** by an organization known as “SoftCo” might be “IDL:SoftCo/Office/Printer:1.0.”
 
@@ -7743,12 +7717,12 @@ The specified prefix applies to **RepositoryId**s generated after the pragma unt
 
 ```
 // A.idl
-#pragma prefix “A”
+#pragma prefix "A"
 interface A {};
 
 // B.idl
-#pragma prefix “B”
-#include “A.idl”
+#pragma prefix "B"
+#include "A.idl"
 interface B {};
 ```
 
@@ -7766,8 +7740,8 @@ Similarly, a prefix in an including file does not affect the prefix of an includ
 interface C {};
 
 // D.idl
-#pragma prefix “D”
-#include “C.idl”
+#pragma prefix "D"
+#include "C.idl"
 interface D {};
 ```
 
@@ -7802,13 +7776,13 @@ prefix takes precedence, for example:
 
 ```
 // A.idl
-#pragma prefix “A”
+#pragma prefix "A"
 interface A {};
 
 // B.idl
-#pragma prefix “B”
+#pragma prefix "B"
 module M {
-#include “A.idl”
+#include "A.idl"
 };
 ```
 
@@ -7824,13 +7798,13 @@ they appear. Attempts to assign conflicting prefixes to a forward-declared const
 For example:
 
 ```
-#pragma prefix “A”
+#pragma prefix "A"
 interface A;   // Forward decl.
 
-#pragma prefix “B”
+#pragma prefix "B"
 interface A;   // Compile-time error
 
-#pragma prefix “C”
+#pragma prefix "C"
 interface A {   // Compile-time error
 void op();
 };
@@ -7839,15 +7813,15 @@ void op();
 A prefix pragma of the form
 
 ```
-#pragma prefix “”
+#pragma prefix ""
 ```
 
 resets the prefix to the empty string. For example:
 
 ```
-#pragma prefix “X”
+#pragma prefix "X"
 interface X {};
-#pragma prefix “”
+#pragma prefix ""
 interface Y {};
 ```
 
@@ -7862,11 +7836,11 @@ If a specification contains both a prefix pragma and an ID or version pragma, th
 repository ID for an ID pragma, but does affect the repository ID for a version pragma:
 
 ```
-#pragma prefix “A”
+#pragma prefix "A"
 interface A {};
 interface B {};
 interface C {};
-#pragma ID B “IDL:myB:1.0”
+#pragma ID B "IDL:myB:1.0"
 #pragma version C 9.9
 ```
 
@@ -7883,13 +7857,13 @@ undefined behavior, for example:
 
 ```
 interface Bar
- #pragma prefix “foo” // Undefined behavior
+ #pragma prefix "foo" // Undefined behavior
  {
  // ...
 };
 ```
 
-**14.7.5.3 The Version Pragma**
+#### The Version Pragma
 
 An IDL pragma of the format:
 
@@ -7901,7 +7875,7 @@ If no version pragma is supplied for a definition, version 1.0 is assumed. If an
 
 ```
 interface A {};
-#pragma ID A “IDL:myA:1.1”
+#pragma ID A "IDL:myA:1.1"
 #pragma version A 9.9   // Compile-time error
 ```
 
@@ -7914,11 +7888,11 @@ interface A {};
 #pragma version A 1.2  // Error
 
 interface B {};
-#pragma ID B “IDL:myB:1.2”
+#pragma ID B "IDL:myB:1.2"
 #pragma version B 1.2  // OK
 ```
 
-#### 14.7.5.4 Generation of IDL - Format IDs
+#### Generation of IDL - Format IDs
 
 A definition is globally identified by an IDL - format **RepositoryId** if no ID pragma is encountered for it.
 
@@ -7930,13 +7904,13 @@ For example, the following IDL:
 module M1 {
  typedef long T1;
  typedef long T2;
- #pragma ID T2 “DCE:d62207a2-011e-11ce-88b4-0800090b5d3e:3”
+ #pragma ID T2 "DCE:d62207a2-011e-11ce-88b4-0800090b5d3e:3"
 };
-#pragma prefix “P1”
+#pragma prefix "P1"
 
 module M2 {
    module M3 {
- #pragma prefix “P2”
+ #pragma prefix "P2"
  typedef long T3;
 };
  typedef long T4;
@@ -7961,9 +7935,9 @@ Prefix pragmas can be used to preserve the existing IDs when a module or other c
 
 ```
 module M4 {
-#pragma prefix “P1/M2”
+#pragma prefix "P1/M2"
     module M3 {
-#pragma prefix “P2”
+#pragma prefix "P2"
     typedef long T3;
 };
 typedef long T4;
@@ -7973,13 +7947,13 @@ typedef long T4;
 
 This IDL declares types with the same global identities as those declared in module M2 above.
 
-See [The Prefix Pragma](#14752-the-prefix-pragma) for further details of the effects of various prefix pragma settings on the generated **RepositoryId**s.
+See [The Prefix Pragma](#the-prefix-pragma) for further details of the effects of various prefix pragma settings on the generated **RepositoryId**s.
 
-### 14.7.6 For More Information
+### For More Information
 
 IDL for Interface Repository shows the IDL specification of the IR, including the ```#pragma directive```. Preprocessing contains additional, general information on the pragma directive.
 
-### 14.7.7 RepositoryIDs for OMG-Specified Types
+### RepositoryIDs for OMG-Specified Types
 
 Interoperability between implementations of official OMG specifications, including but not limited to CORBA, CORBA Services, and CORBA Facilities, depends on unambiguous specification of **RepositoryId**s for all IDL-defined types in such specifications.
 
@@ -7993,7 +7967,7 @@ Revisions to existing OMG specifications must not change the definition of an ex
 
 If an implementation must extend an OMG-specified interface, interoperability requires it to derive a new interface from the standard interface, rather than modify the standard definition.
 
-### 14.7.8 Uniqueness Constraints on Repository IDs
+### Uniqueness Constraints on Repository IDs
 
 Within an IDL definition, a module must have the same repository ID throughout. For example:
 
@@ -8053,13 +8027,13 @@ module M {   // Error, inconsistent repository ID
 
 Such errors are detectable only if they occur in a single compilation unit (or in files included in a single compilation unit); if, in different compilation units, different repository IDs are used for the same module, and these compilation units are combined into a single executable, the behavior is undefined.
 
-## 14.8 IDL for Interface Repository
+## IDL for Interface Repository
 
 This sub clause contains the complete IDL specification for the Interface Repository.
 
 ```
 module CORBA {
- typeprefix CORBA “omg.org”;
+ typeprefix CORBA "omg.org";
  typedef string Identifier;
  typedef string ScopedName;
  typedef string RepositoryId;
@@ -8806,7 +8780,7 @@ module CORBA {
  // __________________________________________________________
 
  module ComponentIR {
-  typeprefix ComponentIR “omg.org”;
+  typeprefix ComponentIR "omg.org";
 
   interface ComponentDef;
   interface HomeDef;
@@ -9012,9 +8986,9 @@ module CORBA {
 };
 ```
 
-# 15 The Portable Object Adapter
+# The Portable Object Adapter
 
-## 15.1 Overview
+## Overview
 
 This clause describes the Portable Object Adapter, or POA. It presents the design goals, a description of the abstract model of the POA and its interfaces, followed by a detailed description of the interfaces themselves.
 
@@ -9032,13 +9006,13 @@ The POA is designed to meet the following goals:
 - Provide an extensible mechanism for associating policy information with objects implemented in the POA.
 - Allow programmers to construct object implementations that inherit from static skeleton classes, generated by IDL compilers, or a DSI implementation.
 
-## 15.2 Abstract Model Description
+## Abstract Model Description
 
 The POA interfaces described in this clause imply a particular abstract computational model. This sub clause presents that model and defines terminology and basic concepts that will be used in subsequent sub clauses.
 
 This sub clause provides the rationale for the POA design, describes some of its intended uses, and provides a background for understanding the interface descriptions.
 
-### 15.2.1 Model Components
+### Model Components
 
 The model supported by the POA is a specialization of the general object model described in the OMA guide. Most of the elements of the CORBA object model are present in the model described here, but there are some new components, and some of the names of existing components are defined more precisely than they are in the CORBA object model. The abstract model supported by the POA has the following components:
 
@@ -9061,25 +9035,21 @@ Note that a concrete reference in a specific ORB implementation will contain mor
 - *Servant Manager*—A servant manager is an object that the application developer can associate with a POA. The ORB will invoke operations on servant managers to activate servants on demand, and to deactivate servants. Servant managers are responsible for managing the association of an object (as characterized by its Object Id value) with a particular servant, and for determining whether an object exists or not. There are two kinds of servant managers, called **ServantActivator** and **ServantLocator**; the type used in a particular situation depends on policies in the POA.
 - *Adapter Activator*—An adapter activator is an object that the application developer can associate with a POA. The ORB will invoke an operation on an adapter activator when a request is received for a child POA that does not currently exist. The adapter activator can then create the required POA on demand.
 
-### 15.2.2 Model Architecture
+### Model Architecture
 
 This sub clause describes the architecture of the abstract model implied by the POA, and the interactions between various components. The ORB is an abstraction visible to both the client and server. The POA is an object visible to the server. User-supplied implementations are registered with the POA (this statement is a simplification; more detail is provided below). Clients hold references upon which they can make requests. The ORB, POA, and implementation all cooperate to determine which servant the operation should be invoked on, and to perform the invocation.
 
-Figure 15.1 shows the detail of the relationship between the POA and the implementation. Ultimately, a POA deals with an Object Id and an active servant. By *active servant*, we mean a programming object that exists in memory and has been presented to the POA with one or more associated object identities. There are several ways for this association to be made.
+[Abstract POA Model](Images/figure15-1.svg) shows the detail of the relationship between the POA and the implementation. Ultimately, a POA deals with an Object Id and an active servant. By *active servant*, we mean a programming object that exists in memory and has been presented to the POA with one or more associated object identities. There are several ways for this association to be made.
 
-![](Images/figure15-1.svg)
-
-**Figure 15.1 - Abstract POA Model**
+![Abstract POA Model](Images/figure15-1.svg)
 
 If the POA supports the **RETAIN** policy, it maintains a map, labeled *Active Object Map*, that associates Object Ids with active servants, each association constituting an active object. If the POA has the **USE_DEFAULT_SERVANT** policy, a default servant may be registered with the POA. Alternatively, if the POA has the **USE_SERVANT_MANAGER** policy, a user-written servant manager may be registered with the POA. If the Active Object Map is not used, or a request arrives for an object not present in the Active Object Map, the POA either uses the default servant to perform the request or it invokes the servant manager to obtain a servant to perform the request. If the **RETAIN** policy is used, the servant returned by a servant manager is retained in the Active Object Map. Otherwise, the servant is used only to process the one request.
 
 In this specification, the term *active* is applied equally to servants, Object Ids, and objects. An object is active in a POA if the POA’s Active Object Map contains an entry that associates an Object Id with an existing servant. When this specification refers to *active Object Ids* and *active servants*, it means that the Object Id value or servant in question is part of an entry in the Active Object Map. An Object Id can appear in a POA’s Active Object Map only once.
 
-![](Images/figure15-2.svg)
+![POA Architecture](Images/figure15-2.svg)
 
-**Figure 15.2 - POA Architecture**
-
-### 15.2.3 POA Creation
+### POA Creation
 
 To implement an object using the POA requires that the server application obtain a POA object. A distinguished POA object, called the *root POA*, is managed by the ORB and provided to the application using the ORB initialization interface under the initial object name “RootPOA.” The application developer can create objects using the root POA if those default policies are suitable.
 
@@ -9105,7 +9075,7 @@ A portable server application can presume that there is no conflict between its 
 
 Each distinct ORB created as the result of an **ORB_init** call in an application has its own separate root POA and POA namespace.
 
-### 15.2.4 Reference Creation
+### Reference Creation
 
 Object references are created in servers. Once they are created, they may be exported to clients.
 
@@ -9123,7 +9093,7 @@ Once a reference becomes available to a client, that reference constitutes the i
 
 The states of servers and implementation objects are opaque to clients. This specification deals primarily with the view of the ORB from the server’s perspective.
 
-### 15.2.5 Object Activation States
+### Object Activation States
 
 At any point in time, a CORBA object may or may not be associated with an active servant.
 
@@ -9137,7 +9107,7 @@ If the POA has the **RETAIN** policy, the servant and its associated Object Id a
 
 If the POA has the **NON_RETAIN** policy, for every request, the POA may use either a default servant or a servant manager to locate an active servant. From the POA’s point of view, the servant is active only for the duration of that one request. The POA does not enter the servant-object association into the Active Object Map.
 
-### 15.2.6 Request Processing
+### Request Processing
 
 A request must be capable of conveying the Object Id of the target object as well as the identification of the POA that created the target object reference. When a client issues a request, the ORB first locates an appropriate server (perhaps starting one if needed) and then it locates the appropriate POA within that server.
 
@@ -9155,7 +9125,7 @@ If the POA has the **NON_RETAIN** policy or has the **RETAIN** policy but didn't
 
 If a servant manager is located and invoked, but the servant manager is not directly capable of incarnating the object, it (the servant manager) may deal with the circumstance in a variety of ways, all of which are the application’s responsibility. Any system exception raised by the servant manager will be returned to the client in the reply. In addition to standard system exceptions, a servant manager is capable of raising a ForwardRequest exception. This exception includes an object reference. The ORB will process this exception as specified in Common Information for Servant Manager Types.
 
-### 15.2.7 Implicit Activation
+### Implicit Activation
 
 A POA can be created with a policy that indicates that its objects may be implicitly activated. This policy, **IMPLICIT_ACTIVATION**, also requires the **SYSTEM_ID** and **RETAIN** policies.
 
@@ -9178,7 +9148,7 @@ If the POA has the **MULTIPLE_ID** policy, the **servant_to_reference** and **se
 
 **NOTE:** The exact timing of implicit activation is ORB implementation-dependent. For example, instead of activating the object immediately upon creation of a local object reference, the ORB could defer the activation until the Object Id is actually needed (for example, when the object reference is exported outside the process).
 
-### 15.2.8 Multi-threading
+### Multi-threading
 
 The POA does not require the use of threads and does not specify what support is needed from a threads package. However, in order to allow the development of portable servers that utilize threads, the behavior of the POA and related interfaces when used within a multiple-thread environment must be specified.
 
@@ -9186,13 +9156,13 @@ Specifying this behavior does not require that an ORB must support being used in
 
 The POA’s processing is affected by the thread-related calls available in the ORB: **work_pending**, **perform_work**, **run**, and **shutdown**.
 
-#### 15.2.8.1 POA Threading Models
+#### POA Threading Models
 
 The POA supports three models of threading when used in conjunction with multi-threaded ORB implementations; ORB controlled, single thread and main-thread behavior. The three models can be used together or independently. All can be used in environments where a single-threaded ORB is used.
 
 The threading model associated with a POA is indicated when the POA is created by including a **ThreadPolicy** object in the policies parameter of the POA’s **create_POA** operation. Once a POA is created with one model, it cannot be changed to the other. All uses of the POA within the server must conform to that threading model associated with the POA.
 
-#### 15.2.8.2 Using the Single Thread Model
+#### Using the Single Thread Model
 
 Requests for each single-threaded POA are processed sequentially. In a multi-threaded environment, upcalls made by this POA to servants shall not be made concurrently. This provides a degree of safety for code that is multi-thread-unaware.
 
@@ -9200,13 +9170,13 @@ Requests for each single-threaded POA are processed sequentially. In a multi-thr
 
 The POA will still allow reentrant calls from an object implementation to itself, or to another object implementation managed by the same POA.
 
-#### 15.2.8.3 Using the ORB Controlled Model
+#### Using the ORB Controlled Model
 
 The ORB controlled model of threading is used in environments where the developer wants the ORB/POA to control the use of threads in the manner provided by the ORB. This model can also be used in environments that do not support threads.
 
 In this model, the ORB is responsible for the creation, management, and destruction of threads used with one or more POAs.
 
-#### 15.2.8.4 Using the Main Thread Model
+#### Using the Main Thread Model
 
 Requests for all main-thread POAs are processed sequentially. In a multi-threaded environment, all upcalls made by all POAs with this policy to servants are made in a manner that is safe for code that is multi-thread-unaware.
 
@@ -9214,13 +9184,13 @@ If the environment has special requirements that some code must run on a disting
 
 **NOTE:** Not all environments have such a special requirement. If not, while requests will be processed sequentially they might not all be processed by the same thread.
 
-#### 15.2.8.5 Limitations When Using Multiple Threads
+#### Limitations When Using Multiple Threads
 
 There are no guarantees that the ORB and POA will do anything specific about dispatching requests across threads with a single POA. Therefore, a server programmer who wants to use one or more POAs within multiple threads must take on all of the serialization of access to objects within those threads.
 
 There may be requests active for the same object being dispatched within multiple threads at the same time. The programmer must be aware of this possibility and code with it in mind.
 
-### 15.2.9 Dynamic Skeleton Interface
+### Dynamic Skeleton Interface
 
 The POA is designed to enable programmers to connect servants to type-specific skeletons, typically generated by IDL compilers, or dynamic skeletons.
 
@@ -9245,13 +9215,13 @@ The mapping for POA DSI servants is language-specific, with each language provid
 
     In the case of type-specific servants, the POA obtains that information from the type-specific skeleton class from which the servant is directly derived. In the case of DSI servants, the POA obtains that information by using the second language-specific interface above.
 
-### 15.2.10 Location Transparency
+### Location Transparency
 
 The POA supports location transparency for objects implemented using the POA. Unless explicitly stated to the contrary, all POA behavior described in this specification applies regardless of whether the client is local (same process) or remote. For example, like a request from a remote client, a request from a local client may cause object activation if the object is not active, block indefinitely if the target object's POA is in the holding state, be rejected if the target object’s POA is in the discarding or inactive states, be delivered to a thread-unaware object implementation, or be delivered to a different object if the target object's servant manager raises the ForwardRequest exception. The Object Id and POA of the target object will also be available to the server via the **Current** object, regardless of whether the client is local or remote.
 
 **NOTE:** The implication of these requirements on the ORB implementation is to require the ORB to mediate all requests to POAbased objects, even if the client is co-resident in the same process. This specification is not intended to change CORBAServices specifications that allow for behaviors that are not location transparent. This specification does not prohibit (nonstandard) POA extensions to support object behavior that is not location-transparent.
 
-## 15.3 Interfaces
+## Interfaces
 
 The POA-related interfaces are defined in a module separate from the **CORBA** module, the **PortableServer** module. It consists of these interfaces:
 
@@ -9275,7 +9245,7 @@ In addition, the POA defines the **Servant** native type.
 
 All local objects specified in this clause except for **AdapterActivator**, **ServantManager**, **ServantActivator** and **ServantLocator** override the default behavior of the **Object::get_orb** operation and return the **ORB** that is associated with the root POA local object.
 
-### 15.3.1 The Servant IDL Type
+### The Servant IDL Type
 
 This specification defines a native type **PortableServer::Servant**. Values of the type **Servant** are programminglanguage-specific implementations of CORBA interfaces. Each language mapping must specify how **Servant** is mapped to the programming language data type that corresponds to an object implementation. The **Servant** type has the following characteristics and constraints.
 
@@ -9285,7 +9255,7 @@ This specification defines a native type **PortableServer::Servant**. Values of 
 - Values of type **Servant** must be testable for identity.
 - Values of type **Servant** have no meaning outside of the process context or address space in which they are generated.
 
-### 15.3.2 POAManager Interface
+### POAManager Interface
 
 Each POA object has an associated **POAManager** object. A POA manager may be associated with one or more POA objects. A POA manager encapsulates the processing state of the POAs it is associated with. Using operations on the POA manager, an application can cause requests for those POAs to be queued or discarded, and can cause the POAs to be deactivated.
 
@@ -9297,17 +9267,15 @@ If a **POAManager** is created implicitly (as part of the creation of a new **PO
 
 **POAManager** is a local interface.
 
-#### 15.3.2.1 Processing States
+#### Processing States
 
-A POA manager has four possible processing states; *active*, *inactive*, *holding*, and *discarding*. The processing state determines the capabilities of the associated POAs and the disposition of requests received by those POAs. Figure 15.3 illustrates the processing states and the transitions between them. For simplicity of presentation, this specification sometimes describes these states as POA states, referring to the POA or POAs that have been associated with a particular POA manager. A POA manager is created in the *holding* state. The root POA is therefore initially in the *holding* state.
+A POA manager has four possible processing states; *active*, *inactive*, *holding*, and *discarding*. The processing state determines the capabilities of the associated POAs and the disposition of requests received by those POAs. [Processing States](Images/figure15-3.svg) illustrates the processing states and the transitions between them. For simplicity of presentation, this specification sometimes describes these states as POA states, referring to the POA or POAs that have been associated with a particular POA manager. A POA manager is created in the *holding* state. The root POA is therefore initially in the *holding* state.
 
 For simplicity in the figure and the explanation, operations that would not cause a state change are not shown. For example, if a POA is in “active” state, it does not change state due to an activate operation. Such operations complete successfully with no special notice.
 
-The only exception is the inactive state: a **deactivate** operation invoked in the inactive state may block under certain circumstances. See [deactivate](#15325-deactivate) for details.
+The only exception is the inactive state: a **deactivate** operation invoked in the inactive state may block under certain circumstances. See [deactivate](#deactivate) for details.
 
-![](Images/figure15-3.svg)
-
-**Figure 15.3 Processing States**
+![Processing States](Images/figure15-3.svg)
 
 **Active State**
 
@@ -9346,7 +9314,7 @@ If the transition into the *inactive* state is a result of calling **deactivate*
 - TRUE - the associated POAs will call **etherealize** for each active object associated with the POA once all currently executing requests have completed processing (if the POAs have the **RETAIN** and **USE_SERVANT_MANAGER** policies). If a servant manager has been registered for the POA, the POA will get rid of the object. If there are any queued requests that have not yet started executing, they will be treated as if they were new requests and rejected.
 - FALSE - No deactivations or etherealizations will be attempted.
 
-#### 15.3.2.2 activate
+#### activate
 
 ```
 void activate()
@@ -9355,7 +9323,7 @@ void activate()
 
 This operation changes the state of the POA manager to *active*. If issued while the POA manager is in the *inactive* state, the AdapterInactive exception is raised. Entering the *active* state enables the associated POAs to process requests.
 
-#### 15.3.2.3 hold_requests
+#### hold_requests
 
 ```
 void hold_requests( in boolean wait_for_completion )
@@ -9366,7 +9334,7 @@ This operation changes the state of the POA manager to *holding*. If issued whil
 
 If the **wait_for_completion** parameter is **FALSE**, this operation returns immediately after changing the state. If the parameter is **TRUE** and the current thread is not in an invocation context dispatched by some POA belonging to the same ORB as this POA, this operation does not return until either there are no actively executing requests in any of the POAs associated with this POA manager (that is, all requests that were started prior to the state change have completed) or the state of the POA manager is changed to a state other than *holding*. If the parameter is **TRUE** and the current thread is in an invocation context dispatched by some POA belonging to the same ORB as this POA the BAD_INV_ORDER system exception with standard minor code 3 is raised and the state is not changed.
 
-#### 15.3.2.4 discard_requests
+#### discard_requests
 
 ```
 void discard_requests( in boolean wait_for_completion )
@@ -9377,7 +9345,7 @@ This operation changes the state of the POA manager to *discarding*. If issued w
 
 If the **wait_for_completion** parameter is FALSE, this operation returns immediately after changing the state. If the parameter is TRUE and the current thread is not in an invocation context dispatched by some POA belonging to the same ORB as this POA, this operation does not return until either there are no actively executing requests in any of the POAs associated with this POA manager (that is, all requests that were started prior to the state change have completed) or the state of the POA manager is changed to a state other than *discarding*. If the parameter is TRUE and the current thread is in an invocation context dispatched by some POA belonging to the same ORB as this POA the BAD_INV_ORDER system exception with standard minor code 3 is raised and the state is not changed.
 
-#### 15.3.2.5 deactivate
+#### deactivate
 
 ```
 void deactivate( in boolean etherealize_objects,
@@ -9396,7 +9364,7 @@ If the **wait_for_completion** parameter is FALSE, this operation will return im
 If **deactivate** is called multiple times before destruction is complete (because there are active requests), the **etherealize_objects** parameter applies only to the first call of **deactivate;** subsequent calls with conflicting **etherealize_objects** settings will use the value of the **etherealize_objects** from the first call. The
 **wait_for_completion** parameter will be handled as defined above for each individual call (some callers may choose to block, while others may not).
 
-#### 15.3.2.6 get_state
+#### get_state
 
 ```
 enum State {HOLDING, ACTIVE, DISCARDING, INACTIVE};
@@ -9405,17 +9373,17 @@ State get_state();
 
 This operation returns the state of the POA manager.
 
-#### 15.3.2.7 get_id
+#### get_id
 
 ```string get_id();```
 
 This operation returns the **POAManage**r's unique identity. The **id** of the **POAManager** for the Root POA is “**RootPOAManager**.”
 
-### 15.3.3 POAManagerFactory Interface
+### POAManagerFactory Interface
 
 POAManagers can be created implicitly, by passing a nil POAManager reference to the **create_POA** operation, or can be created explicitly using a POAManagerFactory. Explicit creation of a POAManager permits application control of the POAManager's identity, whereas implicit creation results in creation of a unique identity by the ORB run time. Explicit creation of a POAManager also permits the application to assign policies to the new POAManager.
 
-#### 15.3.3.1 create_POAManager
+#### create_POAManager
 
 ```exception ManagerAlreadyExists {};```
 
@@ -9434,7 +9402,7 @@ The policies parameter permits an arbitrary number of policies to be passed; the
 
 The newly created POAManager is in the Holding state.
 
-#### 15.3.3.2 list
+#### list
 
 ```
 typedef sequence<POAManager> POAManagerSeq;
@@ -9443,13 +9411,13 @@ POAManagerSeq list();
 
 The list operation returns all POAManagers (whether created implicitly or explicitly) that currently exist within the ORB.
 
-#### 15.3.3.3 find
+#### find
 
 ```POAManager find(in string id);```
 
 The find operation return the POAManager with the specified id. If no such POAManager exists, find returns a nil reference.
 
-### 15.3.4 AdapterActivator Interface
+### AdapterActivator Interface
 
 Adapter activators are associated with POAs. An adapter activator supplies a POA with the ability to create child POAs on demand, as a side-effect of receiving a request that names the child POA (or one of its children), or when **find_POA** is called with an activate parameter value of TRUE. An application server that creates all its needed POAs at the beginning of execution does not need to use or provide an adapter activator; it is necessary only for the case in which POAs need to be created during request processing.
 
@@ -9457,7 +9425,7 @@ While a request from the POA to an adapter activator is in progress, all request
 
 An **AdapterActivator** object must be local to the process containing the POA objects it is registered with. **AdapterActivator** is a local interface.
 
-**15.3.4.1 unknown_adapter**
+#### unknown_adapter
 
 ```boolean unknown_adapter(in POA parent, in string name);```
 
@@ -9483,7 +9451,7 @@ The **unknown_adapter** operation is also invoked when **find_POA** is called on
 
 **NOTE:** This allows the same code, the **unknown_adapter** implementation, to be used to initialize a **POA** whether that **POA** is created explicitly by the application or as a side-effect of processing a request. Furthermore, it makes this initialization atomic with respect to delivery of requests to the **POA**.
 
-### 15.3.5 ServantManager Interface
+### ServantManager Interface
 
 Servant managers are associated with POAs. A servant manager supplies a POA with the ability to activate objects on demand when the POA receives a request targeted at an inactive object. A servant manager is registered with a POA as a callback object, to be invoked by the POA when necessary. An application server that activates all its needed objects at the beginning of execution does not need to use a servant manager; it is used only for the case in which an object must be activated during request processing.
 
@@ -9495,7 +9463,7 @@ Each servant manager type contains two operations, the first called to find and 
 
 **ServantManager** is a local interface. A **ServantManager** object must be local to the process containing the **POA** objects it is registered with.
 
-**15.3.5.1 Common Information for Servant Manager** Types
+#### Common Information for Servant Manager Types
 
 The two types of servant managers have certain semantics that are identical.
 
@@ -9509,7 +9477,7 @@ If the **ForwardRequest** exception is raised anywhere else, it is passed throug
 
 If a **ServantManager** returns a null servant (or the equivalent in a language mapping) as the result of an **incarnate** or **preinvoke** operation, the **POA** returns the **OBJ_ADAPTER** system exception with standard minor code 7 as the result of the request. If the ServantManager returns the wrong type of servant, it is indeterminate when that error is detected. An **ORB** that chooses to detect the error shall raise **OBJ_ADAPTER** with standard minor code 2; an **ORB** that does not explicitly check for this error condition likely raises BAD_OPERATION with standard minor code 2 or a MARSHAL exception (with unspecified minor code) at the time of method invocation.
 
-### 15.3.6 ServantActivator Interface
+### ServantActivator Interface
 
 When the POA has the **RETAIN** policy it uses servant managers that are **ServantActivator**s. When using such servant managers, the following statements apply for a given **ObjectId** used in the **incarnate** and **etherealize** operations:
 
@@ -9525,7 +9493,7 @@ It should also be noted that a similar situation occurs with **incarnate**. Ther
 
 A single servant manager object may be concurrently registered with multiple POAs. Invocations of **incarnate** and **etherealize** on a servant manager in the context of different POAs are not necessarily serialized or mutually exclusive. There are no assumptions made about the thread in which **etherealize** is invoked.
 
-#### 15.3.6.1 incarnate
+#### incarnate
 
 ```
 Servant incarnate (
@@ -9546,7 +9514,7 @@ If the **incarnate** operation returns a servant that is already active for a di
 
 **NOTE:** If the same servant is used in two different POAs, it is legal for the POAs to use that servant even if the POAs have different Object Id uniqueness policies. The POAs do not interact with each other in this regard.
 
-#### 15.3.6.2 etherealize
+#### etherealize
 
 ```
 void etherealize (
@@ -9577,7 +9545,7 @@ In a multi-threaded environment, the **POA** makes certain guarantees that allow
 
 If the **etherealize** operation returns a system exception, the **POA** ignores the exception.
 
-### 15.3.7 ServantLocator Interface
+### ServantLocator Interface
 
 When the **POA** has the **NON_RETAIN** policy it uses servant managers that are **ServantLocators**. Because the **POA** knows that the servant returned by this servant manager will be used only for a single request, it can supply extra information to the servant manager’s operations and the servant manager’s pair of operations may be able to cooperate to do something different than a **ServantActivator**.
 
@@ -9596,7 +9564,7 @@ When using such a **ServantLocator**, the following statements apply for a given
 
 **NOTE:** The **ServantActivator** interface does not behave similarly with respect to a **GIOP** **Locate** message since the etherealize operation is not associated with request processing.
 
-#### 15.3.7.1 preinvoke
+#### preinvoke
 
 ```
 Servant preinvoke(
@@ -9616,7 +9584,7 @@ The user-supplied servant manager implementation is responsible for locating or 
 
 The **Cookie** is a type opaque to the **POA** that can be set by the servant manager for use later by **postinvoke**. The operation is the name of the operation that will be called by the **POA** when the servant is returned.
 
-#### 15.3.7.2 postinvoke
+#### postinvoke
 
 ```
 void postinvoke(
@@ -9640,11 +9608,11 @@ The **Cookie** is a type opaque to the **POA**; it contains any value that was s
 
 Destroying a servant that is known to the **POA** can lead to undefined results.
 
-#### 15.3.7.3 ServantLocator and Location Determination
+#### ServantLocator and Location Determination
 
 Under certain circumstances, an ORB may need to determine the actual location of an object’s implementation. For objects that are managed by a POA that is configured with a **ServantLocator**, it may invoke **preinvoke** and **postinvoke** or it may determine the object’s location by some other means. If it invokes **preinvoke** and **postinvoke** under these circumstances it shall use the argument “**_locate**.”
 
-### 15.3.8 POA Policy Objects
+### POA Policy Objects
 
 Interfaces derived from **CORBA::Policy** are used with the **POA::create_POA** operation to specify policies that apply to a POA. Policy objects are created using factory operations on any pre-existing POA, such as the root POA, or by a call to **ORB::create_policy**. Policy objects are specified when a POA is created. Policies may not be changed on an existing POA. Policies are not inherited from the parent POA. All **Policy** interfaces defined in this sub clause are local interfaces.
 
@@ -9652,7 +9620,7 @@ The POA shall preserve Policies whose types have been registered via
 
 **PortableInterceptor::ORBInitInfo::register_policy_factory**, even if the POA itself does not know about those policies.
 
-#### 15.3.8.1 Thread Policy
+#### Thread Policy
 
 Objects with the **ThreadPolicy** interface are obtained using the **POA::create_thread_policy** operation and passed to the **POA::create_POA** operation to specify the threading model used with the created POA. The value attribute of **ThreadPolicy** contains the value supplied to the **POA::create_thread_policy** operation from which it was obtained. The following values can be supplied.
 
@@ -9668,7 +9636,7 @@ POAs using the **SINGLE_THREAD_MODEL** may need to cooperate to ensure that call
 
 These models presume that the ORB and the application are using compatible threading primitives in a multi-threaded environment.
 
-#### 15.3.8.2 Lifespan Policy
+#### Lifespan Policy
 
 Objects with the **LifespanPolicy** interface are obtained using the **POA::create_lifespan_policy** operation and passed to the **POA::create_POA** operation to specify the lifespan of the objects implemented in the created POA. The following values can be supplied.
 
@@ -9680,7 +9648,7 @@ Objects with the **LifespanPolicy** interface are obtained using the **POA::crea
 
 If no **LifespanPolicy** object is passed to **create_POA**, the lifespan policy defaults to **TRANSIENT**.
 
-#### 15.3.8.3 Object Id Uniqueness Policy
+#### Object Id Uniqueness Policy
 
 Objects with the **IdUniquenessPolicy** interface are obtained using the **POA::create_id_uniqueness_policy** operation and passed to the **POA::create_POA** operation to specify whether the servants activated in the created **POA** must have unique object identities. The following values can be supplied.
 
@@ -9691,7 +9659,7 @@ If no **IdUniquenessPolicy** is specified at POA creation, the default is **UNIQ
 
 **NOTE:** Use of **UNIQUE_ID** policy is meaningless in conjunction with **NON_RETAIN** policy. A conforming application should not use this policy combination. A conforming orb may, but need not, report an error during **create_POA** if this combination is used. If an orb permits this combination of policies to be used, the resulting **POA** shall not treat the use of the same servant for concurrent requests on different object ids as an error.
 
-#### 15.3.8.4 Id Assignment Policy
+#### Id Assignment Policy
 
 Objects with the **IdAssignmentPolicy** interface are obtained using the **POA::create_id_assignment_policy** operation and passed to the **POA::create_POA** operation to specify whether Object Ids in the created **POA** are generated by the application or by the ORB. The following values can be supplied.
 
@@ -9700,7 +9668,7 @@ Objects with the **IdAssignmentPolicy** interface are obtained using the **POA::
 
 If no **IdAssignmentPolicy** is specified at POA creation, the default is **SYSTEM_ID**.
 
-#### 15.3.8.5 Servant Retention Policy
+#### Servant Retention Policy
 
 Objects with the **ServantRetentionPolicy** interface are obtained using the **POA::create_servant_retention_policy** operation and passed to the **POA::create_POA** operation to specify whether the created **POA** retains active servants in an Active Object Map. The following values can be supplied.
 
@@ -9711,7 +9679,7 @@ If no **ServantRetentionPolicy** is specified at POA creation, the default is **
 
 **NOTE:** The **NON_RETAIN** policy requires either the **USE_DEFAULT_SERVANT** or **USE_SERVANT_MANAGER** policies.
 
-#### 15.3.8.6 Request Processing Policy
+#### Request Processing Policy
 
 Objects with the **RequestProcessingPolicy** interface are obtained using the
 
@@ -9764,7 +9732,7 @@ This combination represents the situation where there is one single servant defi
 
 The **POA** does not try to find a servant in the Active Object Map because the **ActiveObjectMap** doesn't exist. In every request, the **POA** will invoke the appropriate operation on the default servant registered with the **POA**. If no default servant is available, the **POA** will raise the OBJ_ADAPTER system exception.
 
-#### 15.3.8.7 Implicit Activation Policy
+#### Implicit Activation Policy
 
 Objects with the **ImplicitActivationPolicy** interface are obtained using the **POA::create_implicit_activation_policy** operation and passed to the **POA::create_POA** operation to specify whether implicit activation of servants is supported in the created POA. The following values can be supplied.
 
@@ -9773,7 +9741,7 @@ Objects with the **ImplicitActivationPolicy** interface are obtained using the *
 
 If no **ImplicitActivationPolicy** is specified at POA creation, the default is **NO_IMPLICIT_ACTIVATION**.
 
-### 15.3.9 POA Interface
+### POA Interface
 
 A POA object manages the implementation of a collection of objects. The POA supports a name space for the objects, which are identified by Object Ids.
 
@@ -9781,7 +9749,7 @@ A POA also provides a name space for POAs. A POA is created as a child of an exi
 
 The **POA** interface is a local interface.
 
-#### 15.3.9.1 create_POA
+#### create_POA
 
 ```
 POA create_POA(
@@ -9804,7 +9772,7 @@ If any of the policy objects specified are not valid for the ORB implementation,
 
 **NOTE:** Creating a POA using a POA manager that is in the active state can lead to race conditions if the POA supports preexisting objects, because the new POA may receive a request before its adapter activator, servant manager, or default servant have been initialized. These problems do not occur if the POA is created by an adapter activator registered with a parent of the new POA, because requests are queued until the adapter activator returns. To avoid these problems when a POA must be explicitly initialized, the application can initialize the POA by invoking **find_POA** with a TRUE activate parameter.
 
-#### 15.3.9.2 find_POA
+#### find_POA
 
 ```
 POA find_POA(
@@ -9818,7 +9786,7 @@ If the target **POA** is the parent of a child **POA** with the specified name (
 
 If **find_POA** receives a system exception in response to a call to **unknown_adapter** on a **POA**, then **find_POA** passes through the system exception it received from **unknown_adapter**.
 
-#### 15.3.9.3 destroy
+#### destroy
 
 ```
 void destroy(
@@ -9845,7 +9813,7 @@ When **destroy** is called the **POA** behaves as follows:
 - If **wait_for_completion** is **TRUE** and the current thread is in an invocation context dispatched from some **POA** belonging to the same ORB as this **POA**, the BAD_INV_ORDER system exception with standard minor code 3 is raised and **POA** destruction does not occur.
 - If **wait_for_completion** is **FALSE**, the **destroy** operation destroys the POA and its children but waits neither for active requests to complete nor for etherealization to occur. If **destroy** is called multiple times before destruction is complete (because there are active requests), the **etherealize_objects** parameter applies only to the first call of **destroy**. Subsequent calls with conflicting **etherealize_objects** settings use the value of **etherealize_objects** from the first call. The **wait_for_completion** parameter is handled as defined above for each individual call (some callers may choose to block, while others may not).
 
-#### 15.3.9.4 Policy Creation Operations
+#### Policy Creation Operations
 
 ```
 ThreadPolicy create_thread_policy(
@@ -9866,44 +9834,44 @@ RequestProcessingPolicy create_request_processing_policy(
 
 These operations each return a reference to a policy object with the specified value. The application is responsible for calling the inherited **destroy** operation on the returned reference when it is no longer needed.
 
-#### 15.3.9.5 the_name
+#### the_name
 
 ```readonly attribute string the_name;```
 
 This attribute identifies the POA relative to its parent. This name is assigned when the POA is created. The name of the root POA is system-dependent and should not be relied upon by the application. In order to work properly with Portable
 Interceptors (see Adapter Names) the name of the root POA must be the sequence containing only the string “RootPOA.”
 
-**15.3.9.6 the_parent**
+#### the_parent
 
 ```readonly attribute POA the_parent;```
 
 This attribute identifies the parent of the POA. The parent of the root POA is null.
 
-#### 15.3.9.7 the_childrem
+#### the_childrem
 
 ```readonly attribute POAList the_children;```
 
 This attribute identifies the current set of all child POAs of the POA. The set of child POAs includes only the POA’s immediate children, and not their descendants.
 
-**15.3.9.8 the_POAManager**
+#### the_POAManager
 
 ```readonly attribute POAManager the_POAManager;```
 
 This attribute identifies the POA manager associated with the POA.
 
-#### 15.3.9.9 the_activator
+#### the_activator
 
 ```attribute AdapterActivator the_activator;```
 
 This attribute identifies the adapter activator associated with the POA. A newly created POA has no adapter activator (the attribute is null). It is system-dependent whether the root POA initially has an adapter activator; the application is free to assign its own adapter activator to the root POA.
 
-**15.3.9.10 the_POAManagerFactory**
+#### the_POAManagerFactory
 
 ```readonly attribute POAManagerFactory the_POAManagerFactory;```
 
 This attribute returns the **POAManagerFactory** that created the **POA**.
 
-#### 15.3.9.11 get_servant_manager
+#### get_servant_manager
 
 ```
 ServantManager get_servant_manager() 
@@ -9914,7 +9882,7 @@ This operation requires the **USE_SERVANT_MANAGER** policy; if not present, the 
 
 This operation returns the servant manager associated with the POA. If no servant manager has been associated with the POA, it returns a null reference.
 
-#### 15.3.9.12 set_servant_manager
+#### set_servant_manager
 
 ```
 void set_servant_manager( 
@@ -9928,7 +9896,7 @@ If the **ServantRetentionPolicy** of the **POA** is **RETAIN**, then the **Serva
 
 This operation sets the default servant manager associated with the POA. This operation may only be invoked once after a POA has been created. Attempting to set the servant manager after one has already been set will result in the BAD_INV_ORDER system exception with standard minor code 6 being raised.
 
-#### 15.3.9.13 get_servant
+#### get_servant
 
 ```
 Servant get_servant() 
@@ -9939,7 +9907,7 @@ This operation requires the **USE_DEFAULT_SERVANT** policy; if not present, the 
 
 This operation returns the default servant associated with the POA. If no servant has been associated with the POA, the NoServant exception is raised.
 
-#### 15.3.9.14 set_servant
+#### set_servant
 
 ```
 void set_servant( 
@@ -9951,7 +9919,7 @@ This operation requires the **USE_DEFAULT_SERVANT** policy; if not present, the 
 
 This operation registers the specified servant with the POA as the default servant. This servant will be used for all requests for which no servant is found in the Active Object Map.
 
-#### 15.3.9.15 activate_object
+#### activate_object
 
 ```
 ObjectId activate_object( 
@@ -9963,7 +9931,7 @@ This operation requires the **SYSTEM_ID** and **RETAIN** policy; if not present,
 
 If the POA has the **UNIQUE_ID** policy and the specified servant is already in the Active Object Map, the ServantAlreadyActive exception is raised. Otherwise, the **activate_object** operation generates an Object Id and enters the Object Id and the specified servant in the Active Object Map. The Object Id is returned.
 
-#### 15.3.9.16 activate_object_with_id
+#### activate_object_with_id
 
 ```
 void activate_object_with_id(
@@ -9978,7 +9946,7 @@ If the CORBA object denoted by the Object Id value is already active in this POA
 
 If the **POA** has the **SYSTEM_ID** policy and it detects that the Object Id value was not generated by the system or for this **POA**, the **activate_object_with_id** operation may raise the BAD_PARAM system exception. An ORB is not required to detect all such invalid Object Id values, but a portable application must not invoke **activate_object_with_id** on a **POA** that has the **SYSTEM_ID** policy with an Object Id value that was not previously generated by the system for that **POA**, or, if the **POA** also has the **PERSISTENT** policy, for a previous instantiation of the same **POA**. A **POA** is not required to raise the BAD_PARAM exception in this case because, in the general case, accurate rejection of an invalid Object Id requires unbounded persistent memory of all previously generated Id values.
 
-#### 15.3.9.17 deactivate_object
+#### deactivate_object
 
 ```
 void deactivate_object( 
@@ -9992,7 +9960,7 @@ This operation causes the **ObjectId** specified in the **oid** parameter to be 
 
 If the servant associated with the **oid** is serving multiple Object Ids, **ServantActivator::etherealize** may be invoked multiple times with the same servant when the other objects are deactivated. It is the responsibility of the object implementation to refrain from destroying the servant while it is active with any Id.
 
-#### 15.3.9.18 create_reference
+#### create_reference
 
 ```
 Object create_reference (
@@ -10006,7 +9974,7 @@ This operation creates an object reference that encapsulates a POA-generated Obj
 
 This operation does not cause an activation to take place. The resulting reference may be passed to clients, so that subsequent requests on those references will cause the appropriate servant manager to be invoked, if one is available. The generated Object Id value may be obtained by invoking **POA::reference_to_id** with the created reference.
 
-#### 15.3.9.19 create_reference_with_id
+#### create_reference_with_id
 
 ```
 Object create_reference_with_id (
@@ -10021,7 +9989,7 @@ This operation does not cause an activation to take place. The resulting referen
 
 If the **POA** has the **SYSTEM_ID** policy and it detects that the Object Id value was not generated by the system or for this POA, the **create_reference_with_id** operation may raise the BAD_PARAM system exception with standard minor code 14. An ORB is not required to detect all such invalid Object Id values, but a portable application must not invoke this operation on a POA that has the **SYSTEM_ID** policy with an Object Id value that was not previously generated by the system for that **POA**, or, if the **POA** also has the **PERSISTENT** policy, for a previous instantiation of the same **POA**.
 
-#### 15.3.9.20 servant_to_id
+#### servant_to_id
 
 ```
 ObjectId servant_to_id( 
@@ -10039,7 +10007,7 @@ This operation has four possible behaviors.
 3. If the **POA** has the **USE_DEFAULT_SERVANT** policy, the servant specified is the default servant, and the operation is being invoked in the context of executing a request on the default servant, then the ObjectId associated with the current invocation is returned.
 4. Otherwise, the ServantNotActive exception is raised.
 
-#### 15.3.9.21 servant_to_reference
+#### servant_to_reference
 
 ```
 Object servant_to_reference (
@@ -10058,7 +10026,7 @@ This operation requires the **RETAIN** policy and either the **UNIQUE_ID** or **
 
 **NOTE:** The allocation of an Object Id value and installation in the Active Object Map caused by implicit activation may actually be deferred until an attempt is made to externalize the reference. The real requirement here is that a reference is produced that will behave appropriately (that is, yield a consistent Object Id value when asked politely).
 
-#### 15.3.9.22 reference_to_servant
+#### reference_to_servant
 
 ```
 Servant reference_to_servant (
@@ -10079,7 +10047,7 @@ The table below summarizes the behavior of this operation based on the **RETAIN*
 
 If the object reference was not created by this **POA**, the WrongAdapter exception is raised.
 
-#### 15.3.9.23 reference_to_id
+#### reference_to_id
 
 ```
 ObjectId reference_to_id(
@@ -10091,7 +10059,7 @@ The WrongPolicy exception is declared to allow future extensions.
 
 This operation returns the Object Id value encapsulated by the specified **reference**. This operation is valid only if the reference was created by the POA on which the operation is being performed. If the reference was not created by that POA, a WrongAdapter exception is raised. The object denoted by the reference does not have to be active for this operation to succeed.
 
-#### 15.3.9.24 id_to_servant
+#### id_to_servant
 
 ```
 Servant id_to_servant(
@@ -10103,7 +10071,7 @@ This operation requires the **RETAIN** policy or the **USE_DEFAULT_SERVANT** pol
 
 If the POA has the **RETAIN** policy and the specified **ObjectId** is in the Active Object Map, this operation returns the servant associated with that object in the Active Object Map. Otherwise, if the POA has the **USE_DEFAULT_SERVANT** policy and a default servant has been registered with the POA, this operation returns the default servant. Otherwise the ObjectNotActive exception is raised.
 
-#### 15.3.9.25 id_to_reference
+#### id_to_reference
 
 ```
 Object id_to_reference(
@@ -10113,13 +10081,13 @@ Object id_to_reference(
 
 This operation requires the **RETAIN** policy; if not present, the WrongPolicy exception is raised. If an object with the specified Object Id value is currently active, a reference encapsulating the information used to activate the object is returned. If the Object Id value is not active in the POA, an ObjectNotActive exception is raised.
 
-#### 15.3.9.26 id
+#### id
 
 **readonly attribute CORBA::OctetSeq id;**
 
 This returns the unique id of the POA in the process in which it is created. It is for use by portable interceptors. This id is guaranteed unique for the life span of the POA in the process. For persistent POAs, this means that if a POA is created in the same path with the same name as another POA, these POAs are identical and, therefore, have the same id. For transient POAs, each POA is unique.
 
-### 15.3.10 Current Operations
+### Current Operations
 
 The **PortableServer::Current** interface, derived from **CORBA::Current**, provides method implementations with access to the identity of the object on which the method was invoked. The **Current** interface is provided to support servants that implement multiple objects, but can be used within the context of POA-dispatched method invocations on any servant. To provide location transparency, ORBs are required to support use of **Current** in the context of both locally and remotely invoked operations.
 
@@ -10128,7 +10096,7 @@ An instance of **Current** can be obtained by the application by issuing the
 
 ```PortableServer::Current is a local interface.```
 
-**15.3.10.1 get_POA**
+#### get_POA
 
 ```
 POA get_POA()
@@ -10137,7 +10105,7 @@ POA get_POA()
 
 This operation returns a reference to the POA implementing the object in whose context it is called. If called outside the context of a POA-dispatched operation, a NoContext exception is raised.
 
-**15.3.10.2 get_object_id**
+#### get_object_id
 
 ```
 ObjectId get_object_id()
@@ -10146,7 +10114,7 @@ ObjectId get_object_id()
 
 This operation returns the **ObjectId** identifying the object in whose context it is called. If called outside the context of a POA-dispatched operation, a NoContext exception is raised.
 
-**15.3.10.3 get_reference**
+#### get_reference
 
 ```
 Object get_reference()
@@ -10157,7 +10125,7 @@ This operation returns a locally manufactured reference to the object in the con
 
 **NOTE:** This reference is not guaranteed to be identical to the original reference the client used to make the invocation, and calling the **Object::is_equivalent** operation to compare the two references may not necessarily return true.
 
-**15.3.10.4 get_servant**
+#### get_servant
 
 ```
 Servant get_servant()
@@ -10166,7 +10134,7 @@ Servant get_servant()
 
 This operation returns a reference to the servant that hosts the object in whose context it is called. If called outside the context of a POA dispatched operation, a NoContext exception is raised.
 
-## 15.4 IDL for PortableServer Module
+## IDL for PortableServer Module
 
 ```
 // IDL
@@ -10176,7 +10144,7 @@ This operation returns a reference to the servant that hosts the object in whose
 
 import ::CORBA;
 module PortableServer {
- typeprefix PortableServer “org.omg”;
+ typeprefix PortableServer "org.omg";
  local interface POA; // forward declaration
  typedef sequence<POA> POAList;
 
@@ -10495,25 +10463,21 @@ module PortableServer {
 };
 ```
 
-## 15.5 UML Description of PortableServer
+## UML Description of PortableServer
 
 The following diagrams were generated by an automated tool and then annotated with the cardinalities of the associations. They are intended to be an aid in comprehension to those who enjoy such representations. They are not normative.
 
-![](Images/figure15-4.svg)
+![UML for main part of PortableServer](Images/figure15-4.svg)
 
-**Figure 15.4 - UML for main part of PortableServer**
+![UML for PortableServer Policies](Images/figure15-5.svg)
 
-![](Images/figure15-5.svg)
-
-**Figure 15.5 - UML for PortableServer Policies**
-
-## 15.6 Usage Scenarios
+## Usage Scenarios
 
 This sub clause illustrates how different capabilities of the POA may be used in applications.
 
 **NOTE:** In some of the following C++ examples, PortableServer names are not explicitly scoped. It is assumed that all the examples have the C++ statement: **using namespace PortableServer;**
 
-### 15.6.1 Getting the Root POA
+### Getting the Root POA
 
 All server applications must obtain a reference to the root POA, either to use it directly to manage objects, or to create new POA objects. The following example demonstrates how the application server can obtain a reference to the root POA.
 
@@ -10521,12 +10485,12 @@ All server applications must obtain a reference to the root POA, either to use i
 // C++
 CORBA::ORB_ptr orb = CORBA::ORB_init(argc, argv);
 CORBA::Object_ptr pfobj =
-orb->resolve_initial_references(“RootPOA”);
+orb->resolve_initial_references("RootPOA");
 PortableServer::POA_ptr rootPOA;
 rootPOA = PortableServer::POA::narrow(pfobj);
 ```
 
-### 15.6.2 Creating a POA
+### Creating a POA
 
 For a variety of reasons, a server application might want to create a new POA. The POA is created as a child of an existing POA. In this example, it is created as a child of the root POA.
 
@@ -10539,11 +10503,11 @@ PortableServer::ThreadPolicy::ORB_CTRL_MODEL);
 policies[1] = rootPOA->create_lifespan_policy(
 PortableServer::LifespanPolicy::TRANSIENT);
 PortableServer::POA_ptr poa =
-rootPOA->create_POA(“my_little_poa”,
+rootPOA->create_POA("my_little_poa",
 PortableServer::POAManager::_nil(), policies);
 ```
 
-### 15.6.3 Explicit Activation with POA-assigned Object Ids
+### Explicit Activation with POA-assigned Object Ids
 
 By specifying the **SYSTEM_ID** policy on a POA, objects may be explicitly activated through the POA without providing a user-specified identity value. Using this approach, objects are activated by performing the **activate_object** operation on the POA with the object in question. For this operation, the POA allocates, assigns, and returns a unique identity value for the object.
 
@@ -10602,7 +10566,7 @@ orb->run();
 
 This object is activated with a generated Object Id.
 
-### 15.6.4 Explicit Activation with User-assigned Object Ids
+### Explicit Activation with User-assigned Object Ids
 
 An object may be explicitly activated by a server using a user-assigned identity. This may be done for several reasons. For example, a programmer may know that certain objects are commonly used, or act as initial points of contact through which clients access other objects (for example, factories). The server could be implemented to create and explicitly activate these objects during initialization, avoiding the need for a servant manager.
 
@@ -10618,21 +10582,21 @@ The code is like the previous example, but replace the last portion of the examp
 // C++
 MyFooServant* afoo = new MyFooServant(poa, 27);
 PortableServer::ObjectId_var oid =
-    PortableServer::string_to_ObjectId(“myLittleFoo”);
+    PortableServer::string_to_ObjectId("myLittleFoo");
 poa->activate_object_with_id(oid.in(), afoo);
 Foo_var foo = afoo->_this();
 ```
 
-### 15.6.5 Creating References before Activation
+### Creating References before Activation
 
 It is sometimes useful to create references for objects before activating them. This example extends the previous example to illustrate this option:
 
 ```
 // C++
 PortableServer::ObjectId_var oid =
-PortableServer::string_to_ObjectId(“myLittleFoo”);
+PortableServer::string_to_ObjectId("myLittleFoo");
 CORBA::Object_var obj = poa->create_reference_with_id(
-      oid.in(), “IDL:Foo:1.0”);
+      oid.in(), "IDL:Foo:1.0");
 Foo_var foo = Foo::_narrow(obj);
 
 // ...later...
@@ -10640,7 +10604,7 @@ MyFooServant* afoo = new MyFooServant(poa, 27);
 poa->activate_object_with_id(oid.in(), afoo);
 ```
 
-### 15.6.6 Servant Manager Definition and Creation
+### Servant Manager Definition and Creation
 
 Servant managers are object implementations, and are required to satisfy all of the requirements of object implementations necessary for their intended function. Because servant managers are local objects, and their use is limited to a single narrow role, some simplifications in their implementation are possible. Note that these simplifications are suggestions, not normative requirements. They are intended as examples of ways to reduce the programming effort required to define servant managers.
 
@@ -10653,7 +10617,7 @@ A servant manager implementation must provide the following things:
 
 The first two are obvious; their content is dictated by the requirements of the implementation that the servant manager is managing. For the third point, the default servant manager on the root POA already supplies this implementation code. User- written servant managers will have to provide this themselves.
 
-Since servant managers are objects, they themselves must be activated. It is expected that most servant managers can be activated on the root POA with its default set of policies (see [POA Creation](#1523-poa-creation)). It is for this reason that the root POA has the **IMPLICIT_ACTIVATION** policy so that a servant manager can easily be activated. Users may choose to activate a servant manager on other POAs.
+Since servant managers are objects, they themselves must be activated. It is expected that most servant managers can be activated on the root POA with its default set of policies (see [POA Creation](#poa-creation)). It is for this reason that the root POA has the **IMPLICIT_ACTIVATION** policy so that a servant manager can easily be activated. Users may choose to activate a servant manager on other POAs.
 
 The following is an example servant manager to activate objects on demand. This example presumes a POA that has the **USER_ID**, **USE_SERVANT_MANAGER**, and **RETAIN** policies.
 
@@ -10692,7 +10656,7 @@ POA_PortableServer::ServantActivator
   {
    String_var s = PortbleServer::ObjectId_to_string
     (oid);
-   if (strcmp(s, “myLittleFoo”) == 0) {
+   if (strcmp(s, "myLittleFoo") == 0) {
     return new MyFooServant(poa, 27);
    else {
     throw CORBA::OBJECT_NOT_EXIST();
@@ -10711,7 +10675,7 @@ POA_PortableServer::ServantActivator
 };
 ```
 
-### 15.6.7 Object Activation on Demand
+### Object Activation on Demand
 
 The precondition for this scenario is the existence of a client with a reference for an object with which no servant is associated at the time the client makes a request on the reference. It is the responsibility of the ORB, in collaboration with the POA and the server application to find or create an appropriate servant and perform the requested operation on it. Such an object is said to be *incarnated* (or *incarnation*) when it has an active servant. Note that the client had to obtain the reference in question previously from some source. From the client’s perspective, the abstract object exists as long as it holds a reference, until it receives an OBJECT_NOT_EXIST system exception in a reply from an attempted request on the object. Incarnation state does not imply existence or non-existence of the abstract object.
 
@@ -10733,9 +10697,9 @@ Given such a **ServantActivator**, all that remains is initialization code such 
 
 ```
 PortableServer::ObjectId_var oid =
- PortableServer::string_to_ObjectId(“myLittleFoo”);
+ PortableServer::string_to_ObjectId("myLittleFoo");
 CORBA::Object_var obj = poa->create_reference_with_id(
- oid, “IDL:foo:1.0”);
+ oid, "IDL:foo:1.0");
 MyFooServantActivator* fooIM = new MyFooServantActivator;
 ServantActivator_var IMref = fooIM->_this();
 poa->set_servant_manager(IMref);
@@ -10743,20 +10707,20 @@ poa->the_POAmanager()->activate();
 orb->run();
 ```
 
-### 15.6.8 Persistent Objects with POA-assigned Ids
+### Persistent Objects with POA-assigned Ids
 
 It is possible to access the Object Id value assigned to an object by the POA, with the **POA::reference_to_id** operation. If the reference is for an object managed by the POA that is the operation’s target, the operation will return the Object Id value, whether it was assigned by the POA or the user. By doing this, an implementation may provide a servant manager that associates the POA-allocated Object Id values with persistently stored state. It may also pass the POA-allocated Object Id values to POA operations such as **activate_object_with_id** and **create_reference_with_id**.
 
 A POA with the **PERSISTENT** policy may be destroyed and later reinstantiated in the same or a different process. A POA with both the **SYSTEM_ID** and **PERSISTENT** policies generates Object Id values that are unique across all instantiations of the same POA.
 
-### 15.6.9 Multiple Object Ids Mapping to a Single Servant
+### Multiple Object Ids Mapping to a Single Servant
 
 Each POA is created with a policy that indicates whether or not servants are allowed to support multiple object identities simultaneously. If a POA allows multiple identities per servant, the POA’s treatment of the servants is affected in the following ways:
 
 - Servants of the type may be explicitly activated multiple times with different identity values without raising an exception.
 - A servant cannot be mapped onto or converted to an individual object reference using that POA, since the identity is potentially ambiguous.
 
-### 15.6.10 One Servant for All Objects
+### One Servant for All Objects
 
 By using the **USE_DEFAULT_SERVANT** policy, the developer can create a POA that will use a single servant to implement all of its objects. This approach is useful when there is very little data associated with each object, so little that the data can be encoded in the Object Id.
 
@@ -10879,7 +10843,7 @@ Using a single servant per interface is useful in at least two situations.
 - In one case, it may be appropriate for encapsulating access to legacy APIs that are not object-oriented (system calls in the Unix environment, as we have shown in the example).
 - In another case, this technique is useful in handling scalability issues related to the number of CORBA objects that can be associated with a server. In the example above, there may be a million **FileDescriptor** objects in the same server and this would only require one entry in the ORB. Although there are operating system limitations in this respect (a Unix server is not able to open so many local file descriptors) the important point to take into account is that usage of CORBA doesn't introduce scalability problems but provides mechanisms to handle them.
 
-### 15.6.11 Single Servant, Many Objects and Types, Using DSI
+### Single Servant, Many Objects and Types, Using DSI
 
 The ability to associate a single DSI servant with many CORBA objects is rather powerful in some scenarios. It can be the basis for development of gateways to legacy systems or software that mediates with external hardware, for example.
 
@@ -11024,83 +10988,73 @@ Note that in this example, we may have a billion **DatabaseEntry** objects in a 
 
 Scalability problems can be handled using this technique. There are many scenarios where this scalability causes no penalty in terms of performance (basically, when there is no need to restore the state of an object, each time a request to it is being served).
 
-# 16 Portable Interceptors
+# Portable Interceptors
 
-## 16.1 Introduction
+## Introduction
 
 Portable Interceptors are hooks into the ORB through which ORB services can intercept the normal flow of execution of the ORB. The following figures describe the programming model for which portable Interceptors were designed.
 
-### 16.1.1 Object Creation
+### Object Creation
 
-![](Images/figure16-1.svg)
+![Object Creation](Images/figure16-1.svg)
 
-**Figure 16.1 - Object Creation**
-
-Figure 16.1 shows the parts involved in the creation of an object. An object is represented by an IOR created by the POA. A set of policies is used to create a POA which influences the set of tagged components contained within the profiles of any IOR created by that POA. ORB services may have tagged components specific to their service, therefore they require a means to add tagged components to an IOR. ORB services may also introduce new policies; therefore, they require a means to create these new policies.
+[Object Creation](Images/figure16-1.svg) shows the parts involved in the creation of an object. An object is represented by an IOR created by the POA. A set of policies is used to create a POA which influences the set of tagged components contained within the profiles of any IOR created by that POA. ORB services may have tagged components specific to their service, therefore they require a means to add tagged components to an IOR. ORB services may also introduce new policies; therefore, they require a means to create these new policies.
 
 | | |
 |-------------------|---------------------------|
 | **Requirement**:  | Add tagged components|
-| **Satisfied by**: | IORInterceptor (see [IOR Interceptor](#166-ior-interceptor)). |
+| **Satisfied by**: | IORInterceptor (see [IOR Interceptor](#ior-interceptor)). |
 | **Requirement**:  | Create policies|
-| **Satisfied by**: | PolicyFactory (see [PolicyFactory](#168-policyfactory)).    |
+| **Satisfied by**: | PolicyFactory (see [PolicyFactory](#policyfactory)).    |
 
-### 16.1.2 Client Sends Request
+### Client Sends Request
 
-![](Images/figure16-2.svg)
+![Transfer Client’s Context to Request’s Service Context](Images/figure16-2.svg)
 
-**Figure 16.2 - Transfer Client’s Context to Request’s Service Context**
-
-Figure 16.2 shows what is needed to transfer a client’s context to the service context. Service contexts are populated from information in a service’s **Current** object, from the effective policies, and from information in the tagged components on an IOR’s profile.
+[Transfer Client’s Context to Request’s Service Context](Images/figure16-2.svg) shows what is needed to transfer a client’s context to the service context. Service contexts are populated from information in a service’s **Current** object, from the effective policies, and from information in the tagged components on an IOR’s profile.
 
 The processing of a request is an integral part of the ORB. Since each ORB service potentially creates its own service context, there must be a means by which each service can get the necessary information during request processing. Since service contexts are defined as a unique identifier and an octet sequence containing a CDR encapsulation there must be a portable method to create such an octet sequence.
 
 | | |
 |----------------|----------------------------------------|
 | **Requirement**:  | Intercept request processing and access necessary data.|
-| **Satisfied by**: | Request Interceptors (see [Request Interceptors](#164-request-interceptors)) and the PortableInterceptor::Current (see [Portable Interceptor Current](#165-portable-interceptor-current)). |
+| **Satisfied by**: | Request Interceptors (see [Request Interceptors](#request-interceptors)) and the PortableInterceptor::Current (see [Portable Interceptor Current](#portable-interceptor-current)). |
 | **Requirement**:  | Convert types to octet sequences|
 | **Satisfied by**: | Codec (see *Part 2 of this International Standard* clause, Coder/Decoder Interfaces sub clause).                                                 |
 
-### 16.1.3 Server Receives Request
+### Server Receives Request
 
-![](Images/figure16-3.svg)
-
-**Figure 16.3 - Transfer Request’s Service Context to Server’s Context**
+![Transfer Request’s Service Context to Server’s Context](Images/figure16-3.svg)
 
 On the client, the client’s context is transferred to the request’s service context. On the server, the opposite must occur:
 
-the information in the service context is transferred to the server’s context which is then available to the server application. Figure 16.3 shows what is necessary to accomplish this.
+the information in the service context is transferred to the server’s context which is then available to the server application. [Transfer Request’s Service Context to Server’s Context](Images/figure16-3.svg) shows what is necessary to accomplish this.
 
-The requirements that exist in [Client Sends Request](#1612-client-sends-request) also exist here.
+The requirements that exist in [Client Sends Request](#client-sends-request) also exist here.
 
-### 16.1.4 Server Sends Reply
+### Server Sends Reply
 
-![](Images/figure16-4.svg)
+![Transfer Server’s Context to Reply’s Service Context](Images/figure16-4.svg)
 
-**Figure 16.4 - Transfer Server’s Context to Reply’s Service Context**
-
-Figure 16.4 shows what is needed to transfer a server’s context to a reply’s service context. Service contexts are populated from information in a service’s **Current** object.
+[Transfer Server’s Context to Reply’s Service Context](Images/figure16-4.svg) shows what is needed to transfer a server’s context to a reply’s service context. Service contexts are populated from information in a service’s **Current** object.
 
 The requirements which exist in Client Sends Request also exist here.
 
-### 16.1.5 Client Receives Reply
+### Client Receives Reply
 
-![](Images/figure16-5.svg)
-
-**Figure 16.5 - View the Service Context on the Client Reply**
+![View the Service Context on the Client Reply](Images/figure16-5.svg)
 
 When processing the client reply, although the client’s context cannot be updated by the reply’s service context, the service may still wish to query the service context information.
 
 The client’s context cannot be updated because such updates would be invalid on asynchronous calls. The client thread may be continually changing its context and if a reply also changed the context at any time, the state of the context at any given time would be indeterminate.
 
-The requirements that exist in [Client Sends Request](#1612-client-sends-request) also exist here.
+The requirements that exist in [Client Sends Request](#client-sends-request) also exist here.
 
-## 16.2 General Behavior of Local Objects
+## General Behavior of Local Objects
 
 All local objects specified in this clause except for **Interceptor** and local interfaces derived from it, **PolicyFactory** and **ORBInitializer** override the default behavior of the **Object::get_orb** operation and return the **ORB** that the portable interceptor facility is associated with.
 
-## 16.3 Interceptor Interface
+## Interceptor Interface
 
 Portable Interceptor interfaces and related type definitions reside in the module **PortableInterceptor**. All portable Interceptors inherit from the local interface **Interceptor**:
 
@@ -11124,15 +11078,15 @@ Each Interceptor may have a name that may be used administratively to order the 
 
 Method invocations from within **Interceptor::destroy** on object references for objects implemented on the ORB being destroyed result in undefined behavior. However, method invocations on objects implemented on an ORB other than the one being destroyed are permitted. (This means that the ORB being destroyed is still capable of acting as a client, but not as a server.)
 
-## 16.4 Request Interceptors
+## Request Interceptors
 
 A request Interceptor is designed to intercept the flow of a request/reply sequence through the ORB at specific points so that services can query the request information and manipulate the service contexts that are propagated between clients and servers.
 
 The primary use of request Interceptors is to enable ORB services to transfer context information between clients and servers.
 
-There are two types of request Interceptors: client-side (see [Client-Side Interceptor](#1645-client-side-interceptor)) and server-side (see [Server-Side Interceptor](#1648-server-side-interceptor)).
+There are two types of request Interceptors: client-side (see [Client-Side Interceptor](#client-side-interceptor)) and server-side (see [Server-Side Interceptor](#server-side-interceptor)).
 
-### 16.4.1 Design Principles
+### Design Principles
 
 The following points are the principles followed in the design of the portable Interceptor architecture.
 
@@ -11148,9 +11102,9 @@ The following points are the principles followed in the design of the portable I
 10. There is no provision for making object implementations aware that any request Interceptor has been or will be called Corollary: An object implementation and a request Interceptor can communicate between themselves to bypass this principle, but that is outside of the concerns of the model.
 11. To ensure the integrity of the effect of each request Interceptor, a set of general flow rules are specified that govern the flow of processing through a list of interceptors. See below.
 
-### 16.4.2 General Flow Rules
+### General Flow Rules
 
-Both client and server request Interceptors are registered with an ORB (see [Registering Interceptors](#169-registering-interceptors)). The ORB logically maintains an ordered list of these Interceptors.
+Both client and server request Interceptors are registered with an ORB (see [Registering Interceptors](#registering-interceptors)). The ORB logically maintains an ordered list of these Interceptors.
 
 To accommodate both the client and server request Interceptors, and any future additions to the interception points list, the following general rules apply to the flow of execution of request interception points:
 
@@ -11160,21 +11114,19 @@ To accommodate both the client and server request Interceptors, and any future a
 - On an exception, intermediate interception points may not be called.
 - If and only if a starting interception point runs to completion is an ending interception point called.
 
-See [Client-Side Interception Point Flow](#1647-client-side-interception-point-flow) and [Server-Side Interception Point Flow](#16410-server-side-interception-point-flow) for details of how these general flow rules apply specifically to the client-side and server-side Interceptors.
+See [Client-Side Interception Point Flow](#client-side-interception-point-flow) and [Server-Side Interception Point Flow](#server-side-interception-point-flow) for details of how these general flow rules apply specifically to the client-side and server-side Interceptors.
 
-### 16.4.3 The Flow Stack Visual Model
+### The Flow Stack Visual Model
 
 To visualize the general flow rules, think of each Interceptor as being put on a Flow Stack when a starting interception point completes successfully. (An ORB need not implement the Flow Stack. It is presented simply as a visual cue.) An ending interception point is called for each Interceptor in the stack. If a starting interception point is called for all Interceptors, then all Interceptors will have an ending interception point called. If one of the Interceptors raises an exception during the invocation of its starting interception point, only those Interceptors on the stack at that point will be popped and have an ending interception point called.
 
-### 16.4.4 The Request Interceptor Points
+### The Request Interceptor Points
 
-Each request Interceptor is called at a number of interception points. Figure 16.6 shows the flow of control for a request/ reply cycle that is subject to at least one request Interceptor. See [Client-Side Interceptor](#1645-client-side-interceptor) and [Server-Side Interceptor](#1648-server-side-interceptor) for descriptions of each of these interception points.
+Each request Interceptor is called at a number of interception points. [Request Interception Points](Images/figure16-6.svg) shows the flow of control for a request/ reply cycle that is subject to at least one request Interceptor. See [Client-Side Interceptor](#client-side-interceptor) and [Server-Side Interceptor](#server-side-interceptor) for descriptions of each of these interception points.
 
-![](Images/figure16-6.svg)
+![Request Interception Points](Images/figure16-6.svg)
 
-**Figure 16.6 - Request Interception Points**
-
-### 16.4.5 Client-Side Interceptor
+### Client-Side Interceptor
 
 To write a client-side Interceptor, the **ClientRequestInterceptor** local interface shall be implemented.
 
@@ -11191,19 +11143,19 @@ local interface ClientRequestInterceptor : Interceptor {
 };
 ```
 
-### 16.4.6 Client-Side Interception Points
+### Client-Side Interception Points
 
-**16.4.6.1 send_request**
+#### send_request
 
 This interception point allows an Interceptor to query request information and modify the service context before the request is sent to the server.
 
 This interception point may raise a system exception. If it does, no other Interceptors’ **send_request** operations are called. Those Interceptors on the Flow Stack are popped and their **receive_exception** interception points are called.
 
-This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#16415-forwardrequest-exception) for details of this exception). If an Interceptor raises this exception, no other Interceptors’ **send_request** operations are called. Those Interceptors on the Flow Stack are popped and their **receive_other** interception points are called.
+This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#forwardrequest-exception) for details of this exception). If an Interceptor raises this exception, no other Interceptors’ **send_request** operations are called. Those Interceptors on the Flow Stack are popped and their **receive_other** interception points are called.
 
 Compliant Interceptors shall properly follow **completion_status** semantics if they raise a system exception from this interception point. The **completion_status** shall be **COMPLETED_NO**.
 
-**16.4.6.2 send_poll**
+#### send_poll
 
 This interception point allows an Interceptor to query information during a Time-Independent Invocation (TII) polling get reply sequence.
 
@@ -11213,7 +11165,7 @@ This interception point may raise a system exception. If it does, no other Inter
 
 Compliant Interceptors shall properly follow **completion_status** semantics if they raise a system exception from this interception point. The **completion_status** shall be **COMPLETED_NO**.
 
-**16.4.6.3 receive_reply**
+#### receive_reply
 
 This interception point allows an Interceptor to query the information on a reply after it is returned from the server and before control is returned to the client.
 
@@ -11221,13 +11173,13 @@ This interception point may raise a system exception. If it does, no other Inter
 
 Compliant Interceptors shall properly follow **completion_status** semantics if they raise a system exception from this interception point. The **completion_status** shall be **COMPLETED_YES**.
 
-**16.4.6.4 receive_exception**
+#### receive_exception
 
 When an exception occurs, this interception point is called. It allows an Interceptor to query the exception’s information before it is raised to the client.
 
 This interception point may raise a system exception. This has the effect of changing the exception, which successive Interceptors popped from the Flow Stack receive on their calls to **receive_exception**. The exception raised to the client will be the last exception raised by an Interceptor, or the original exception if no Interceptor changes the exception.
 
-This interception point may also raise a ForwardRequest exception (see [Section 16.4.15, “ForwardRequest Exception,”](#16415-forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, no other Interceptors’ **receive_exception** operations are called. The remaining Interceptors in the Flow Stack are popped and have their **receive_other** interception point called.
+This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, no other Interceptors’ **receive_exception** operations are called. The remaining Interceptors in the Flow Stack are popped and have their **receive_other** interception point called.
 
 If the **completion_status** of the exception is not **COMPLETED_NO**, then it is inappropriate for this interception point to raise a ForwardRequest exception. The request’s at-most-once semantics would be lost.
 
@@ -11235,27 +11187,27 @@ Compliant Interceptors shall properly follow **completion_status** semantics if 
 
 Under some conditions, depending on what policies are in effect, an exception (such as COMM_FAILURE) may result in a retry of the request. While this retry is a new request with respect to Interceptors, there is one point of correlation between the original request and the retry: because control has not returned to the client, the
 
-**PortableInterceptor::Current** for both the original request and the retrying request is the same (see [Portable Interceptor Current](#165-portable-interceptor-current)).
+**PortableInterceptor::Current** for both the original request and the retrying request is the same (see [Portable Interceptor Current](#portable-interceptor-current)).
 
-**16.4.6.5 receive_other**
+#### receive_other
 
 This interception point allows an Interceptor to query the information available when a request results in something other than a normal reply or an exception. For example, a request could result in a retry (for example, a GIOP Reply with a **LOCATION_FORWARD** status was received); or on asynchronous calls, the reply does not immediately follow the request, but control shall return to the client and an ending interception point shall be called.
 
-For retries, depending on the policies in effect, a new request may or may not follow when a retry has been indicated. If a new request does follow, while this request is a new request with respect to Interceptors, there is one point of correlation between the original request and the retry. Because control has not returned to the client, the request scoped **PortableInterceptor::Current** for both the original request and the retrying request is the same (see [Portable Interceptor Current](#165-portable-interceptor-current)).
+For retries, depending on the policies in effect, a new request may or may not follow when a retry has been indicated. If a new request does follow, while this request is a new request with respect to Interceptors, there is one point of correlation between the original request and the retry. Because control has not returned to the client, the request scoped **PortableInterceptor::Current** for both the original request and the retrying request is the same (see [Portable Interceptor Current](#portable-interceptor-current)).
 
 This interception point may raise a system exception. If it does, no other Interceptors’ **receive_other** operations are called. The remaining Interceptors in the Flow Stack are popped and have their **receive_exception** interception point called.
 
-This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#16415-forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, successive Interceptors’ **receive_other** operations are called with the new information provided by the ForwardRequest exception.
+This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, successive Interceptors’ **receive_other** operations are called with the new information provided by the ForwardRequest exception.
 
 Compliant Interceptors shall properly follow **completion_status** semantics if they raise a system exception from this interception point. The **completion_status** shall be **COMPLETED_NO**. If the target invocation had completed, this interception point would not be called.
 
-### 16.4.7 Client-Side Interception Point Flow
+### Client-Side Interception Point Flow
 
 A **ClientRequestInterceptor** instance is registered with the ORB. The ORB logically maintains an ordered list of client-side Interceptors. The Interceptor list is traversed in order on the sending interception points and in reverse order on the receiving interception points.
 
-**16.4.7.1 Client-side Flow Rules**
+#### Client-side Flow Rules
 
-The client-side flow rules are derived from the general flow rules (see [General Flow Rules](#1642-general-flow-rules)):
+The client-side flow rules are derived from the general flow rules (see [General Flow Rules](#general-flow-rules)):
 
 - The set of starting interception points is: **send_request** and **send_poll**. One and only one of these is called on any given request/reply sequence.
 - The set of ending interception points is: **receive_reply**, **receive_exception**, **receive_other**. One and only one of these is called on any given request/reply sequence.
@@ -11264,19 +11216,19 @@ There are no intermediate exception points.
 
 If and only if **send_request** or **send_poll** runs to completion is an ending interception point called.
 
-**16.4.7.2 Additional Client-side Details**
+#### Additional Client-side Details
 
 If, during request processing, a request is canceled because of an ORB shutdown, **receive_exception** is called with the system exception BAD_INV_ORDER with a minor code of 4 (ORB has shutdown).
 
 If a request is canceled for any other reason (for example, a GIOP cancel message is sent by the ORB), **receive_exception** is called with the system exception TRANSIENT with a standard minor code of 2.
 
-On oneway requests, returning control to the client may occur immediately or it may return after the target has performed the operation, or somewhere in-between depending on the SyncScope (see [sync_scope](#1732-synchronization-scope)). Regardless of the SyncScope, if there is no exception, **receive_other** is called before control is returned to the client.
+On oneway requests, returning control to the client may occur immediately or it may return after the target has performed the operation, or somewhere in-between depending on the SyncScope (see [Synchronization Scope](#synchronization-scope)). Regardless of the SyncScope, if there is no exception, **receive_other** is called before control is returned to the client.
 
 Asynchronous requests are simply two separate requests. The first request receives no reply. The second receives a normal reply. So the normal (no exceptions) flow is: first request - **send_request** followed by **receive_other**; second request - **send_request** followed by **receive_reply**.
 
 If during receive_reply the transaction contexts in the TSC and RSC do not match, then raise the system exception BAD_INV_ORDER with standard minor code 21.
 
-**16.4.7.3 Client-side Flow Examples**
+#### Client-side Flow Examples
 
 Given the client-side flow rules, here are some concrete examples:
 
@@ -11348,7 +11300,7 @@ An exception X is returned by the server, but **B.receive_exception** changes th
 
 In this scenario, the flow for all Interceptors is **send_request** followed by **receive_exception** - a start point followed by an end point - Interceptor A is handed exception Y while the B and C are handed exception X.
 
-### 16.4.8 Server-Side Interceptor
+### Server-Side Interceptor
 
 To write a server-side Interceptor, the **ServerRequestInterceptor** local interface shall be implemented.
 
@@ -11365,11 +11317,11 @@ local interface ServerRequestInterceptor : Interceptor {
 };
 ```
 
-### 16.4.9 Server-Side Interception Points
+### Server-Side Interception Points
 
-**16.4.9.1 receive_request_service_contexts**
+#### receive_request_service_contexts
 
-At this interception point, Interceptors must get their service context information from the incoming request transfer it to **PortableInterceptor::Current**’s slots (see [Portable Interceptor Current](#165-portable-interceptor-current) for details on the relationship between **receive_request_service_contexts** and **PortableInterceptor::Current**).
+At this interception point, Interceptors must get their service context information from the incoming request transfer it to **PortableInterceptor::Current**’s slots (see [Portable Interceptor Current](#portable-interceptor-current) for details on the relationship between **receive_request_service_contexts** and **PortableInterceptor::Current**).
 
 This interception point is called before the servant manager is called. Operation parameters are not yet available at this point. This interception point may or may not execute in the same thread as the target invocation.
 
@@ -11377,12 +11329,12 @@ This interception point may raise a system exception. If it does, no other Inter
 
 **receive_request_service_contexts** operations are called. Those Interceptors on the Flow Stack are popped and their **send_exception** interception points are called.
 
-This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#16415-forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, no other Interceptors’
+This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, no other Interceptors’
 **receive_request_service_contexts** operations are called. Those Interceptors on the Flow Stack are popped and their **send_other** interception points are called.
 
 Compliant Interceptors shall properly follow **completion_status** semantics if they raise a system exception from this interception point. The **completion_status** shall be **COMPLETED_NO**.
 
-**16.4.9.2 receive_request**
+#### receive_request
 
 This interception point allows an Interceptor to query request information after all the information, including operation parameters, are available. This interception point shall execute in the same thread as the target invocation.
 
@@ -11390,11 +11342,11 @@ In the DSI model, since the parameters are first available when the user code ca
 
 This interception point may raise a system exception. If it does, no other Interceptors’ **receive_request** operations are called. Those Interceptors on the Flow Stack are popped and their **send_exception** interception points are called.
 
-This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#16415-forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, no other Interceptors’ **receive_request** operations are called. Those Interceptors on the Flow Stack are popped and their **send_other** interception points are called.
+This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, no other Interceptors’ **receive_request** operations are called. Those Interceptors on the Flow Stack are popped and their **send_other** interception points are called.
 
 Compliant Interceptors shall properly follow **completion_status** semantics if they raise a system exception from this interception point. The **completion_status** shall be **COMPLETED_NO**.
 
-**16.4.9.3 send_reply**
+#### send_reply
 
 This interception point allows an Interceptor to query reply information and modify the reply service context after the target operation has been invoked and before the reply is returned to the client. This interception point shall execute in the same thread as the target invocation.
 
@@ -11402,36 +11354,36 @@ This interception point may raise a system exception. If it does, no other Inter
 
 Compliant Interceptors shall properly follow **completion_status** semantics if they raise a system exception from this interception point. The **completion_status** shall be **COMPLETED_YES**.
 
-**16.4.9.4 send_exception**
+#### send_exception
 
 When an exception occurs, this interception point is called. It allows an Interceptor to query the exception information and modify the reply service context before the exception is raised to the client. This interception point shall execute in the same thread as the target invocation.
 
 This interception point may raise a system exception. This has the effect of changing the exception that successive Interceptors popped from the Flow Stack receive on their calls to **send_exception**. The exception raised to the client will be the last exception raised by an Interceptor, or the original exception if no Interceptor changes the exception.
 
-This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#16415-forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, no other Interceptors’ **send_exception** operations are called. The remaining Interceptors in the Flow Stack shall have their **send_other** interception points called.
+This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, no other Interceptors’ **send_exception** operations are called. The remaining Interceptors in the Flow Stack shall have their **send_other** interception points called.
 
 If the **completion_status** of the exception is not **COMPLETED_NO**, then it is inappropriate for this interception point to raise a ForwardRequest exception. The request’s at-most-once semantics would be lost.
 
 Compliant Interceptors shall properly follow **completion_status** semantics if they raise a system exception from this interception point. If the original exception is a system exception, the **completion_status** of the new exception shall be the same as on the original. If the original exception is a user exception, then the **completion_status** of the new exception shall be **COMPLETED_YES**.
 
-**16.4.9.5 send_other**
+#### send_other
 
 This interception point allows an Interceptor to query the information available when a request results in something other than a normal reply or an exception. A request could result in a retry (for example, a GIOP Reply with a
 **LOCATION_FORWARD** status was received). This interception point shall execute in the same thread as the target invocation.
 
 This interception point may raise a system exception. If it does, no other Interceptors’ **send_other** operations are called. The remaining Interceptors in the Flow Stack shall have their **send_exception** interception points called.
 
-This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#16415-forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, successive Interceptors’ **send_other** operations are called with the new information provided by the ForwardRequest exception.
+This interception point may also raise a ForwardRequest exception (see [ForwardRequest Exception](#forwardrequest-exception) for details on this exception). If an Interceptor raises this exception, successive Interceptors’ **send_other** operations are called with the new information provided by the ForwardRequest exception.
 
 Compliant Interceptors shall properly follow **completion_status** semantics if they raise a system exception from this interception point. The **completion_status** shall be **COMPLETED_NO**.
 
-### 16.4.10 Server-Side Interception Point Flow
+### Server-Side Interception Point Flow
 
-A **ServerRequestInterceptor** instance is registered with the ORB (see [Registering Interceptors](#169-registering-interceptors)). The ORB logically maintains an ordered list of server-side Interceptors. The Interceptor list is traversed in order on the receiving interception points and in reverse order on the sending interception points.
+A **ServerRequestInterceptor** instance is registered with the ORB (see [Registering Interceptors](#registering-interceptors)). The ORB logically maintains an ordered list of server-side Interceptors. The Interceptor list is traversed in order on the receiving interception points and in reverse order on the sending interception points.
 
-**16.4.10.1 Server-side Flow Rules**
+#### Server-side Flow Rules
 
-The server-side flow rules are derived from the general flow rules (see [General Flow Rules](#1642-general-flow-rules)).
+The server-side flow rules are derived from the general flow rules (see [General Flow Rules](#general-flow-rules)).
 
 - The starting interception point is **receive_request_service_contexts**; this interception point is called on any given request/reply sequence.
 - The set of ending interception points is **send_reply**, **send_exception**, **send_other**. One and only one of these is called on any given request/reply sequence.
@@ -11439,7 +11391,7 @@ The server-side flow rules are derived from the general flow rules (see [General
 - On an exception, **receive_request** may not be called.
 - If and only if **receive_request_service_contexts** runs to completion is an ending interception point called.
 
-**16.4.10.2 Additional Server-side Details**
+#### Additional Server-side Details
 
 If, during request processing, a request is canceled because of an ORB shutdown, **send_exception** is called with the system exception BAD_INV_ORDER with a minor code of 4 (ORB has shutdown).
 
@@ -11464,9 +11416,9 @@ If a POA and a servant locator are present, the order of their operations and in
 5. **ServantLocator.postinvoke;**
 6. **ServerRequestInterceptor** **send_reply**, **send_exception**, or **send_other**.
 
-**preinvoke**, the operation, and **postinvoke** are required to execute in the same thread (see [ServantLocator Interface](#1537-servantlocator-interface)). Since **receive_request** occurs within this chain, **receive_request** shall also execute in the same thread. **postinvoke** executes in the same thread as **preinvoke** in order for **postinvoke** to perform any necessary closure processing. Likewise, the sending interception points (**send_reply**, **send_exception**, or **send_other**) shall also execute in the same thread.
+**preinvoke**, the operation, and **postinvoke** are required to execute in the same thread (see [ServantLocator Interface](#servantlocator-interface)). Since **receive_request** occurs within this chain, **receive_request** shall also execute in the same thread. **postinvoke** executes in the same thread as **preinvoke** in order for **postinvoke** to perform any necessary closure processing. Likewise, the sending interception points (**send_reply**, **send_exception**, or **send_other**) shall also execute in the same thread.
 
-**16.4.10.3 Server-side Flow Examples**
+#### Server-side Flow Examples
 
 Given the server-side flow rules, here are some concrete examples.
 
@@ -11523,7 +11475,7 @@ In this scenario you can see that the flow for each Interceptor follows the rule
 
 - Since the **receive_request_service_contexts** starting point ran to completion then, no matter what happens in intermediate points, a “terminating” interception point must be called for all interceptors.
 
-**16.4.10.4 Scenario**
+#### Scenario
 
 The target invocation returns successfully, but **B.send_reply** raises an exception:
 
@@ -11562,13 +11514,13 @@ An exception X is raised by the target, but **B.send_exception** changes the exc
 In this scenario, the flow for all Interceptors is **receive_request_service_contexts**, **receive_request**,
  **send_exception** - a start point is followed by an intermediate point, which is followed by an end point; Interceptor A is handed exception Y while the B and C are handed exception X.
 
-### 16.4.11 Request Information
+### Request Information
 
 Each interception point is given an object through which the Interceptor can access request information. Client-side and server-side interception points are concerned with different information, so there are two information objects:
 
 **ClientRequestInfo** is passed to the client-side interception points and **ServerRequestInfo** is passed to the server-side interception points. But there is information that is common to both, so they both inherit from a common interface: **RequestInfo**.
 
-### 16.4.12 RequestInfo Interface
+### RequestInfo Interface
 
 ```
 local interface RequestInfo {
@@ -11591,43 +11543,43 @@ local interface RequestInfo {
 };
 ```
 
-The details of the attributes and operations on **RequestInfo** follow. Some of these are not valid at all interception points. See Table 16.1 and Table 16.2.
+The details of the attributes and operations on **RequestInfo** follow. Some of these are not valid at all interception points. See [Validity of ClientRequestInfo attributes and operations](#table-validity-of-clientrequestinfo-attributes-and-operations) and [Validity of ServerRequestInfo attributes and operations](#table-validity-of-serverrequestinfo-attributes-and-operations).
 
-**16.4.12.1 request_id**
+#### request_id
 
 This ID uniquely identifies an active request/reply sequence. Once a request/reply sequence is concluded this ID may be reused.
 
 Note that this id is not the same as the GIOP **request_id**. If GIOP is the transport mechanism used, then these IDs may very well be the same, but this is not guaranteed nor required.
 
-**16.4.12.2 operation**
+#### operation
 
 This attribute is the name of the operation being invoked.
 
-**16.4.12.3 arguments**
+#### arguments
 
-This attribute is a **Dynamic::ParameterList** containing the arguments on the operation being invoked (see [NVList PIDL](#16111-nvlist-pidl-represented-by-parameterlist-idl) Represented by ParameterList IDL). If there are no arguments, this attribute will be a zero length sequence.
+This attribute is a **Dynamic::ParameterList** containing the arguments on the operation being invoked (see [NVList PIDL Represented by ParameterList IDL](#nvlist-pidl-represented-by-parameterlist-idl)). If there are no arguments, this attribute will be a zero length sequence.
 
 Not all environments provide access to the arguments. With the Java portable bindings, for example, the arguments are not available. In these environments, when this attribute is accessed, NO_RESOURCES will be raised with a standard minor code of 1.
 
-**16.4.12.4 exceptions**
+#### exceptions
 
-This attribute is a **Dynamic::ExceptionList** describing the **TypeCodes** of the user exceptions that this operation invocation may raise (see [ExceptionList PIDL](#16113-exceptionlist-pidl-represented-by-exceptionlist-idl) Represented by ExceptionList IDL). If there are no user exceptions, this attribute will be a zero length sequence.
+This attribute is a **Dynamic::ExceptionList** describing the **TypeCodes** of the user exceptions that this operation invocation may raise (see [ExceptionList PIDL Represented by ExceptionList IDL](#exceptionlist-pidl-represented-by-exceptionlist-idl)). If there are no user exceptions, this attribute will be a zero length sequence.
 
 Not all environments provide access to the exception list. With the Java portable bindings, for example, the exception list is not available. In these environments, when this attribute is accessed, NO_RESOURCES will be raised with a standard minor code of 1.
 
-**16.4.12.5 contexts**
+#### contexts
 
-This attribute is a **Dynamic::ContextList** describing the contexts that may be passed on this operation invocation (see [ContextList PIDL Represented](#16112-contextlist-pidl-represented-by-contextlist-idl) by ContextList IDL). If there are no contexts, this attribute will be a zero length sequence.
+This attribute is a **Dynamic::ContextList** describing the contexts that may be passed on this operation invocation (see [ContextList PIDL Represented by ContextList IDL](#contextlist-pidl-represented-by-contextlist-idl)). If there are no contexts, this attribute will be a zero length sequence.
 
 Not all environments provide access to the context list. With the Java portable bindings, for example, the context list is not available. In these environments, when this attribute is accessed, NO_RESOURCES will be raised with a standard minor code of 1.
 
-**16.4.12.6 operation_context**
+#### operation_context
 
-This attribute is a **Dynamic::RequestContext** containing the contexts being sent on the request (see [Context PIDL Represented](#16114-context-pidl-represented-by-requestcontext-idl) by RequestContext IDL).
+This attribute is a **Dynamic::RequestContext** containing the contexts being sent on the request (see [Context PIDL Represented by RequestContext IDL](#context-pidl-represented-by-requestcontext-idl)).
 
 Not all environments provide access to the context. With the Java portable bindings, for example, the context is not available. In these environments, when this attribute is accessed, NO_RESOURCES will be raised with standard minor code of 1.
 
-**16.4.12.7 result**
+#### result
 
 This attribute is an **any** containing the result of the operation invocation.
 
@@ -11635,7 +11587,7 @@ If the operation return type is **void**, this attribute will be an **any** cont
 
 Not all environments provide access to the result. With the Java portable bindings, for example, the result is not available. In these environments, when this attribute is accessed, NO_RESOURCES will be raised with a standard minor code of 1.
 
-**16.4.12.8 response_expected**
+#### response_expected
 
 This boolean attribute indicates whether a response is expected.
 
@@ -11643,7 +11595,7 @@ On the client, a reply is not returned when **response_expected** is false, so *
 
 On the client, within **send_poll**, this attribute is **true**.
 
-**16.4.12.9 sync_scope**
+#### sync_scope
 
 This attribute, defined in the Messaging specification, is pertinent only when **response_expected** is **false**. If **response_expected** is **true**, the value of **sync_scope** is undefined. It defines how far the request shall progress before control is returned to the client. This attribute may have one of the following values:
 
@@ -11658,7 +11610,7 @@ On the server, for all scopes, a reply will be created from the return of the ta
 
 For **SYNC_WITH_SERVER** the server does send an empty reply back to the client before the target is invoked. This reply is not intercepted by server-side Interceptors.
 
-**16.4.12.10 reply_status**
+#### reply_status
 
 This attribute describes the state of the result of the operation invocation. Its value can be one of the following:
 
@@ -11687,11 +11639,11 @@ On the server:
 **USER_EXCEPTION**.
 - Within the send_other interception point, this attribute will be any of: **SUCCESSFUL**, **LOCATION_FORWARD**, or **UNKNOWN**. SUCCESSFUL means an asynchronous request returned successfully. **LOCATION_FORWARD** means that a reply came back with **LOCATION_FORWARD** as its status. **UNKNOWN** means that the ORB was unable to determine the correct status. This can occur for example in the Java language mapping when the optimized path for a collocated call is used.
 
-**16.4.12.11 forward_reference**
+#### forward_reference
 
 If the **reply_status** attribute is **LOCATION_FORWARD**, then this attribute will contain the object to which the request will be forwarded. It is indeterminate whether a forwarded request will actually occur.
 
-**16.4.12.12 get_slot**
+#### get_slot
 
 This operation returns the data from the given slot of the **PortableInterceptor::Current** that is in the scope of the request.
 
@@ -11699,7 +11651,7 @@ If the given slot has not been set, then an **any** containing a type code with 
 
 If the ID does not define an allocated slot, **InvalidSlot** is raised.
 
-See [Portable Interceptor Current](#165-portable-interceptor-current) for an explanation of slots and the **PortableInterceptor::Current**.
+See [Portable Interceptor Current](#portable-interceptor-current) for an explanation of slots and the **PortableInterceptor::Current**.
 
 *Parameter(s)*
 
@@ -11711,7 +11663,7 @@ The SlotId of the slot that is to be returned.
 
 The slot data, in the form of an any, obtained with the given identifier.
 
-**16.4.12.13 get_request_service_context**
+#### get_request_service_context
 
 This operation returns a copy of the service context with the given ID that is associated with the request.
 
@@ -11727,7 +11679,7 @@ The IOP::ServiceId of the service context that is to be returned.
 
 The IOP::ServiceContext obtained with the given identifier.
 
-**16.4.12.14 get_reply_service_context**
+#### get_reply_service_context
 
 This operation returns a copy of the service context with the given ID that is associated with the reply.
 
@@ -11743,7 +11695,7 @@ The IOP::ServiceId of the service context that is to be returned.
 
 The IOP::ServiceContext obtained with the given identifier.
 
-### 16.4.13 ClientRequestInfo Interface
+### ClientRequestInfo Interface
 
 ```
 local interface ClientRequestInfo : RequestInfo {
@@ -11763,10 +11715,9 @@ local interface ClientRequestInfo : RequestInfo {
 };
 ```
 
-Some attributes and operations on **ClientRequestInfo** are not valid at all interception points. Table 16.1 shows the validity of each attribute or operation. If it is not valid, attempting to access it will result in a BAD_INV_ORDER being raised with a standard minor code of 14.
+Some attributes and operations on **ClientRequestInfo** are not valid at all interception points. [Validity of ClientRequestInfo attributes and operations](#table-validity-of-clientrequestinfo-attributes-and-operations) shows the validity of each attribute or operation. If it is not valid, attempting to access it will result in a BAD_INV_ORDER being raised with a standard minor code of 14.
 
-**Table 16.1**
-
+###### Table: Validity of ClientRequestInfo attributes and operations
 || **send_ request** | **send_poll** | **receive_ reply** | **receive_ exception** | **receive_ other** |
 |--------------------|---------------|---------------|-----------------|-------------------|------------------|
 | request_id| yes| yes| yes| yes| yes|
@@ -11797,31 +11748,31 @@ Some attributes and operations on **ClientRequestInfo** are not valid at all int
 
 <sub>2.</sub> If the **reply_status** attribute is not **LOCATION_FORWARD**, accessing this attribute will raise BAD_INV_ORDER with a standard minor code of 14.
 
-**16.4.13.1 target**
+#### target
 
-This attribute is the object that the client called to perform the operation. See [effective_target](#164132-effective_target).
+This attribute is the object that the client called to perform the operation. See [effective_target](#effective_target).
 
-#### 16.4.13.2 effective_target
+#### effective_target
 
 This attribute is the actual object on which the operation will be invoked. If the **reply_status** is
 
 **LOCATION_FORWARD**, then on subsequent requests, **effective_target** will contain the forwarded IOR while **target** will remain unchanged.
 
-**16.4.13.3 effective_profile**
+#### effective_profile
 
 This attribute is the profile that will be used to send the request. If a location forward has occurred for this operation’s object and that object’s profile changed accordingly, then this profile will be that located profile.
 
-**16.4.13.4 received_exception**
+#### received_exception
 
 This attribute is an **any** that contains the exception to be returned to the client.
 
 If the exception is a user exception that cannot be inserted into an any (for example, it is unknown or the bindings don’t provide the **TypeCode**), then this attribute will be an any containing the system exception UNKNOWN with a standard minor code of 1. However, the **RepositoryId** of the exception is available in the **received_exception_id** attribute.
 
-**16.4.13.5 received_exception_id**
+#### received_exception_id
 
 This attribute is the **CORBA::RepositoryId** of the exception to be returned to the client.
 
-**16.4.13.6 get_effective_component**
+#### get_effective_component
 
 This operation returns the **IOP::TaggedComponent** with the given ID from the profile selected for this request.
 
@@ -11839,7 +11790,7 @@ The IOP:: ComponentId of the component that is to be returned.
 
 The IOP::TaggedComponent obtained with the given identifier.
 
-**16.4.13.7 get_effective_components**
+#### get_effective_components
 
 This operation returns all the tagged components with the given ID from the profile selected for this request. This sequence is in the form of an **IOP::TaggedComponentSeq**.
 
@@ -11855,7 +11806,7 @@ The IOP:: ComponentId of the components that are to be returned.
 
 The IOP::TaggedComponentSeq, each component of which contains the given identifier.
 
-**16.4.13.8 get_request_policy**
+#### get_request_policy
 
 This operation returns the given policy in effect for this operation.
 
@@ -11871,7 +11822,7 @@ The CORBA::PolicyType that specifies the policy to be returned.
 
 The CORBA::Policy obtained with the given type.
 
-**16.4.13.9 add_request_service_context**
+#### add_request_service_context
 
 This operation allows Interceptors to add service contexts to the request. There is no declaration of the order of the service contexts. They may or may not appear in the order that they are added.
 
@@ -11885,7 +11836,7 @@ he IOP::ServiceContext to be added to the request.
 
 Indicates the behavior of this operation when a service context already exists with the given ID. If false, then BAD_INV_ORDER with a standard minor code of 15 is raised. If true, then the existing service context is replaced by the new one.
 
-### 16.4.14 ServerRequestInfo Interface
+### ServerRequestInfo Interface
 
 ```
 local interface ServerRequestInfo : RequestInfo {
@@ -11906,10 +11857,9 @@ local interface ServerRequestInfo : RequestInfo {
 };
 ```
 
-Some attributes and operations on **ServerRequestInfo** are not valid at all interception points. Table 16.2 shows the validity of each attribute or operation. If it is not valid, attempting to access it will result in a BAD_INV_ORDER being raised with a standard minor code of 14.
+Some attributes and operations on **ServerRequestInfo** are not valid at all interception points. [Validity of ServerRequestInfo attributes and operations](#table-validity-of-serverrequestinfo-attributes-and-operations) shows the validity of each attribute or operation. If it is not valid, attempting to access it will result in a BAD_INV_ORDER being raised with a standard minor code of 14.
 
-**Table 16.2**
-
+###### Table: Validity of ServerRequestInfo attributes and operations
 || **receive_request_ service_contexts** | **receive_ request** | **send_reply** | **send_ exception** | **send_ other** |
 |------------------|------------------------|--------------|----------------|--------------|------------------|
 | **request_id**| yes| yes| yes| yes| yes|
@@ -11946,41 +11896,41 @@ Some attributes and operations on **ServerRequestInfo** are not valid at all int
 
 <sub>4.</sub> The operation is not available in this interception point because the necessary information requires access to the target object's servant, which may no longer be available to the ORB. For example, if the object's adapter is a POA that uses a **ServantLocator**, then the ORB invokes the interception point after it calls **ServantLocator::postinvoke()**.
 
-**16.4.14.1 sending_exception**
+#### sending_exception
 
 This attribute is an **any** that contains the exception to be returned to the client.
 
 If the exception is a user exception that cannot be inserted into an any (for example, it is unknown or the bindings don’t provide the **TypeCode**), then this attribute will be an any containing the system exception UNKNOWN with a standard minor code of 1.
 
-**16.4.14.2 object_id**
+#### object_id
 
 This attribute is the opaque **object_id** describing the target of the operation invocation.
 
-**16.4.14.3 adapter_id**
+#### adapter_id
 
 This attribute is the opaque identifier for the object adapter.
 
-#### 16.4.14.4 server_id
+#### server_id
 
-The value of the **server_id** attribute is the value that was passed into the **ORB::init** call (see [Server ID](#164144-server_id)) using the **-ORBServerId** argument when the ORB was created.
+The value of the **server_id** attribute is the value that was passed into the **ORB::init** call (see [server_id](#server_id)) using the **-ORBServerId** argument when the ORB was created.
 
-**16.4.14.5 orb_id**
+#### orb_id
 
 The value of the **orb_id** attribute is the value that was passed into the **ORB::init** call.
 
 In Java, this is accomplished using the **-ORBid** argument in the **ORB.init** call that created the ORB containing the object adapter that created this template. What happens if the same ORBid is used on multiple **ORB::init** calls in the same server is currently undefined.
 
-**16.4.14.6 adapter_name**
+#### adapter_name
 
 The **adapter_name** attribute defines a name for the object adapter that services requests for the invoked object. In the case of the POA, the adapter_name is the sequence of names from the root POA to the POA that services the request. The name of the root POA is the sequence containing only the string “RootPOA.”
 
-**16.4.14.7 target_most_derived_interface**
+#### target_most_derived_interface
 
 This attribute is the **RepositoryID** for the most derived interface of the servant.
 
-#### 16.4.14.8 get_server_policy
+#### get_server_policy
 
-This operation returns the policy in effect for this operation for the given policy type. The returned **CORBA::Policy** object shall only be a policy whose type was registered via **register_policy_factory** (see [register_policy_factory](#164148-get_server_policy)).
+This operation returns the policy in effect for this operation for the given policy type. The returned **CORBA::Policy** object shall only be a policy whose type was registered via **register_policy_factory** (see [register_policy_factory](#register_policy_factory)).
 
 If a policy for the given type was not registered via **register_policy_factory**, this operation will raise INV_POLICY with a standard minor code of 3.
 
@@ -11994,13 +11944,13 @@ The CORBA::PolicyType that specifies the policy to be returned.
 
 The CORBA::Policy obtained with the given policy type.
 
-**16.4.14.9 set_slot**
+#### set_slot
 
 This operation allows an Interceptor to set a slot in the **PortableInterceptor::Current** that is in the scope of the request. If data already exists in that slot, it will be overwritten.
 
 If the ID does not define an allocated slot, InvalidSlot is raised.
 
-See [Portable Interceptor Current](#165-portable-interceptor-current) for an explanation of slots and **PortableInterceptor::Current.**
+See [Portable Interceptor Current](#portable-interceptor-current) for an explanation of slots and **PortableInterceptor::Current.**
 
 *Parameter(s)*
 
@@ -12012,7 +11962,7 @@ The SlotId of the slot.
 
 the data, in the form of an any, to store in that slot.
 
-**16.4.14.10 target_is_a**
+#### target_is_a
 
 This operation returns **true** if the servant is the given **RepositoryId**, **false** if it is not.
 
@@ -12026,7 +11976,7 @@ The caller wants to know if the servant is this CORBA::RepositoryId.
 
 **Is the servant the given RepositoryId?**
 
-**16.4.14.11 add_reply_service_context**
+#### add_reply_service_context
 
 This operation allows Interceptors to add service contexts to the request. There is no declaration of the order of the service contexts. They may or may not appear in the order that they are added.
 
@@ -12040,7 +11990,7 @@ The IOP::ServiceContext to add to the reply.
 
 Indicates the behavior of this operation when a service context already exists with the given ID. If false, then BAD_INV_ORDER with a standard minor code of 11 is raised. If true, then the existing service context is replaced by the new one
 
-### 16.4.15 ForwardRequest Exception
+### ForwardRequest Exception
 
 ```
 exception ForwardRequest {
@@ -12052,9 +12002,9 @@ The ForwardRequest exception is the means by which an Interceptor can indicate t
 
 If an Interceptor raises a ForwardRequest exception in response to a call of an interceptor, no other Interceptors are called for that interception point. The remaining Interceptors in the Flow Stack shall have their appropriate ending interception point called: **receive_other** on the client, or **send_other** on the server. The **reply_status** in the **receive_other** or **send_other** shall be **LOCATION_FORWARD**.
 
-## 16.5 Portable Interceptor Current
+## Portable Interceptor Current
 
-### 16.5.1 Overview
+### Overview
 
 The **PortableInterceptor::Current** object (hereafter referred to as **PICurrent**) is a **Current** object that is used specifically by portable Interceptors to transfer thread context information to a request context. Portable Interceptors are not required to use **PICurrent**. But if information from a client’s thread context is required at an Interceptor’s interception points, then **PICurrent** can be used to propagate that information. **PICurrent** allows portable service code to be written regardless of an ORB’s threading model.
 
@@ -12062,13 +12012,13 @@ On the client side, this information includes, but is not limited to, thread con
 
 On the server side, this information includes, but is not limited to, service context information received from the client which is propagated to the target’s thread context.
 
-### 16.5.2 Obtaining the Portable Interceptor Current
+### Obtaining the Portable Interceptor Current
 
 Before an invocation is made, **PICurrent** is obtained via a call to **ORB::resolve_initial_references (“PICurrent”)**.
 
-From within the interception points, the data on **PICurrent** that has moved from the thread scope to the request scope is available via the **get_slot** operation on the **RequestInfo** object. A **PICurrent** can still be obtained via **resolve_initial_references**, but that is the Interceptor’s thread scope **PICurrent**. See [Request Scope vs Thread Scope](#16544-request-scope-vs-thread-scope) for a detailed discussion of the scope of **PICurrent**.
+From within the interception points, the data on **PICurrent** that has moved from the thread scope to the request scope is available via the **get_slot** operation on the **RequestInfo** object. A **PICurrent** can still be obtained via **resolve_initial_references**, but that is the Interceptor’s thread scope **PICurrent**. See [Request Scope vs Thread Scope](#request-scope-vs-thread-scope) for a detailed discussion of the scope of **PICurrent**.
 
-### 16.5.3 Portable Interceptor Current Interface
+### Portable Interceptor Current Interface
 
 ```
 module PortableInterceptor {
@@ -12081,15 +12031,15 @@ module PortableInterceptor {
 };
 ```
 
-**PICurrent** is merely a slot table, the slots of which are used by each service to transfer their context data between their context and the request’s or reply’s service context. Each service that wishes to use **PICurrent** reserves a slot or slots at initialization time (see [allocate_slot_id](#169214-allocate_slot_id)) and uses those slots during the processing of requests and replies.
+**PICurrent** is merely a slot table, the slots of which are used by each service to transfer their context data between their context and the request’s or reply’s service context. Each service that wishes to use **PICurrent** reserves a slot or slots at initialization time (see [allocate_slot_id](#allocate_slot_id)) and uses those slots during the processing of requests and replies.
 
-**16.5.3.1 get_slot**
+#### get_slot
 
 A service can get the slot data it set in **PICurrent** via **get_slot**. The data is in the form of an **any**.
 
 - If the given slot has not been set, an **any** containing a type code with a **TCKind** value of **tk_null** and no value is returned.
 - If **get_slot** is called on a slot that has not been allocated, InvalidSlot is raised.
-- If **get_slot** is called from within an ORB initializer (see [Registering Interceptors](#169-registering-interceptors)), BAD_INV_ORDER with a minor code of 10 shall be raised
+- If **get_slot** is called from within an ORB initializer (see [Registering Interceptors](#registering-interceptors)), BAD_INV_ORDER with a minor code of 10 shall be raised
 
 **Parameter(s)**
 
@@ -12101,13 +12051,13 @@ The SlotId of the slot from which the data will be returned
 
 The data, in the form of an any, of the given slot identifier.
 
-**16.5.3.2 set_slot**
+#### set_slot
 
 A service sets data in a slot with **set_slot**. The data shall be in the form of an **any**.
 
 - If data already exists in that slot, it is overridden.
 - If **set_slot** is called on a slot that has not been allocated, InvalidSlot is raised
-- If **set_slot** is called from within an ORB initializer (see [Registering Interceptors](#169-registering-interceptors) ), BAD_INV_ORDER with a minor code of 10 shall be raised.
+- If **set_slot** is called from within an ORB initializer (see [Registering Interceptors](#registering-interceptors) ), BAD_INV_ORDER with a minor code of 10 shall be raised.
 
 **Parameter(s)**
 
@@ -12119,13 +12069,13 @@ The SlotId of the slot to which the data will be set.
 
 The data, in the form of an any, which will be set to the identified slot.
 
-### 16.5.4 Use of Portable Interceptor Current
+### Use of Portable Interceptor Current
 
-**16.5.4.1 Client-side use of PICurrent**
+#### Client-side use of PICurrent
 
 **PICurrent** is merely a slot table. Before a request, a service’s **Current** can store its context specific data into a slot in **PICurrent**. When a request begins, **PICurrent**’s context transitions from a thread context to a request context. (That is, the ORB logically makes a copy of the current **PICurrent** and places that copy on the request. Note that this could be a lazy copy. A copy would only be necessary if **PICurrent** were modified. Since a copy may never actually be made, the term “logical copy” is used in this sub clause.) Each service’s Interceptor now has access to the data that its **Current** put into **PICurrent**’s slot table. In other words, each service’s Interceptor now has access to the data within the calling client’s thread context even though the request processing may be in a different thread.
 
-For example, see the following pseudo-code. Within its **ORBInitializer** (see [ORBInitializer Interface](#1691-orbinitializer-interface)), the transaction service allocates a slot:
+For example, see the following pseudo-code. Within its **ORBInitializer** (see [ORBInitializer Interface](#orbinitializer-interface)), the transaction service allocates a slot:
 
 ```
 PortableInterceptor::SlotId mySlotId =
@@ -12135,9 +12085,9 @@ PortableInterceptor::SlotId mySlotId =
 When a transaction begins, the Transaction’s **Current** is called, which can place its context information in a slot on **PICurrent**:
 
 ```
-any myData = ...; // get data from Transaction’s Current
+any myData = ...; // get data from Transaction's Current
 PortableInterceptor::Current pic =
-   orb.resolve_initial_references (“PICurrent”);
+   orb.resolve_initial_references ("PICurrent");
 pic.set_slot (mySlotId, myData);
 ```
 
@@ -12151,11 +12101,11 @@ info.add_request_service_context (sc);
 
 The request scope **PICurrent** slots are read-only on the client. There is no **set_slot** on the **ClientRequestInfo** object.
 
-**16.5.4.2 Example of PICurrent to Handle Client-side Recursion**
+#### Example of PICurrent to Handle Client-side Recursion
 
 If an Interceptor itself makes an operation invocation, it shall have some means of breaking infinite recursion. For example: the client calls operation X; **send_request** is called, which calls operation Y; **send_request** is called, which again calls operation Y; and so on unless the implementation of **send_request** breaks the recursion.
 
-Recursion can be broken using **PICurrent**. If an Interceptor knows it will recurse, it allocates a slot in **PICurrent** in its **ORBInitializer** (see [ORBInitializer Interface](#1691-orbinitializer-interface)) that it will use for recursion:
+Recursion can be broken using **PICurrent**. If an Interceptor knows it will recurse, it allocates a slot in **PICurrent** in its **ORBInitializer** (see [ORBInitializer Interface](#orbinitializer-interface)) that it will use for recursion:
 
 ```
 PortableInterceptor::SlotId recurseId =
@@ -12167,7 +12117,7 @@ At the point at which it recurses, say in **send_request**, it does so in a mann
 ```
 any recurse = info.get_slot (recurseId);
 
-// if we haven’t yet recursed, then the slot will be empty.
+// if we haven't yet recursed, then the slot will be empty.
 if (recurse.type () == tk_null)
 {
  // Fill in the recurse slot before making
@@ -12175,7 +12125,7 @@ if (recurse.type () == tk_null)
  any recurseFlag = new any;
  recurseFlag.insert_boolean (true);
  PortableInterceptor::Current pic =
-  orb.resolve_initial_references (“PICurrent”);
+  orb.resolve_initial_references ("PICurrent");
  pic.set_slot (recurseId, recurseFlag);
  // Now make the recursive call.
  someObject.someOperation ();
@@ -12184,7 +12134,7 @@ if (recurse.type () == tk_null)
 
 When a client calls operation X, **send_request** is invoked for operation X. The recurse slot is empty, so the **if** block is executed: the recurse slot is set to **true** for this thread’s **PICurrent** and the recursive call to **someOperation** is made. **send_request** is again invoked, this time for **someOperation**. This time the recurse slot is not empty, so the **if** block is not executed and the recursive call is not made, thus breaking the recursion.
 
-**16.5.4.3 Server-side use of PICurrent**
+#### Server-side use of PICurrent
 
 The service contexts associated with the request may be propagated, using **PICurrent**, to the context of the thread that will execute the operation. The request’s **PICurrent** is read and written via the **get_slot** and **set_slot** operations on **ServerRequestInfo**.
 
@@ -12192,7 +12142,7 @@ The service contexts associated with the request may be propagated, using **PICu
 
 When the operation invocation completes, the send interception points still have read/write access to the request scope **PICurrent**.
 
-For example, within its **ORBInitializer** (see [ORBInitializer Interface](#1691-orbinitializer-interface)), the transaction service allocates a slot:
+For example, within its **ORBInitializer** (see [ORBInitializer Interface](#orbinitializer-interface)), the transaction service allocates a slot:
 
 ```
 PortableInterceptor::SlotId mySlotId =
@@ -12212,18 +12162,18 @@ Within a server thread, the Transaction service can transfer its information fro
 
 ```
 PortableInterceptor::Current pic =
-  orb.resolve_initial_references (“PICurrent”);
+  orb.resolve_initial_references ("PICurrent");
 any myData = pic.get_slot (mySlotId);
 // Copy myData into the current context.
 ```
 
-#### 16.5.4.4 Request Scope vs Thread Scope
+#### Request Scope vs Thread Scope
 
 The thread scope **PICurrent** is the **PICurrent** that exists within a thread’s context. A request scope **PICurrent** is the **PICurrent** associated with the request. On the client-side, the thread scope **PICurrent** is logically copied to the request scope **PICurrent** from the thread’s context when a request begins and is attached to the **ClientRequestInfo** object. On the server-side, the request scope **PICurrent** is attached to the **ServerRequestInfo** and follows the request processing. It is logically copied to the thread scope **PICurrent** after the list of **receive_request_service_contexts** interception points are processed.
 
-**16.5.4.5 Flow of PICurrent between Scopes**
+#### Flow of PICurrent between Scopes
 
-For the following, TSC means Thread Scope **PICurrent**; and RSC means Request Scope **PICurrent**. Refer to Figure 16.7 for a graphical representation of the following discussion. The numbered points below correspond to the numbers in Figure 16.7.
+For the following, TSC means Thread Scope **PICurrent**; and RSC means Request Scope **PICurrent**. Refer to [Thread Scope vs Request Scope](Images/figure16-7.svg) for a graphical representation of the following discussion. The numbered points below correspond to the numbers in [Thread Scope vs Request Scope](Images/figure16-7.svg).
 
 Before operation invocation, the client thread may read and write the TSC. On a synchronous operation invocation, the flow proceeds as follows:
 
@@ -12239,11 +12189,9 @@ Before operation invocation, the client thread may read and write the TSC. On a 
 10. The client receives the reply. The Interceptors may read the service contexts associated with the reply. They also have readonly access to the RSC was seen by the send interception points.
 11. The invocation returns to the client. When the request completes, the client-side RSC is logically destroyed.
 
-![](Images/figure16-7.svg)
+![Thread Scope vs Request Scope](Images/figure16-7.svg)
 
-**Figure 16.7 - Thread Scope vs Request Scope**
-
-**Figure 16.7 Legend**
+###### Table: Legend for Thread Scope vs Request Scope
 
 | | |
 |----|-----|
@@ -12251,7 +12199,7 @@ Before operation invocation, the client thread may read and write the TSC. On a 
 | Solid Line| Access; single arrow is readonly, double arrow is read/write.|
 | Thick Dotted Line | Boundary between client and server.|
 
-**16.5.4.6 Notes on PICurrent and Scopes**
+#### Notes on PICurrent and Scopes
 
 Since an Interceptor is running in a thread, it is running with a thread context and there is a **PICurrent** on that context. If the Interceptor calls **ORB::resolve_initial_references (“PICurrent”)**, it gets the **PICurrent** within its thread scope. This **PICurrent** is different than the request scope **PICurrent** that the Interceptor obtains via calls to the **Client-** or **Server- RequestInfo** object. So if an Interceptor makes an operation call, it is the Interceptor’s thread scope **PICurrent** that will be logically copied to the request scope of that operation, not the **PICurrent** from the original operation invocation.
 
@@ -12263,9 +12211,9 @@ Interceptors shall assume that all server-side interception points except **rece
 
 **receive_request_service_contexts**, like all client-side interception points, logically runs in its own TSC thread, with no context relationship between it and any other thread. The **receive_request_service_contexts** interception point logical TSC thread is shared by all registered **ServerRequestInterceptors** executing in that point. While an ORB implementation may not actually behave in this manner, it is up to the ORB implementation to treat **PICurrent** as if it did.
 
-## 16.6 IOR Interceptor
+## IOR Interceptor
 
-### 16.6.1 Overview
+### Overview
 
 In some cases, a portable ORB service implementation may need to add information describing the server’s or object’s ORB service related capabilities to object references in order to enable the ORB service implementation in the client to function properly.
 
@@ -12273,7 +12221,7 @@ This is supported through the **IORInterceptor** and **IORInfo** interfaces.
 
 The IOR Interceptor is used to establish tagged components in the profiles within an IOR.
 
-### 16.6.2 An Abstract Model for Object Adapters
+### An Abstract Model for Object Adapters
 
 Using the **IORInterceptor** to support the object reference template imposes certain requirements on Object Adapters. While the **POA** is the only (current) standard object adapter, it is deemed inappropriate to impose the **POA** architecture on all possible proprietary object adapters. Consequently only the abstract properties that are required, and how these map to the particular case of the POA, are presented here.
 
@@ -12283,7 +12231,7 @@ Object Adapters have the following requirements:
 - Object adapters typically have some kind of request processing state to indicate whether the adapter is currently accepting, rejecting, or performing some other kind of action on incoming requests. There is some representation of adapter instance state so that a server activation framework built on the object reference template can correctly process requests as the adapter instances states change.
 - If an object adapter supports large numbers of adapter instances, reporting state changes that affect a number of adapter instances simultaneously could be expensive in the amount of data required. The POA has the concept of an adapter manager (the **POAManager**) that controls the state of a number of **POA** instances. They must have an abstract adapter manager that can be used for reporting relevant state changes.
 
-**16.6.2.1 Adapter Names**
+#### Adapter Names
 
 If an Object Adapter supports multiple adapter instances, there is a need for some kind of adapter name to distinguish the instances. For this purpose, an adapter name is defined as a sequence of strings. Several interpretations of an adapter name are possible:
 
@@ -12293,7 +12241,7 @@ If an Object Adapter supports multiple adapter instances, there is a need for so
 
 In the case of the POA, the adapter name shall be the sequence of names starting with the root POA that is required to reach the POA using the **find_POA** call. The name of the root POA is the sequence containing only the string “RootPOA.”
 
-**16.6.2.2 Adapter States**
+#### Adapter States
 
 Object adapters may be in one of several states that describe how the adapter behaves when a new request is dispatched to the adapter:
 
@@ -12309,7 +12257,7 @@ In the case of the **POA**, **HOLDING**, **ACTIVE**, **DISCARDING**, and **INACT
 
 - While non-POA adapters may have different detailed states than the POA, it should be possible to map other adapter’s states onto a subset of the above states.
 
-**16.6.2.3 Adapter Managers**
+#### Adapter Managers
 
 Some object adapters have a concept of a group of adapters that undergo state transitions together. In such cases it is useful to capture the grouping abstractly. We define the *adapter manager* to represent this grouping. The only standard attribute of the adapter manager is the adapter manager id, which is an opaque id. This ID serves to distinguish different adapter manager instances, and to associate an adapter manager instance with its adapter instances. The adapter manager id is only locally significant within the ORB instance that defines the adapter manager. The id is transient, and can be compared for equality within the defining ORB instance. All adapter instances that share the same adapter manager must have the same adapter manager id.
 
@@ -12317,15 +12265,15 @@ Use of an adapter manager allows state transitions for all adapters managed by t
 
 In the case of the **POA**, the **POAManager** is an adapter manager.
 
-**16.6.2.4 Adapter State Changes**
+#### Adapter State Changes
 
 Some adapters may support mechanisms independent of the adapter manager for changing states. In such cases, a means needs to be provided for reporting the state changes.
 
 In the case of the POA, a subtree of POAs may all transition to the **NON_EXISTENT** state as a result of the **POA::destroy** call.
 
-### 16.6.3 Object Reference Template
+### Object Reference Template
 
-**16.6.3.1 Definition**
+#### Definition
 
 The Object Reference Template is defined in IDL as an abstract valuetype.
 
@@ -12362,25 +12310,25 @@ typedef sequence<ObjectReferenceTemplate>
 };
 ```
 
-The **ObjectReferenceFactory** valuetype provides the capability to create new object references, while the **ObjectReferenceTemplate** valuetype extends the factory capability with the identity of the template. This division is convenient because the **current_factory** attribute in IORInfo (see [IORInfo Interface](#1665-iorinfo-interface)) only requires the capability to create an object reference, while the **adapter_template** attribute (also in IORInfo Interface) also requires identity information.
+The **ObjectReferenceFactory** valuetype provides the capability to create new object references, while the **ObjectReferenceTemplate** valuetype extends the factory capability with the identity of the template. This division is convenient because the **current_factory** attribute in IORInfo (see [IORInfo Interface](#iorinfo-interface)) only requires the capability to create an object reference, while the **adapter_template** attribute (also in IORInfo Interface) also requires identity information.
 
 Concrete definitions and implementations of **ObjectReferenceTemplate** and **ObjectReferenceFactory** are ORB implementation specific and are not defined as they are not expected to be exchanged between ORB implementations.
 
-**16.6.3.2 The ObjectReferenceFactory abstract valuetype**
+#### The ObjectReferenceFactory abstract valuetype
 
 The **ObjectReferenceFactory** provides only the capability to create an object reference. Note that a factory is immutable: after it has been created, it cannot be modified.
 
-Also, note that it is possible to create a concrete valuetype (unknown to the ORB implementation) that subclasses the **ObjectReferenceFactory** valuetype, and to use this factory in the IOR interceptor as **current_factory** (see [current_factory](#16657-current_factory)). In such cases, the implementation must either be immutable after it is created, or the implementation must not change the behavior of **make_object**. Failure to observe this requirement may result in undefined behavior.
+Also, note that it is possible to create a concrete valuetype (unknown to the ORB implementation) that subclasses the **ObjectReferenceFactory** valuetype, and to use this factory in the IOR interceptor as **current_factory** (see [current_factory](#current_factory)). In such cases, the implementation must either be immutable after it is created, or the implementation must not change the behavior of **make_object**. Failure to observe this requirement may result in undefined behavior.
 
-**16.6.3.3 make_object**
+#### make_object
 
 **make_object** creates an Object Reference from this factory using the given repository ID and object ID.
 
-**16.6.3.4 make_profiles**
+#### make_profiles
 
 **make_profiles** returns the sequence of tagged profiles for the IOR that corresponds to the object reference that would be created by a call to **make_object** with the same arguments.
 
-**16.6.3.5 equals**
+#### equals
 
 **equals** satisfies the usual reflexive, symmetric, and transitive properties that equality normally respects. That is, for any **ObjectReferenceFactories** **X**, **Y**, and **Z**:
 
@@ -12392,25 +12340,25 @@ If **X** and **Y** are different object adapters, and **Xinfo** and **Yinfo** ar
 
 An **equals** method on a user defined **ObjectReferenceFactory** must return **FALSE** when passed the value of an **IORInfo**.**adapter_template** attribute, unless the user defined **make_profiles** method returns the same **ProfileSeq** as the **adapter_template** **make_profiles** method when invoked with the same arguments, in which case the user defined **ObjectReferenceFactory** **equals** method may return **TRUE**.
 
-**16.6.3.6 The ObjectReferenceTemplate abstract valuetype**
+#### The ObjectReferenceTemplate abstract valuetype
 
 The **ObjectReferenceTemplate** extends the **ObjectReferenceFactory** with the identity of the object adapter. Note that the template, like the factory, is immutable: after it has been created, it cannot be modified.
 
-**16.6.3.7 server_id**
+#### server_id
 
-The value of the **server_id** attribute is the value that was passed into the ORB::init call (see [Server ID](#164144-server_id)) using the **-ORBServerId** argument when the ORB was created.
+The value of the **server_id** attribute is the value that was passed into the ORB::init call (see [server_id](#server_id)) using the **-ORBServerId** argument when the ORB was created.
 
-**16.6.3.8 orb_id**
+#### orb_id
 
 The value of the **orb_id** attribute is the value that was passed into the **ORB::init** call.
 
 In Java, this is accomplished using the **-ORBid** argument in the **ORB.init** call that created the ORB containing the object adapter that created this template. What happens if the same ORBid is used on multiple **ORB::init** calls in the same server is currently undefined.
 
-**16.6.3.9 adapter_name**
+#### adapter_name
 
 The **adapter_name** attribute defines a name for the object adapter that services requests for the invoked object.
 
-### 16.6.4 IORInterceptor Interface
+### IORInterceptor Interface
 
 ```
 local interface IORInterceptor : Interceptor {
@@ -12428,7 +12376,7 @@ void adapter_state_changed( in ObjectReferenceTemplateSeq
 };
 ```
 
-**16.6.4.1 establish_components**
+#### establish_components
 
 A server side ORB calls the **establish_components** operation on all registered **IORInterceptor** instances when it is assembling the list of components that will be included in the profile or profiles of an object reference. This operation is not necessarily called for each individual object reference. In the case of the POA, these calls are made each time **POA::create_POA** is called. In other adapters, these calls would typically be made when the adapter is initialized. The adapter template is not available at this stage since information (the components) needed in the adapter template is being constructed.
 
@@ -12440,23 +12388,23 @@ An implementation of **establish_components** must not throw exceptions. If it d
 
 The IORInfo instance used by the ORB service to query applicable policies and add components to be included in the generated IORs.
 
-**16.6.4.2 components_established**
+#### components_established
 
 After all of the **establish_components** methods have been called, the **components_established** methods are called on all registered IORInterceptor_3_0 instances. The adapter template is available at this stage. The **current_factory** attribute may be get or set at this stage.
 
 Any exception that occurs in **components_established** is returned to the caller of **components_established**. In the case of the POA, this causes the **create_POA** call to fail, and an **OBJ_ADAPTER** exception with a standard minor code of 6 is returned to the invoker of **create_POA**.
 
-**16.6.4.3 adapter_manager_state_changed**
+#### adapter_manager_state_changed
 
 Any time the state of an adapter manager changes, the **adapter_manager_state_changed** method is invoked on all registered IORInterceptor_3_0 instances.
 
 If a state change is reported through **adapter_manager_state_changed**, it is not reported through **adapter_state_changed**.
 
-**16.6.4.4 adapter_state_changed**
+#### adapter_state_changed
 
 Adapter state changes unrelated to adapter manager state changes are reported by invoking the adapter_state_changed method on all registered IORInterceptor_3_0 instances. The templates argument identifies the object adapters that have changed state by the template ID information. The sequence contains the adapter templates for all object adapters that have made the state transition being reported.
 
-### 16.6.5 IORInfo Interface
+### IORInfo Interface
 
 The **IORInfo** interface provides the server-side ORB service with access to the applicable policies during IOR construction and the ability to add components. The ORB passes an instance of its implementation of this interface as a parameter to **IORInterceptor::establish_components**.
 
@@ -12488,7 +12436,7 @@ All object adapter implementations provide some mechanism for creating object re
 
 For example, in the POA, after **POA::create_POA** method has completed, there is a complete template in the POA that will be used to create individual object references when **create_reference** or any other method is called that needs to create an object reference.
 
-**16.6.5.1 get_effective_policy**
+#### get_effective_policy
 
 An ORB service implementation may determine what server side policy of a particular type is in effect for an IOR being constructed by calling the **get_effective_policy** operation. When the IOR being constructed is for an object implemented using a POA, all Policy objects passed to the **PortableServer::POA::create_POA** call that created that POA are accessible via **get_effective_policy**.
 
@@ -12504,7 +12452,7 @@ The CORBA::PolicyType specifying the type of policy to return.
 
 The effective CORBA::Policy object of the requested type. If the given policy type is known, but no policy of that type is in effect, then this operation will return a nil object reference.
 
-**16.6.5.2 add_ior_component**
+#### add_ior_component
 
 A portable ORB service implementation calls **add_ior_component** from its implementation of
 
@@ -12518,7 +12466,7 @@ Any number of components may exist with the same component ID.
 
 The IOP::TaggedComponent to add.
 
-**16.6.5.3 add_ior_component_to_profile**
+#### add_ior_component_to_profile
 
 A portable ORB service implementation calls **add_ior_component_to_profile** from its implementation of **establish_components** to add a tagged component to the set that will be included when constructing IORs. The components in this set will be included in the specified profile.
 
@@ -12536,27 +12484,27 @@ The IOP::TaggedComponent to add.
 
 The IOP::ProfileId of the profile to which this component will be added.
 
-**16.6.5.4 manager_id**
+#### manager_id
 
 The **manager_id** attribute provides an opaque handle to the manager of the adapter. This is used for reporting state changes in adapters managed by the same adapter manager.
 
-**16.6.5.5 state**
+#### state
 
 The **state** attribute returns the current state of the adapter. This must be one of HOLDING, ACTIVE, DISCARDING, INACTIVE, NON_EXISTENT.
 
-**16.6.5.6 adapter_template**
+#### adapter_template
 
 The **adapter_template** attribute provides a means to obtain an object reference template whenever an ior interceptor is invoked. There is no standard way to directly create an object reference template. The value of **adapter_template** is the template created for the adapter policies and IOR interceptor calls to **add_component** and
 
 **add_component_to_profile**. The value of the **adapter_template** attribute is never changed for the lifetime of the object adapter.
 
-#### 16.6.5.7 current_factory
+#### current_factory
 
 The **current_factory** attribute provides access to the factory that will be used by the adapter to create object references. **current_factory** initially has the same value as the **adapter_template** attribute, but this can be changed by setting **current_factory** to another factory. All object references created by the object adapter must be created by calling the **make_object** method on **current_factory**.
 
 The value of the **current_factory** attribute that is used by the adapter can only be set during the call to the **components_established** method.
 
-**16.6.5.8 Method Validity**
+#### Method Validity
 
 The following table defines the validity of each attribute or operation in **IORInfo** in the methods defined in the **IORInterceptor**.
 
@@ -12573,11 +12521,11 @@ The following table defines the validity of each attribute or operation in **IOR
 
 If an illegal call is made to an attribute or operation in **IORInfo**, the BAD_INV_ORDER system exception is raised with a standard minor code value of 14.
 
-## 16.7 Interceptor Policy Objects
+## Interceptor Policy Objects
 
 An Interceptor’s behavior may itself be modified by one or more Interceptor Policies. These **Policy** objects are created using a call to **ORB::create_policy** and are associated with an **Interceptor** during registration. (All Policy interfaces defined in this sub clause are local.) The ORB can be accessed via the implicit **get_orb** operation of **ORBInitInfo**.
 
-### 16.7.1 ProcessingMode Policy
+### ProcessingMode Policy
 
 Request interceptor performance may be improved by applying a ProcessingMode policy to limit the conditions under which the interceptor shall be invoked.
 
@@ -12605,11 +12553,11 @@ local interface ProcessingModePolicy : CORBA::Policy {
 };
 ```  
 
-## 16.8 PolicyFactory
+## PolicyFactory
 
-### 16.8.1 PolicyFactory Interface
+### PolicyFactory Interface
 
-A portable ORB service implementation registers an instance of the **PolicyFactory** interface during ORB initialization (see [register_policy_factory](#169215-register_policy_factory)) in order to enable its policy types to be constructed using **CORBA::ORB::create_policy**. The POA is required to preserve any policy that is registered with **ORBInitInfo** in this manner.
+A portable ORB service implementation registers an instance of the **PolicyFactory** interface during ORB initialization (see [register_policy_factory](#register_policy_factory)) in order to enable its policy types to be constructed using **CORBA::ORB::create_policy**. The POA is required to preserve any policy that is registered with **ORBInitInfo** in this manner.
 
 ```
 module PortableInterceptor
@@ -12623,7 +12571,7 @@ module PortableInterceptor
 };
 ```
 
-**16.8.1.1 create_policy**
+#### create_policy
 
 The ORB calls **create_policy** on a registered **PolicyFactory** instance when **CORBA::ORB::create_policy** is called for the **PolicyType** under which the **PolicyFactory** has been registered. The **create_policy** operation then returns an instance of the appropriate interface derived from **CORBA::Policy** whose value corresponds to the specified **any**. If it cannot, it shall raise an exception as described for **CORBA::ORB::create_policy**.
 
@@ -12641,11 +12589,11 @@ An any containing data with which to construct the CORBA::Policy.
 
 A CORBA::Policy object of the specified type and value.
 
-## 16.9 Registering Interceptors
+## Registering Interceptors
 
 Interceptors are intended to be a means by which ORB services gain access to ORB processing, effectively becoming part of the ORB. Since Interceptors are part of the ORB, when **ORB_init** returns an ORB, the Interceptors shall have been registered. Interceptors cannot be registered on an ORB after it has been returned by a call to **ORB_init**.
 
-### 16.9.1 ORBInitializer Interface
+### ORBInitializer Interface
 
 An Interceptor is registered by registering an associated **ORBInitializer** object that implements the **ORBInitializer** interface. When an ORB is initializing, it shall call each registered **ORBInitializer**, passing it an **ORBInitInfo** object, which is used to register its Interceptor. Any exceptional return from the invocation of any operation of the **ORBInitializer** interface other than those resulting from the failure to instantiate a portable interceptor object shall result in the abandonment of the ORB initialization and destruction of the ORB. Any **ORBInitializer** implementation that needs the ORB to ignore any thrown exceptions can simply catch and discard them itself.
 
@@ -12658,7 +12606,7 @@ module PortableInterceptor {
 };
 ```
 
-**16.9.1.1 pre_init**
+#### pre_init
 
 This operation is called during ORB initialization. If it is expected that initial services registered by an interceptor will be
 
@@ -12670,7 +12618,7 @@ used by other interceptors, then those initial services shall be registered at t
 
 See below. This object provides initialization attributes and operations by which Interceptors can be registered.
 
-**16.9.1.2 post_init**
+#### post_init
 
 This operation is called during ORB initialization. If a service must resolve initial references as part of its initialization, it can assume that all initial references will be available at this point.
 
@@ -12686,7 +12634,7 @@ During a call to **post_init**, invoking the **ORBInitInfo** methods: **add_clie
 
 **add_server_request_interceptor**, **allocate_slot_id**, or **add_ior_interceptor** will raise the BAD_INV_ORDER system exception with standard minor code 26.
 
-### 16.9.2 ORBInitInfo Interface
+### ORBInitInfo Interface
 
 ```
 module PortableInterceptor {
@@ -12736,13 +12684,13 @@ void add_ior_interceptor_with_policy(
 };
 ```
 
-**16.9.2.1 DuplicateName Exception**
+#### DuplicateName Exception
 
 Only one Interceptor of a given name can be registered with the ORB for each Interceptor type. If an attempt is made to register a second Interceptor with the same name, DuplicateName is raised.
 
 An Interceptor may be anonymous; that is, have an empty string as the name attribute. Any number of anonymous Interceptors may be registered with the ORB so, if the Interceptor being registered is anonymous, the registration operation will not raise DuplicateName.
 
-**16.9.2.2 InvalidName Exception**
+#### InvalidName Exception
 
 This exception is raised by **register_initial_reference** and **resolve_initial_references**.
 
@@ -12753,33 +12701,33 @@ This exception is raised by **register_initial_reference** and **resolve_initial
 
 **resolve_initial_references** raises InvalidName if the name to be resolved is invalid.
 
-**16.9.2.3 arguments**
+#### arguments
 
 This attribute returns the original *argv* parameters as they were passed to **ORB_init**.
 
-**16.9.2.4 orb_id**
+#### orb_id
 
 This attribute is the ID of the ORB being initialized.
 
-**16.9.2.5 codec_factory**
+#### codec_factory
 
 This attribute is the **IOP::CodecFactory**. The **CodecFactory** is normally obtained via a call to
 **ORB::resolve_initial_references (“CodecFactory”)**, but since the ORB is not yet available and Interceptors, particularly when processing service contexts, will require a **Codec**, a means of obtaining a **Codec** is necessary during ORB initialization.
 
-**16.9.2.6 register_initial_reference**
+#### register_initial_reference
 
 This operation is identical to **ORB::register_initial_reference** described there. This same functionality exists here because the ORB, not yet fully initialized, is not yet available but initial references may need to be registered as part of
 
 Interceptor registration. The only difference is that the version of this operation on the ORB uses PIDL
 (**CORBA::ORB::ObjectId** and **CORBA::ORB::InvalidName**)whereas the version in this interface uses IDL defined in this interface; the semantics are identical.
 
-**16.9.2.7 resolve_initial_references**
+#### resolve_initial_references
 
-See [Registering Interceptors](#169-registering-interceptors). This operation is only valid during **post_init**. It is identical to
+See [Registering Interceptors](#registering-interceptors). This operation is only valid during **post_init**. It is identical to
 **ORB::resolve_initial_references**. This same functionality exists here because the ORB, not yet fully initialized, is not yet available but initial references may be required from the ORB as part of Interceptor registration. The only difference is that the version of this operation on the ORB uses PIDL (**CORBA::ORB::ObjectId** and
 **CORBA::ORB::InvalidName**) whereas the version in this interface uses IDL defined in this interface; the semantics are identical.
 
-**16.9.2.8 add_client_request_interceptor**
+#### add_client_request_interceptor
 
 This operation is used to add a client-side request Interceptor to the list of client-side request Interceptors. If a client-side request Interceptor has already been registered with this Interceptor’s name, DuplicateName is raised.
 
@@ -12789,7 +12737,7 @@ This operation is used to add a client-side request Interceptor to the list of c
 
 The ClientRequestInterceptor to be added.
 
-**16.9.2.9 add_server_request_interceptor**
+#### add_server_request_interceptor
 
 This operation is used to add a server-side request Interceptor to the list of server-side request Interceptors. If a serverside request Interceptor has already been registered with this Interceptor’s name, DuplicateName is raised.
 
@@ -12799,7 +12747,7 @@ This operation is used to add a server-side request Interceptor to the list of s
 
 The ServerRequestInterceptor to be added.
 
-**16.9.2.10 add_ior_interceptor**
+#### add_ior_interceptor
 
 This operation is used to add an IOR Interceptor to the list of IOR Interceptors. If an IOR Interceptor has already been registered with this Interceptor’s name, DuplicateName is raise
 
@@ -12809,7 +12757,7 @@ This operation is used to add an IOR Interceptor to the list of IOR Interceptors
 
 The IORInterceptor to be added.
 
-**16.9.2.11 add_client_request_interceptor_with_policy**
+#### add_client_request_interceptor_with_policy
 
 This form of registration allows interceptor behavior to be modified by one or more Policies. The policy objects are effectively copied before the operation returns, so the caller is free to destroy them while the Interceptor is in use.
 
@@ -12825,7 +12773,7 @@ This form of registration allows interceptor behavior to be modified by one or m
 
 A sequence of interceptor policies to be used to control the behavior of the interceptor being registered.
 
-**16.9.2.12 add_server_request_interceptor_with_policy**
+#### add_server_request_interceptor_with_policy
 
 This form of registration allows interceptor behavior to be modified by one or more Policies. The policy objects are effectively copied before the operation returns, so the caller is free to destroy them while the Interceptor is in use. **CORBA::PolicyError** is raised if one or more of the policies is invalid. If a server-side request Interceptor has already been registered with this Interceptor’s name, **DuplicateName** is raised.
 
@@ -12839,7 +12787,7 @@ The server request interceptor to be added.
 
 A sequence of interceptor policies to be used to control the behavior of the interceptor being registered.
 
-**16.9.2.13 add_ior_interceptor_with_policy**
+#### add_ior_interceptor_with_policy
 
 This form of registration allows interceptor behavior to be modified by one or more Policies. The policy objects are effectively copied before the operation returns, so the caller is free to destroy them while the Interceptor is in use. **CORBA::PolicyError** is raised if one or more of the policies is invalid. If a server-side request Interceptor has already been registered with this Interceptor’s name, **DuplicateName** is raised.
 
@@ -12853,17 +12801,17 @@ The ior request interceptor to be added.
 
 A sequence of interceptor policies to be used to control the behavior of the interceptor being registered
 
-#### 16.9.2.14 allocate_slot_id
+#### allocate_slot_id
 
 A service calls **allocate_slot_id** to allocate a slot on **PortableInterceptor::Current**.
 
-Note that while slot ids can be allocated within an ORB initializer, the slots themselves cannot be initialized. Calling **set_slot** or **get_slot** on the **PICurrent** (see [Portable Interceptor Current](#165-portable-interceptor-current)) within an ORB initializer shall raise a BAD_INV_ORDER with a minor code of 14.
+Note that while slot ids can be allocated within an ORB initializer, the slots themselves cannot be initialized. Calling **set_slot** or **get_slot** on the **PICurrent** (see [Portable Interceptor Current](#portable-interceptor-current)) within an ORB initializer shall raise a BAD_INV_ORDER with a minor code of 14.
 
 *Return Value*
 
 The index to the slot that has been allocated.
 
-#### 16.9.2.15 register_policy_factory
+#### register_policy_factory
 
 Register a **PolicyFactory** for the given **PolicyType**.
 
@@ -12879,7 +12827,7 @@ The CORBA::PolicyType that the given PolicyFactory serves.
 
 The factory for the given CORBA::PolicyType.
 
-### 16.9.3 register_orb_initializer Operation
+### register_orb_initializer Operation
 
 To register an **ORBInitializer**, a new operation is provided: **register_orb_initializer**. This operation, like **ORB_init**, is PIDL and is not part of any interface. It resides in the **PortableInterceptor** module.
 
@@ -12891,7 +12839,7 @@ Each service that implements Interceptors will provide an instance of **ORBIniti
 
 **register_orb_initializer** is a global operation. An **ORBInitializer** registered at a given point in time will be called by all instantiating **ORB_init** calls that occur after that point in time. No ORB instantiated before that point in time will be affected by that **ORBInitializer**. Moreover, if **register_orb_initializer** is called from within an initializer, the initializer registered by that call will not be called for the ORB currently being initialized. That initializer will only be invoked on an ORB instantiated at a later time.
 
-**16.9.3.1 Mappings of register_orb_initializer**
+#### Mappings of register_orb_initializer
 
 **C++**
 
@@ -12947,9 +12895,9 @@ public class LoggingService implements ORBInitializer
 {
 void pre_init (ORBInitInfo info)
 {
-// Instantiate the Logging Service’s Interceptor.
+// Instantiate the Logging Service's Interceptor.
 Interceptor interceptor = new LoggingInterceptor ();
-// Register the Logging Service’s Interceptor.
+// Register the Logging Service's Interceptor.
 info.add_client_request_interceptor (interceptor);
 }
 void post_init (ORBInitInfo info)
@@ -12976,7 +12924,7 @@ procedure PortableInterceptor.ORBinitializer.Register
  (Init: in PortableInterceptor.ORBinitializer.Local_Ref);
 ```
 
-### 16.9.4 Notes about Registering Interceptors
+### Notes about Registering Interceptors
 
 Request Interceptors are registered on a per-ORB basis.
 
@@ -12990,11 +12938,11 @@ Registration code should avoid using the ORB; that is, calling **ORB_init** with
 
 The **ORBInitInfo** object is only valid during **ORB_init**. If a service keeps a reference to its **ORBInitInfo** object and tries to use it after **ORB_init** returns, the object no longer exists and an OBJECT_NOT_EXIST exception shall be raised.
 
-## 16.10 Dynamic Initial References
+## Dynamic Initial References
 
 There are a set number of objects that a call to **ORB::resolve_initial_references** is able to return. However, vendors and applications may wish to add additional initial references. The lifecycle of these additional references coincides with the lifecycle of the ORB.
 
-### 16.10.1 register_initial_reference
+### register_initial_reference
 
 An operation is available in the ORB interface:
 
@@ -13038,13 +12986,13 @@ If the **Object** parameter is null, BAD_PARAM will be raised with a standard mi
 
      The initial reference itself.
 
-See also [register_initial_reference](#16101-register_initial_reference).
+See also [register_initial_reference](#register_initial_reference-1).
 
-## 16.11 Module Dynamic
+## Module Dynamic
 
 In order to keep the portable Interceptor IDL from becoming PIDL, we provide IDL types that correspond to PIDL types for that subset of PIDL that the portable Interceptors use. We have chosen to place these new types in a module called **Dynamic** since it is the dynamic interface sub clauses that define the PIDL that the portable Interceptors use.
 
-### 16.11.1 NVList PIDL Represented by ParameterList IDL
+### NVList PIDL Represented by ParameterList IDL
 
 ```
 struct Parameter {
@@ -13054,19 +13002,19 @@ struct Parameter {
 typedef sequence<Parameter> ParameterList;
 ```
 
-### 16.11.2 ContextList PIDL Represented by ContextList IDL
+### ContextList PIDL Represented by ContextList IDL
 
 ```
 typedef CORBA::StringSeq ContextList;
 ```
 
-### 16.11.3 ExceptionList PIDL Represented by ExceptionList IDL
+### ExceptionList PIDL Represented by ExceptionList IDL
 
 ```
 typedef sequence<CORBA::TypeCode> ExceptionList;
 ```
 
-### 16.11.4 Context PIDL Represented by RequestContext IDL
+### Context PIDL Represented by RequestContext IDL
 
 Context objects are encoded as ```sequence<string>```. The strings occur in pairs. The first string in each pair is the context property name and the second string in each pair is the associated value.
 
@@ -13074,9 +13022,9 @@ Context objects are encoded as ```sequence<string>```. The strings occur in pair
 typedef CORBA::StringSeq RequestContext;
 ```
 
-## 16.12 Consolidated IDL
+## Consolidated IDL
 
-### 16.12.1 Dynamic
+### Dynamic
 
 ```
 // IDL
@@ -13086,7 +13034,7 @@ typedef CORBA::StringSeq RequestContext;
 
 import ::CORBA;
 module Dynamic {
-   typeprefix Dynamic “omg.org”;
+   typeprefix Dynamic "omg.org";
 
 struct Parameter {
    any argument;
@@ -13105,13 +13053,13 @@ struct Parameter {
 #endif _DYNAMIC_IDL_
 ```
 
-### 16.12.2 Portions of IOP Relevant to Portable Interceptor
+### Portions of IOP Relevant to Portable Interceptor
 
 ```
 import ::CORBA;
 
 module IOP{
- typeprefix IOP “omg.org”;
+ typeprefix IOP "omg.org";
  typedef sequence<IOP::TaggedComponent> TaggedComponentSeq;
 
 local interface Codec {
@@ -13148,7 +13096,7 @@ Codec create_codec (in Encoding enc) raises (UnknownEncoding);
 };
 ```
 
-### 16.12.3 PortableInterceptor
+### PortableInterceptor
 
 ```
 // IDL
@@ -13162,7 +13110,7 @@ import ::Messaging;
 import ::Dynamic;
 
 module PortableInterceptor {
- typeprefix PortableInterceptor “omg.org”;
+ typeprefix PortableInterceptor "omg.org";
  local interface Interceptor {
     readonly attribute string name;
    void destroy();
@@ -13393,25 +13341,23 @@ local interface ORBInitializer {
 #endif _PORTABLE_INTERCEPTOR_IDL_
 ```
 
-# 17 CORBA Messaging
+# CORBA Messaging
 
-## 17.1 Overview
+## Overview
 
 This clause covers three general topics: Quality of Service, Asynchronous Method Invocations (including Time-
 
 Independent or “Persistent” Requests), and the specification of interoperable Routing interfaces to support the transport of requests asynchronously from the handling of their replies.
 
-*Sub clause I - Quality of Service*
-
 Messaging requires clients and servers to have the ability to set the required and supported qualities of service with respect to requests. This specification provides generalized APIs through which such qualities are set in clients and servers. In addition, the set of Messaging-related qualities and the rules for reconciling and using these qualities are defined. Finally, the Messaging-specific IOR Profile Component and Service Context are defined for propagation of QoS information.
 
-## 17.2 Sub clause I - Introduction
+## Introduction to Quality of Service
 
 This sub clause describes a standard Quality of Service (QoS) framework within which CORBA Services specifications should define their service-specific qualities. In this framework, all QoS settings are interfaces derived from **CORBA::Policy**.
 
 The details of the Policy Management Framework are to be found in the *ORB Interface* clause.
 
-## 17.3 Messaging Quality of Service
+## Messaging Quality of Service
 
 The Messaging module contains the IDL that the programmer uses to define Qualities of Service specific to CORBA messaging.
 
@@ -13528,13 +13474,13 @@ module Messaging {
 };
 ```
 
-### 17.3.1 Rebind Support
+### Rebind Support
 
 Rebind support discussed in this sub clause refers to the act of rebinding an object reference that has already been bound once. The policies discussed here do not affect the initial binding of an object reference.
 
-**17.3.1.1 typedef short RebindMode**
+#### typedef short RebindMode
 
-Describes the level of transparent rebinding that may occur during the course of an invocation on an Object. Values of type **RebindMode** are used in conjunction with a **RebindPolicy**, as described in [interface RebindPolicy](#17312-interface-rebindpolicy). All non-negative values are reserved for use in OMG specifications. Any negative value of **RebindMode** is considered a vendor extension.
+Describes the level of transparent rebinding that may occur during the course of an invocation on an Object. Values of type **RebindMode** are used in conjunction with a **RebindPolicy**, as described in [interface RebindPolicy](#interface-rebindpolicy). All non-negative values are reserved for use in OMG specifications. Any negative value of **RebindMode** is considered a vendor extension.
 
 - **TRANSPARENT** - allows the ORB to silently handle object-forwarding and necessary reconnection during the course of making a remote request. This is equivalent to the only defined *CORBA* ORB behavior.
 - **NO_REBIND** - allows the ORB to silently handle reopening of closed connections while making a remote request, but prevents any transparent object-forwarding that would cause a change in client-visible effective QoS policies.
@@ -13543,7 +13489,7 @@ Describes the level of transparent rebinding that may occur during the course of
 
 - **NO_RECONNECT** - prevents the ORB from silently handling object-forwards or the reopening of closed connections. When this policy is in effect, only explicit rebinding and reconnection (through **CORBA::Object::validate_connection**) is allowed.
 
-#### 17.3.1.2 interface RebindPolicy
+#### interface RebindPolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate whether the ORB may transparently rebind once successfully *bound* to a target. For GIOP-based protocols an object reference is considered bound once it is in a state where a **LocateRequest** message would result in a **LocateReply** message with status **OBJECT_HERE**. If the effective Policy of this type has a **rebind_mode** value of **TRANSPARENT** (always the default and the only valid value in *CORBA*), the ORB will silently handle any subsequent **LocateReply** messages with **OBJECT_FORWARD** status or Reply messages with **LOCATION_FORWARD** status. The effective policies of other types for this object reference may change from invocation to invocation. If the effective Policy of this type has a **rebind_mode** value of **NO_REBIND**, the ORB will raise a REBIND system exception if any rebind handling would cause a client-visible change in policies. This could happen under the following circumstances:
 
@@ -13552,11 +13498,11 @@ This interface is a local object derived from **CORBA::Policy**. It is used to i
 
 If the effective Policy of this type has a **rebind_mode** value of **NO_RECONNECT**, the ORB will raise a REBIND system exception if any rebind handling would cause a client-visible change in policies, or if a new connection must be opened. This includes the reopening of previously closed connections as well as the opening of new connections if the target address changes (for example, due to a **LOCATION_FORWARD** reply). For connectionless protocols, the meaning of this effective policy must be specified, or it must be defined that **NO_RECONNECT** is an equivalent to **NO_REBIND**. Regardless of the effective **RebindPolicy**, rebind or reconnect can always be explicitly requested through an invocation of **CORBA::Object::validate_connection**. When instances of **RebindPolicy** are created, a value of type **RebindMode** is passed to **CORBA::ORB::create_policy**. This policy is only applicable as a client-side override. When an instance of **RebindPolicy** is propagated within a **PolicyValue** in an **INVOCATION_POLICIES** Service Context, the **ptype** has value **REBIND_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **RebindMode**.
 
-### 17.3.2 Synchronization Scope
+### Synchronization Scope
 
-**17.3.2.1 typedef short SyncScope**
+#### typedef short SyncScope
 
-Describes the level of synchronization for a request with respect to the target. Values of type **SyncScope** are used in conjunction with a **SyncScopePolicy**, as described in interface [SyncScopePolicy](#1732-synchronization-scope), to control the behavior of oneway operations. All non-negative values are reserved for use in OMG specifications. Any negative value of **SyncScope** is considered a vendor extension.
+Describes the level of synchronization for a request with respect to the target. Values of type **SyncScope** are used in conjunction with a **SyncScopePolicy**, as described in [Synchronization Scope](#synchronization-scope), to control the behavior of oneway operations. All non-negative values are reserved for use in OMG specifications. Any negative value of **SyncScope** is considered a vendor extension.
 
 - **SYNC_NONE** - equivalent to one allowable interpretation of *CORBA* oneway operations. The ORB returns control to the client (e.g., returns from the method invocation) before passing the request message to the transport protocol. The client is guaranteed not to block. Since no reply is returned from the server, no location-forwarding can be done with this level of synchronization.
 - **SYNC_WITH_TRANSPORT** - equivalent to one allowable interpretation of *CORBA* oneway operations. The ORB returns control to the client only after the transport has accepted the request message. This in itself gives no guarantee that the request will be delivered, but in conjunction with knowledge of the characteristics of the transport may provide the client with a useful degree of assurance. For example, for a direct message over TCP,
@@ -13570,50 +13516,50 @@ Describes the level of synchronization for a request with respect to the target.
 
      **SYSTEM_EXCEPTION** reply may be sent at anytime (depending on the semantics of the exception). Even though it was declared oneway, the operation actually has the behavior of a synchronous operation. This form of synchronization guarantees that the client knows that the target has seen and acted upon a request. As with *CORBA*, only with this highest level of synchronization can the OTS be used. Any operations invoked with lesser synchronization precludes the target from participating in the client’s current transaction.
 
-**17.3.2.2 interface SyncScopePolicy**
+#### interface SyncScopePolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is applied to oneway operations to indicate the synchronization scope with respect to the target of that operation request. It is ignored when any non-oneway operation is invoked. This policy is also applied when the DII is used with a flag of **INV_NO_RESPONSE** since the implementation of the DII is not required to consult an interface definition to determine if an operation is declared oneway. The default value of this Policy is not defined. Applications must explicitly set an ORB-level **SyncScopePolicy** to ensure portability across ORB implementations. When instances of **SyncScopePolicy** are created, a value of type **Messaging::SyncScope** is passed to **CORBA::ORB::create_policy**. This policy is only applicable as a client-side override. The client’s **SyncScopePolicy** is propagated within a request in the RequestHeader’s **response_flags** as described in GIOP Request Header.
 
-### 17.3.3 Request and Reply Priority
+### Request and Reply Priority
 
-**17.3.3.1 struct PriorityRange**
+#### struct PriorityRange
 
 This structure describes a range of priorities. A **PriorityRange** with minimum Priority greater than maximum Priority is invalid.
 
-**17.3.3.2 interface RequestPriorityPolicy**
+#### interface RequestPriorityPolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the valid range of priorities, which may be associated with an operation request. This value is used by Routers when the effective **QueueOrderPolicy** has the value **ORDER_PRIORITY**. Higher Priority values indicate a higher priority. When instances of
 
 **RequestPriorityPolicy** are created, a value of type **Messaging::PriorityRange** is passed to **CORBA::ORB::create_policy**. An instance of **RequestPriorityPolicy** may be specified when creating a POA (and therefore may be represented in Object references). In addition, an Object reference’s **RequestPriorityPolicy** may be overridden by the client. If set on both the client and server, reconciliation is performed by intersecting the serverspecified **RequestPriorityPolicy** range with the range of the client’s effective override. When an instance of **RequestPriorityPolicy** is propagated within a **PolicyValue** in a **TAG_POLICIES** Profile Component or **INVOCATION_POLICIES** Service Context, the **ptype** has value **REQUEST_PRIORITY_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **Messaging::PriorityRange**.
 
-**17.3.3.3 interface ReplyPriorityPolicy**
+#### interface ReplyPriorityPolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the valid range of priorities, which may be associated with the reply to an operation request. This value is used by Routers when the effective **QueueOrderPolicy** has the value **ORDER_PRIORITY**. Higher Priority values indicate a higher priority. When instances of **ReplyPriorityPolicy** are created, a value of type **Messaging::PriorityRange** is passed to **CORBA::ORB::create_policy**. An instance of **ReplyPriorityPolicy** may be specified when creating a POA (and therefore may be represented in Object references). In addition, an Object reference’s **ReplyPriorityPolicy** may be overridden by the client. If set on both the client and server, reconciliation is performed by intersecting the serverspecified **ReplyPriorityPolicy** range with the range of the client’s effective override. When an instance of
 **ReplyPriorityPolicy** is propagated within a **PolicyValue** in a **TAG_POLICIES** Profile Component or **INVOCATION_POLICIES** Service Context, the **ptype** has value **REPLY_PRIORITY_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **Messaging::PriorityRange**.
 
-### 17.3.4 Request and Reply Timeout
+### Request and Reply Timeout
 
 This specification describes the lifetime of requests and replies in terms of the structured type from the CORBA Time Service Specification. This describes time as a 64-bit value, which is the number of 100 nano-seconds from 15 October 1582 00:00, along with inaccuracy and time zone information.
 
-**17.3.4.1 interface RequestStartTimePolicy**
+#### interface RequestStartTimePolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the valid start time after which a request may be delivered to its target, and is applied to both synchronous and asynchronous invocations. When instances of **RequestStartTimePolicy** are created, a value of type **TimeBase::UtcT** containing an absolute time is passed to **CORBA::ORB::create_policy**. This policy is only applicable as a client-side override. When an instance of **RequestStartTimePolicy** is propagated within a **PolicyValue** in an **INVOCATION_POLICIES** Service Context, the **ptype** has value **REQUEST_START_TIME_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **TimeBase::UtcT**.
 
 If the effective **RoutingPolicy** is **NONE**, the client ORB shall refrain from transmitting the request to the target until after the specified start time. Otherwise, the client ORB and all but the last hop router are free to transmit the request immediately, and the last hop router shall delay the request until the specified start time.
 
-#### 17.3.4.2 interface RequestEndTimePolicy
+#### interface RequestEndTimePolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the time after which a request may no longer be delivered to its target. This policy is applied to both synchronous and asynchronous invocations. When instances of **RequestEndTimePolicy** are created, a value of type **TimeBase::UtcT** is containing an absolute time passed to **CORBA::ORB::create_policy**. This policy is only applicable as a client-side override. When an instance of **RequestEndTimePolicy** is propagated within a **PolicyValue** in an **INVOCATION_POLICIES** Service Context, the **ptype** has value **REQUEST_END_TIME_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **TimeBase::UtcT**.
 
 The client ORB, all routers and the target ORB shall check to see if the end time specified in the **RequestEndTimePolicy** associated with a request has expired and the request is yet to be delivered to the target. If so, it shall discard the request and return the system exception TIMEOUT with standard minor code 2.
 
-**17.3.4.3 interface ReplyStartTimePolicy**
+#### interface ReplyStartTimePolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the valid start time after which a reply may be delivered to the client. This policy is applied to both synchronous and asynchronous invocations. When instances of **ReplyStartTimePolicy** are created, a value of type **TimeBase::UtcT** containing an absolute time is passed to **CORBA::ORB::create_policy**. This policy is only applicable as a client-side override. When an instance of **ReplyStartTimePolicy** is propagated within a **PolicyValue** in an **INVOCATION_POLICIES** Service Context, the **ptype** has value **REPLY_START_TIME_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **TimeBase::UtcT**.
 
 If the **RoutePolicy** is **ROUTE_NONE**, the client ORB shall delay delivering the reply until the start time has been reached. Otherwise, the target ORB and all but the last hop router are free to transmit the reply immediately, and the last hop router shall delay transmission of the reply to the client until the start time has been reached.
 
-#### 17.3.4.4 interface ReplyEndTimePolicy
+#### interface ReplyEndTimePolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the time after which a reply may no longer be obtained or returned to the client. This policy is applied to both synchronous and asynchronous invocations.
 
@@ -13621,60 +13567,60 @@ When instances of **ReplyEndTimePolicy** are created, a value of type **TimeBase
 
 The client ORB, all routers and the target ORB shall check to see if the end time specified in the **ReplyEndTimePolicy** associated with a request has expired and a reply has not yet been delivered to the client. If so, it shall discard the reply and return the system exception TIMEOUT with standard minor code 3.
 
-**17.3.4.5 interface RelativeRequestTimeoutPolicy**
+#### interface RelativeRequestTimeoutPolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the relative amount of time for which a Request may be delivered. After this amount of time the Request is cancelled. This policy is applied to both synchronous and asynchronous invocations. If asynchronous invocation is used, this policy only limits the amount of time during which the request may be processed. Assuming the request completes within the specified timeout, the reply will never be discarded due to timeout. When instances of **RelativeRequestTimeoutPolicy** are created, a value of type **TimeBase::TimeT** containing a relative time is passed to **CORBA::ORB::create_policy**. This policy is only applicable as a client-side override. When an instance of **RelativeRequestTimeoutPolicy** is propagated within a **PolicyValue** in an **INVOCATION_POLICIES** Service Context, the **ptype** has value **REQUEST_END_TIME_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing the **relative_expiry** converted into a **TimeBase::UtcT** end time (as in the case of **RequestEndTimePolicy**).
 
-Since a **RelativeRequestTimeoutPolicy** is converted to a **RequestEndTimePolicy** before transmitting the request to the target ORB, see [interface RequestEndTimePolicy](#17342-interface-requestendtimepolicy) for the required behavior of an ORB or router when the timeout expires.
+Since a **RelativeRequestTimeoutPolicy** is converted to a **RequestEndTimePolicy** before transmitting the request to the target ORB, see [interface RequestEndTimePolicy](#interface-requestendtimepolicy) for the required behavior of an ORB or router when the timeout expires.
 
-**17.3.4.6 interface RelativeRoundtripTimeoutPolicy**
+#### interface RelativeRoundtripTimeoutPolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the relative amount of time for which a Request or its corresponding Reply may be delivered. After this amount of time, the Request is cancelled (if a response has not yet been received from the target) or the Reply is discarded (if the Request had already been delivered and a Reply returned from the target). This policy is applied to both synchronous and asynchronous invocations.
 
 When instances of **RelativeRoundtripTimeoutPolicy** are created, a value of type **TimeBase::TimeT** containing a relative time is passed to **CORBA::ORB::create_policy**. This policy is only applicable as a client-side override. When an instance of **RelativeRoundtripTimeoutPolicy** is propagated within a **PolicyValue** in an
 **INVOCATION_POLICIES** Service Context, the **ptype** has value **REPLY_END_TIME_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing the **relative_expiry** converted into a **TimeBase::UtcT** end time (as in the case of **ReplyEndTimePolicy**).
 
-Since a **RelativeRoundtripTimeoutPolicy** is converted to a **ReplyEndTimePolicy** before transmitting the request to the target ORB, see [interface ReplyEndTimePolicy](#17344-interface-replyendtimepolicy) for the required behavior of an ORB or router when the timeout expires.
+Since a **RelativeRoundtripTimeoutPolicy** is converted to a **ReplyEndTimePolicy** before transmitting the request to the target ORB, see [interface ReplyEndTimePolicy](#interface-replyendtimepolicy) for the required behavior of an ORB or router when the timeout expires.
 
-### 17.3.5 Routing
+### Routing
 
-**17.3.5.1 typedef short RoutingType**
+#### typedef short RoutingType
 
-Describes the type of Routing to be used for invocations on an Object reference. Values of type **RoutingType** are used in conjunction with a **RoutingPolicy** as described in [interface RoutingPolicy](#17353-interface-routingpolicy). All non-negative values are reserved for use in OMG specifications. Any negative value of **RoutingType** is considered a vendor extension.
+Describes the type of Routing to be used for invocations on an Object reference. Values of type **RoutingType** are used in conjunction with a **RoutingPolicy** as described in [interface RoutingPolicy](#interface-routingpolicy). All non-negative values are reserved for use in OMG specifications. Any negative value of **RoutingType** is considered a vendor extension.
 
 - **ROUTE_NONE** - Synchronous or Deferred Synchronous delivery is used. No Routers will be used to aid in the delivery of the request.
 - **ROUTE_FORWARD** - Asynchronous delivery is used. The request is made through the use of a Router and not delivered directly to the target by the client ORB.
 - **ROUTE_STORE_AND_FORWARD** - Asynchronous TII is used. The request is made through the use of a Router that persistently stores the request before attempting delivery.
 
-**17.3.5.2 struct RoutingTypeRange**
+#### struct RoutingTypeRange
 
 This structure describes a range of routing types. A **RoutingTypeRange** with minimum **RoutingType** greater than maximum **RoutingType** is invalid.
 
-**17.3.5.3 interface RoutingPolicy**
+#### interface RoutingPolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate whether or not the ORB must ensure delivery of a request through the use of queueing. If the effective Policy of this type has a **RoutingTypeRange** with min value of **ROUTE_FORWARD** or **ROUTE_STORE_AND_FORWARD**, the interoperable Routing protocol described in
-*III - Introduction* is used. This policy does not apply to synchronous invocations. If, for example, the min is **ROUTE_NONE** and the max is **ROUTE_FORWARD**, the Routing protocol will normally be used but a direct connection may be used if available. When instances of **RoutingPolicy** are created, a value of type **RoutingTypeRange** is passed to **CORBA::ORB::create_policy**. An instance of **RoutingPolicy** may be specified when creating a POA (and therefore may be represented in Object references). In addition, a POA’s **RoutingPolicy** is visible to clients through the Object references it creates, and reconciled with the client’s override. If set on both the client and server, reconciliation is performed by intersecting the server-specified **RoutingPolicy** range with the range of the client’s effective override. When an instance of **RoutingPolicy** is propagated within a **PolicyValue** in a **TAG_POLICIES** Profile Component or **INVOCATION_POLICIES** Service Context, the **ptype** has value   **ROUTING_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **Messaging::RoutingTypeRange**.
+[Introduction to Message Routing Interoperability](#introduction-to-message-routing-interoperability) is used. This policy does not apply to synchronous invocations. If, for example, the min is **ROUTE_NONE** and the max is **ROUTE_FORWARD**, the Routing protocol will normally be used but a direct connection may be used if available. When instances of **RoutingPolicy** are created, a value of type **RoutingTypeRange** is passed to **CORBA::ORB::create_policy**. An instance of **RoutingPolicy** may be specified when creating a POA (and therefore may be represented in Object references). In addition, a POA’s **RoutingPolicy** is visible to clients through the Object references it creates, and reconciled with the client’s override. If set on both the client and server, reconciliation is performed by intersecting the server-specified **RoutingPolicy** range with the range of the client’s effective override. When an instance of **RoutingPolicy** is propagated within a **PolicyValue** in a **TAG_POLICIES** Profile Component or **INVOCATION_POLICIES** Service Context, the **ptype** has value   **ROUTING_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **Messaging::RoutingTypeRange**.
 
-**17.3.5.4 interface MaxHopsPolicy**
+#### interface MaxHopsPolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the maximum number of routing hops that can occur when routing a request from the client to the target. When instances of **MaxHopsPolicy** are created, a value of type unsigned short is passed to **CORBA::ORB::create_policy**. This policy is only applicable as a client-side override. When an instance of **MaxHopsPolicy** is propagated within a **PolicyValue** in an **INVOCATION_POLICIES** Service Context, the **ptype** has value **MAX_HOPS_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing an **unsigned short**.
 
-### 17.3.6 Queue Ordering
+### Queue Ordering
 
-**17.3.6.1 typedef short Ordering**
+#### typedef short Ordering
 
-Describes the ordering policy for the consideration of routers that prioritize delivery of requests. Values of type Ordering are used in conjunction with a **QueueOrderPolicy** as described in interface [QueueOrderPolicy](#1736-queue-ordering). This policy is only used if the effective **RoutingType** is at least **ROUTE_FORWARD** (which implies the use of a **Router**). Support for multiple ordering policies is indicated by “or”-ing together individual values in a combined Ordering.
+Describes the ordering policy for the consideration of routers that prioritize delivery of requests. Values of type Ordering are used in conjunction with a **QueueOrderPolicy** as described in [Queue Ordering](#queue-ordering). This policy is only used if the effective **RoutingType** is at least **ROUTE_FORWARD** (which implies the use of a **Router**). Support for multiple ordering policies is indicated by “or”-ing together individual values in a combined Ordering.
 
 - **ORDER_ANY** - the client doesn't care in what order its requests are processed.
 - **ORDER_TEMPORAL** - the client wants to be sure that its requests are processed in the order in which they were issued. **ORDER_TEMPORAL** is the default.
 - **ORDER_PRIORITY** - the client wants its requests processed based on the priority assigned in the QoS structure described below.
 - **ORDER_DEADLINE** - the client wants its requests ordered so that those whose time_to_live is about to expire are moved to the front of the queue.
 
-**17.3.6.2 interface QueueOrderPolicy**
+#### interface QueueOrderPolicy
 
 This interface is a local object derived from **CORBA::Policy**. It is used to indicate the basis upon which a Router orders delivery of requests. When instances of **QueueOrderPolicy** are created, a value of type **Messaging::Ordering** is passed to **CORBA::ORB::create_policy**. This specified **Ordering** value can be the result of “or”-ing together individual orderings. An instance of **QueueOrderPolicy** may be specified when creating a POA (and therefore may be represented in Object references). In addition, an Object reference’s **QueueOrderPolicy** may be overridden by the client. If set on both the client and server, reconciliation is performed by intersecting the server-specified list of supported Ordering values with the list of values in the client’s effective override. When an instance of **QueueOrderPolicy** is propagated within a **PolicyValue** in a **TAG_POLICIES** Profile Component or **INVOCATION_POLICIES** Service Context, the **ptype** has value **QUEUE_ORDER_POLICY_TYPE** and the **pvalue** is a CDR encapsulation containing a **Messaging::Ordering**.
 
-## 17.4 Propagation of Messaging QoS
+## Propagation of Messaging QoS
 
 This sub clause defines the profile Component through which QoS requirements are expressed in an object reference, and the Service Context through which QoS requirements are expressed as part of a GIOP request.
 
@@ -13692,13 +13638,13 @@ module Messaging {
 };
 ```
 
-### 17.4.1 Structures
+### Structures
 
 **PolicyValue**
 
 This structure contains the value corresponding to a Policy of the **PolicyType** indicated by its **ptype**. This representation allows the compact transmission of QoS policies within IORs and Service Contexts. The format of **pvalue** for each type is given in the specification of that Policy.
 
-### 17.4.2 Messaging QoS Profile Component
+### Messaging QoS Profile Component
 
 A new **IOP::TaggedComponent** is defined for transmission of QoS policies within interoperable Object References. The body of this Component is a CDR encapsulation containing a **Messaging::PolicyValueSeq**. When creating Object references, Portable Object Adapters may encode the relevant policies with which it was created in this
 
@@ -13706,15 +13652,13 @@ A new **IOP::TaggedComponent** is defined for transmission of QoS policies withi
 
 These policies are reconciled with the effective client-side override when clients invokes operations on that reference. For example, if a POA is created with a **RequestPriorityPolicy** with minimum value 0 and maximum value 10, all Object references created by that POA will have that default **RequestPriorityPolicy** encoded in their IOR. Furthermore, if a client sets an overriding **RequestPriorityPolicy** with both minimum and maximum of 5 (the client requires its requests to have a priority of value 5), the ORB will reconcile the effective Policy for any invocations on this Object reference to have a priority of 5 (since this value is within the range of priorities allowed by the target). On the other hand, if the client set an override with minimum value of 11, any invocation attempts would raise the system exception INV_POLICY.
 
-### 17.4.3 Messaging QoS Service Context
+### Messaging QoS Service Context
 
 A new **IOP::ServiceContext** is defined for transmission of QoS policies within GIOP requests and replies. The body of this Context is a CDR encapsulation containing a **Messaging::PolicyValueSeq**.
 
-*Sub clause II - Messaging Programming Model*
+## Introduction to the Messaging Programming Model
 
-## 17.5 Sub clause II - Introduction
-
-Asynchronous Method Invocations allow clients to make non-blocking requests on a target. The AMI is treated as a client-side language mapping issue only. In most cases, server-side implementations are not required to change as from the server-side programmer’s point of view all invocations can be treated identically regardless of their synchronicity characteristics. In certain situations, such as with transactional servers, the asynchrony of a client does matter and requires server-side changes if expected to handle transactional asynchronous requests. This specific issue is addressed in Annex B, Transaction Service.
+Asynchronous Method Invocations allow clients to make non-blocking requests on a target. The AMI is treated as a client-side language mapping issue only. In most cases, server-side implementations are not required to change as from the server-side programmer’s point of view all invocations can be treated identically regardless of their synchronicity characteristics. In certain situations, such as with transactional servers, the asynchrony of a client does matter and requires server-side changes if expected to handle transactional asynchronous requests. This specific issue is addressed in [Transaction Service](A_Annexes.md#transaction-service).
 
 Clients may, at any time, make either asynchronous or synchronous requests on the target. Two models of asynchronous requests are supported: callback and polling. In the *callback* model, the client passes a reference to a reply handler (a client-side CORBA object implementation that handles the reply for a client request), in addition to the normal parameters needed by the request. The reply handler interface defines operations to receive the results of that request (including **inout** and **out** values and possible exceptions). The **ReplyHandler** is a normal CORBA object that is implemented by the programmer as with any object implementation. In the polling model, the client makes the request passing in all the parameters needed for the invocation, and is returned a Poller object that can be queried to obtain the results of the invocation. This Poller is an instance of a valuetype.
 
@@ -13732,7 +13676,7 @@ When a messaging-enabled IDL code generator is run on an interface, the followin
 
 - Furthermore, these operations are not part of the interfaces **CORBA::InterfaceDef** and do not correspond to synchronous operations. The generated code for these operations interacts with a messaging-aware ORB in ways outside of the scope of this sub clause. The mechanism of this interaction is specified for interoperability purposes in Message Routing. An application programmer need not be aware of this mechanism.
 
-## 17.6 Running Example
+## Running Example
 
 A running example is used throughout this sub clause to clarify the generation of the new typed asynchronous invocation stubs, the new reply handling interfaces for receiving callback responses, and the new poller values for querying the status of an outstanding request. The example features a simple stock portfolio manager interface. Most importantly, the interface includes operations that cover all cases of operation signature:
 
@@ -13762,7 +13706,7 @@ interface StockManager {
 };
 ```
 
-## 17.7 Async Operation Mapping
+## Async Operation Mapping
 
 For each operation in an interface, corresponding callback and polling asynchronous method signatures are generated. Note that no callback and polling asynchronous method signatures are generated for any operations or attributes of abstract interfaces.
 
@@ -13772,13 +13716,13 @@ Note that for other **SyncScopes** (**SYNC_NONE** and **SYNC_TRANSPORT**), invoc
 
 Due to the way in which identifier names are generated in the implied IDL, in order to avoid name clashes, any IDL that is meant to be used with Asynchronous Messaging must not contain any identifiers that have the string “AMI_” as a prefix.
 
-These signatures are described in implied-IDL, which is used to generate language-specific operation signatures. The implementation of these methods must generate a method invocation as described in [Message Routing](#1715-message-routing). Note that these generated operations are not included in the interface’s definition (**CORBA::InterfaceDef**). These operations do not raise user exceptions. Just as with the currently specified **CORBA::Request::send operation**, they can (but are not required to) raise system exceptions. For explanatory purposes, the sub clauses below show the Callback and Polling implied-IDL in separate pieces. Logically, the IDL compiler deals with async as if the IDL included all three pieces: the original IDL and the implied IDL for both async models.
+These signatures are described in implied-IDL, which is used to generate language-specific operation signatures. The implementation of these methods must generate a method invocation as described in [Message Routing](#message-routing). Note that these generated operations are not included in the interface’s definition (**CORBA::InterfaceDef**). These operations do not raise user exceptions. Just as with the currently specified **CORBA::Request::send operation**, they can (but are not required to) raise system exceptions. For explanatory purposes, the sub clauses below show the Callback and Polling implied-IDL in separate pieces. Logically, the IDL compiler deals with async as if the IDL included all three pieces: the original IDL and the implied IDL for both async models.
 
-### 17.7.1 Callback Model Signatures (sendc)
+### Callback Model Signatures (sendc)
 
 When the callback model is used, the client supplies a reply handler when making the asynchronous invocation. The interface’s operations and attributes are mapped to implied-IDL operations with names prefixed by “**sendc_**”. If this implied-IDL operation name conflicts with existing operations on the interface or any of the interface’s base interfaces, “**ami_**” strings are inserted between “**sendc_**” and the original operation name until the implied-IDL operation name is unique.
 
-**17.7.1.1 Implied-IDL for Operations**
+#### Implied-IDL for Operations
 
 The signature of the implied-IDL for a given IDL operation is:
 
@@ -13788,13 +13732,13 @@ The signature of the implied-IDL for a given IDL operation is:
 
 The async callback version takes the following arguments in order:
 
-- An object reference to a type-specific **ReplyHandler** as described in [Type-Specific ReplyHandler Mapping](#179-type-specific-replyhandler-mapping), with the parameter name **ami_handler**. If a nil **ReplyHandler** reference is specified when this operation is invoked, no response will be returned for this invocation. A system exception may be raised by the ORB during evaluation of the request, but once **sendc** returns, no further results of the operation will be made available. This is equivalent to setting the **CORBA::INV_NO_RESPONSE** flag when making a DII deferred request.
+- An object reference to a type-specific **ReplyHandler** as described in [Type-Specific ReplyHandler Mapping](#type-specific-replyhandler-mapping), with the parameter name **ami_handler**. If a nil **ReplyHandler** reference is specified when this operation is invoked, no response will be returned for this invocation. A system exception may be raised by the ORB during evaluation of the request, but once **sendc** returns, no further results of the operation will be made available. This is equivalent to setting the **CORBA::INV_NO_RESPONSE** flag when making a DII deferred request.
 - Each of the **in** and **inout** arguments in the order that they appeared in the operation's declaration in IDL, all with a parameter attribute of in and with the type specifier and parameter name of the original argument.
 - **out** arguments are ignored (i.e., are not part of the async signature).
 
 The implied-IDL operation signature has a context expression identical to the one from the original operation (if any is present).
 
-**17.7.1.2 Implied-IDL for Attributes**
+#### Implied-IDL for Attributes
 
 The signature of the implied-IDL for the callback model getter and setter operations corresponding to an interface’s attribute is as follows.
 
@@ -13805,14 +13749,14 @@ The signature of the implied-IDL for the callback model getter and setter operat
 
 The callback implied-IDL operations take the following arguments in order:
 
-- An object reference of a type-specific **ReplyHandler** as described in Section 17.9, [Type-Specific ReplyHandler Mapping](#179-type-specific-replyhandler-mapping), with the parameter name **ami_handler**.
+- An object reference of a type-specific **ReplyHandler** as described in [Type-Specific ReplyHandler Mapping](#type-specific-replyhandler-mapping), with the parameter name **ami_handler**.
 - The additional arguments for asynchronous implied-IDL operations for **attributes** are as follows:
 - For the attribute’s generated **get** operation, there are no additional arguments.
 - For the attribute’s generated set operation, there is one additional argument, in **<attrType>**
 attr_**<attributeName>**, where **attrType** is the type of the attribute, and attributeName is the name of that
 attribute. The set operation is only generated for attributes that are not defined readonly.
 
-**17.7.1.3 Example**
+#### Example
 
 The following implied-IDL is generated from the interface definitions used in the running example:
 
@@ -13861,15 +13805,15 @@ interface StockManager {
 };
 ```
 
-### 17.7.2 Polling Model Signatures (sendp)
+### Polling Model Signatures (sendp)
 
 When the polling model is used, the client is returned a queriable poller when making the asynchronous invocation. The interface’s operations and attributes are mapped to implied-IDL operations with names prefixed by **sendp_**. If this implied-IDL operation name conflicts with existing operations on the interface or any of the interface’s base interfaces, **ami_** strings are inserted between **sendp_** and the original operation name until the implied-IDL operation name is unique.
 
-**17.7.2.1 Implied-IDL for Operations**
+#### Implied-IDL for Operations
 
 The signature of the implied-IDL for a given IDL operation is:
 
-- A type-specific Poller return type as described in [Type-Specific Poller Mapping](#1711-type-specific-poller-mapping), followed by ```sendp_<opName>``` where **opName** is the name of the operation.
+- A type-specific Poller return type as described in [Type-Specific Poller Mapping](#type-specific-poller-mapping), followed by ```sendp_<opName>``` where **opName** is the name of the operation.
 
 The async polling version takes the following parameters in order:
 
@@ -13878,19 +13822,19 @@ The async polling version takes the following parameters in order:
 
 The implied-IDL operation signature has a context expression identical to the one from the original operation (if any is present).
 
-**17.7.2.2 Implied-IDL for Attributes**
+#### Implied-IDL for Attributes
 
 The signature of the implied-IDL for the polling model getter and setter operations corresponding to an interface’s attribute is as follows:
 
 - Setter operations are only generated for attributes that are not defined readonly.
-- A type-specific Poller return type as described in [*Type-Specific Poller Mapping*](#1711-type-specific-poller-mapping), followed by the operation name, which to distinguish between the getter and setter operations for the attribute is given by either:
+- A type-specific Poller return type as described in [*Type-Specific Poller Mapping*](#type-specific-poller-mapping), followed by the operation name, which to distinguish between the getter and setter operations for the attribute is given by either:
 - ```sendp_get_<attributeName>``` for reading the attribute value, where attributeName is the name of the attribute, or
 - ```sendp_set_<attributeName>``` for setting the attribute value, where attributeName is the name of the attribute that is not defined readonly.
 - Asynchronous implied-IDL operations for attributes have argument lists as follows:
 - For the attribute’s generated **get** operation, there are no arguments.
 - For the attribute’s generated **set** operation, there is one argument, in ```<attrType>``` ```attr_<attributeName>```, where **attrType** is the type of the attribute, and **attributeName** is the name of that attribute. The **set** operation is only generated for attributes that are not defined readonly.
 
-**17.7.2.3 Example**
+#### Example
 
 The following implied-IDL is generated from the interface definitions used in the running example:
 
@@ -13930,11 +13874,11 @@ interface StockManager {
 };
 ```
 
-## 17.8 Exception Delivery in the Callback Model
+## Exception Delivery in the Callback Model
 
 The **ReplyHandler** interface is expressed in IDL and thus cannot have operations that take exceptions as arguments. Furthermore, the most natural way for a **ReplyHandler** to deal with exceptions is by invoking some operation that raises exceptions, not through inspecting operation parameters. Therefore, exception replies are propagated to the **ReplyHandler** in the form of a type-specific **Messaging::ExceptionHolder** **valuetype** instance that contains the marshaled exception as its state and has **raise_exception** and **raise_exception_with_list** operations for raising the encapsulated exception.
 
-### 17.8.1 Messaging::ExceptionHolder valuetype
+### Messaging::ExceptionHolder valuetype
 
 The **Messaging::ExceptionHolder** valuetype encapsulates the exception data and enough information to turn that data back into a raised exception.
 
@@ -13962,7 +13906,7 @@ valuetype ExceptionHolder {
 - **raise_exception_with_list()** - If **is_system_exception** is true, this function is same as **raise_exception()**. Otherwise, this method raises an exception from the **marshaled_exception** using an application provided user exception list. It is useful and should only be used when the given exception holder is not from a skeleton reply handler's xxx_excep() method. For instance, it is from a DSI reply handler servant or from another ORB runtime. In these cases, the exception holder may not have an internal user exception list available.
 - **UserExceptionBase** - Language mapping of this native type should allow any user exception to be raised from this method. For instance, it is mapped to CORBA::UserException in C++ and to org.omg.CORBA.UserException in java. As usual, system exceptions do not need to be in the raises clause for raising them from this method.
 
-## 17.9 Type-Specific ReplyHandler Mapping
+## Type-Specific ReplyHandler Mapping
 
 For each interface, a type-specific reply handler is generated by the IDL compiler. The client application implements and registers a reply handler with each asynchronous request and receives a callback when the reply is returned for that request. The interface name of the type-specific handler is ```AMI_<ifaceName>Handler```, where **ifaceName** is the original unqualified interface name. If the interface **ifaceName** derives from some other IDL interface **baseName**, then the handler for **ifaceName** is derived from ```AMI_<baseName>```, but if it does not, then it is derived from the generic **Messaging::ReplyHandler**. If the interface name ```AMI_<ifaceName>Handler``` conflicts with an existing identifier, uniqueness is obtained by inserting additional “AMI_” prefixes before the **ifaceName** until the generated identifier is unique.
 
@@ -13974,7 +13918,7 @@ The **ReplyHandler** object reference will be serviced by a servant running unde
 - If TII is used, **LifeSpanPolicy** of **PERSISTENT** is almost required since TII means that the **ReplyHandler** can validly be located in a process that can be different than the process of the original client. It is possible for
 **LifeSpanPolicy** to be **TRANSIENT**, but this would be a rare usage in which the original client obtains the **ReplyHandler** reference from a process other than itself. This usage would allow a **ReplyHandler** to be in effect only for the life of that other process, supporting a rather limited form of TII.
 
-### 17.9.1 ReplyHandler Operations for NO_EXCEPTION Replies
+### ReplyHandler Operations for NO_EXCEPTION Replies
 
 For each operation declared in the interface, an operation with the following signature is defined on the generated reply handler:
 
@@ -13984,13 +13928,13 @@ For each operation declared in the interface, an operation with the following si
      - If the original operation has a return value, the type returned by the operation declared in IDL with parameter named **ami_return_val**.
      - Each inout/out **type** name and **argument** name as they were declared in IDL.
 
-These operations do not raise any exceptions because they are never invoked by a client and have no client to respond to such an exception. Only a system exception could be raised by such operations, and only with the effect of causing a transaction to roll back. See Annex B, Changes to Current OTS Behavior for a discussion of the Unshared Transaction model in which a **ReplyHandler** may be invoked as part of a transaction.
+These operations do not raise any exceptions because they are never invoked by a client and have no client to respond to such an exception. Only a system exception could be raised by such operations, and only with the effect of causing a transaction to roll back. See [Changes to Current OTS Behavior](A_Annexes.md#changes-to-current-ots-behavior) for a discussion of the Unshared Transaction model in which a **ReplyHandler** may be invoked as part of a transaction.
 
 For an attribute with the name “attributeName,” the following operations are generated on the reply handler: return type void**,** followed by ```get_<attributeName>``` for the getter (or ```set_<attributeName>``` for the setter operation if the attribute is not defined to be readonly). For the “get” operation, there is one argument (the setter callback operation takes no arguments): ```in <attrType>``` **ami_return_val** where the attribute of name **ami_return_val** is of type **attrType**.
 
 There are two cases where the above mapping results in an operation with no parameters. The first is for an operation with no return value and either with no parameters or with only **in** parameters. The second is the mapping of a setter on an attribute. In these cases, it is worth noting that the only meaning that can be associated with the operation is that the AMI operation completed successfully. This is significant information, essentially an acknowledgment of completion.
 
-### 17.9.2 ReplyHandler Operations for Exceptional Replies
+### ReplyHandler Operations for Exceptional Replies
 
 If the AMI didn’t succeed at the target, the exception is delivered via the generated **_excep** **ReplyHandler** operation corresponding to the operation originally invoked. This sub clause describes the implied-IDL rules for generating these operations on the **ReplyHandler**.
 
@@ -14017,7 +13961,7 @@ void set_<attrName>_excep(
 
 If the name generated by the method described above clashes with a name that already exists in the interface, “_ami” strings are inserted immediately preceding the “_excep” repeatedly, until generated IDL operation name is unique in the interface.
 
-### 17.9.3 Example
+### Example
 
 The example IDL causes the generation of the following additional IDL when asynchronous operations are to be used. This IDL is “real” in that the interfaces described here are CORBA objects. However, the generation of stubs for these interfaces is not required, as no client ever invokes these operations remotely in this model. The operations are invoked directly by the messaging-aware ORB when a reply becomes available.
 
@@ -14061,7 +14005,7 @@ void get_quote_excep(
 };
 ```
 
-## 17.10 Generic Poller Value
+## Generic Poller Value
 
 The generic base **Poller valuetype** can be queried to obtain the status of a potentially outstanding request. So that it can be registered in a **CORBA::PollableSet**, it derives from the abstract valuetype **CORBA::Pollable**. The inherited **Pollable is_ready** returns the value TRUE if and only if a reply is currently available for the outstanding request. If it returns the value FALSE, the reply has not yet been returned from the target. This operation raises the system exception
 
@@ -14081,33 +14025,33 @@ module Messaging {
 };
 ```
 
-### 17.10.1 operation_target
+### operation_target
 
 The target of the asynchronous invocation is accessible from any Poller.
 
-### 17.10.2 operation_name
+### operation_name
 
 The name of the operation that was invoked asynchronously is accessible from any Poller. The returned string is identical to the operation name from the target interface’s **InterfaceDef**.
 
-### 17.10.3 associated_handler
+### associated_handler
 
 If the **associated_handler** is set to nil, the polling model is used to obtain the reply to the request. If it is non-nil, the associated **ReplyHandler** is invoked when a reply becomes available.
 
 Switching between the callback and polling models is supported by this specification. The request must be made using the polling model, and thus a Poller is obtained. Through the attribute **associated_handler**, a **ReplyHandler** may be registered. When the reply is available, the associated **ReplyHandler** will be invoked just as if the callback model had been used to make the original request. By setting the attribute to nil, the **ReplyHandler** can be disassociated at any time to allow the client application to resume use of the Polling model. The Poller implementation is responsible for ensuring that in multi-threaded applications, access to the **associated_handler** is multi-thread safe.
 
-### 17.10.4 is_from_poller
+### is_from_poller
 
 As described below, the type-specific pollers are queried to obtain the reply from an asynchronously invoked operation. If the reply is a system exception, it may be important for the client application to distinguish between an exception raised by the poll itself and an exception that is actually the reply for the asynchronous invocation. The **is_from_poller** attribute returns the value TRUE if and only if the poller itself has raised a system exception during the invocation of one of the type specific poller operations. If the exception raised from one of the type specific poller operations is the reply for the asynchronous operation, the value FALSE is returned. If the Poller has not yet returned a response to the client, the BAD_INV_ORDER system exception with standard minor code 22 is raised.
 
-## 17.11 Type-Specific Poller Mapping
+## Type-Specific Poller Mapping
 
 The polling model requires usage of generated type-specific **Poller** **valuetype**s. A **valuetype** is used because all operations are locally implemented. The basic generated Poller encapsulates the operations for obtaining replies to an outstanding asynchronous request. A derived **PersistentPoller** **valuetype** also adds private state that allows the response to be obtained from a client other than the client that made the request. This private state is used by the **PersistentPoller** implementation in conjunction with the messaging-aware ORB.
 
-### 17.11.1 Basic Type-Specific Poller
+### Basic Type-Specific Poller
 
 For each interface, the IDL compiler generates a type-specific **Poller** value. A **Poller** is created by the ORB for each asynchronous invocation that uses the polling model operations. The name of the basic type-specific **Poller** is ```AMI_<ifaceName>Poller```, where **ifaceName** is the unqualified name of the interface for which the **Poller** is being generated. If the interface **ifaceName** derives from one or more IDL interfaces, then the **Poller** is derived from the corresponding **Poller** for each base interface, but if it does not, then it is derived from **Messaging::Polle**r. **Poller** valuetypes are declared abstract. If this name conflicts with definitions in the original IDL, additional **AMI_**prefixes are prepended before ```<ifaceName>``` until a unique valuetype name is generated (such as "**AMI_AMI_FooPoller**" for interface**Foo**).
 
-**17.11.1.1 Poller operations for Interface operations**
+#### Poller operations for Interface operations
 
 For each operation declared in the interface, a polling operation with the following signature is declared:
 
@@ -14134,7 +14078,7 @@ When a polling call is made, the operation returns in one of the following ways:
     - TIMEOUT - If a non-zero timeout value is specified, this system exception is raised with standard minor code 1 to indicate that the specified timeout has expired and the reply has not yet been returned.
     - NO_RESPONSE - If a timeout with value 0 is specified, this system exception is raised with standard minor code 1 to indicate that the reply is not available.
 
-**17.11.1.2 Poller operations for Interface attributes**
+#### Poller operations for Interface attributes
 
 For each attribute declared in the interface, a polling operation with the following signature is declared. Setter polling operations are only generated for attributes that are not declared readonly: return type void followed by the name of the generated operation, which to distinguish between the getter and setter operations for an attribute is given by (respectively):
 
@@ -14162,7 +14106,7 @@ When a polling call is made, the operation returns in one of the following ways:
 - TIMEOUT - If a non-zero timeout value is specified, this system exception is raised with standard minor code 1 to indicate that the specified timeout has expired and the reply has not yet been returned.
 - NO_RESPONSE - If a timeout with value 0 is specified, this system exception is raised with standard minor code 1 to indicate that the reply is not available.
 
-### 17.11.2 Persistent Type-Specific Poller
+### Persistent Type-Specific Poller
 
 When Time-Independent Invocations are made, the reply may be obtained by a different client than the one that made the original request. An instance of persistent poller is returned from such invocations. The **PersistentPoller** contains the state necessary to allow polling to be performed in a client distinct from the one that made the request. This state is used privately by the messaging-aware ORB and is not directly accessible to the application.
 
@@ -14178,7 +14122,7 @@ valuetype AMI_<ifaceName>PersistentPoller : AMI_<ifaceName>Poller
 
 Just as with any CORBA **valuetype** this **PersistentPoller** can be passed as an argument to IDL operations and a copy of the **Poller** will be instantiated local to the callee.
 
-### 17.11.3 Example
+### Example
 
 The example IDL causes the generation of the following additional IDL when asynchronous polling operations are to be used. This IDL is “real” in that the **valuetype**s described here are normal CORBA **valuetype**s.
 
@@ -14222,13 +14166,13 @@ valuetype AMI_StockManagerPersistentPoller : AMI_StockManagerPoller{
 };
 ```
 
-## 17.12 Example Programmer Usage
+## Example Programmer Usage
 
-### 17.12.1 Example Programmer Usage (Examples Mapped to C++)
+### Example Programmer Usage (Examples Mapped to C++)
 
-The following is an illustrative example of how the ideas from “II - Introduction” and other sub clauses come together from the programmer’s point of view. It contains no new definitions; Example Programmer Usage is solely meant to demonstrate an application use of Messaging. Since the example is implemented in C++, the expected C++ mapping of II - Introduction implied-IDL is shown in [Example Programmer Usage](#1712-example-programmer-usage).
+The following is an illustrative example of how the ideas from “II - Introduction” and other sub clauses come together from the programmer’s point of view. It contains no new definitions; Example Programmer Usage is solely meant to demonstrate an application use of Messaging. Since the example is implemented in C++, the expected C++ mapping of II - Introduction implied-IDL is shown in [Example Programmer Usage](#example-programmer-usage).
 
-### 17.12.2 Client-Side C++ Example for the Asynchronous Method Signatures
+### Client-Side C++ Example for the Asynchronous Method Signatures
 
 This sub clause shows sample C++ that is generated from the implied-IDL of the previous sub clauses of II - Introduction. The C++ mapping specifies a generated interface class (stub) on which method invocations are translated into operation requests. It is this class on which the function signatures are generated from their operation declarations in IDL. It is in this class that the async functions signatures are also declared (and implemented). Using the IDL from the example in the previous sub clause the stub class **StockManager** is generated following the C++ mapping. The following notes apply to this sample generated C++ code:
 
@@ -14242,7 +14186,7 @@ Generated file: stockmgr_c.hh (Filename is non-normative)
 class StockManager : public virtual CORBA::Object
 {
 public:
-// … all the other stuff.
+// ... all the other stuff.
 // StockManager SYNCHRONOUS CALLS
 virtual void stock_exchange_name(const char * attr);
 virtual char * stock_exchange_name();
@@ -14289,9 +14233,9 @@ const char * symbol);
 };
 ```
 
-### 17.12.3 Client-Side C++ Example of the Callback Model
+### Client-Side C++ Example of the Callback Model
 
-**17.12.3.1 C++ Example of Generated ReplyHandler**
+#### C++ Example of Generated ReplyHandler
 
 The **ReplyHandler** Servant class generated for the **StockManager** interface is:
 
@@ -14348,7 +14292,7 @@ Transaction, the **ReplyHandler** method may invoke **CosTransactions::Current::
 
 - All heap-allocated storage associated with any of the arguments to the **ReplyHandler** methods may be owned by the ORB. If so, any data passed into the handler must be copied if the data is to be kept. This corresponds to the usual memory management rules for **in** arguments.
 
-**17.12.3.2 C++ Example of User -Implemented ReplyHandler**
+#### C++ Example of User -Implemented ReplyHandler
 
 The following code is an example implementation of a user derived and implemented reply handler based on the generated reply handler from C++ Example of Generated ReplyHandler. The inherited methods, which were previously declared as pure virtual are declared here as virtual and are implemented as part of this class:
 
@@ -14548,7 +14492,7 @@ catch (const InvalidStock& e) {
 }
 ```
 
-**17.12.3.3 C++ Example of Callback Client Program**
+#### C++ Example of Callback Client Program
 
 The following code shows how to set QoS at the ORB and object reference scopes (the two most common levels) and make asynchronous invocations using the user-implemented reply handler from the previous sub clause. Again, for the sake of brevity, checking for valid pointers and placing all of the CORBA calls in try blocks has been omitted.
 
@@ -14565,7 +14509,7 @@ CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
 CORBA::Object_var obj = orb->string_to_object(argv[1]);
 StockManager_var stockMgr = StockManager::_narrow(obj);
 
-// Obtain the ORB’s PolicyManager
+// Obtain the ORB's PolicyManager
 CORBA::Object_var orbQosObj =
   orb->resolve_initial_references("ORBPolicyManager");
 CORBA::PolicyManager_var orbQos =
@@ -14636,9 +14580,9 @@ return 0;
 }
 ```
 
-### 17.12.4 Client-Side C++ Example of the Polling Model
+### Client-Side C++ Example of the Polling Model
 
-**17.12.4.1 C++ Example of Generated Poller**
+#### C++ Example of Generated Poller
 
 The typed **Poller** **valuetype** class implementation is provided by the messaging-aware ORB. The generated C++ class has the following declaration:
 
@@ -14670,7 +14614,7 @@ public:
 };
 ```
 
-**17.12.4.2 C++ Example of Polling Client Program**
+#### C++ Example of Polling Client Program
 
 The following example client program demonstrates the use of the Polling model. The bulk of the program is exactly the same as the program demonstrated in C++ Example of Callback Client Program. Each invocation uses the polling “sendp_” in this program and the returned Pollers are then sequentially called to obtain the results. The following notes apply to this sample program:
 
@@ -14785,7 +14729,7 @@ int main(int argc, char ** argv)
 }
 ```
 
-**17.12.4.3 C++ Example of Using PollableSet in a Client Program**
+#### C++ Example of Using PollableSet in a Client Program
 
 The following example client program demonstrates the use of the **PollableSet** and wait for multiple requests to finish. The program would be exactly the same as that of the previous sub clause, as far as the comment “// Now obtain each result.”
 
@@ -14866,7 +14810,7 @@ case 5:
 }
 ```
 
-### 17.12.5 Server Side
+### Server Side
 
 The following example of the **server-side main()** assumes a C++ implementation of the **StockManager** interface called **StockManager_impl**.
 
@@ -14910,21 +14854,17 @@ return 0;
 }
 ```
 
-*Sub clause III - Message Routing Interoperability*
-
-## 17.13 Sub clause III - Introduction
+## Introduction to Message Routing Interoperability
 
 Asynchronous method invocation and time-independent delivery of requests and responses cannot be handled in a firstclass manner within the synchronous dialog of the GIOP 1.1. The basic requirement for Messaging is that individual request and reply messages (and their components) can be discussed by routing agents. These agents, or *Routers*, explicitly pass messages between them and interact with clients and targets of asynchronous operations. This sub clause describes the interactions between a client and the first Router to handle its request, between successive Routers as the request is passed along the path to the target, and between the target and the Router that actually makes the request on behalf of the original client. This Router closest to the Target then turns the reply into a Request on a **ReplyHandler**, allowing the Reply to be routed using the same mechanism as the original request. The reply is finally delivered to an application’s **ReplyHandler** or through an application’s use of the Polling APIs.
 
 **NOTE:** This Introduction specifies Routing interoperability for CORBA Messaging products. The information presented in this sub clause is not required for building applications that make Asynchronous operation invocations.
 
-Throughout this Introduction a configuration is assumed in which the Client is separated from the Target by the Internet. Using this “most complex” scenario, all the details of the Routing procedure are exposed. To help understand this design, consider [Figure 17.1].
+Throughout this Introduction a configuration is assumed in which the Client is separated from the Target by the Internet. Using this “most complex” scenario, all the details of the Routing procedure are exposed. To help understand this design, consider [[Routing Interoperability Overview](Images/figure17-1.svg)].
 
-![](Images/figure17-1.svg)
+![Routing Interoperability Overview](Images/figure17-1.svg)
 
-**Figure 17.1 - Routing Interoperability Overview**
-
-## 17.14 Routing Object References
+## Routing Object References
 
 This specification is designed to support scenarios in which a target may be disconnected for a long period of time. It would be inefficient for a client’s router to need to monitor the availability of all targets for which it holds outstanding requests. To make this scenario scalable, it is possible for the target to specify a more highly available temporary destination for its asynchronous requests. This destination is a Router, and the natural place for the target to specify this Router’s location is within a component of the Target’s IOR. For extensibility, this specification defines a **TaggedComponent** that contains a sequence of Router IORs.
 
@@ -14943,9 +14883,9 @@ A **TaggedComponent** containing Target routing hints is built by setting the ta
 
 Routers are listed in this sequence in order from most highly available to least highly available. It is expected that the least highly available Router will be “closest” to the Target, whereas the most highly available Target Router will be
 
-“closest” to the Internet. For example, the target in the reference example of *III - Introduction* would have an IOR containing a **TAG_MESSAGE_ROUTERS** Component containing a sequence of two Router IORs. The first element in this sequence would be the reference of **TargetRouter1** and the second element would be the reference of **TargetRouter**.
+“closest” to the Internet. For example, the target in the reference example of [Introduction to Message Routing Interoperability](#introduction-to-message-routing-interoperability) would have an IOR containing a **TAG_MESSAGE_ROUTERS** Component containing a sequence of two Router IORs. The first element in this sequence would be the reference of **TargetRouter1** and the second element would be the reference of **TargetRouter**.
 
-## 17.15 Message Routing
+## Message Routing
 
 The messaging Routers serve two main purposes:
 
@@ -15048,9 +14988,9 @@ PersistentRequest create_persistent_request(
 };
 ```
 
-### 17.15.1 Structures
+### Structures
 
-**17.15.1.1 MessageBody**
+#### MessageBody
 
 This structure is used to wrap the marshaled GIOP message data (either request arguments or reply data) to support repackaging as the request components around that data (such as service contexts or object key) change due to Routing.
 
@@ -15059,7 +14999,7 @@ Since GIOP 1.2 Request and Reply Bodies are always aligned to an 8-octet boundar
 - data and the length of that data as a sequence of octet, and
 - the byte order with which that data was originally marshaled.
 
-**17.15.1.2 RequestMessage**
+#### RequestMessage
 
  This structure explicitly contains all the components of a GIOP request. When the target is actually invoked, its members are used to compose an actual GIOP request.
 
@@ -15074,14 +15014,14 @@ The **RequestMessage** has the following members:
 - **operation** - the operation name of the request being made.
 - **body** - the CDR stream message payload and marshaling byte order for repackaging within a new GIOP request once the routed message can be synchronously invoked on the target.
 
-**17.15.1.3 ReplyDestination**
+#### ReplyDestination
 
 This structure contains enough information for the response to be returned once the actual invocation has been made on the target.
 
-- **handler_type** - Either **UNTYPED** or **TYPED** indicating which type of **ReplyHandler** is to receive the response. This flag is necessary to ensure that no **is_a** must be performed when the Target Router is ready to return the reply as described in [Target Router](#171535-target-router).
+- **handler_type** - Either **UNTYPED** or **TYPED** indicating which type of **ReplyHandler** is to receive the response. This flag is necessary to ensure that no **is_a** must be performed when the Target Router is ready to return the reply as described in [Target Router](#target-router).
 - **handler** - an Object reference to the **ReplyHandler** that is the destination of the response.
 
-**17.15.1.4 RequestInfo**
+#### RequestInfo
 
 This structure contains the information required for an intermediate Router to get a request closer to its target and for a target Router to invoke that request on its target.
 
@@ -15095,29 +15035,29 @@ This structure contains the information required for an intermediate Router to g
 - **selected_qos** - the list of QoS that was selected for the Routing of this message.
 - **message** - the payload (arguments, return value, raised exception) for this message, including the byte order with which the message was originally marshaled.
 
-### 17.15.2 Interfaces
+### Interfaces
 
-**17.15.2.1 ReplyHandler**
+#### ReplyHandler
 
 The **ReplyHandler** interface is a base interface for all specific **ReplyHandler**s (either type-specific or Generic ones). It is used as the generic **reply_destination** argument when a request is sent to a Router:
 
-**17.15.2.2 Router**
+#### Router
 
 The **Router** interface is used to pass messages when a request cannot be synchronously invoked on its final target.
 
-**17.15.2.3 send_request**
+#### send_request
 
 The Router is passed all the information necessary to either route the request toward the target by calling **send_request** on another Router, or to invoke the request on its final target.
 
-**17.15.2.4 send_multiple_requests**
+#### send_multiple_requests
 
 The Router is passed a sequence of **RequestInfo** structures, where each **RequestInfo** is a completely self-contained set of information allowing the Router to either route the request toward the target by calling **send_request** on another Router, or to invoke the request on its final target.
 
-**17.15.2.5 UntypedReplyHandler**
+#### UntypedReplyHandler
 
 This interface is the target of replies when the polling model is used.
 
-**17.15.2.6 reply**
+#### reply
 
 The reply operation is invoked when the reply to a **PersistentRequest** becomes available. The operation is invoked with the following arguments:
 
@@ -15125,15 +15065,15 @@ The reply operation is invoked when the reply to a **PersistentRequest** becomes
 - **reply_type** - The status of the Reply (either **NO__EXCEPTION**, **USER_EXCEPTION**, or **SYSTEM_EXCEPTION**). **LOCATION_FORWARD** replies are not invoked on the **ReplyHandler**.
 - **reply_body** - The marshaled data of the reply along with the byte order with which it was marshaled.
 
-**17.15.2.7 PersistentRequest**
+#### PersistentRequest
 
 Instances of this interface are created by the Client Router for polling model invocations, and is queried to obtain the status of a request, including the reply’s data if available.
 
-**17.15.2.8 readonly attribute reply_available**
+#### readonly attribute reply_available
 
 Returns the value **TRUE** if and only if the reply is currently available and has not yet been returned to some caller of **get_reply**. Returns the value **FALSE** if and only if the reply has not yet been returned to the ClientRouter. This attribute cannot be checked if the response has already been delivered to some caller of **get_reply**, as the **PersistentRequest** instance will have been deactivated at that time and the ORB will return the system exception OBJECT_NOT_EXIST on any subsequent invocations on that **PersistentRequest**.
 
-**17.15.2.9 get_reply and get_reply_with_context**
+#### get_reply and get_reply_with_context
 
 The **get_reply** or **get_reply_with_context** operation is invoked to poll or block for a reply to a **PersistentRequest**. The operation returns the status of the reply (either **NO_EXCEPTION**, **USER_EXCEPTION**, or **SYSTEM_EXCEPTION**) or raises the ReplyNotAvailable exception if no reply is obtained before the specified timeout occurs. If the response is returned to the caller, the **PersistentRequest** is deactivated so that future invocations of **get_reply** or **get_reply_with_context** raise the system exception OBJECT_NOT_EXIST with standard minor code 5. The **get_reply** and **get_reply_with_context** operations takes the following arguments:
 
@@ -15145,15 +15085,15 @@ The **get_reply_with_context** operation has the following additional argument:
 
 - service_contexts - the list of service contexts that is associated with the reply message, in the form of a **SeviceContextList**.
 
-**17.15.2.10 attribute associated_handler**
+#### attribute associated_handler
 
 The possibly **nil** **ReplyHandler** reference of the type-specific **ReplyHandler** registered to receive a callback reply for this request. This attribute is initially nil if the **PersistentRequest** was created for a polling client, and becomes nonnil if the client decides to switch from the polling model to the callback model.
 
-**17.15.2.11 PersistentRequestRouter**
+#### PersistentRequestRouter
 
 This interface is used by the messaging-aware client ORB to create a request that can be queried to obtain its status and reply data (e.g., using the polling model).
 
-**17.15.2.12 create_persistent_request**
+#### create_persistent_request
 
 When a **PersistentRequest** is created for a message, no reply destination is supplied. Instead, the
 **PersistentRequestRouter** establishes itself as the reply destination and returns to the caller a reference that has operations for obtaining the status and reply for the request. The operation that returns this new **PersistentRequest** takes the following arguments:
@@ -15164,7 +15104,7 @@ When a **PersistentRequest** is created for a message, no reply destination is s
 - **selected_qos** - the list of QoS that was selected for this message.
 - **message** - the payload (arguments, return value, raised exception) for this message.
 
-### 17.15.3 Routing Protocol
+### Routing Protocol
 
 Processing of a time-independent invocation involves a series of roles played by various components of the distributed system. These roles include:
 
@@ -15181,7 +15121,7 @@ Not all of these distinct roles are necessarily involved in every invocation, an
 
 Routers can be collocated with client or server ORBs, or can be separate processes. Either way, routers must maintain persistent state with transactional semantics.
 
-**17.15.3.1 Invoking Client**
+#### Invoking Client
 
 The client application makes an asynchronous invocation either by specifying a **ReplyHandler** object or by using the polling API.
 
@@ -15194,7 +15134,7 @@ single hop (and therefore used by the ORB when invoking the initial router but n
 
 An empty sequence is passed by the client ORB as the visited parameter. The list of routers from the target IOR’s **TAG_MESSAGE_ROUTERS** component is used as the **to_visit** parameter. This list may have additional routers added to it by the client ORB depending on administration of the network of routers. If the callback model is being used, the type-specific **ReplyHandler** is passed as the **reply_destination**. If the request was originated using **create_persistent_request**, the untyped **ReplyHandler** is passed as the **reply_destination**. For the reply to be able to be delivered asynchronously, these **ReplyHandler** IORs must contain enough routing information (e.g.,**TAG_MESSAGE_ROUTERS** component).
 
-**17.15.3.2 Initial Request Router**
+#### Initial Request Router
 
 The initial request router’s role depends on whether the **ReplyHandler** or polling API was used by the client.
 
@@ -15204,20 +15144,20 @@ If **create_persistent_request** was called, the initial request router must ins
 
 This **UntypedReplyHandler** may be created either before or after the **PersistentRequest** and request state is committed to stable storage. After returning the **PersistentRequest** object and committing the request state to stable storage, all within the transaction context of the client application, the initial router processes the request using the routing algorithm described below. The routing process does not continue until the client’s initial transaction has been committed.
 
-**17.15.3.3 Request Routing Algorithm**
+#### Request Routing Algorithm
 
-Any router that has received a request message and committed it to stable storage processes it in the same way. If it can invoke the operation directly on the target object, the router serves as the target router for the invocation, as described below. If not, it tries to deliver the request to another router closer to the target object. If it can’t do either of these, it queues the request and tries again later, either after some period of time has elapsed, or in response to an announcement of availability from another router closer to the target as described in [Router Administration](#1716-router-administration).
+Any router that has received a request message and committed it to stable storage processes it in the same way. If it can invoke the operation directly on the target object, the router serves as the target router for the invocation, as described below. If not, it tries to deliver the request to another router closer to the target object. If it can’t do either of these, it queues the request and tries again later, either after some period of time has elapsed, or in response to an announcement of availability from another router closer to the target as described in [Router Administration](#router-administration).
 
 A router typically picks another router closer to the target by selecting from the list of routers passed to it as the **to_visit** parameter to either **send_request** or **create_persistent_request**. Routers later in the list are given preference as being closer to synchronous connection with the target. The next router can also be selected from some set of known Routers based on an implementation-specific configuration. If QoS attributes of the request message require persistence of requests, a transaction is first initiated. Then **send_request** is called on the selected router. The **to_visit** parameter is formed by removing the callee from the **to_visit** list received with the original request. Any routers further from the target than the callee (earlier in the **to_visit** list) are also removed. The **target**, **reply_destination**, **selected_qos**, and **message** parameters are copied from the received request. After invoking **send_request**, the router removes the request message from its stable storage, and commits the transaction if it initiated one.
 
 A router must ensure that exactly-once semantics are preserved. If delivering a request message results in an exception with a **CompletionStatus** of **COMPLETED_NO**, or in a transaction being aborted, it can retry. Since any invocation can raise a system exception, all exception replies with a completion status other than **COMPLETED_NO** must be reported back to the client via the reply message.
 
-#### 17.15.3.4 Intermediate Request Router
+#### Intermediate Request Router
 
 An intermediate router is simply a router that accepts a request message via **send_request** from one router and then, eventually, delivers it to another router, again using **send_request**. The **send_multiple_requests** operation may also be used to allow batching of requests between Routers. The intermediate routers may take a request’s
 **QueueOrderPolicy** (if present) into account when prioritizing the delivery of requests to destination routers, but is not required to do so.
 
-#### 17.15.3.5 Target Router
+#### Target Router
 
 The target router for an invocation is a router that accepts a request message, delivers it to the target object, and, if a response is expected, routes the target’s reply back to the client. The target router may have to queue the request message before the invocation and/or may have to queue the response message after the invocation.
 
@@ -15244,7 +15184,7 @@ Regardless of how many transactions, if any, are used, the target router must ro
 
 Regardless of destination, the new reply must be marshaled with the same byte order used by the target when the reply was originally marshaled. The Target Router is not expected to remarshal the reply body.
 
-**17.15.3.6 Replying to a Type-specific ReplyHandler**
+#### Replying to a Type-specific ReplyHandler
 
 If the client originally supplied a type-specific **ReplyHandler**, the reply must be converted into a typed request invocation on the **ReplyHandler**. The Target Router determines this by verifying that the **handler_type** disposition of the **reply_destination** argument has the value **TYPED**. The format of the generated request depends on the **reply_status**:
 
@@ -15253,31 +15193,31 @@ If the client originally supplied a type-specific **ReplyHandler**, the reply mu
 
 A reply with status **LOCATION_FORWARD** is handled as described below.
 
-**17.15.3.7 Replying to an UntypedReplyHandler**
+#### Replying to an UntypedReplyHandler
 
 If the client originally created a **PersistentRequest** (such as by using the Polling model), the reply must be converted into the generic request operation supported by the **UntypedReplyHandler** interface. The Target Router determines this by verifying that the **handler_type** disposition of the **reply_destination** argument has the value **UNTYPED**. The generated reply operation has the name “reply” and takes as arguments the original operation name, the **reply_status** (**NO_EXCEPTION**, **SYSTEM_EXCEPTION**, or **USER_EXCEPTION**) and a sequence of octet containing the reply data. The length is set to the size of the marshaled **ReplyBody** and the data is the marshaled body itself.
 
-**17.15.3.8 Handling of Service Contexts**
+#### Handling of Service Contexts
 
 When a **TargetRouter** receives a Reply, it generates a request on some **ReplyTarget** as described previously in this sub clause. If the Reply contains service contexts, the **TargetRouter** must decide whether or not these contexts are to be used in its request on the **ReplyTarget**. End-to-end service contexts, such as the **CodeSets** context, are propagated to the **ReplyTarget**. Single-hop service contexts, such as the **TransactionService** context, are consumed by the **TargetRouter**. Unknown service contexts are propagated from the reply to the generated request on the **ReplyTarget**.
 
-**17.15.3.9 Handling LOCATION_FORWARD Replies**
+#### Handling LOCATION_FORWARD Replies
 
 When a **TargetRouter** receives a Reply with status **LOCATION_FORWARD**, it must either use the returned reference as the new target for the request, or must return the new reference to the **ReplyTarget**. The Messaging protocol requires that the **TargetRouter** continue processing the request by either directly invoking the new target or routing the request toward the new target as has been described thus far.
 
-**17.15.3.10 Routing of Replies**
+#### Routing of Replies
 
 As described above, the GIOP reply is turned into a request message targeted to the original **reply_destination**. Since this reply is now a request, it may be sent to its destination using the message routing protocol described in this sub clause. For example, if the **ReplyHandler**’s reference contains Routing information, the **TargetRouter** may invoke the new request using some Router’s **send_request** operation. In this case, the specified routing protocol should be followed for this new request, with the **response_expected** flags all set to 0 and the **reply_destination** set to nil.
 
-**17.15.3.11 UntypedReplyHandler**
+#### UntypedReplyHandler
 
 When an **UntypedReplyHandler**’s reply operation is invoked, several things may happen. The specific correlation of a Router’s **UntypedReplyHandler** with the **PersistentRequests** it supports is not visible to this interoperability layer, but at a high level one of the following occurs:
 
-- A type-specific **ReplyHandler** has been associated with the corresponding **PersistentRequest**. If a callback has been registered for this reply (the **associated_handler** is non-nil), the type-specific callback operation may be invoked directly as described in [Replying to a Type-specific ReplyHandler](#179-type-specific-replyhandler-mapping). For persistent delivery of replies, the Router starts a transaction in which the reply is delivered. Once the client returns, the Router commits and the reply is deleted. As with any transactional request, the application’s **ReplyHandler** implementation may choose to invoke **CosTransactions::Current::rollback_only** or **CosTransactions::coordinator::rollback_only** and then raise the CORBA::TRANSACTION_ROLLEDBACK system exception if it wishes to rollback the Router’s transaction.
+- A type-specific **ReplyHandler** has been associated with the corresponding **PersistentRequest**. If a callback has been registered for this reply (the **associated_handler** is non-nil), the type-specific callback operation may be invoked directly as described in [Replying to a Type-specific ReplyHandler](#replying-to-a-type-specific-replyhandler). For persistent delivery of replies, the Router starts a transaction in which the reply is delivered. Once the client returns, the Router commits and the reply is deleted. As with any transactional request, the application’s **ReplyHandler** implementation may choose to invoke **CosTransactions::Current::rollback_only** or **CosTransactions::coordinator::rollback_only** and then raise the CORBA::TRANSACTION_ROLLEDBACK system exception if it wishes to rollback the Router’s transaction.
 - A **PersistentRequest::get_reply** is pending for this request. The reply data may be immediately returned to the waiting client. The reply is returned within the client’s transaction context and when that transaction is committed the reply is deleted.
 - The reply data may be saved to stable storage (for guaranteed delivery this is made durable when the sending Router commits the transaction in which the reply has been delivered) or recorded in-process (if the reply is not guaranteed). The **UntypedReplyHandler::reply** then returns. The reply is obtained by a client at a later time.
 
-## 17.16 Router Administration
+## Router Administration
 
 One basic function of a Router is to forward a request to another Router, which is “closer” to the eventual target of a client’s original request. In terms of the relationship between these two routers, the first Router can be thought of as the “source Router,” and the second can be called the “destination Router.” In the case where the network is partitioned or the destination Router has temporarily or permanently become unavailable, the source Router will be unable to forward its message. When this occurs, the Router must determine when and how to retry the request to the destination Router.
 
@@ -15384,9 +15324,9 @@ this router will also be contained in a **MessageRouting::TAG_MESSAGE_ROUTERS** 
      
      - At some time, the target once again becomes available. If the target router discovers this due to pinging, the pending requests can now be delivered. If the target router has **SUSPENDED** the registration or is in the midst of the interval between pings when the target re-registers itself, the registration can immediately be set to an **ACTIVE** state and pending requests can be invoked on the target.
 
-### 17.16.1 Constants
+### Constants
 
-**17.16.1.1 typedef short RegistrationState**
+#### typedef short RegistrationState
 
 The **RegistrationState** indicates the current status of a registration for a particular destination (a router or a target). The possible values are:
 
@@ -15394,9 +15334,9 @@ The **RegistrationState** indicates the current status of a registration for a p
 - **ACTIVE** - The given destination is currently registered with this **RouterAdmin** and is not in the suspended state.
 - **SUSPENDED** - The given destination is currently registered with this **RouterAdmin** and has been set to the Suspended state.
 
-### 17.16.2 Exceptions
+### Exceptions
 
-**17.16.2.1 exception InvalidState**
+#### exception InvalidState
 
 The attempted operation attempts to affect a registration, which is not in a state with a valid transition to the new state dictated by the operation. The State member contains the current status of the router or target for which the operation was attempted:
 
@@ -15406,17 +15346,17 @@ The attempted operation attempts to affect a registration, which is not in a sta
 
 - **Unregister** was attempted on a router/target not registered.
 
-### 17.16.3 Valuetypes
+### Valuetypes
 
-**17.16.3.1 RetryPolicy**
+#### RetryPolicy
 
 This **valuetype** is the abstract base from which all retry policies are derived.
 
-**17.16.3.2 ImmediateSuspend**
+#### ImmediateSuspend
 
 The registered router is placed in the **SUSPENDED** state as soon as a message send fails.
 
-**17.16.3.3 UnlimitedPing**
+#### UnlimitedPing
 
 This **valuetype** is used to parameterize a pinging behavior:
 
@@ -15424,45 +15364,45 @@ This **valuetype** is used to parameterize a pinging behavior:
 - **base_interval_seconds** - The base number of seconds between retries.
 - **max_backoffs** - If zero, the same interval is used between each retry (constant interval pinging). If non-zero, the interval between retries is multiplied by the **backoff_factor** after each failed send attempt until **max_backoffs** failed attempts have been made. Once **max_backoffs** have been performed, retry attempts are made at the constant rate of the last interval used. Otherwise, the same interval is used between each retry (linear pinging).
 
-**17.16.3.4 LimitedPing**
+#### LimitedPing
 
 This **valuetype** is used to parameterize a pinging behavior that should be stopped after a specified number of attempts. It derives from **UnlimitedPing** and adds the following state:
 
 - **interval_limit** - The number of attempts before the pinging should be stopped.
 
-**17.16.3.5 DecayPolicy**
+#### DecayPolicy
 
 This **valuetype** indicates how long a given registration is valid. If the **decay_seconds** are set to the value zero, the registered destination router will only be unregistered with an invocation of **unregister_router**. Otherwise, the registered destination router will be unregistered after the specified timeout has elapsed.
 
-**17.16.3.6 ResumePolicy**
+#### ResumePolicy
 
 This **valuetype** indicates when a suspended registration should be resumed. If the **resume_seconds** are set to the value zero, the registered destination will only become active once explicitly resumed. Otherwise, the suspended destination will be resumed after the specified timeout has passed.
 
-### 17.16.4 Interfaces
+### Interfaces
 
-**17.16.4.1 RouterAdmin**
+#### RouterAdmin
 
 The **RouterAdmin** interface provides the operations for supporting scalable connection and disconnection between source routers and their destination routers and targets.
 
-**17.16.4.2 register_destination**
+#### register_destination
 
-A registration is added for the specified target with the given policies. If the registration is marked as **is_router**, the destination will receive messages via the Router interface as described in [Intermediate Request Router](#171534-intermediate-request-router). Otherwise, the registration is assumed to be for a target, in which case delivery is made as described in [Target Router](#171535-target-router).
+A registration is added for the specified target with the given policies. If the registration is marked as **is_router**, the destination will receive messages via the Router interface as described in [Intermediate Request Router](#intermediate-request-router). Otherwise, the registration is assumed to be for a target, in which case delivery is made as described in [Target Router](#target-router).
 
-**17.16.4.3 suspend_destination**
+#### suspend_destination
 
 The specified registration is suspended. If that target is not in an **ACTIVE** state, an InvalidState exception is raised. The suspended destination will be returned to the **ACTIVE** state if an explicit **resume_destination** or **register_destination** operation is performed for that destination. If the **resume_policy** allows for **TimedResume**, this transition will occur in, at most, the specified amount of time (e.g., if an explicit resumption doesn’t happen first).
 
-**17.16.4.4 resume_destination**
+#### resume_destination
 
 Resume the suspended destination. An InvalidState exception is raised if the destination is not in the **SUSPENDED** state.
 
-**17.16.4.5 unregister_destination**
+#### unregister_destination
 
 Unregister the specified destination. An InvalidState exception is raised if the target is not registered.
 
-## 17.17 CORBA Messaging IDL
+## CORBA Messaging IDL
 
-### 17.17.1 Messaging Module
+### Messaging Module
 
 The following module has been added by CORBA Messaging:
 
@@ -15476,7 +15416,7 @@ import ::CORBA;
 import ::IOP;
 import ::TimeBase;
 module Messaging {
- typeprefix Messaging “omg.org”;
+ typeprefix Messaging "omg.org";
 
  //
  // Messaging Quality of Service
@@ -15631,7 +15571,7 @@ module Messaging {
 #endif
 ```
 
-### 17.17.2 MessageRouting Module
+### MessageRouting Module
 
 The following module has been added for the CORBA Messaging Interoperable Routing Protocol. These definitions are only required for interoperable support of Time-Independent Invocations:
 
@@ -15647,7 +15587,7 @@ import ::GIOP;
 import ::IOP;
 import ::Messaging;
 module MessageRouting {
- typeprefix MessageRouting “omg.org”;
+ typeprefix MessageRouting "omg.org";
 
  //
  // Basic Routing Interoperability
@@ -15804,266 +15744,9 @@ raises (InvalidState);
 #endif
 ```
 
-Annex A for Clause 17
-Overall Design Rationale
-(normative)
+# Compression
 
-## A.1 QoS Abstract Model Design
-
-This Annex describes each of the components in the Quality of Service (QoS) abstract model and their relationships. The specification defines a framework within which current QoS levels are queried and overridden. This framework is intended to be of use for CORBAServices specifiers, as well as for future revisions of CORBA. The Messaging-specific QoS are defined in terms of this framework.
-
-**NOTE:** The QoS definitions specified in this specification are applied to both synchronous as well as asynchronous invocations.
-
-## A.2 Model Components
-
-The QoS framework abstract model consists of the following components:
-
-- **Policy** - The base interface from which all QoS objects derive.
-- **PolicyList** - A sequence of Policy objects.
-- **PolicyManager** - An interface with operations for querying and overriding QoS **Policy** settings.
-- Mechanisms for obtaining **Policy** override management operations at each relevant application scope:
-- The ORB’s **PolicyManager** is obtained through invoking **ORB::resolve_initial_references** with the **ObjectId** “ORBPolicyManager”.
-- A **CORBA::PolicyCurrent** derived from **CORBA::Current** is used for managing the thread’s QoS Policies. A reference to this interface is obtained through an invocation of **ORB::resolve_initial_references** with the **ObjectId** “PolicyCurrent.”
-- Accessor operations on **CORBA::Object** allow querying and overriding of QoS at the object reference scope.
-- The application of QoS on a Portable Object Adapter is done through the currently existing mechanism of passing a **PolicyList** to the **POA::create_POA** operation.
-- Mechanisms for transporting Policy values as part of interoperable object references and within requests:
-- **TAG_POLICIES** - A Profile Component containing the sequence of QoS policies exported with the object reference by an object adapter.
-- **INVOCATION_POLICIES** - A Service Context containing a sequence of QoS policies in effect for the invocation.
-
-The Messaging QoS abstract model consists of a number of **CORBA::Policy**-derived interfaces:
-
-- Client-side Policies are applied to control the behavior of requests and replies. These include Priority, RequestEndTime, and Queueing QoS.
-- Server-side Policies are applied to control the default behavior of invocations on a target. These include QueueOrder and Transactionality QoS.
-
-### A.2.1 Component Relationships
-
-Programmers set QoS at various levels of scope by creating a Policy-derived Messaging QoS Policy and selecting the interface for the particular scope. It is anticipated that the following is the standard use-case scenario:
-
-- A POA is created with a certain set of QoS. When object references are created by that POA, the required and supported QoS are encoded in that object reference. Such an object reference is then exported for use by a client.
-- Within a client, the ORB’s **PolicyManager** interface is obtained to set QoS for the entire ORB (for the entire process when only one ORB is present) either programmatically, or administratively. The Policies set here are valid for all invocations in the process. A programmer-constructed **PolicyList** is used with this interface to actually set the QoS.
-- Within that same client, the **CORBA::PolicyCurrent** is obtained to set QoS for all invocations in the current thread. This interface is derived from the **PolicyManager** interface, which can be used to change the QoS for each invocation. A programmer-constructed **PolicyList** is used with this interface to actually set the QoS.
-- Within that same client, the object reference is obtained and an invocation of its **get_client_policy** operation queries the most specific QoS overrides. A programmer-constructed **PolicyList** may be passed to the Object’s
-**set_policy_overrides** operation to obtain a new Object reference with revised QoS. Setting the QoS here applies to all invocations using the new Object reference and supersedes (if possible) those set at the ORB and thread (Current) scopes. The current set of overrides can be validated by calling the Object’s pseudo-operation **validate_connection**, which will attempt to locate a target for the object reference if no target has yet been located. At this time, any Policy overrides placed at the Object, Thread or ORB scope will be reconciled with the QoS Policies established for that object reference when it was created by the POA. The current *effective* **Policy** can then be queried by invoking **get_policy**, which returns the **Policy** value that is in effect.
-
-- Unseen by the application, the ORB (including the protocol engine) modifies its internal behavior in order to realize the quality of service indicated by the client through the first three steps. See the description of the protocol abstract design in [Message Routing Abstract Model Design](#a4-message-routing-abstract-model-design).
-
-### A.2.2 Component Design
-
-Design decisions were made with respect to the following components of the QoS framework:
-
-- Each QoS is an interface derived from **CORBA::Policy**. The design trade-offs focused on ease of application interface for setting specific QoS values, extensibility for new QoS types and values, and compactness so the QoS values can be represented efficiently in Service Contexts and IOR Profile Components. Several alternatives were considered as the basic type for each QoS entity before the decision was made to use the **Policy** interface:
-- **CORBA::NamedValue** - A pair of **string** and **any** were considered mainly due to the flexibility afforded by using an any to represent QoS values. This design was discounted due to the untyped nature of the **any** and the application development and execution costs of inserting typed data into and extracting typed data from values of type **any**. Furthermore, the presence of a full typecode within an any makes the size of such pairs too large for inclusion in compact Service Contexts and Profile Components.
-- Stateful CORBA **valuetype** - Although the **valuetype** does present a typed interface to the application program, including **valuetype**s in Service Contexts and IOR Profile Components is too expensive due to the presence of full repository identifier information when the **valuetype** is marshaled. Furthermore, there are issues associated with potential truncation of such QoS **valuetype**s when passed as formal arguments of their base type.
-- Interfaces derived from **CORBA::Policy** and compact representation. In the model chosen by this specification, the QoS values are accessible through locality-constrained interfaces. Derivation from **CORBA::Policy** allows reuse of existing interfaces and operations for policy management. When certain QoS values must be marshaled in a Service Context or an IOR Profile Component, the most compact format was chosen. The type of QoS **Policy** represented is indicated by a structure containing the integral **PolicyType** and a **sequence** of **octet** holding the values for that policy.
-- A generic factory for creating QoS Policies. In the *POA* specification within *CORBA*, each POA **Policy** is created through an operation on the POA itself. Although this presents a convenient typed interface for the creation of **Policy** objects, it causes serious problems when new POA Policies are introduced. To fit with the current model, operations would have to be added to the POA interface for every new type of POA **Policy**. To address this potential administrative nightmare, this specification introduces a new ORB operation **create_policy**. Rather than introducing typed operations for creating all of the Messaging QoS Policies discussed in this specification, the generic factory operation is used.
-- A **RebindPolicy** client-side QoS **Policy** to ensure deterministic effective QoS. In *CORBA*, *transparent rebinding* of an object reference may take place during any invocation. Rebinding is defined here to mean changing the clientvisible QoS as a result of replacing the IOR Profile used by a client’s object reference with a new IOR Profile. Transparent rebinding is defined as when this happens without notice to the client application. Typically, this happens within GIOP through the use of location forwarding. The default **RebindPolicy** (and the only *CORBA* behavior) supports this transparent rebind. For an application with rigorous quality of service requirements, such transparent rebinding can cause problems. For instance, unexpected errors may occur if the application sets its QoS Policies appropriately for an object reference, and then the ORB transparently changes the application’s assumptions about that reference by obtaining a new IOR. The **RebindPolicy** has been added so that applications can prevent the ORB from silently changing the IOR Profile (and therefore the server-side QoS) that have been assumed. A more rigorous value of this **Policy** even precludes the ORB from silently closing and opening connections (when IIOP is being used, for example). The specific requirements demanded by an application dictate which level of **RebindPolicy** is necessary.
-
-## A.3 AMI/TII Abstract Model Design
-
-This sub clause describes each of the components in the Asynchronous Method Invocation /Time-Independent Invocation (AMI/TII) abstract model and the relationships between them.
-
-The model supported by Messaging is a specialization of the general object model described in the OMA guide. All of the elements of the CORBA object model are present in the model described here. Some of the names of existing components are defined more precisely than they are in the CORBA object model. In addition, this specification adds some new components to support Messaging.
-
-Some of the components described here have been borrowed from other specifications, which in some cases have yet to be ratified. Where this occurs, it is clearly noted.
-
-### A.3.1 Asynchronous Method Invocation Components
-
-The abstract model for AMI/TII supported by Messaging adds the following client-side components:
-
-- **ReplyHandler** - A **ReplyHandler** is an Object that encapsulates the functionality for handling an asynchronous reply. It is used for callback model reply handling.
-- **Poller** - A Poller is a **valuetype** used by clients to obtain replies to asynchronous invocations. The Poller provides a type-specific wrapping through which a Reply is obtained.
-- Asynchronous Method Invocation (AMI) - A remote method invocation that returns immediately and whose reply is handled by a **ReplyHandler**-derived class implemented by the programmer, or whose reply is obtained through a Poller **valuetype**.
-
-### A.3.2 Time-Independent Invocation Components**
-
-The abstract model for AMI/TII supported by Messaging adds the following components to support interoperability of Time-Independent Invocations:
-
-- **PersistentRequest** - A **PersistentRequest** is an Object that encapsulates an outstanding request. It supports operations for asynchronous operations (including polling or blocking until the reply comes). The **PersistentRequest** is not a locality constrained object (as opposed to the **CORBA::Request**).
-- **Persistent ReplyHandler** - A **ReplyHandler** whose Object reference is created by a POA with a **PERSISTENT LifeSpan** Policy. The Persistent **ReplyHandler** may be implemented by a process other than the one that issued the request.
-- **PersistentPoller** - A Poller with state including a **PersistentRequest** reference. The **PersistentPoller** may be used by a process other than the one that issued the request.
-- Time-Independent Invocation (TII) - A time-independent invocation is an AMI request whose reply may outlive the client process. This is addressed via the persistent **ReplyHandler** and Poller mechanisms.
-- Router - A software routing agent that is used when the target objects (either the target of the request or the target of the reply) are not available.
-- Interoperable Routing Protocol -- An interoperable routing protocol built in terms of GIOP that provides a higher level of Quality of Service with respect to message routing and delivery than is currently supported by IIOP. These extensions allow out-of-the-box interoperability and define interfaces for MOM product plug-ins to support CORBA Messaging with value-added QoS services that the particular MOM vendor brings to the market.
-
-### A.3.3 Component Relationships
-
-Figure 17.2 denotes an abstract view of the general Messaging architecture and is not meant to imply any particular implementation.
-
-![](Images/figure17-2.svg)
-
-**Figure 17.2 - TII: No direct connection possible**
-
-Figure 17.2 depicts the most general scenario in which a client application residing on a laptop wishes to make an asynchronous method invocation on an object in a server residing on another laptop. Each laptop typically connects to its own corporate or ISP network. Each of these networks has some set of Request/Reply Routers installed that are meant to be highly available and reliable. These Routers provide store-and-forward capabilities.
-
-In Figure 17.2 neither client nor server laptops are currently connected to their respective networks. In this scenario, the client application makes its requests using the Time-Independent Invocation model. The dashed arrows indicate that the client always tries to make the invocation on the target object or the Request/Reply Router closest to the target. Since the client is not connected, it makes the invocation on the local router (indicated by the solid arrow).
-
-Figure 17.3 depicts an asynchronous invocation in that the replies to the client invoke an operation on a callback object called a **ReplyHandler**. In general, the client may passivate himself, or may die while the request is outstanding. If a persistent delivery quality of service had been specified (with a long enough time-out period) the reply may be delivered when the **ReplyHandler** instance becomes available again. All object adapter features including process activation, Adapter activation and servant activation can be used in ensuring delivery of the reply to a persistent **ReplyHandler**.
-
-Again, Figure 17.2 is meant to depict the most general case.
-
-![](Images/figure17-3.svg)
-
-**Figure 17.3 - TII: Target not available synchronously**
-
-Figure 17.3 illustrates the case where the client laptop gains an Internet connection to its corporate network. In this scenario, the Routers that are accessible exchange requests and replies always first trying to contact the target and then sending to the accessible **Router** closest to the target. In [Figure 17.3], the server laptop is not accessible so the routers exchange information. Notice that Corporate Routers may have replies to invoke on the client’s set of ReplyHandlers now that the client is reachable. Also, recognize that since the client laptop is now connected, there may be requests and replies for other targets, which are not currently running on the Client Laptop and so are cached in the Client Laptop’s Local **Router**.
-
-![](Images/figure17-4.svg)
-
-**Figure 17.4 - Full connectivity available**
-
-Finally, Figure 17.4 represents full connectivity. Notice that all of the Request/Reply Routers exchange information to get previously-queued requests/replies closer to their target objects. Since there is full connectivity between the two applications, the client’s async invocations can be made on the target object directly and the replies can be sent directly back to make the appropriate invocation on the **ReplyHandler** object.
-
-If the client application has requested queued delivery, a Router is used even in the case depicted in Figure 17.4. Despite the availability of the target, the client ORB sends the request to a Router, which can queue the request prior to attempting the synchronous invocation on the target. As an optimization that limits the request to needing only a single network hop, this Router may be local to the target, but it is still a Router with all the usual responsibilities.
-
-Notice also that since the Server Laptop is connected its Request/Reply Router exchanges information for applications that may or may not be running.
-
-### A.3.4 Callback Model Detailed Design
-
-Several characteristics of the Callback programming model are worth extra attention:
-
-- The **ReplyHandler** is a CORBA object that receives the reply to an AMI. The programmer writes the implementation for a type-specific **ReplyHandler**. A client obtains an object reference for this **ReplyHandler** and passes it as part of the asynchronous method invocation. When the server completes the request, its reply is delivered as an invocation on the **ReplyHandler** object. This invocation is made on the **ReplyHandler** using the normal POA techniques of servant and object activation. As a result, the callback operation may be handled in a different programming context than that in which the original request was made.
-- Exception replies require special handling in the Callback model. Since the **ReplyHandler** implements an IDL interface, all arguments passed to its operations must be defined in IDL as well. However, exceptions cannot be passed as arguments to operations; exceptions can only be raised as part of a reply. To solve this problem, an
-**ExceptionHolder** **valuetype** is created to encapsulate the identity and contents of the exception that was raised. An instance of this **ExceptionHolder** is passed as the argument to the **ReplyHandler** operation that indicates an exception was raised by the target. In addition to its exception state, the **ExceptionHolder** also has operations that raise the returned exception, so the **ReplyHandler** implementation can have the returned exception re-raised within its own context.
-
-### A.3.5 Poller/PersistentRequest Detailed Design
-
-In the Polling model, the routing relationships are a superset of those seen in the Callback model. The differences in this model appear at both the beginning and end of the request/reply cycle. For Polling, the client application does not establish a Callback **ReplyHandler**. The events that occur when Polling are pictured in Example 17-1. The steps are as follows:
-
-1. The client invokes the “sendp” variation of the target object’s operation.
-2. The ORB creates a **PersistentRequest** object and associates a reference to it with an invisible **ReplyHandler** that is wrapped in a type-specific Poller value.
-3. The ORB returns this Poller to the client.
-4. The ORB then proceeds as if the invocation were done with the invisible **ReplyHandler** and sends its request into the network.
-5. At the very end, the invisible **ReplyHandler** receives the response and waits for a poll.
-6. When the computing context holding the type-specific Poller asks for a response, the Poller obtains the response from the invisible **ReplyHandler** and delivers that response to the caller.
-
-![](Images/example-figure17-1.svg)
-
-**Example 17-1. Sequence of Steps in Polling**
-
-A client uses the **Poller** in a similar fashion as in the DII deferred synchronous model. The programmer can at any time choose to check whether or not the reply has arrived and deal with it in the current programming context. The user may also ask a Poller to block until the reply has arrived. The **PersistentRequest** reference is not visible to the client application, but is specified to enable interoperability between Messaging products.
-
-When a Time-Independent Invocation has been made, it is possible to poll for the reply in a client different from the one that made the initial request. An application takes advantage of this by passing the Poller from the client that made the request to the client that intends to poll for the reply (presumably by way of an Object instance that is collocated with the latter client). Since this Poller is implemented through the use of a **PersistentRequest** object implemented by the Messaging layer, that **PersistentRequest** must be accessible to whichever client uses that Poller. When the TII is used, it is possible for the polling client to obtain the reply after the original invoking client no longer exists. Since the **PersistentRequest** must be implemented in a server that is accessible to the Polling client, that **PersistentRequest** must be external to the original invoking client. A common design might be to have the **PersistentRequest** in this case be implemented by a corporate Router accessible to the invoking client as well as to the client that intends to poll for the response. The creation of **PersistentRequest** objects is discussed in detail in the Section 17.13, Sub clause III - Introduction.
-
-In addition to being able to query the status of an individual Poller, the client can use the **PollableSet** interface to ask about the status of several pollers, as well as the status of any deferred synchronous requests. The client can query to find out if any of a particular set has completed or it can block until one of the set completes.
-
-*Note on CORBA AMI Support*
-
-Asynchrony is addressed in several places in *CORBA*. These items are taken into consideration by this specification and are modified in the following ways:
-
-- oneway operations - Operations can be defined in IDL to be oneway. Such operations are by their very nature asynchronous, in that no reply is ever received from a oneway operation and no synchrony can be assumed between the client and the target. However, the definition of oneway in the *CORBA* specification does not guarantee a deterministic, portable behavior between compliant ORB products. To address this issue, the CORBA Messaging specification introduces a QoS Policy that makes the behavior of oneway operations deterministic. Note that this new Policy addresses the behavior of oneway operations regardless of the use of the new Polling and Callback stubs introduced by this specification.
-- DII Deferred Synchronous - Deferred synchronous invocations are supported in *CORBA* only when the DII is used. The CORBA::Request pseudo-interface is enhanced by this specification with the additions of TII and the Callback model.
-
-*Note on Asynchrony and Narrowing of Object References*
-
-- Many programming languages map IDL interfaces to programming constructs that support inheritance. In those language mappings (such as C++ and Java) that provide a mechanism for narrowing an Object reference of a base interface to a more derived interface, the act of narrowing may require the full type hierarchy of the target. In this case, the implementation of narrow must either contact an interface repository or the target itself to determine whether or not it is safe to narrow the client’s object reference. This requirement is not acceptable when a client is expecting only asynchronous communication with the target. Therefore, for the appropriate languages this specification adds an unchecked narrow operation to the IDL mappings for interface. This unchecked narrow always returns a stub of the requested type without checking that the target really implements that interface. If a client narrows the target to an unsupported interface type, invoking the unsupported operations will raise the system exception CORBA::BAD_OPERATION with standard minor code 2.
-
-## A.4 Message Routing Abstract Model Design
-
-This sub clause describes each of the components of the Message Routing abstract model and their relationships.
-
-### A.4.1 Model Components
-
-By and large the components of the message routing protocol are the same as those of GIOP. The differences come with respect to two issues:
-
-- TII is essentially a store-and-forwarding mechanism. This implies the use of Request routing agents. The protocol followed by these Routers is defined in Message Routing.
-- Dynamic Protocol Selection based on QoS is reconciled locally via information in the IOR and the local ORB. This implies several newly defined items at the protocol level:
-- Newly defined **IOP::ServiceContext** that contains QoS parameters.
-- Newly defined **IOP::ComponentId** tag for Messaging and a Component consisting of a representation of default QoS parameters.
-- Newly defined **IOP::ComponentId** tag and Component representing the transaction policy.
-- A newly defined **IOP::ComponentId** tag and Component containing a sequence of Request Routers. This sequence of Routers represents the preferred addressing strategy when TIIs are made on an Object.
-
-### A.4.2 Component Relationships
-
-The relationship between the above described components is based on the following:
-
-- QoS resolution should be performed by the client ORB if possible. Routers and/or Messaging-aware Adapters must ensure that only valid QoS have been selected.
-- For efficient use of the Request/Reply Routers, their addressing information needs to be in the IOR.
-- Request/Reply Routers re-route request and reply messages by explicitly sending messages between them, and then generating a regular GIOP request (and receiving a regular GIOP reply) when interfacing with the real target. To allow this routing to occur, the Router interface requires an encapsulation of a GIOP request in terms of:
-- Routing information including the message header and pertinent QoS information.
-- Message payload (the marshaled arguments and service contexts from the client).
-
-The routers use the encapsulated QoS & re-routing information to re-route requests and replies and to decide whether to store request/reply information for a specified lifetime. The GIOP must be flexible enough to allow the Router closest to the request’s destination to generate a request that looks like it was marshalled at the original client. This closest Router must be able to handle the full GIOP including the processing of a **LOCATION_FORWARD** reply without necessitating a return to the original client.
-
-### A.4.3 Router Administration Design
-
-Several features of the Router administration design are worth note. These fall into two main areas:
-
-- Static vs. Dynamic Routing - Routing information for an Object is available to the client ORB through a Profile Component in the object’s IOR. This Component contains a sequence of Router references through which TimeIndependent requests may pass on the way to the target. Therefore, portably exporting a target’s preferred Routers must be done statically, at the time when the target’s reference is created. This specification introduces no interfaces that suppo rt dynamic routing. It is expected that future work in CORBA Messaging will introduce portable administrative interfaces through which domains of Routers may be connected. Note that since the Router is an Object, the usual CORBA mechanisms for dynamic server relocation can certainly be used to allow migration of Routers and other such dynamic Routing activities.
-- Minimize administrative traffic - Administrative interfaces are introduced that will allow a minimal amount of network bandwidth to be consumed when network disconnections occur. Furthermore, these administrative interfaces have been designed so that additional overhead is not consumed when Routers would normally be in an idle state.
-
-Administrative communication is only necessary when messages would otherwise have to be sent between Routers.
-
-**Annex B for Clause 17**
-**Conformance and Compatibility Issues**
-
-(normative)
-
-This Annex specifies the points that must be met for a compliant implementation of CORBA Messaging and compatibility issues associated with this specification.
-
-## B.1 Conformance Issues
-
-This specification can be separated into several logical components. In order to be conformant with this specification, the following mappings and features must be supported and implemented using the specified semantics:
-
-- Changes to CORBA and Services. These changes include the modifications to GIOP, OTS, and the
-**SyncScopePolicy** refinements to **oneway** operations. This component includes the **Policy** management framework for Quality of Service as described in [I - Introduction](#121-introduction).
-
-- Asynchronous Method Invocation (AMI) interfaces. This component includes the generation of asynchronous stubs (sendc/sendp operations) along with all interfaces and values upon which these stubs rely. All modifications to the DII are also included in this component.
-- Quality of Service Policies for Messaging. These new Policies and their possible values are described in Messaging Quality of Service.
-
-Implementation of the following component is not required to be conformant with this specification:
-
-- Time-Independent Invocations (TII). This component includes the QoS **Policy** that supports TII
-(**RoutingTypePolicy**), the typed **PersistentPollers** described in Persistent Type-Specific Poller and all interoperable Routing interfaces described in III - Introduction.
-
-## B.2 Compatibility Issues
-
-### B.2.1 Transaction Service
-
-Transaction service compatibility is affected by two factors:
-
-- Changes to existing transaction service behavior introduced as part of this specification.
-- New transaction service functions introduced by this specification and the affect on existing implementations.
-
-These are considered separately in each of the following sub clauses.
-
-### B.2.2 Changes to Current OTS Behavior
-
-This specification deprecates the **TransactionalObject** interface defined in the *Transaction Service* specification. The **TransactionalObject** interface was defined to control propagation of the transaction context between the client and the server. An interface that inherits from **TransactionalObject** will automatically have the client’s transaction context established by the server ORB before any operations on that interface are invoked.
-
-A new mechanism for transaction propagation is independent of the use of inheritance from **TransactionalObject**. This mechanism has been defined so that *existing applications will continue to operate correctly without change* so they do not have to remove **TransactionalObject** inheritance from their existing IDL. At most, they will need to ensure that a definition of **CosTransactions::TransactionalObject** continues to be available to the IDL compiler.
-
-The use of **TransactionalObject** inheritance had two other side effects in the *Transaction Service* specification.
-
-- It affected the CORBA type of the interface being defined and thus the RepositoryID in the Interface Repository. This means that once interface inheritance is actually removed, transactional and non-transactional implementations of the same interface will have the same CORBA type.
-- It provided for documentation within IDL of interfaces whose implementation was intended to be transactional. This enabled application developers to easily track their use of transactions.
-
-Once **TransactionalObject** is actually removed, these side effects will no longer be present.
-
-#### B.2.2.1 Effects of New OTS Functions on Existing OTS Implementations
-
-This specification introduces new functions and behaviors to the *Transaction Service* to support the global transaction model used by messaging and to encode the transaction model in the object reference using a newly defined **TransactionPolicy**. The default for this new policy has been chosen to be compatible with existing CORBA behavior (i.e., a global transaction is associated with the target object if present) otherwise it is not. Existing applications, which will not create **TransactionPolicy** objects, will get the existing CORBA behavior.
-
-**Existing Clients with New Servers**
-
-New server applications can create object references with new **TransactionPolicy** selections that can be exported to existing clients. Depending on the **TransactionPolicy** selected, invoking methods on these objects may succeed transparently to the client or produce failures (in the form of system exceptions) existing clients will not have previously seen.
-
-**New AMI Clients with Existing Servers**
-
-Existing servers may require analysis of their existing semantics to determine the extent to which they may be able to operate with new clients, especially clients that use the new AMI request invocation model. In general the following are true and existing objects may as a result be usable without change by AMI clients:
-
-- If transactions are not used, existing server objects will interoperate with new AMI clients.
-- If transactions are used, AMI invocations will use the new queued transaction model causing invocations on the target object to be rejected with a new system exception.
-- Depending on application design, it is possible that some (but not all) of these existing applications can operate successfully with AMI clients. This will require that these server objects be changed to produce new compatible object references.
-
-It is normally true that a server application design, which depends on updating recoverable resources managed by objects at multiple sites cannot support an AMI invocation without producing different behavior. For the cases where this is not a problem the application can take advantage of new AMI clients by changing the object reference at creation time.
-
-### B.2.3 Security Service
-
-The issues surrounding Security and Time-Independent Invocations must be addressed in a subsequent RFP. Current CORBA Security does fully support all other aspects of this specification, including typed deferred synchronous invocations.
-
-# 18 Compression
-
-## 18.1 General
+## General
 
 The Compression module provides a set of interfaces to create and register entities that provide compression and decompression functionalities. These features may be used in stand-alone mode to obtain compressed and decompressed CORBA octet sequences, or internally by the ORB to compress GIOP messages when the ZIOP protocol is enabled.
 
@@ -16082,7 +15765,7 @@ The Compression module provides the way to easily create custom compressors. The
 
 The zlib compressor must be provided by default and may be used easily as another CORBA feature. Also it must be possible to implement a new custom compressor by implementing the Compressor interface.
 
-## 18.2 Compressor Interface
+## Compressor Interface
 
 This interface is an abstraction of a specific algorithm for compression and decompression. All different algorithm implementations will support this common interface.
 
@@ -16116,39 +15799,39 @@ module Compression {
 };
 ```
 
-### 18.2.1 CompressionException
+### CompressionException
 
 This exception is thrown when compress or decompress fails. The reason can be used by the concrete compressor implementation to give some feedback on the technical reason of the failure. This could be used by application mode when they are aware of the concrete compressor and their list of possible reasons. Because there are a lot of different compression algorithms with different possible error reasons we don’t want to attempt to list all possible error reasons. When the underlying compression algorithm has the possibility to retrieve an error string this will be put in the description field.
 
-### 18.2.2 compress
+### compress
 
 This operation compresses the data contained in a source buffer into the target buffer. If an error occurs during the compression, it throws a CompressionException. The buffer is an octet sequence that could be extended with ORB specific operations.
 
-### 18.2.3 decompress
+### decompress
 
 This operation decompresses the data contained in the source buffer into the target buffer. If an error occurs during the decompression, it throws a CompressionException. The buffer is an octet sequence that could be extended with ORB specific operations.
 
-**18.2.4 compressor_factory**
+### compressor_factory
 
 This attribute represents the object reference to CompressorFactory that created this Compressor.
 
-### 18.2.5 compression_level
+### compression_level
 
 This attribute represents, for the specific algorithm, the compression level that will be applied using this Compressor. For ZIOP we define that 0 means no compression, 1 low compression, 9 the highest compression available.
 
-### 18.2.6 compressed_bytes
+### compressed_bytes
 
 This attribute represents the total number of compressed bytes written by this compressor during compression (i.e., the “target” argument of Compressor::compress). This information could be useful for statistical purposes.
 
-### 18.2.7 uncompressed_bytes
+### uncompressed_bytes
 
 This attribute represents the total number of uncompressed bytes read by this compressor during compression (i.e., the “source” argument of Compressor::compress). This information could be useful for statistical purposes.
 
-### 18.2.8 compression_ratio
+### compression_ratio
 
 This attribute represents the compression ratio achieved by this compressor. The ratio must be obtained with the following formula: compressed_bytes / uncompressed_bytes.
 
-## 18.3 CompressorFactory Interface
+## CompressorFactory Interface
 
 The CompressorFactory interface allows the retrieval of a Compressor with a particular algorithm implementation. Compressors are retrieved for a specific compression level.
 
@@ -16161,15 +15844,15 @@ local interface CompressorFactory {
 };
 ```
 
-### 18.3.1 compressor_id
+### compressor_id
 
 This attribute represents the specific compression algorithm associated with this CompressorFactory. All Compressors retrieved from this factory use this algorithm.
 
-### 18.3.2 get_compressor
+### get_compressor
 
 This operation retrieves a Compressor instance with the given compression level. Calling this operation multiple times with the same compression level should return the same instance. The CompressorFactory is responsible for managing the lifetime of the Compressors. If a compression level ```>``` 9 is passed, a BAD_PARAM exception with minor code 44 is raised.
 
-## 18.4 CompressionManager Interface
+## CompressionManager Interface
 
 This is the interface to register and unregister CompressorFactories objects with an ORB. It is obtained by resolving initial references: “CompressionManager.”
 
@@ -16198,27 +15881,27 @@ CompressorFactorySeq get_factories();
 };
 ```
 
-### 18.4.1 register_factory
+### register_factory
 
 This operation registers a new CompressorFactory.
 
-### 18.4.2 unregister_factory
+### unregister_factory
 
 This operation unregisters a CompressorFactory with the given CompressorId from the CompressionManager.
 
-### 18.4.3 get_factory
+### get_factory
 
 This operation retrieves a CompressorFactory with the given CompressorId from the CompressionManager.
 
-### 18.4.4 get_compressor
+### get_compressor
 
 This operation retrieves a Compressor with the given compression_level from the CompressorFactory with the given CompressorId. Calling this operation multiple times with the same compressor id and compression level should return the same instance. If a compression level ```>``` 9 is passed a BAD_PARAM exception with minor code 44 is raised.
 
-### 18.4.5 get_factories
+### get_factories
 
 This operation lists all registered CompressorFactories in the CompressionManager.
 
-## 18.5 Consolidated IDL
+## Consolidated IDL
 
 ```
 #pragma prefix "omg.org"
@@ -16293,326 +15976,3 @@ module Compression {
  };
 };
 ```
-
-# Annex A: IDL Tags and Exceptions (normative)
-
-## A.1 Overview
-
-This annex lists the standardized profile, service, component, policy tags and exception codes described in the CORBA documentation. Implementor-defined tags can also be registered in this manual. Requests to register tags with the OMG should be sent to *<tag_request@omg.org>*.
-
-## A.2 Profile ID Tags
-
-| **Tag Name** | **Tag Value**| **Described in**|
-|---------|----------|--------------------|
-| ProfileId| TAG_INTERNET_IOP = 0| *Part 2 of this International Standard - Orb Interoperability Architecture Clause* |
-| ProfileId| TAG_MULTIPLE_COMPONENTS = 1 | *Part 2 of this International Standard - Orb Interoperability Architecture Clause* |
-| ProfileId| TAG_SCCP_IOP = 2| CORBA/TC Interworking specification|
-| ProfileId| TAG_UIPMC = 3| *Part 2 of this International Standard -*  *Unreliable Multicast* clause|
-| ProfileId| TAG_MOBILE_TERMINAL_IOP = 4 | Telecom Wireless specification                                                     |
-
-## A.3 Service ID Tags
-
-| **Tag Name** | **Tag Value**| **Described in**|
-|--------------|--------------|------------------|
-| ServiceId    | TransactionService = 0| Object Transaction Service specification|
-| ServiceId| CodeSets = 1| *Part 2 of this International Standard - ORB Interoperability Architecture* clause.|
-| ServiceId| ChainBypassCheck = 2| *Interoperability with non-CORBA Systems* clause:  see *Part 2 of this International Standard*  |
-| ServiceId    | ChainBypassInfo = 3| *Interoperability with non-CORBA Systems* clause:  see *Part 2 of this International Standard*. |
-| ServiceId| LogicalThreadId = 4| *Interoperability with non-CORBA Systems* clause:  see *Part 2 of this International Standard*  |
-| ServiceId| BI_DIR_IIOP = 5| *Part 2 of this International Standard - General Inter-ORB Protocol* clause.|
-| ServiceId| SendingContextRunTime = 6     | *This Part of this International Standard - Value Type Semantics* clause.|
-| ServiceId| INVOCATION_POLICIES = 7| *This Part of this International Standard - CORBA Messaging* clause.|
-| ServiceId| FORWARDED_IDENTITY = 8| Firewall Traversal specification (ptc/04-03-01)|
-| ServiceId| UnknownExceptionInfo = 9| Java to IDL Language Mapping specification:|
-| ServiceId| RTCorbaPriority = 10| Real-Time CORBA specification: see|
-| ServiceId| RTCorbaPriorityRange = 11     | Real-Time CORBA specification: see|
-| ServiceId| FT_GROUP_VERSION = 12| *Fault Tolerant CORBA* clause: see CORBA, v3.0.3.|
-| ServiceId| FT_REQUEST= 13| *Fault Tolerant CORBA* clause: see CORBA, v3.0.3.|
-| ServiceId| ExceptionDetailMessage = 14   | *Part 2 of this International Standard - ORB Interoperability Architecture* clause.|
-| ServiceId| SecurityAttributeService = 15 | *Part 2 of this International Standard - Secure Interoperability* clause.|
-| ServiceId| ActivityService = 16| Additional Structuring Mechanisms for the OTS.|
-| ServiceId| RMICustomMaxStreamFormat = 17 | Java to IDL Language Mapping specification.|
-| ServiceId| ACCESS_SESSION_ID = 18| Telecom Service Access Subscription (TSAS) specification.                                       |
-| ServiceId| SERVICE_SESSION_ID = 19| Telecom Service Access Subscription (TSAS) specification.|
-| ServiceId| FIREWALL_PATH = 20| Firewall Traversal specification (ptc/04-03-01)                                                 |
-| ServiceId| FIREWALL_PATH_RESP = 21       | Firewall Traversal specification (ptc/04-03-01)|
-
-## A.4 Component ID Tags
-
-| **Tag Name** | **Tag Value**| **Described in**|
-|--------------|--------------|------------------|
-| ComponentId  | TAG_ORB_TYPE = 0                      | *CORBA 3.1, Part 2 - ORB Interoperability Architecture* clause.|
-| ComponentId  | TAG_CODE_SETS = 1                     | *CORBA 3.1, Part 2 - ORB Interoperability Architecture* clause.|
-| ComponentId  | TAG_POLICIES = 2| *CORBA 3.1, Part 1 - CORBA Messaging* clause.|
-| ComponentId  | TAG_ALTERNATE_IIOP_ADDRESS = 3        | *CORBA 3.1, Part 2 - General Inter-ORB Protocol* clause.|
-| ComponentId  | TAG_COMPLETE_OBJECT_KEY = 5| *The DCE ESIOP* clause: see CORBA, v3.0.3.|| ComponentId  | TAG_ENDPOINT_ID_POSITION = 6          | *The DCE ESIOP* clause: see CORBA, v3.0.3.|
-| ComponentId  | TAG_LOCATION_POLICY = 12| *The DCE ESIOP* clause: see CORBA, v3.0.3.|
-| ComponentId  | TAG_ASSOCIATION_OPTIONS =13| Security Service specification.|
-| ComponentId  | TAG_SEC_NAME = 14||
-| ComponentId  | TAG_SPKM_1_SEC_MECH = 15||
-| ComponentId  | TAG_SPKM_2_SEC_MECH = 16||
-| ComponentId  | TAG_KerberosV5_SEC_MECH = 17||
-| ComponentId  | TAG_CSI_ECMA_Secret_SEC_MECH = 18     ||
-| ComponentId  | TAG_CSI_ECMA_Hybrid_SEC_MECH = 19     ||
-| ComponentId  | TAG_SSL_SEC_TRANS = 20||
-| ComponentId  | TAG_CSI_ECMA_Public_SEC_MECH = 21     ||
-| ComponentId  | TAG_GENERIC_SEC_MECH = 22||
-| ComponentId  | TAG_FIREWALL_TRANS = 23| Firewall Traversal specification (ptc/04-03-01)|
-| ComponentId  | TAG_SCCP_CONTACT_INFO = 24            | CORBA/TC Interworking and SCCP Inter-ORB Protocol specification.|
-| ComponentId  | TAG_JAVA_CODEBASE = 25| Java to IDL Language Mapping specification.|
-| ComponentId  | TAG_TRANSACTION_POLICY = 26           | Object Transaction Service specification.|
-| ComponentId  | TAG FT_GROUP= 27| *Fault Tolerant CORBA* clause: see CORBA, v3.0.3.|
-| ComponentId  | TAG_ FT_PRIMARY= 28                  | *Fault Tolerant CORBA* clause: see CORBA, v3.0.3.|
-| ComponentId  | TAG_ FT_HEARTBEAT_ENABLED = 29       | *Fault Tolerant CORBA* clause: see CORBA, v3.0.3.|
-| ComponentId  | TAG_MESSAGE_ROUTERS = 30| *This Part of this International Standard - CORBA Messaging* clause.|
-| ComponentId  | TAG_OTS_POLICY = 31| Object Transaction Service specification.|
-| ComponentId  | TAG_INV_POLICY = 32| Object Transaction Service specification.|
-| ComponentId  | TAG_CSI_SEC_MECH_LIST = 33            | *Part 2 of this International Standard - Secure*  *Interoperability* clause |
-| ComponentId  | TAG_NULL_TAG = 34| *Part 2 of this International Standard - Secure*  *Interoperability* clause |
-| ComponentId  | TAG_SECIOP_SEC_TRANS = 35| *Part 2 of this International Standard - Secure*  *Interoperability* clause |
-| ComponentId  | TAG_TLS_SEC_TRANS = 36| *Part 2 of this International Standard - Secure*  *Interoperability* clause |
-| ComponentId  | TAG_ACTIVITY_POLICY = 37| Additional Structuring Mechanisms for the OTS.|
-| ComponentId  | TAG_RMI_CUSTOM_MAX_STREAM_FORMAT = 38 | Java to IDL Language Mapping specification.|
-| ComponentId  | TAG_GROUP = 39| *Part 2 of this International Standard - Unreliable Multicast* clause       |
-| ComponentId  | TAG_GROUP_IIOP = 40| *Part 2 of this International Standard - Unreliable Multicast* clause       |
-| ComponentId  | TAG_PASSTHRU_TRANS = 41| Firewall Traversal (ptc/04-03-01)|
-| ComponentId  | TAG_FIREWALL_PATH = 42| Firewall Traversal (ptc/04-03-01)|
-| ComponentId  | TAG_IIOP_SEC_TRANS = 43               | Firewall Traversal (ptc/04-03-01)|
-| ComponentId  | TAG_HOME_LOCATION_INFO = 44           | Telecom Wireless specification.|
-| ComponentId  | TAG_DCE_STRING_BINDING = 100          | *The DCE ESIOP* clause: see *Part 2 of this International Standard*|
-| ComponentId  | TAG_DCE_BINDING_NAME = 101            | *The DCE ESIOP* clause: see *Part 2 of this International Standard*.|
-| ComponentId  | TAG_DCE_NO_PIPES = 102                | *The DCE ESIOP* clause: see *Part 2 of this International Standard*|
-| ComponentId  | TAG_DCE_SEC_MECH = 103| Security Service specification.|
-| ComponentId  | TAG_INET_SEC_TRANS = 123              | Security Service specification.|
-
-## A.5 Policy Type Tags
-
-The table below lists the standard policy types that are defined by various parts of CORBA and CORBA Services in this version of CORBA/IIOP.
-
-| **Policy Type**| **Policy Interface**| **Defined in**| **Uses create _policy** |
-|-------------------|------------------|------------------|----|
-| SecClientInvocationAccess = 1| SecurityAdmin::AccessPolicy| Security Service specification.| N|
-| SecTargetInvocationAccess = 2| SecurityAdmin::AccessPolicy|| N|
-| SecApplicationAccess = 3| SecurityAdmin::AccessPolicy|| N|
-| SecClientInvocationAudit = 4| SecurityAdmin::AuditPolicy|| N|
-| SecTargetInvocationAudit = 5| SecurityAdmin::AuditPolicy|| N|
-| SecApplicationAudit = 6| SecurityAdmin::AuditPolicy|| N|
-| SecDelegation = 7| SecurityAdmin::Delegation Policy|| N|
-| SecClientSecureInvocation = 8| SecurityAdmin::SecureInvocationPolicy|| N|
-| SecTargetSecureInvocation = 9| SecurityAdmin::SecureInvocationPolicy|| N|
-| SecNonRepudiation = 10| NRService::NRPolicy|| N|
-| SecConstruction = 11| CORBA::SecConstruction| *CORBA 3.1, Part 1 - ORB*  *Interface* clause| N|
-| SecMechanismPolicy = 12| SecurityLevel2::MechanismPolicy| Security Service specification.| Y|
-| SecInvocationCredentialsPolicy = 13 | SecurityLevel2::InvocationCredentials Policy || Y|
-| SecFeaturesPolicy = 14| SecurityLevel2::FeaturesPolicy|| Y|
-| SecQOPPolicy = 15| SecurityLevel2::QOPPolicy|| Y|
-| THREAD_POLICY_ID = 16| PortableServer::ThreadPolicy| *CORBA 3.1, Part 1 - Portable Object Adapter* clause | Y|
-| LIFESPAN_POLICY_ID = 17| PortableServer::LifespanPolicy|| Y|
-| ID_UNIQUENESS_POLICY_ID = 18| PortableServer::IdUniquenessPolicy|| Y|
-| ID_ASSIGNMENT_POLICY_ID = 19| PortableServer::IdAssignmentPolicy|| Y|
-| IMPLICIT_ACTIVATION_POLICY_ID = 20  | PortableServer::ImplicitActivationPolicy    || Y|
-| SERVENT_RETENTION_POLICY_ID = 21    | PortableServer::ServentRetentionPolicy|| Y|
-| REQUEST_PROCESSING_POLICY_ID = 22   | PortableServer::RequestProcessingPolicy|| Y|
-| REBIND_POLICY_TYPE = 23| Messaging::RebindPolicy| *CORBA 3.1, Part 1 -*  *CORBA Messaging* clause| Y|
-| SYNC_SCOPE_POLICY_TYPE = 24| Messaging::SyncScopePolicy|| Y|
-| REQUEST_PRIORITY_POLICY_TYPE = 25| Messaging::RequestPriorityPolicy|| Y|
-| REPLY_PRIORITY_POLICY_TYPE = 26| Messaging::ReplyPriorityPolicy|| Y|
-| REQUEST_START_TIME_POLICY_TYPE =  27| Messaging::RequestStartTimePolicy|| Y|
-| REQUEST_END_TIME_POLICY_TYPE = 28| Messaging::RequestEndTimePolicy|| Y|
-| REPLY_START_TIME_POLICY_TYPE = 29| Messaging::ReplyStartTimePolicy|| Y|
-| REPLY_END_TIME_POLICY_TYPE = 30| Messaging::ReplyEndTimePolicy|| Y|
-| RELATIVE_REQ_TIMEOUT_POLICY_  TYPE = 31| Messaging::RelativeRequestTimeoutPolicy     || Y|
-| RELATIVE_RT_TIMEOUT_POLICY_  TYPE = 32| Messaging::RelativeRoundtripTimeout  Policy || Y|
-| ROUTING_POLICY_TYPE = 33| Messaging::RoutingPolicy|| Y|
-| MAX_HOPS_POLICY_TYPE =34| Messaging::MaxHopsPolicy|| Y|
-| QUEUE_ORDER_POLICY_TYPE = 35| Messaging::QueueOrderPolicy|| Y|
-| FIREWALL_POLICY_TYPE = 36| Firewall::FirewallPolicy| Firewall Traversal specification: (ptc/04-0301)| Y|
-| BIDIRECTIONAL_POLICY_TYPE = 37| BiDirPolicy::BidirectionalPolicy| *Part 2 of this International Standard - General Inter-ORB Protocol* clause | Y|
-| SecDelegationDirectivePolicy = 38| SecurityLevel2::DelegtionDirectivePolicy    | Security Service specification.| Y|
-| SecEstablishTrustPolicy = 39| SecurityLevel2::EstablishTrustPolicy|| Y|
-| PRIORITY_MODEL_POLICY_TYPE = 40| RTCORBA::PriorityModelPolicy| Real-Time CORBA specification.| Y|
-| THREADPOOL_POLICY_TYPE = 41| RTCORBA::ThreadpoolPolicy|| Y|
-| SERVER_PROTOCOL_POLICY_TYPE = 42| RTCORBA::ServerProtocolPolicy|| Y|
-| CLIENT_PROTOCOL_POLICY_TYPE = 43| RTCORBA::ClientProtocolPolicy|| Y|
-| PRIVATE_CONNECTION_POLICY_  TYPE = 44| RTCORBA::PrivateConnectionpolicy|| Y|
-| PRIORITY_BANDED_CONNECTION_  POLICY_TYPE = 45 | RTCORBA::PriorityBandedConnection  Policy   || Y|
-| TransactionPolicyType = 46| CosTransactions::TransactionPolicy| Object Transaction Service specification.| Y|
-| REQUEST_DURATION_POLICY_  TYPE = 47|| *Fault Tolerant CORBA*: see CORBA, v3.0.3.||
-| HEARTBEAT_POLICY_TYPE = 48|| *Fault Tolerant CORBA*: see CORBA, v3.0.3.||
-| HEARTBEAT_ENABLED_POLICY_  TYPE = 49||||
-| IMMEDIATE_SUSPEND_POLICY_ TYPE = 50| valuetype MessageRouting:: ImmediateSuspend | *CORBA 3.1, Part 1 -*  *CORBA Messaging* clause| N|
-| UNLIMITED_PING_POLICY_TYPE =  51| valuetype  MessageRouting::UnlimitedPing    || N|
-| LIMITED_PING_POLICY_TYPE = 52| valuetype MessageRouting::LimitedPing|| N|
-| DECAY_POLICY_TYPE = 53| valuetype  MessageRouting::DecayPolicy|| N|
-| RESUME_POLICY_TYPE = 54| valuetype  MessageRouting::ResumePolicy|| N|
-| INVOCATION_POLICY_TYPE = 55| CosTransactions::InvocationPolicy| Object Transaction Service specification.| Y|
-| OTS_POLICY_TYPE = 56| CosTransactions::OTSPolicy|| Y|
-| NON_TX_TARGET_POLICY_TYPE =  57| CosTransactions::NonTxTargetPolicy|| Y|
-| ActivityPolicyType = 58| CORBA::PolicyType| Additional Structuring  Mechanisms for the OTS.| Y|
-| OSA_MANAGER_POLICY = 59|| Security Domain  Membership (orbos/01-06-||
-| ODM_MANAGER_POLICY = 60|| 01)||
-| PATH_SELECTION_POLICY_TYPE =  61|| Firewall Traversal specification (ptc/04-03-01)||
-| PATH_INSERTION_POLICY_TYPE =  62||||
-| PROCESSING_MODE_POLICY_TYPE  = 63|| *CORBA 3.1, Part 1 -*  *Portable Interceptor* clause ||
-| COMPRESSION_ENABLING_OPOLIC Y_ID = 64| ZIOP::CompressionEnablingPolicy|| Y|
-| COMPRESSOR_ID_LEVEL_LIST_POL ICY_ID = 65 | ZIOP::CompressionIdLevelListPolicy|| Y|
-| COMPRESSION_LOW_VALUE_POLIC Y_ID = 66    | ZIOP::CompressionLowValuePolicy|| Y|
-| COMPRESSION_MIN_RATIO_POLICY _ID = 67   | ZIOP::CompressionMinRatioPolicy|| Y|
-
-## A.6 Exception Codes
-
-If an exception that is to be raised for an error condition does not explicitly specify a specific standard minor code for that error condition, implementations can either use a minor code of zero, or use a vendor-specific minor code to convey more detail about the error.
-
-The following table specifies standard minor exception codes that have been assigned for the standard system exceptions. The actual value that is to be found in the **minor** field of the **ex_body** structure is obtained by or-ing the values in this table with the **OMGVMCID** constant. For example “Missing local value implementation” for the exception NO_IMPLEMENT would be denoted by the **minor** value **0x4f4d0001.**
-
-| **SYSTEM EXCEPTION**   | **MINOR CODE** | **EXPLANATION**|
-|-------------|----------------|-------------------|
-| **ACTIVITY_COMPLETED** | 1| Activity context completed through timeout, or in some way other than requested. |
-| **ACTIVITY_REQUIRED**  | 1| Calling thread lacks required activity context.|
-| **BAD_CONTEXT**| 1| IDL context not found.|
-|| 2| No matching IDL context property.|
-| **BAD_INV_ORDER**    | 1| Dependency exists in IFR preventing destruction of this object.|
-|| 2| Attempt to destroy indestructible objects in IFR.|
-|| 3| Operation would deadlock.|
-|| 4| ORB has shutdown|
-|| 5| Attempt to invoke **send** or **invoke** operation of the same **Request** object more than once.|
-|| 6| Attempt to set a servant manager after one has already been set.|
-|| 7| **ServerRequest::arguments** called more than once or after a call to S**erverRequest:: set_exception**.|
-|| 8| **ServerRequest::ctx** called more than once or before  **ServerRequest::arguments** or after **ServerRequest::ctx,** **ServerRequest::set_result** or  **ServerRequest::set_exception**. |
-|| 9| **ServerRequest::set_result** called more than once or before  **ServerRequest::arguments** or after **ServerRequest::set_result** or  **ServerRequest::set_exception.**|
-|| 10| Attempt to send a DII request after it was sent previously.|
-|| 11| Attempt to poll a DII request or to retrieve its result before the request was sent.|
-|| 12| Attempt to poll a DII request or to retrieve its result after the result was retrieved previously.|
-|| 13| Attempt to poll a synchronous DII request or to retrieve results from a synchronous DII request.|
-|| 14| Invalid portable interceptor call.|
-|| 15| Service context add failed in portable interceptor because a service context with the given id already exists.|
-|| 16| Registration of **PolicyFactory** failed because a factory already exists for the given **PolicyType.**
-|| 17| **POA** cannot create **POA**s while undergoing destruction|
-|| 18| Attempt to reassign priority.|
-|| 19| An OTS/XA integration **xa_start** call returned  **XAER_OUTSIDE.**|
-|| 20| An OTS/XA integration **xa_** call returned **XAER_PROTO.**|
-|| 21| Transaction context of request and client threads do not match in interceptor.|
-|| 22| Poller has not returned any response yet.|
-|| 23| Registration of TaggedProfileFactory failed because a factory already exists for the given id.   |
-|| 24| Registration of TaggedComponentFactory failed because a factory already exists for the given id. |
-|| 25| Iteration has no more elements.|
-|| 26| Invocation of this operation not allowed in post_init.|
-| **BAD_OPERATION**| 1| ServantManager returned wrong servant type.|
-|| 2| Operation or attribute not known to target object|
-| **BAD_PARAM**| 1| Failure to register, unregister, or lookup value factory.|
-|| 2| RID already defined in IFR.|
-|| 3| Name already used in the context in IFR.|
-|| 4| Target is not a valid container.|
-|| 5| Name clash in inherited context.|
-|| 6| Incorrect type for abstract interface.|
-|| 7| string_to_object conversion failed due to bad scheme name.|
-|| 8| string_to_object conversion failed due to bad address.|
-|| 9| string_to_object conversion failed due to bad bad schema specific part.|
-|| 10| string_to_object conversion failed due to non specific reason.                                      |
-|| 11| Attempt to derive abstract interface from non-abstract base interface in the Interface Repository.  |
-|| 12| Attempt to let a ValueDef support more than one non-abstract interface in the Interface Repository. |
-|| 13| Attempt to use an incomplete **TypeCode** as a parameter.|
-|| 14| Invalid object id passed to **POA::create_reference_by_id.**|
-|| 15| Bad **name** argument in **TypeCode** operation.|
-|| 16| Bad **RepositoryId** argument in **TypeCode** operation.|
-|| 17| Invalid member name in **TypeCode** operation.|
-|| 18| Duplicate label value in **create_union_tc**.|
-|| 19| Incompatible TypeCode of label and discriminator in **create_union_tc**.|
-|| 20| Supplied discriminator type illegitimate in **create_union_tc**.|
-|| 21| **Any** passed to **ServerRequest::set_exception** does not contain an exception.|
-|| 22| Unlisted user exception passed to  **ServerRequest::set_exception**.|
-|| 23| wchar transmission code set not in service context.|
-|| 24| Service context is not in OMG-defined range.|
-|| 25| Enum value out of range.|
-|| 26| Invalid service context Id in portable interceptor.|
-|| 27| Attempt to call **register_initial_reference** with a null **Object.**|
-|| 28| Invalid component Id in portable interceptor.|
-|| 29| Invalid profile Id in portable interceptor.|
-|| 30| Two or more **Policy** objects with the same **PolicyType** value  supplied to **Object::set_policy_overrides** or **PolicyManager::set_policy_overrides**. |
-|| 31| Attempt to define a **oneway** operation with non-void result, **out** or **inout** parameters or user exceptions.|
-|| 32| DII asked to create request for an implicit operation.|
-|| 33| An OTS/XA integration **xa_** call returned **XAER_INVAL**.|
-|| 34| Union branch modifier called with bad case label discriminator.|
-|| 35| Illegal IDL context property name.|
-|| 36| Illegal IDL property search string.|
-|| 37| Illegal IDL context name.|
-|| 38| Non-empty IDL context.|
-|| 39| Unsupported RMI/IDL custom value type stream format.|
-|| 40| ORB output stream does not support ValueOutputStream interface.|
-|| 41| ORB input stream does not support ValueInputStream interface.|
-|| 42| Character support limited to ISO 8859-1 for this object reference.|
-|| 43| Attempt to add a Pollable to a second PollableSet.|
-| **BAD_TYPECODE**| 1| Attempt to marshal incomplete **TypeCode.**|
-|| 2| Member type code illegitimate in **TypeCode** operation.|
-|| 3| Illegal parameter type.|
-| **CODESET_INCOMPATIBLE** | 1| Codeset negotiation failed.|
-|| 2| Codeset delivered in CodeSetContext is not supported by server as transmission codeset.|
-| **DATA_CONVERSION**| 1| Character does not map to negotiated transmission code set.|
-|| 2| Failure of **PriorityMapping** object.|
-| **IMP_LIMIT**| 1| Unable to use any profile in IOR.|
-| **INITIALIZE**| 1| Priority range too restricted for ORB.|
-| **INTERNAL**| 1| An OTS/XA integration **xa_** call returned **XAER_RMERR**.|
-|| 2| An OTS/XA integration **xa_** call returned **XAER_RMFAIL**.|
-| **INTF_REPOS**| 1| Interface Repository not available|
-|| 2| No entry for requested interface in Interface Repository|
-| **INVALID_ACTIVITY**| 1| Transaction or Activity resumed in wrong context, or invocation incompatible with Activity’s current state.|
-| **INV_OBJREF**| 1| wchar Code Set support not specified.|
-|| 2| Codeset component required for type using **wchar** or **wstring** data|
-| **INV_POLICY**| 1| Unable to reconcile IOR specified policy with effective policy override.|
-|| 2| Invalid **PolicyType.**|
-|| 3| No **PolicyFactory** has been registered for the given **PolicyType**.|
-| **MARSHAL**| 1| Unable to locate value factory.|
-|| 2| **ServerRequest::set_result** called before **ServerRequest::ctx** when the operation IDL contains a context clause.  |
-|| 3| **NVList** passed to **ServerRequest::arguments** does not describe all parameters passed by client.|
-|| 4| Attempt to marshal **Local** object.|
-|| 5| **wchar** or **wstring** data erroneosly sent by client over **GIOP** 1.0 connection|
-|| 6| **wchar** or **wstring** data erroneously returned by server over **GIOP** 1.0 connection.|
-|| 7| Unsupported RMI/IDL custom value type stream format.|
-| **NO_IMPLEMENT**| 1| Missing local value implementation.|
-|| 2| Incompatible value implementation version.|
-|| 3| Unable to use any profile in IOR.|
-|| 4| Attempt to use DII on Local object.|
-|| 5| Biomolecular Sequence Analysis iterator cannot be reset.|
-|| 6| Biomolecular Sequence Analysis metadata is not available as  XML.|
-|| 7| Genomic Maps iterator cannot be rest.|
-|| 8| Operation not implemented in local object.|
-| **NO_RESOURCES**| 1| Portable Interceptor operation not supported in this binding.|
-|| 2| No connection for request’s priority.|
-| **NO_RESPONSE**| 1| Reply is not available immediately in a non-blocking call.|
-| **OBJ_ADAPTER**| 1| System exception in **AdapterActivator::unknown_adapter**.|
-|| 2| Incorrect servant type returned by servant manager.|
-|| 3| No default servant available [POA policy].|
-|| 4| No servant manager available [POA Policy].|
-|| 5| Violation of POA policy by **ServantActivator::incarnate.**|
-|| 6| Exception in  **PortableInterceptor::**IORInterceptor.components_established.|
-|| 7| Null servant returned by servant manager|
-| **OBJECT_NOT_EXIST**| 1| Attempt to pass an unactivated (unregistered) value as an object reference.|
-|| 2| Failed to create or locate Object Adapter.|
-|| 3| Biomolecular Sequence Analysis Service is no longer available.|
-|| 4| Object Adapter inactive.|
-|| 5| This Poller has already delivered a reply to some client.|
-| **TIMEOUT**| 1| Reply is not available in the Poller by the timeout set for it.|
-|| 2| End time specified in RequestEndTimePolicy or RelativeRequestTimeoutPolicy has expired.|
-|| 3| End time specified in ReplyEndTimePolicy or RelativeReplyTimeoutPolicy has expired.|
-| **TRANSACTION_ROLLEDBACK** | 1              | An OTS/XA integration **xa_** call returned **XAER_RB**.|
-|| 2| An OTS/XA integration **xa_** call returned **XAER_NOTA**.|
-|| 3| OTS/XA integration **end** was called with success set to **TRUE** while transaction rollback was deferred.|
-|| 4| Deferred transaction rolled back.|
-| **TRANSIENT**| 1| Request discarded because of resource exhaustion in **POA**, or because POA is in discarding state.|
-|| 2| No usable profile in IOR.|
-|| 3| Request cancelled.|
-|| 4| **POA** destroyed.|
-| **UNKNOWN**| 1| Unlisted user exception received by client.|
-|| 2| Non-standard System Exception not supported.|
-|| 3| An unknown user exception received by a portable interceptor.|
-
-## A.7 Identity Tokens
-
-The following identity tokens are defined in the Security Context clause (*Part 2 of this International Standard*) and the Firewall Traversal specification (ptc/04-03-01). These tokens must be powers of two.
-
-- ITTAbsent = 0;
-- ITTAnonymous = 1;
-- ITTPrincipalName = 2;
-- ITTX509CertChain = 4;
-- ITTDistinguishedName = 8;
-- ITTCompoundToken = 16;
